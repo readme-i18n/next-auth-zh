@@ -1,15 +1,15 @@
 import { ImageResponse } from "next/og"
 import type { NextRequest } from "next/server"
 
-export const runtime = "edge"
+// export const runtime = "edge"
 
-// const medium = fetch(new URL("./Inter-Light.ttf", import.meta.url)).then(
-//   (res) => res.arrayBuffer()
-// )
+const medium = fetch(new URL("./Inter-Light.ttf", import.meta.url)).then(
+  (res) => res.arrayBuffer()
+)
 
-// const bold = fetch(new URL("./Inter-Bold.ttf", import.meta.url)).then((res) =>
-//   res.arrayBuffer()
-// )
+const bold = fetch(new URL("./Inter-Bold.ttf", import.meta.url)).then((res) =>
+  res.arrayBuffer()
+)
 
 const foreground = "hsl(0 0% 98%)"
 const mutedForeground = "hsl(0 0% 53.9%)"
@@ -32,8 +32,8 @@ export async function GET(request: NextRequest) {
       width: 1200,
       height: 630,
       fonts: [
-        // { name: "Inter", data: await medium, weight: 300 },
-        // { name: "Inter", data: await bold, weight: 800 },
+        { name: "Inter", data: await medium, weight: 300 },
+        { name: "Inter", data: await bold, weight: 800 },
       ],
     }
   )
