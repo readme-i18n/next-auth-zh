@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/authentik.svg" height="64" width="64" />
 
-# Authentik Provider
+# Authentik 提供商
 
-## Resources
+## 相关资源
 
-- [Authentik OAuth documentation](https://goauthentik.io/docs/providers/oauth2)
+- [Authentik OAuth 文档](https://goauthentik.io/docs/providers/oauth2)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,7 +37,7 @@ https://example.com/auth/callback/authentik
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_AUTHENTIK_ID
@@ -45,7 +45,7 @@ AUTH_AUTHENTIK_SECRET
 AUTH_AUTHENTIK_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -119,6 +119,6 @@ app.use("/auth/*", ExpressAuth({
 </Code>
 
 <Callout>
-  issuer should include the slug without a trailing slash – e.g.,
+  issuer 应包含不带尾部斜杠的 slug —— 例如：
   https://my-authentik-domain.com/application/o/My_Slug
 </Callout>

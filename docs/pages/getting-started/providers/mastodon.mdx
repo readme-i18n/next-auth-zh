@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/mastodon.svg" height="64" width="64" />
 
-# Mastodon Provider
+# Mastodon 提供商
 
-## Resources
+## 相关资源
 
-- [Mastodon OAuth documentation](https://docs.joinmastodon.org/client/token/)
-- [Mastodon OAuth Configuration](https://mastodon.social/settings/applications)
+- [Mastodon OAuth 文档](https://docs.joinmastodon.org/client/token/)
+- [Mastodon OAuth 配置](https://mastodon.social/settings/applications)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,7 +38,7 @@ https://example.com/auth/callback/mastodon
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_MASTODON_ID
@@ -46,7 +46,7 @@ AUTH_MASTODON_SECRET
 AUTH_MASTODON_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -99,6 +99,6 @@ app.use("/auth/*", ExpressAuth({ providers: [Mastodon] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Due to the way Mastodon is architected, you have to define the `issuer` to be the instance URL against which you want to authenticate
+- 由于 Mastodon 的架构特性，您必须将 `issuer` 定义为需要认证的实例 URL

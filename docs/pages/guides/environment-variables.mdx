@@ -1,9 +1,9 @@
 import { Callout } from "nextra/components"
 import { Code } from "@/components/Code"
 
-# Environment variables
+# 环境变量
 
-## Auth secret
+## 认证密钥
 
 <Code>
 <Code.Next>
@@ -36,24 +36,24 @@ AUTH_SECRET="This is an example"
 </Code.Express>
 </Code>
 
-`AUTH_SECRET` is a random token used by the library to encrypt tokens and email verification hashes, and it's mandatory to keep things secure (See [Deployment](/getting-started/deployment) to learn more). You can use the CLI to generate an auth secret:
+`AUTH_SECRET` 是该库用于加密令牌和邮件验证哈希的随机令牌，是保障安全性的必要参数（详见[部署指南](/getting-started/deployment)）。您可以使用 CLI 工具生成认证密钥：
 
 ```bash npm2yarn
 npm exec auth secret
 ```
 
-## Environment Variable Inference
+## 环境变量推断
 
-Auth.js is automatically configured to pick the right environment variables for `clientId` and `clientSecret` when using an [official OAuth provider](/getting-started/authentication/oauth).
+当使用[官方 OAuth 提供商](/getting-started/authentication/oauth)时，Auth.js 会自动配置以选择正确的 `clientId` 和 `clientSecret` 环境变量。
 
-The shape of these variables in your `.env` files should always follow the same pattern:
+在 `.env` 文件中，这些变量的命名应始终遵循相同模式：
 
 ```
 AUTH_[PROVIDER]_ID=
 AUTH_[PROVIDER]_SECRET=
 ```
 
-For example if we're using the Google, Twitter and GitHub providers, your `.env` file would look something like this.
+例如，如果我们使用 Google、Twitter 和 GitHub 提供商，您的 `.env` 文件将如下所示。
 
 ```bash
 # Google
@@ -69,7 +69,7 @@ AUTH_GITHUB_ID=123
 AUTH_GITHUB_SECRET=123
 ```
 
-Then in your Auth.js configuration file, the `provider` array is simplified to this.
+然后在您的 Auth.js 配置文件中，`provider` 数组可简化为这样。
 
 <Code>
 <Code.Next>
@@ -118,7 +118,7 @@ export const { handle } = SvelteKitAuth({
 </Code.Svelte>
 </Code>
 
-If for some reason you want to name the variables differently:
+如需自定义变量命名：
 
 ```bash
 # Google
@@ -126,7 +126,7 @@ AUTH_WEBAPP_GOOGLE_CLIENT_ID=123
 AUTH_WEBAPP_GOOGLE_CLIENT_SECRET=123
 ```
 
-Then you will need to manually reference them in the config:
+则需在配置中手动引用它们：
 
 <Code>
 <Code.Next>

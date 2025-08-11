@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/asgardeo.svg" width="64" height="64" />
 
-# Asgardeo Provider
+# Asgardeo 提供商
 
-## Resources
+## 相关资源
 
-- [Asgardeo - Authentication Guide](https://wso2.com/asgardeo/docs/guides/authentication)
+- [Asgardeo - 认证指南](https://wso2.com/asgardeo/docs/guides/authentication)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,7 +37,7 @@ https://example.com/auth/callback/asgardeo
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_ASGARDEO_ID
@@ -45,20 +45,20 @@ AUTH_ASGARDEO_SECRET
 AUTH_ASGARDEO_ISSUER
 ```
 
-### Configuration
+### 配置
 
-Follow these steps:
+按照以下步骤操作：
 
-1. Log into the [Asgardeo console](https://console.asgardeo.io)
-2. Next, go to "Application" tab (more info [here](https://wso2.com/asgardeo/docs/guides/applications/register-oidc-web-app/))
-3. Register a standard based, Open ID connect, application
-4. Add the **callback URLs**: `http://localhost:3000/api/auth/callback/asgardeo` (development) and `https://{YOUR_DOMAIN}.com/api/auth/callback/asgardeo` (production)
-5. After registering the application, go to "Protocol" tab.
-6. Check `code` as the grant type.
-7. Add "Authorized redirect URLs" & "Allowed origins fields"
-8. Make Email, First Name, Photo URL user attributes mandatory from the console.
+1. 登录 [Asgardeo 控制台](https://console.asgardeo.io)
+2. 进入"Applications"选项卡（更多信息请参考[此处](https://wso2.com/asgardeo/docs/guides/applications/register-oidc-web-app/)）
+3. 注册一个基于标准的 OpenID Connect 应用程序
+4. 添加**回调 URL**：`http://localhost:3000/api/auth/callback/asgardeo`（开发环境）和 `https://{YOUR_DOMAIN}.com/api/auth/callback/asgardeo`（生产环境）
+5. 注册应用后，进入"Protocol"选项卡
+6. 勾选 `code` 作为授权类型
+7. 添加"Authorized redirect URLs"和"Allowed origins fields"字段
+8. 在控制台中设置 Email、First Name 和 Photo URL 为用户必填属性
 
-Then, add the ClientID, ClientSecret, and Issuer values to your environment variables.
+然后将 ClientID、ClientSecret 和 Issuer 值添加到您的环境变量中。
 
 <Code>
   <Code.Next>

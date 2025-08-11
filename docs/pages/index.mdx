@@ -18,8 +18,8 @@ import { CaretRight } from "@/icons"
       <div className="flex flex-col gap-8 justify-center py-2 items-center w-full">
         <span className="text-6xl font-black lg:text-8xl">Auth.js</span>
         <div className="flex flex-col gap-4 justify-center text-2xl font-bold text-center lg:text-3xl">
-          <div>Authentication for the Web.</div>
-          <div className="underline-highlight">Free and open source.</div>
+          <div>Web 身份验证。</div>
+          <div className="underline-highlight">免费且开源。</div>
         </div>
       </div>
       <div className="text-lg justify-center items-center flex gap-4">
@@ -27,7 +27,7 @@ import { CaretRight } from "@/icons"
           href="/getting-started"
           className="p-3 w-1/2 text-center bg-violet-600 dark:bg-violet-800 text-white hover:dark:bg-violet-900 transition hover:bg-violet-700 duration-300"
         >
-          Get Started
+          开始使用
         </Link>
         <Link
           href="https://github.com/nextauthjs/next-auth"
@@ -61,7 +61,7 @@ import { CaretRight } from "@/icons"
               strokeWidth="16"
             />
           </svg>
-          Source
+          源码
         </Link>
       </div>
       <div className="text-lg flex-col flex gap-2 items-center">
@@ -70,15 +70,15 @@ import { CaretRight } from "@/icons"
           target="_blank"
           className="group flex flex-col md:flex-row w-full items-center md:justify-between text-sm dark:bg-neutral-900/50 font-medium text-neutral-700 dark:text-neutral-300 bg-neutral-50/60 backdrop-blur px-4 py-3 border border-neutral-300 dark:border-neutral-800 rounded-md ring-[6px] ring-black/[0.02] dark:ring-black/10"
         >
-          <span>Looking for a hosted alternative?</span>
+          <span>寻找托管版本的替代方案？</span>
           <span  
             className="flex gap-0.5 items-center font-semibold text-violet-600 dark:text-violet-400 group"
           >
-            Use Clerk
+            使用 Clerk
             <CaretRight className="size-3 [&_polyline]:stroke-[px] transition group-hover:translate-x-0.5" />
           </span>
         </a>
-        <span className="text-xs text-neutral-400 dark:text-neutral-600">Sponsored</span>
+        <span className="text-xs text-neutral-400 dark:text-neutral-600">赞助</span>
       </div>
     </div>
     <RichTabs
@@ -105,7 +105,7 @@ import { CaretRight } from "@/icons"
               <img
                 width="24"
                 src={trigger.src}
-                alt={`${trigger.name} Logo`}
+                alt={`${trigger.name} 标志`}
                 className={trigger.darkInvert ? 'dark:invert': '' }
               />
             </RichTabs.Trigger>
@@ -114,7 +114,7 @@ import { CaretRight } from "@/icons"
             href="/getting-started/integrations"
             className="!border-0 aria-selected:!bg-violet-600 aria-selected:dark:!bg-violet-900 dark:bg-neutral-900 bg-white !h-auto !w-auto !flex-row !gap-2 !justify-start p-2 px-3 rounded-md outline-none transition-all duration-300 flex items-center hover:bg-violet-200 hover:dark:bg-violet-900/20"
           >
-            <span className="hidden text-sm md:block">More</span>
+            <span className="hidden text-sm md:block">更多</span>
             <CaretRight className="size-4" />
           </Link>
         </div>
@@ -197,7 +197,7 @@ export const { onRequest, useSession } = QwikAuth$(() => ({ providers: [GitHub] 
       text-center text-white lg:text-4xl h-full"
     >
       <div className="leading-normal text-slate-800 px-12 dark:text-slate-200 pb-12 dark:drop-shadow-none">
-        Supports all these providers and more!
+        支持以下所有提供商及更多！
       </div>
     </div>
     <LogosMarquee />

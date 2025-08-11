@@ -1,29 +1,29 @@
-# Testing
+# 测试
 
-Repeated and consistent testing of authentication has always been tricky. OAuth providers in particular are especially difficult to test in an automated fashion, because they often introduce additional verification steps that will trigger if you're logging in from a new geographic location, a datacenter IP address, or from a new user-agent, etc.
+身份验证的重复一致性测试一直是个棘手问题。特别是 OAuth 提供商，在自动化测试中尤为困难，因为它们通常会引入额外的验证步骤——当从新地理位置、数据中心 IP 地址或新用户代理登录时就会触发这些验证。
 
-To get around these limitations, we recommend you use one of the following strategies to run successful E2E tests against Auth.js applications.
+为突破这些限制，我们推荐采用以下任一策略对 Auth.js 应用进行成功的端到端测试。
 
-1. Run your own OAuth provider using software like [Keycloak](https://www.keycloak.org)
-2. Enable an authentication method like the Credentials provider in development mode
+1. 使用 [Keycloak](https://www.keycloak.org) 等软件运行自己的 OAuth 提供商
+2. 在开发模式下启用类似 Credentials provider 的认证方式
 
-Below are one example of each strategy, leveraging [@playwright/test](https://playwright.dev) for the automated E2E tests.
+以下是每种策略的示例，均利用 [@playwright/test](https://playwright.dev) 进行自动化端到端测试。
 
 ## Keycloak
 
-First, set up a [Keycloak](https://www.keycloak.org/getting-started/getting-started-docker) instance. Then you have to add the [Keycloak provider](/getting-started/providers/keycloak) to your Auth.js configuration.
+首先设置 [Keycloak](https://www.keycloak.org/getting-started/getting-started-docker) 实例，然后将 [Keycloak provider](/getting-started/providers/keycloak) 添加到 Auth.js 配置中。
 
-This test requires two environment variables to be set. These credentials should be for a test user who can authenticate against your newly created Keycloak instance.
+该测试需要设置两个环境变量，这些凭证应属于能通过新建 Keycloak 实例认证的测试用户。
 
 ```bash filename=".env"
 TEST_KEYCLOAK_USERNAME=abc
 TEST_KEYCLOAK_PASSWORD=123
 ```
 
-Then we can use [`@playwright/test`](https://playwright.dev) to execute two test steps.
+随后可使用 [`@playwright/test`](https://playwright.dev) 执行两个测试步骤。
 
-1. Which will visit the signin URL, enter the authentication credentials, and then click the "Sign In" button. It ensures the session is then set correctly.
-2. Which will click the "Sign Out" button and ensure the session is then `null`.
+1. 该操作将访问登录URL，输入认证凭据，然后点击"登录"按钮。确保会话随后被正确设置。
+2. 该操作将点击"登出"按钮并确保会话随后变为`null`。
 
 ```ts filename="tests/e2e/basic-auth.spec.ts" {10, 32}
 import { test, expect, type Page } from "@playwright/test"
@@ -70,9 +70,9 @@ test("Basic auth", async ({ page, browser }) => {
 })
 ```
 
-## `Credentials` Provider in Development
+## 开发环境中的`Credentials`提供程序
 
-This method requires less initial setup and maintenance as you do not need to maintain a separate OAuth provider (like Keycloak), but you also must be extremely careful that you do not leave insecure authentication methods available in production. For example, in this example we will be adding a Credentials provider which accepts the password `password`.
+此方法需要较少的初始设置和维护工作，因为您无需维护单独的OAuth提供程序（如Keycloak），但您也必须格外小心，确保不会在生产环境中留下不安全的认证方法。例如，在本示例中我们将添加一个接受密码`password`的Credentials提供程序。
 
 ```ts filename="auth.ts" {16}
 import NextAuth from "next-auth"
@@ -107,7 +107,7 @@ export const { handlers, auth } = NextAuth({
 })
 ```
 
-The above configuration example will add the GitHub provider all the time, and the `Credentials` provider only in development. After making that configuration tweak, we can write our `@playwright/test` tests just like above.
+上述配置示例将始终添加GitHub提供程序，而`Credentials`提供程序仅在开发环境中启用。完成该配置调整后，我们就可以像上面那样编写`@playwright/test`测试了。
 
 ```ts filename="tests/e2e/basic-auth.spec.ts" {8}
 import { test, expect, type Page } from "@playwright/test"

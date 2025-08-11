@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/gitlab.svg" height="64" width="64" />
 
-# GitLab Provider
+# GitLab 提供商
 
-## Resources
+## 相关资源
 
-- [GitLab OAuth documentation](https://docs.gitlab.com/ee/api/oauth2.html)
+- [GitLab OAuth 文档](https://docs.gitlab.com/ee/api/oauth2.html)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/gitlab
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_GITLAB_ID
 AUTH_GITLAB_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -97,6 +97,6 @@ app.use("/auth/*", ExpressAuth({ providers: [GitLab] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Enable the `read_user` option in scope if you want to save the users email address on sign up.
+- 若希望在用户注册时保存其邮箱地址，请在作用域中启用 `read_user` 选项。

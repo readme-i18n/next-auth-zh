@@ -1,11 +1,11 @@
 import { Code } from "@/components/Code"
 import { Screenshot } from "@/components/Screenshot"
 
-# Custom Sign-in Page
+# 自定义登录页面
 
-To add a custom sign-in page, you'll need to define the path to your page in the [`pages`](/reference/core/types#pagesoptions) object in your Auth.js configuration. Make sure a route / page actually exists at the path you're defining here!
+要添加自定义登录页面，您需要在 Auth.js 配置的 [`pages`](/reference/core/types#pagesoptions) 对象中定义页面路径。请确保您在此处定义的路径确实存在对应的路由/页面！
 
-Additionally, we'll have to export a map of `provider.id` and `provider.name` to easily consume in our custom page if we want to dynamically render the correct buttons, based on what we've defined in our `auth.ts` configuration. Because you can pass your providers to the `providers` array as both a function, or the result of calling that function, this example `providerMap` handles both cases.
+此外，如果我们希望根据 `auth.ts` 配置动态渲染正确的按钮，还需要导出一个 `provider.id` 和 `provider.name` 的映射表，以便在自定义页面中轻松使用。由于您可以将提供者作为函数或函数调用结果传递给 `providers` 数组，此示例中的 `providerMap` 会处理这两种情况。
 
 <Code>
 <Code.Next>
@@ -123,7 +123,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 </Code.Svelte>
 </Code>
 
-We can now build our own custom sign in page.
+现在我们可以构建自己的自定义登录页面。
 
 <Code>
 <Code.Next>
@@ -278,7 +278,7 @@ export const actions = { default: signIn } satisfies Actions
 </Code.Svelte>
 </Code>
 
-Then when calling `signIn` without any arguments anywhere in your application, the custom signin page will appear.
+当在应用程序中无参数调用 `signIn` 时，将显示此自定义登录页面。
 
 import CustomSignInPage from "../../../public/img/tutorials/custom-sign-in-page.webp"
 

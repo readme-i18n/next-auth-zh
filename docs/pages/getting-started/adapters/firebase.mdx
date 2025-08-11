@@ -3,23 +3,23 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/firebase.svg" height="64" width="64" />
 
-# Firebase Adapter
+# Firebase 适配器
 
-> Using the [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) and [Firestore](https://firebase.google.com/docs/firestore).
+> 使用 [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) 和 [Firestore](https://firebase.google.com/docs/firestore)。
 
-## Resources
+## 相关资源
 
-- [Firebase Admin documentation](https://firebase.google.com/docs/admin/setup)
+- [Firebase Admin 文档](https://firebase.google.com/docs/admin/setup)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/firebase-adapter firebase-admin
 ```
 
-### Environment variables
+### 环境变量
 
 ```sh
 // Auth via Service Account File
@@ -31,7 +31,7 @@ AUTH_FIREBASE_CLIENT_EMAIL
 AUTH_FIREBASE_PRIVATE_KEY
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -96,20 +96,20 @@ app.use(
 </Code.Express>
 </Code>
 
-### Authentication
+### 认证
 
-#### Service Account File
+#### 服务账户文件
 
-First, create a Firebase project and generate a service account key. Visit: `https://console.firebase.google.com/u/0/project/{project-id}/settings/serviceaccounts/adminsdk` (replace `{project-id}` with your project's id)
+首先创建一个 Firebase 项目并生成服务账户密钥。访问：`https://console.firebase.google.com/u/0/project/{project-id}/settings/serviceaccounts/adminsdk`（将 `{project-id}` 替换为你的项目 ID）
 
-1. Download the service account key and save it in your project. (Make sure to add the file to your `.gitignore`!)
-2. Add [`GOOGLE_APPLICATION_CREDENTIALS`](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) to your environment variables and point it to the service account key file.
-3. The adapter will automatically pick up the environment variable and use it to authenticate with the Firebase Admin SDK. You do not need to pass any additional authentication options to the adapter.
+1. 下载服务账户密钥并保存到项目中（确保将该文件添加到 `.gitignore`！）
+2. 将 [`GOOGLE_APPLICATION_CREDENTIALS`](https://cloud.google.com/docs/authentication/application-default-credentials#GAC) 添加到环境变量，并指向服务账户密钥文件
+3. 适配器会自动读取该环境变量，用于通过 Firebase Admin SDK 进行认证。你无需向适配器传递任何额外的认证选项
 
-### Service Account Values
+### 服务账户值
 
-1. Download the service account key to a temporary location (Don't commit this file!).
-2. Add the following environment variables to your project  
+1. 将服务账户密钥下载到临时位置（不要提交此文件！）
+2. 向项目添加以下环境变量  
    a. `AUTH_FIREBASE_PROJECT_ID`  
    b. `AUTH_FIREBASE_CLIENT_EMAIL`  
    c. `AUTH_FIREBASE_PRIVATE_KEY`
@@ -130,18 +130,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-### Using an existing Firestore instance
+### 使用现有 Firestore 实例
 
-If you already have a Firestore instance, you can pass that to the adapter directly instead.
+如果已存在 Firestore 实例，可以直接将其传递给适配器。
 
-<Callout>
-  When passing an instance and in a serverless environment, remember to handle
-  duplicate app initialization.
-</Callout>
+<Callout>在无服务器环境中传递实例时，请注意处理重复的应用初始化问题。</Callout>
 
 <Callout type="info">
-  You can use the `initFirestore` utility to initialize the app and get an
-  instance safely.
+  可以使用 `initFirestore` 工具函数安全地初始化应用并获取实例。
 </Callout>
 
 ```ts filename="./auth.ts"
@@ -154,8 +150,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-Utility function that helps making sure that there is no duplicate app initialization issues in serverless environments.
-If no parameter is passed, it will use the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to initialize a Firestore instance.
+该工具函数可确保在无服务器环境中不会出现重复的应用初始化问题。
+若未传递参数，将使用 `GOOGLE_APPLICATION_CREDENTIALS` 环境变量初始化 Firestore 实例。
 
 ```ts filename="lib/firestore.ts"
 import { initFirestore } from "@auth/firebase-adapter"

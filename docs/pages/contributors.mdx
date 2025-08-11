@@ -1,28 +1,28 @@
 import { Steps } from "nextra/components"
 
-# Contributors
+# 贡献者
 
-Maintaining Auth.js as an open source project is very hard work. All the core team members have regular jobs and the library is maintained and developed out of good will in our free time. Donations can enable the core team to eventually work full time on Auth.js to provide more features and an even better developer experience!
+将 Auth.js 作为开源项目维护是一项艰巨的工作。所有核心团队成员都有日常工作，这个库的维护和开发全靠我们利用业余时间出于善意进行。捐赠能让核心团队最终全职投入 Auth.js 的开发，提供更多功能和更优质的开发者体验！
 
 <div className="my-4 flex gap-2">
   <img src="/img/etc/opencollective-logomark.svg" width="64" />
   <img src="/img/etc/opencollective-wordmark.svg" width="250" />
 </div>
 
-You can find us on [Open Collective](https://opencollective.com/nextauth). We are very thankful for all of our existing contributors and would be delighted if you or your company would decide to join them.
+您可以在 [Open Collective](https://opencollective.com/nextauth) 找到我们。我们对所有现有贡献者深表感谢，如果您或您的公司决定加入他们，我们将非常高兴。
 
-## Core team
+## 核心团队
 
-Without these people, the project could not have become one of the most used authentication libraries in its category.
+没有这些人，这个项目不可能成为同类中最常用的身份验证库之一。
 
-- [Balázs Orbán](https://github.com/balazsorban44) - Lead Maintainer
-- [Thang Vu](https://github.com/ThangHuuVu) - Maintainer
-- [Nico Domino](https://github.com/ndom91) - Maintainer
-- [Lluis Agusti](https://github.com/lluia) - Maintainer
+- [Balázs Orbán](https://github.com/balazsorban44) - 首席维护者
+- [Thang Vu](https://github.com/ThangHuuVu) - 维护者
+- [Nico Domino](https://github.com/ndom91) - 维护者
+- [Lluis Agusti](https://github.com/lluia) - 维护者
 
-## Special thanks
+## 特别致谢
 
-Special thanks to Filip Skokan for their feedback and high-quality OAuth libraries that we build on, Lori Karikari for creating most of the original provider configurations, Fredrik Pettersen for creating the original Prisma Adapter, Gerald Nolan for adding support for Sign in with Apple, Jefferson Bledsoe for working on original testing automation, and Tom Grey for their work/guidance on the API Reference documentation.
+特别感谢 Filip Skokan 提供的反馈和我们所依赖的高质量 OAuth 库，Lori Karikari 创建了大部分原始提供商配置，Fredrik Pettersen 创建了原始 Prisma 适配器，Gerald Nolan 添加了对 Sign in with Apple 的支持，Jefferson Bledsoe 致力于原始测试自动化工作，以及 Tom Grey 对 API 参考文档的工作/指导。
 
 - [Filip Skokan](https://github.com/panva)
 - [Lori Karikari](https://github.com/LoriKarikari)
@@ -31,69 +31,64 @@ Special thanks to Filip Skokan for their feedback and high-quality OAuth librari
 - [Jefferson Bledsoe](https://github.com/JeffersonBledsoe)
 - [Tom Grey](https://github.com/tgreyuk)
 
-## Other contributors
+## 其他贡献者
 
-Auth.js as it exists today has been possible thanks to the work of many individual contributors.
+如今 Auth.js 的成就离不开众多个人贡献者的共同努力。
 
-Thank you to the [dozens of individual contributors](https://github.com/nextauthjs/next-auth/graphs/contributors) who have helped shape Auth.js.
+感谢[数十位个人贡献者](https://github.com/nextauthjs/next-auth/graphs/contributors)对 Auth.js 发展做出的贡献。
 
-## History
+## 历史沿革
 
 <Steps>
 
-### 2016 – Initial release
+### 2016 – 初始发布
 
-NextAuth.js was originally developed by [Iain Collins](https://github.com/iaincollins) in 2016 as an authentication framework specific to [Next.js](https://nextjs.org/).
+NextAuth.js 最初由 [Iain Collins](https://github.com/iaincollins) 于 2016 年开发，是专为 [Next.js](https://nextjs.org/) 设计的认证框架。
 
-### 2020 – Refactor and clean up
+### 2020 – 重构与清理
 
-NextAuth.js was rebuilt from the ground up to support serverless, MySQL, Postgres, MongoDB, JSON Web Tokens and built-in support for over a dozen authentication providers.
+NextAuth.js 进行了彻底重构，新增对无服务器架构、MySQL、Postgres、MongoDB、JSON Web Tokens 的支持，并内置了十多种认证提供商的集成。
 
-[Balázs Orbán](https://github.com/balazsorban44) joined as a co-maintainer, helping to offload some of the work from Iain.
+[Balázs Orbán](https://github.com/balazsorban44) 作为共同维护者加入项目，协助分担 Iain 的部分工作。
 
-### 2021 – Multi-framework effort
+### 2021 – 多框架支持计划
 
-Iain and Balázs defined future goals for the project. Their vision aligned perfectly, discussing that NextAuth.js could one day become useful for other frameworks.
+Iain 和 Balázs 共同制定了项目未来目标。他们达成共识：NextAuth.js 有潜力发展为支持其他框架的工具。
 
-Iain left the project to focus on other things, knowing that Balázs will work on their shared vision.
+Iain 离开项目去专注其他事务，确信 Balázs 会继续推进他们的共同愿景。
 
-Balázs became the lead maintainer of the project.
+Balázs 成为项目的主要维护者。
 
-Efforts started to move NextAuth.js to other frameworks and to support as many databases and providers as possible.
+开始推动 NextAuth.js 向多框架转型，并尽可能支持更多数据库和认证提供商。
 
-It was shown that a single package could not support all of these use cases.
+实践表明单一包无法满足所有使用场景。
 
-Database Adapters were moved to their packages under the name `@next-auth/*-adapter`.
+数据库适配器被迁移至独立包，命名为 `@next-auth/*-adapter`。
 
-### 2022 – Birth of Auth.js
+### 2022 – Auth.js 诞生
 
-Based on NextAuth.js, Balázs released [Auth.js (`@auth/core`)](https://twitter.com/balazsorban44/status/1603082914362986496), a runtime/framework independent core library that is the base of
-all Auth.js libraries. A complete rewrite that still shared most of the public API with NextAuth.js but internally was very different.
+基于 NextAuth.js，Balázs 发布了 [Auth.js (`@auth/core`)](https://twitter.com/balazsorban44/status/1603082914362986496)，这是一个与运行时/框架无关的核心库，成为所有 Auth.js 库的基础。虽然完全重写，但公共 API 仍与 NextAuth.js 保持高度兼容，内部实现则截然不同。
 
-### 2023 – Auth.js silent releases
+### 2023 – Auth.js 静默发布
 
-Due to personal reasons, Balázs had to step down as the lead maintainer, but was still contributing. The project was taken over by [Thang Huu Vu](https://github.com/thanghuuvu) for a while.
+由于个人原因，Balázs 暂时卸任主要维护者职务（但仍持续贡献）。项目一度由 [Thang Huu Vu](https://github.com/thanghuuvu) 接管。
 
-Balázs returned and continued the work on Auth.js. As a pilot project, `next-auth@experimental` (later `next-auth@beta`) releases were published
-to work out what was needed in the core library to support other frameworks and what was framework specific from the old NextAuth.js implementation.
+Balázs 回归后继续推进 Auth.js 开发。作为试点，发布了 `next-auth@experimental`（后更名为 `next-auth@beta`）版本，用于验证核心库对其他框架的支持需求，并分离原 NextAuth.js 实现中框架特定的部分。
 
-The new default documentation page became [authjs.dev](https://authjs.dev) (the one you are reading right now), and the old NextAuth.js documentation at [next-auth.js.org](https://next-auth.js.org) was kept around
-to document NextAuth.js v4 and is kept only as a back reference.
+新版默认文档站点变更为 [authjs.dev](https://authjs.dev)（即当前页面），旧版 NextAuth.js 文档 [next-auth.js.org](https://next-auth.js.org) 保留作为 v4 版本的参考资料。
 
-Database Adapters were moved from the `@next-auth/*-adapter` namespace to `@auth/*-adapter`, indicating that they are not NextAuth.js specific anymore.
+数据库适配器从 `@next-auth/*-adapter` 命名空间迁移至 `@auth/*-adapter`，表明其不再专属于 NextAuth.js。
 
-Community integrations started showing up, making it clear that the initial vision of Auth.js was shared by many.
+社区集成方案陆续出现，印证了 Auth.js 的初始愿景获得广泛认同。
 
-### 2024 – Growing the Auth.js ecosystem
+### 2024 – 扩展 Auth.js 生态
 
-With the release of [NextAuth.js v5](/getting-started/migrating-to-v5), now all Auth.js libraries are based on the same core library.
-**The name "NextAuth.js" designates only the Next.js integration**, while Auth.js refers to the core library and our ecosystem as a whole.
-Other integrations will generally be refered to with their framework name + Auth, e.g. "SvelteKit Auth" or "Express Auth".
+随着 [NextAuth.js v5](/getting-started/migrating-to-v5) 的发布，所有 Auth.js 库现已基于同一核心库构建。**"NextAuth.js" 名称仅特指 Next.js 集成**，而 Auth.js 指代核心库及整个生态系统。其他集成通常采用框架名+Auth 的命名方式，例如 "SvelteKit Auth" 或 "Express Auth"。
 
-All official integrations are distributed under the `@auth` scope except for NextAuth.js, which is distributed under `next-auth` to reduce migration overhead.
+除 NextAuth.js 仍保留在 `next-auth` 命名空间（以减少迁移成本）外，所有官方集成均通过 `@auth` 作用域分发。
 
 </Steps>
 
-## Notes
+## 注意事项
 
-The Auth.js/NextAuth.js project is not provided by, nor otherwise affiliated with Vercel Inc. or its subsidiaries. Any contributions to this project by individuals affiliated with Vercel are made in their personal capacity.
+Auth.js/NextAuth.js 项目并非由 Vercel Inc. 或其子公司提供，也不隶属于这些公司。Vercel 相关人员的任何贡献均以个人身份进行。

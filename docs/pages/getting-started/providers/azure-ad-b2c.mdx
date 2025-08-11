@@ -3,19 +3,19 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/azure.svg" height="64" width="64" />
 
-# Azure AD B2C Provider
+# Azure AD B2C 提供商
 
-## Resources
+## 相关资源
 
-- [Azure Active Directory B2C documentation](https://learn.microsoft.com/en-us/azure/active-directory-b2c)
-- [What is Azure AD B2C](https://learn.microsoft.com/en-us/azure/active-directory-b2c/overview)
-- [Azure AD B2C Tenant](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant)
-- [App Registration](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-applications)
-- [User Flow](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-user-flows)
+- [Azure Active Directory B2C 文档](https://learn.microsoft.com/en-us/azure/active-directory-b2c)
+- [什么是 Azure AD B2C](https://learn.microsoft.com/en-us/azure/active-directory-b2c/overview)
+- [Azure AD B2C 租户](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant)
+- [应用注册](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-applications)
+- [用户流](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-user-flows)
 
-## Setup
+## 配置
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_AZURE_AD_B2C_ID
@@ -23,7 +23,7 @@ AUTH_AZURE_AD_B2C_SECRET
 AUTH_AZURE_AD_B2C_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -96,20 +96,20 @@ app.use("/auth/*", ExpressAuth({
   </Code.Express>
 </Code>
 
-### Tenant Setup
+### 租户设置
 
-Basic configuration sets up Azure AD B2C to return an ID Token. This should be done as a prerequisite prior to running through the Advanced configuration. In the Tenant Setup, make sure to set the following during "User attributes and token claims".
+基础配置将 Azure AD B2C 设置为返回 ID 令牌。这应在执行高级配置之前作为先决条件完成。在租户设置中，请确保在"用户属性和令牌声明"阶段进行以下设置：
 
-- Collect attribute:
-  - Email Address
-  - Display Name
-  - Given Name
-  - Surname
-- Return claim:
-  - Email Addresses
-  - Display Name
-  - Given Name
-  - Surname
-  - Identity Provider
-  - Identity Provider Access Token
-  - User's Object ID
+- 收集属性：
+  - 电子邮件地址
+  - 显示名称
+  - 名字
+  - 姓氏
+- 返回声明：
+  - 电子邮件地址
+  - 显示名称
+  - 名字
+  - 姓氏
+  - 身份提供商
+  - 身份提供商访问令牌
+  - 用户对象 ID

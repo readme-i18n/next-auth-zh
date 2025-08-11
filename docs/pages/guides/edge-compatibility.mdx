@@ -1,61 +1,59 @@
 import { Callout } from "nextra/components"
 
-As Edge runtimes become more and more popular people are naturally trying to deploy Auth.js and `next-auth` in these environments and are running into some fundamental compatibility issues that plague the entire ecosystem at the moment. We're hoping with this document we can pick people up no matter where they currently are in terms of understanding and experience and help them understand the challenges and hopefully get Auth.js up and running in whichever runtime they choose!
+随着 Edge 运行时日益流行，开发者们自然希望在这些环境中部署 Auth.js 和 `next-auth`，但目前整个生态系统存在一些根本性的兼容性问题。我们希望通过本文档，无论您当前的理解程度和经验如何，都能帮助您认识这些挑战，并成功在所选运行时中运行 Auth.js！
 
-To begin, let us get some background knowledge out of the way. If you're familiar with this, feel free to skip this section!
+首先，让我们先了解一些背景知识。如果您已熟悉这部分内容，可以直接跳过本节！
 
-## Definitions
+## 定义
 
-We're going to be talking specifically about Auth.js and how it intersects with the [edge runtimes](https://runtime-compat.unjs.io) that are very popular today with various frameworks, hosting providers, libraries, etc.
+我们将重点讨论 Auth.js 如何与当今各种框架、托管服务提供商、库等广泛使用的 [edge runtimes](https://runtime-compat.unjs.io) 进行交互。
 
-First things first, **what is "edge"** in this context? Edge here is borrowed from the network engineering folks and refers to a compute node (i.e. server) that is located on the edge of a network, i.e. closer to the users. Usually these are compute nodes that are lower power than the kind of full-fledged servers that can be found in the core of a datacenter that run most important workloads. Some advantages of running code here include lower latency to the users end devices, better scalability story, and more cost-effective compute. Some disadvantages include less powerful hardware and potentially different compatibility in terms of the software stack.
+首先，**什么是"edge"**？这里的"edge"概念源自网络工程领域，指的是位于网络边缘的计算节点（即服务器），也就是更靠近用户的设备。这类计算节点通常比数据中心核心区域运行关键工作负载的完整服务器性能更低。在此运行代码的优势包括：更低的用户端延迟、更好的可扩展性以及更具成本效益的计算资源。劣势则包括硬件性能较弱以及软件栈可能存在兼容性差异。
 
-So when we say <abbr title="The JavaScript execution environment usually running at the edge of a network, closer to the user, that is explicitly NOT Node.js and is therefore different in various aspects compared to what we're used to running our code with (i.e. Node.js).">**edge runtimes**</abbr>, we mean a server-side JavaScript runtime that is **not** Node.js and is optimized to run on these edge compute nodes (servers). That generally means that the code is executing closer to your users on lower power hardware that is optimized for other things like quick startup times, low memory usage, etc.
+当我们提到<abbr title="通常运行在网络边缘（更靠近用户）的JavaScript执行环境，明确区别于Node.js，因此在代码运行方式等多个方面与我们惯用的Node.js环境存在差异">**edge runtimes**</abbr>时，指的是**非**Node.js的服务端JavaScript运行时，专为这些边缘计算节点（服务器）优化。这通常意味着代码会在更靠近用户的低功耗硬件上执行，这些硬件针对快速启动、低内存占用等特性进行了优化。
 
-This is a problem because these runtimes are often missing features that Node.js has and sometimes these are critical to the functioning of the libraries and packages you rely on. When a package says it's "edge compatible" or "edge ready", what they really mean is that they've engineered their software to avoid any of the Node.js features / modules that are missing in some of the edge runtimes, thereby making them more universally compatible. Check out unjs's [compatibility matrix](https://runtime-compat.unjs.io) to get an idea of which runtimes support which features. While not critical to Auth.js, this is a good time to mention that there is an industry group designed to provide a space for JavaScript runtimes to collaborate on API interop - [WinterCG](https://wintercg.org).
+这是因为这些运行时环境通常缺少 Node.js 具备的功能特性，而这些特性有时对您依赖的库和包至关重要。当一个包声称"边缘兼容"或"边缘就绪"时，实际上意味着它们通过工程化设计避开了某些边缘运行时缺失的 Node.js 功能/模块，从而实现了更广泛的兼容性。您可以查看 unjs 的 [兼容性矩阵](https://runtime-compat.unjs.io) 了解不同运行时支持的功能特性。虽然这对 Auth.js 并非关键，但值得一提的是业界已成立 [WinterCG](https://wintercg.org) 工作组，旨在为 JavaScript 运行时提供 API 互操作性协作平台。
 
 <Callout>
-  I want to note here that these features / modules are often missing because
-  the underlying environment they're running on doesn't provide them. For
-  example, developers can invest as much time as they want, but if their
-  server-side JavaScript runtime is going to be running in a sandboxed operating
-  system environment that doesn't give them access to the Filesystem, then they
-  won't be able to implement the `fs` module no matter how hard they try.
+  需要说明的是，这些功能/模块的缺失通常是因为底层运行环境本身不支持。例如，无论开发者投入多少时间，如果他们的服务端
+  JavaScript
+  运行时运行在沙盒化的操作系统环境中且无法访问文件系统，那么无论如何努力都无法实现
+  `fs` 模块。
 </Callout>
 
-Because this Node.js vs. other runtimes situation is so fragmented and fluid at the moment, many libraries are optimizing their workloads to use only the most common denominator features, like `fetch`. For example, if you're a database provider and you can engineer your system so that your client library only has to make HTTP requests to communicate with your backend, then you can advertise your library as "edge compatible" and run in any place your users may want to. This is as opposed to other database client libraries which have to use raw TCP sockets from Node.js to communicate with their backend, for example.
+由于当前 Node.js 与其他运行时环境的割裂状态和快速变化，许多库正在优化其工作负载以仅使用最通用的基础功能，例如 `fetch`。举例来说，如果您是数据库提供商，并且能够设计系统使客户端库仅需通过 HTTP 请求与后端通信，那么您就可以宣称自己的库具备"边缘兼容性"，能在用户所需的任何环境中运行。这与那些必须使用 Node.js 原始 TCP 套接字与后端通信的数据库客户端库形成鲜明对比。
 
 ## Auth.js
 
-Edge compatibility is something Auth.js has optimized for. That means that you can run the core Auth.js functionality on any JavaScript runtime you choose. The key word here, however, being **core functionality**. If you use _only_ Auth.js / `next-auth` and no other library in your Auth.js callbacks, Middleware, etc. then you can use it wherever you want!
+边缘兼容性是 Auth.js 重点优化的方向。这意味着您可以在任意 JavaScript 运行时环境中运行 Auth.js 的核心功能。但关键在于**核心功能**——如果您在 Auth.js 回调函数、中间件等场景中仅使用 Auth.js/`next-auth` 而不依赖其他库，那么它就能在任何地方运行！
 
-Issues begin to arise when you want to use other libraries with Auth.js.
+当您尝试将其他库与 Auth.js 结合使用时，问题就开始显现。
 
-## The Problem
+## 问题所在
 
-### Database Adapters
+### 数据库适配器
 
-A common package to pair with Auth.js to implement a holistic authentication system is a database client. Database clients are troublesome in that they often leverage TCP sockets to communicate directly with the database server. One such common database which does this is PostgreSQL.
+与 Auth.js 搭配实现完整认证系统的常见组件是数据库客户端。数据库客户端的棘手之处在于它们通常利用 TCP 套接字直接与数据库服务器通信。PostgreSQL 就是采用这种方式的常见数据库之一。
 
-PostgreSQL is a database that uses a message-based protocol for communication between a the client and server that is transported via **TCP (or Unix) sockets**. Raw TCP sockets are one of those Node.js features that are generally not available to edge runtimes. Therefore, on the surface, it seems like it's not possible to communicate with a PostgreSQL database from JavaScript running on edge runtime. The same goes for many other databases and their respective communication protocols.
+PostgreSQL 是一种采用基于消息的协议进行客户端与服务器通信的数据库，该协议通过 **TCP（或 Unix）套接字**传输。原始 TCP 套接字属于 Node.js 中通常无法在边缘运行时使用的功能之一。因此从表面上看，似乎无法从运行在边缘运行时上的 JavaScript 与 PostgreSQL 数据库进行通信。许多其他数据库及其各自的通信协议也存在同样的问题。
 
-As edge runtimes have matured and become more popular, however, people have gotten creative and implemented various solutions to this problem. One such common solution is to put some sort of API server in front of the database whose goal is to translate database queries sent to it via HTTP into a protocol the database can understand. This allows the client side to only have to make HTTP requests to the API server, which is something that every edge runtime supports.
+然而随着边缘运行时的成熟和普及，人们发挥创造力，针对这一问题实现了多种解决方案。其中一个常见方案是在数据库前部署某种 API 服务器，其作用是将通过 HTTP 发送的数据库查询转换为数据库能理解的协议。这使得客户端只需向 API 服务器发起 HTTP 请求即可——这是所有边缘运行时都支持的功能。
 
-### Middleware
+### 中间件
 
-In Next.js and `next-auth` you can also use Next.js [Middleware](https://nextjs.org/docs/app/building-your-application/routing/middleware) to protect routes by checking if a session exists and deciding where to route next. By default, on Vercel and other hosting providers, **Middleware code always runs in an edge runtime**. This means that our code will be trying to execute, for example, PostgreSQL queries in an environment where the underlying functionality is not available (i.e. TCP sockets). Therefore, **to use a database adapter that isn't explicitly "edge compatible", we will need to find a way to query the database using the features that we do have available to us**.
+在 Next.js 和 `next-auth` 中，您也可以使用 Next.js [中间件](https://nextjs.org/docs/app/building-your-application/routing/middleware)来保护路由，通过检查会话是否存在并决定下一步路由。默认情况下，在 Vercel 和其他托管平台上，**中间件代码始终在边缘运行时中执行**。这意味着我们的代码将尝试在底层功能不可用的环境（例如 TCP 套接字）中执行 PostgreSQL 查询等操作。因此，**要使用非明确"边缘兼容"的数据库适配器，我们需要找到一种方法，利用我们确实可用的功能来查询数据库**。
 
-## The Solution
+## 解决方案
 
-Auth.js used with the [database session strategy](/concepts/session-strategies#database-session) and a database adapter makes many calls to the database during normal operations. No matter which framework you're using, every Auth.js client can fetch the currently active session and this is done by querying the database to check if the user's `sessionToken` is both in the database and valid (i.e. not expired).
+Auth.js 与[数据库会话策略](/concepts/session-strategies#database-session)和数据库适配器一起使用时，在正常操作期间会多次调用数据库。无论您使用哪种框架，每个 Auth.js 客户端都可以获取当前活动会话，这是通过查询数据库来检查用户的 `sessionToken` 是否存在于数据库中且有效（即未过期）来实现的。
 
-This means that everywhere in your application where you may want to check if the user is authenticated or not will require a database call. Now in real life Auth.js is a bit smarter about this and uses caching and other tricks to avoid unnecessary database requests, but you can imagine that every `auth()` call will trigger a database query. Therefore, we need some sort of workaround to use Auth.js in edge runtimes with many database adapters!
+这意味着在应用程序中任何需要检查用户是否已认证的地方，都将触发数据库查询。实际上，Auth.js 在这方面更为智能，它会利用缓存和其他技巧来避免不必要的数据库请求，但可以想象每个 `auth()` 调用都可能触发一次数据库查询。因此，我们需要某种变通方案，才能在边缘运行时环境中使用 Auth.js 并兼容多种数据库适配器！
 
-### Split Config
+### 分离配置
 
-With Next.js and `next-auth` in mind, let's think about what we need to do to make Auth.js be able to both run some of its code in an edge runtime, but also use a database to store its sessions. We would need a separate "version" of `next-auth` without the database settings for the edge environment and another one with the database for everywhere else. To achieve this, we can use the ["lazy initialization"](/reference/nextjs#lazy-initialization) features of Auth.js to instantiate a standalone client without the adapter for middleware and another one to be used everywhere else.
+考虑到 Next.js 和 `next-auth`，我们需要思考如何让 Auth.js 既能部分代码在边缘运行时执行，又能使用数据库存储会话。这需要为边缘环境准备一个不包含数据库设置的 `next-auth` "版本"，而其他场景则使用带数据库的版本。为此，我们可以利用 Auth.js 的["延迟初始化"](/reference/nextjs#lazy-initialization)特性：为中间件实例化一个不带适配器的独立客户端，另一个则用于其他所有场景。
 
-1. First, a common Auth.js configuration object to be used everywhere. This **will not** include the database adapter.
+1. 首先，创建一个通用的 Auth.js 配置对象供全局使用。该配置**不包含**数据库适配器。
 
 ```ts filename="auth.config.ts" /NextAuthConfig/
 import GitHub from "next-auth/providers/github"
@@ -67,7 +65,7 @@ export default {
 } satisfies NextAuthConfig
 ```
 
-2. Next, a separate **instantiated** Auth.js instance which imports that configuration, but also adds the adapter and using `jwt` for the Session strategy:
+2. 接着，创建一个独立的**已实例化** Auth.js 实例，它导入上述配置但额外添加适配器，并使用 `jwt` 作为会话策略：
 
 ```ts filename="auth.ts" {2, 10, 11}
 import NextAuth from "next-auth"
@@ -85,7 +83,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-3. Our Middleware, which would then import the configuration **without the database adapter** and instantiate its own Auth.js client.
+3. 我们的中间件随后会导入**不包含数据库适配器**的配置，并实例化自己的 Auth.js 客户端。
 
 ```ts filename="middleware.ts" {2, 4}
 import NextAuth from "next-auth"
@@ -94,7 +92,7 @@ import authConfig from "./auth.config"
 export const { auth: middleware } = NextAuth(authConfig)
 ```
 
-4. Finally, everywhere else we can import from the primary `auth.ts` configuration and use `next-auth` as usual. See our [session management docs](/getting-started/session-management/protecting) for more examples.
+4. 最后，在其他所有地方我们都可以从主 `auth.ts` 配置导入，并像往常一样使用 `next-auth`。更多示例请参阅我们的[会话管理文档](/getting-started/session-management/protecting)。
 
 ```tsx filename="app/protected/page.tsx" {4} /session/
 import { auth } from "@/auth"
@@ -114,4 +112,4 @@ export default async function Page() {
 }
 ```
 
-It is important to note here that we've now removed database functionality and support from `next-auth` **in the middleware**. That means that we won't be able to fetch the session or other info like the user's account details, etc. while executing code in middleware. That means you'll want to rely on checks like the one demonstrated above in the `/app/protected/page.tsx` file to ensure you're [protecting your routes](/getting-started/session-management/protecting) effectively. Middleware is then still used for bumping the session cookie's expiry time, for example.
+这里需要特别注意的是，我们已经在中间件中移除了 `next-auth` 的**数据库功能和支持**。这意味着在执行中间件代码时，我们将无法获取会话或用户账户详情等其他信息。因此你需要依赖类似上面 `/app/protected/page.tsx` 文件中展示的检查逻辑，来确保[有效保护路由](/getting-started/session-management/protecting)。中间件仍可用于更新会话 cookie 的过期时间等操作。

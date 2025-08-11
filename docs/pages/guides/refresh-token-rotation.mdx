@@ -2,50 +2,39 @@ import { Code } from "@/components/Code"
 import { Callout } from "nextra/components"
 
 <Callout>
-  As of today, there is no built-in solution for automatic Refresh Token
-  rotation. This guide will help you to achieve this in your application. Our
-  goal is to add zero-config support for built-in providers eventually. [Let us
-  know](/contributors#core-team) if you would like to help.
+  截至目前，Auth.js
+  尚未内置自动刷新令牌轮换的解决方案。本指南将帮助您在应用中实现此功能。我们的目标是为内置提供者最终添加零配置支持。如果您愿意参与贡献，[请告知我们](/contributors#core-team)。
 </Callout>
 
-## What is refresh token rotation?
+## 什么是刷新令牌轮换？
 
-Refresh token rotation is the practice of updating an `access_token` on behalf of the user, without requiring interaction (ie.: re-authenticating).
-`access_token`s are usually issued for a limited time. After they expire, the service verifying them will ignore the value, rendering the `access_token` useless.
-Instead of asking the user to sign in again to obtain a new `access_token`, many providers also issue a `refresh_token` during initial signin, that has a longer expiry date.
-Auth.js libraries can be configured to use this `refresh_token` to obtain a new `access_token` without requiring the user to sign in again.
+刷新令牌轮换是指在不需用户交互（即重新认证）的情况下，代表用户更新 `access_token` 的实践方案。`access_token` 通常具有有限的有效期，过期后验证服务会将其视为无效。
 
-## Implementation
+许多提供者会在初始登录时同时颁发有效期更长的 `refresh_token`，避免要求用户重新登录来获取新的 `access_token`。Auth.js 库可配置为使用该 `refresh_token` 获取新的 `access_token`，而无需用户再次登录。
+
+## 实现方案
 
 <Callout type="info">
-  There is an inherent limitation of the following guides that comes from the
-  fact, that - for security reasons - `refresh_token`s are usually only usable
-  once. Meaning that after a successful refresh, the `refresh_token` will be
-  invalidated and cannot be used again. Therefore, in some cases, a
-  race-condition might occur if multiple requests will try to refresh the token
-  at the same time. The Auth.js team is aware of this and would like to provide
-  a solution in the future. This might include some "lock" mechanism to prevent
-  multiple requests from trying to refresh the token at the same time, but that
-  comes with the drawback of potentially creating a bottleneck in the
-  application. Another possible solution is background token refresh, to prevent
-  the token from expiring during an authenticated request.
+  以下指南存在一个固有局限，这是由于安全原因导致的：`refresh_token`
+  通常只能使用一次。这意味着在成功刷新后，`refresh_token`
+  将失效且无法再次使用。因此，在某些情况下，如果多个请求同时尝试刷新令牌，可能会发生竞态条件。Auth.js
+  团队已意识到此问题，并计划在未来提供解决方案。可能的方案包括引入某种"锁定"机制来防止多个请求同时刷新令牌，但这会带来潜在的应用性能瓶颈问题。另一种可能的解决方案是后台令牌刷新，以防止在认证请求期间令牌过期。
 </Callout>
 
-First, make sure that the provider you want to use supports `refresh_token`'s. Check out [The OAuth 2.0 Authorization Framework](https://www.rfc-editor.org/rfc/rfc6749#section-6) spec for more details.
-Depending on the [session strategy](/concepts/session-strategies), the `refresh_token` can be persisted either in an encrypted JWT inside a cookie or in a database.
+首先，确保您要使用的提供商支持 `refresh_token`。更多详情请参阅 [OAuth 2.0 授权框架](https://www.rfc-editor.org/rfc/rfc6749#section-6)规范。
+根据[会话策略](/concepts/session-strategies)的不同，`refresh_token` 可以保存在加密的 JWT cookie 中，也可以存储在数据库里。
 
-### JWT strategy
+### JWT 策略
 
 <Callout>
-  While using a cookie to store the `refresh_token` is simpler, it is less
-  secure. To mitigate risks with the `strategy: "jwt"`, Auth.js libraries store
-  the `refresh_token` in an _encrypted_ JWT, in an `HttpOnly` cookie. Still, you
-  need to evaluate based on your requirements which strategy you choose.
+  虽然使用 cookie 存储 `refresh_token` 更为简单，但安全性较低。为了降低
+  `strategy: "jwt"` 的风险，Auth.js 库会将 `refresh_token` 存储在 _加密的_ JWT
+  中，并置于 `HttpOnly` cookie 内。不过，您仍需根据实际需求评估选择哪种策略。
 </Callout>
 
-Using the [jwt](/reference/core/types#jwt) and [session](/reference/core/types#session) callbacks, we can persist OAuth tokens and refresh them when they expire.
+通过使用 [jwt](/reference/core/types#jwt) 和 [session](/reference/core/types#session) 回调，我们可以持久化 OAuth 令牌并在过期时进行刷新。
 
-Below is a sample implementation of refreshing the `access_token` with Google. Please note that the OAuth 2.0 request to get the `refresh_token` will vary between different providers, but the rest of logic should remain similar.
+以下是通过 Google 刷新 `access_token` 的示例实现。请注意，获取 `refresh_token` 的 OAuth 2.0 请求会因提供商而异，但其余逻辑应保持相似。
 
 <Code>
   <Code.Next>
@@ -145,9 +134,9 @@ declare module "next-auth/jwt" {
   </Code.Next>
 </Code>
 
-### Database strategy
+### 数据库策略
 
-Using the database session strategy is similar, but instead we will save the `access_token`, `expires_at` and `refresh_token` on the `account` for the given provider.
+使用数据库会话策略类似，但我们会将 `access_token`、`expires_at` 和 `refresh_token` 保存在对应提供商的 `account` 中。
 
 <Code>
   <Code.Next>
@@ -232,9 +221,9 @@ declare module "next-auth" {
   </Code.Next>
 </Code>
 
-### Error handling
+### 错误处理
 
-If the token refresh was unsuccessful, we can force a re-authentication.
+如果令牌刷新失败，我们可以强制重新进行身份验证。
 
 <Code>
 

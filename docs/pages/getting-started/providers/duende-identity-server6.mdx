@@ -8,15 +8,15 @@ import { Code } from "@/components/Code"
   width="64"
 />
 
-# Duende Identity Server Provider
+# Duende Identity Server 提供商
 
-## Resources
+## 相关资源
 
-- [DuendeIdentityServer6 documentation](https://docs.duendesoftware.com/identityserver/v6)
+- [DuendeIdentityServer6 文档](https://docs.duendesoftware.com/identityserver/v6)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -42,7 +42,7 @@ https://example.com/auth/callback/duende-identity-service
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_DUENDE_IDENTITY_SERVER6_ID
@@ -50,7 +50,7 @@ AUTH_DUENDE_IDENTITY_SERVER6_SECRET
 AUTH_DUENDE_IDENTITY_SERVER6_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -103,13 +103,13 @@ app.use("/auth/*", ExpressAuth({ providers: [DuendeIdentityServer6] }))
   </Code.Express>
 </Code>
 
-### Demo IdentityServer
+### 演示 IdentityServer
 
-The configuration below is for the demo server at https://demo.duendesoftware.com/
+以下配置适用于演示服务器 https://demo.duendesoftware.com/
 
-If you want to try it out, you can copy and paste the configuration below.
+如需试用，可直接复制粘贴下方配置。
 
-You can sign in to the demo service with either `bob`/`bob` or `alice`/`alice`.
+您可以使用 `bob`/`bob` 或 `alice`/`alice` 登录演示服务。
 
 ```js filename=pages/api/auth/[...nextauth].js
 import DuendeIDS6Provider from "next-auth/providers/duende-identity-server6"

@@ -1,20 +1,18 @@
 import { Callout } from "nextra/components"
 
-# Extending the Session
+# 扩展会话信息
 
-Auth.js libraries only expose a subset of the user's information by default in a session to not accidentally expose sensitive user information.
-This is `name`, `email`, and `image`.
+Auth.js 库默认仅会在会话中暴露用户的有限信息，以避免意外泄露敏感数据。这些基础字段包括 `name`、`email` 和 `image`。
 
 <Callout type="info">
-  All callbacks are async functions, so you can also get extra information from
-  a database or external APIs.
+  所有回调函数均为异步方法，因此您也可以从数据库或外部 API 获取额外信息。
 </Callout>
 
-A common use case is to add the user's id to the session. Below it is shown how to do this based on the session strategy you are using.
+常见的使用场景是将用户 ID 添加到会话中。以下根据您使用的会话策略分别展示实现方式。
 
-## With JWT
+## 使用 JWT 策略
 
-To have access to the user id, add the following to your Auth.js configuration:
+要获取用户 ID 访问权限，请在 Auth.js 配置中添加以下内容：
 
 ```ts filename="auth.ts"
   //  By default, the `id` property does not exist on `token` or `session`. See the [TypeScript](https://authjs.dev/getting-started/typescript) on how to add it.
@@ -33,15 +31,14 @@ To have access to the user id, add the following to your Auth.js configuration:
 }
 ```
 
-During sign-in, the `jwt` callback exposes the user's profile information coming from the provider.
-You can leverage this to add the user's id to the JWT token. Then, on subsequent calls of this API you will have access to the user's id via `token.id`.
-Then, to expose the user's id in the actual session, you can access `token.id` in the `session` callback and save it on `session.user.id`.
+在登录过程中，`jwt` 回调会暴露来自身份提供商的用户资料信息。您可利用此机制将用户 ID 添加到 JWT 令牌中。此后通过 `token.id` 即可在后续 API 调用中访问该用户 ID。
+若要在实际会话中暴露用户 ID，您可在 `session` 回调中访问 `token.id` 并将其保存至 `session.user.id`。
 
-Calls to `auth()` or `useSession()` will now have access to the user's id.
+现在调用 `auth()` 或 `useSession()` 时即可访问用户 ID。
 
-## With Database
+## 使用数据库策略
 
-If you are using a database session strategy, you can add the user's id to the session by modifying the `session` callback:
+若采用数据库会话策略，可通过修改 `session` 回调来添加用户 ID：
 
 ```ts filename="auth.ts"
   //  By default, the `id` property does not exist on `session`. See the [TypeScript](https://authjs.dev/getting-started/typescript) on how to add it.
@@ -54,22 +51,19 @@ If you are using a database session strategy, you can add the user's id to the s
 }
 ```
 
-This will add the user's id to the session object. Notice that in this case, we are getting the id from the `user` object, not the `token`.
-With the database session strategy, the `user` object is the user from the database, and there is no `token`.
+这会将用户的 id 添加到 session 对象中。请注意，在这种情况下，我们从 `user` 对象而非 `token` 中获取 id。
+使用数据库会话策略时，`user` 对象来自数据库，此时不存在 `token`。
 
-Calls to `auth()` or `useSession()` will now have access to the user's id.
+现在调用 `auth()` 或 `useSession()` 时将能访问用户的 id。
 
 <Callout type="warning">
-  The session object is not persisted server-side, even when using database
-  sessions - only data such as the session token (id), the user, and the expiry
-  time is stored in the session table. If you need to persist session data
-  server-side, you must save it elsewhere. You can connect to the database in
-  the `session()` callback to retrieve this information.
+  会话对象不会在服务端持久化，即使使用数据库会话时也是如此——只有会话令牌(id)、用户信息和过期时间等数据会存储在会话表中。如需在服务端持久化会话数据，必须将其保存在其他地方。您可以在
+  `session()` 回调中连接数据库来检索这些信息。
 </Callout>
 
-## With provider functions
+## 使用提供者函数
 
-We can extend the default session data in a few ways, one of which is by using the `authorize` and `profile` functions. These functions let us return a user object with the properties we need. We can then create logic based on this information to search in a database or an external API.
+我们可以通过几种方式扩展默认会话数据，其中之一是使用 `authorize` 和 `profile` 函数。这些函数允许我们返回包含所需属性的用户对象。然后我们可以基于这些信息创建逻辑，在数据库或外部 API 中进行查询。
 
 ```ts
 import Github from "next-auth/providers/github"
@@ -92,7 +86,7 @@ const providers: Provider[] = [
 ]
 ```
 
-## Resources
+## 相关资源
 
-- [Concepts. Session strategies](/concepts/session-strategies)
+- [概念. 会话策略](/concepts/session-strategies)
 - [TypeScript](/getting-started/typescript)

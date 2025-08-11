@@ -3,53 +3,48 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/loops.svg" height="96" />
 
-# Loops Provider
+# Loops 提供商
 
-## Overview
+## 概述
 
-The Loops provider uses email to send "magic links" that contain URLs with verification tokens can be used to sign in.
+Loops 提供商通过电子邮件发送包含验证令牌 URL 的"魔法链接"，可用于登录。
 
-Adding support for signing in via email in addition to one or more OAuth services provides a way for users to sign in if they lose access to their OAuth account (e.g. if it is locked or deleted).
+在支持 OAuth 服务登录的同时增加邮件登录方式，为用户在无法访问 OAuth 账户时（例如账户被锁定或删除）提供了备用登录途径。
 
-The Loops provider can be used in conjunction with (or instead of) one or more OAuth providers.
+Loops 提供商可以单独使用，也可以与一个或多个 OAuth 提供商配合使用。
 
-## How it works
+## 工作原理
 
-On initial sign in, a **Verification Token** is sent to the email address provided. By default this token is valid for 24 hours. If the Verification Token is used within that time (i.e. by clicking on the link in the email) an account is created for the user and they are signed in.
+首次登录时，系统会向提供的邮箱地址发送一个**验证令牌**。默认情况下该令牌有效期为 24 小时。若在此期间使用了验证令牌（即点击邮件中的链接），系统将为用户创建账户并完成登录。
 
-If someone provides the email address of an _existing account_ when signing in, an email is sent and they are signed into the account associated with that email address when they follow the link in the email.
+如果用户使用*已存在账户*的邮箱地址登录，系统会发送邮件，当用户点击邮件中的链接时即可登录与该邮箱关联的账户。
 
 <Callout type="warning">
-  The Loops provider can be used with both JSON Web Token and database managed
-  sessions, however **you must configure a database** to use it. It is not
-  possible to enable email sign in without using a database.
+  Loops 提供商同时支持 JSON Web Token
+  和数据库管理的会话，但**必须配置数据库**才能使用。不使用数据库的情况下无法启用电子邮件登录功能。
 </Callout>
 
-## Configuration
+## 配置
 
-### Add and Verify your Domain on Loops
+### 在 Loops 上添加并验证域名
 
-First, you'll need to have completed the steps covered in the ['Start here'](https://loops.so/docs/start-here) Loops documentation.
-The main thing required is to [set up your domain records](https://loops.so/docs/start-here#1-set-up-your-domain-records).
+首先，您需要完成 Loops 文档中['从这里开始'](https://loops.so/docs/start-here)部分的所有步骤。主要要求是[设置您的域名记录](https://loops.so/docs/start-here#1-set-up-your-domain-records)。
 
-### Generate an API Key
+### 生成 API 密钥
 
-Next, you will have to generate an API key in the [Loops Dashboard](https://loops.so/api-keys). You can save this API key as the `AUTH_LOOPS_KEY` environment variable.
+接下来，您需要在 [Loops 控制面板](https://loops.so/api-keys)中生成 API 密钥。可以将此 API 密钥保存为 `AUTH_LOOPS_KEY` 环境变量。
 
 ```sh
 AUTH_LOOPS_KEY=abc
 ```
 
-### Create a Transactional Email Template on Loops
+### 在 Loops 创建事务性邮件模板
 
-The easiest way to achieve this is using the [Loops email editor](https://loops.so/docs/creating-emails/editor) to create a transactional email template.
-If you're new to Loops, you can find rich documentation [here](https://loops.so/docs/transactional/guide).
+最简单的方法是使用 [Loops 邮件编辑器](https://loops.so/docs/creating-emails/editor)创建事务性邮件模板。如果您是 Loops 的新用户，可以查阅详细的[使用指南](https://loops.so/docs/transactional/guide)。
 
 <br />
-Copy the Transactional ID value from the last page of the template creation
-process, and save this as the `AUTH_LOOPS_TRANSACTIONAL_ID` environment
-variable. If you're following these steps, you should now have two environment
-variables set up for Loops.
+
+从模板创建流程的最后一页复制 Transactional ID 值，并将其保存为 `AUTH_LOOPS_TRANSACTIONAL_ID` 环境变量。按照这些步骤操作后，您现在应该已经为 Loops 设置好了两个环境变量。
 
 ```sh
 AUTH_LOOPS_KEY=abc
@@ -57,9 +52,8 @@ AUTH_LOOPS_TRANSACTIONAL_ID=def
 ```
 
 <Callout type="warning">
-  When creating your email template, make sure to include the `url` variable in
-  the template. This is the URL that will sent to the user, allowing them to
-  signin.
+  创建电子邮件模板时，请确保在模板中包含 `url` 变量。这是将发送给用户的
+  URL，允许他们进行登录。
 </Callout>
 
 <Code>

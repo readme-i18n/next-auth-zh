@@ -3,28 +3,28 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/hasura.svg" width="64" height="64" />
 
-# Hasura Adapter
+# Hasura 适配器
 
-## Resources
+## 相关资源
 
-- [Hasura documentation](https://hasura.io/docs)
+- [Hasura 文档](https://hasura.io/docs)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/hasura-adapter
 ```
 
-### Environment variables
+### 环境变量
 
 ```sh
 AUTH_HASURA_GRAPHQL=http://localhost:8000/graphql
 AUTH_HASURA_SECRET=abc123
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -99,9 +99,9 @@ app.use(
 </Code.Express>
 </Code>
 
-### Migrations
+### 数据迁移
 
-1. Create the Auth.js schema in your database using SQL.
+1. 使用 SQL 在数据库中创建 Auth.js 模式
 
 ```sql
 CREATE TABLE accounts (
@@ -175,6 +175,6 @@ ALTER TABLE ONLY accounts
 ```
 
 <Callout>
-  Tips: [Track all the tables and relationships in
-  Hasura](https://hasura.io/docs/latest/schema/postgres/using-existing-database/#step-1-track-tablesviews)
+  提示: [在 Hasura
+  中追踪所有表及关系](https://hasura.io/docs/latest/schema/postgres/using-existing-database/#step-1-track-tablesviews)
 </Callout>

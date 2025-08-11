@@ -1,13 +1,13 @@
 import { Callout } from "nextra/components"
 import { Code } from "@/components/Code"
 
-# Role-based access control
+# 基于角色的访问控制
 
-There are two ways to add [role-based access control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control) to your application with Auth.js, based on the [session strategy](/concepts/session-strategies) you choose. Let's see an example for each of these.
+使用 Auth.js 为应用程序添加[基于角色的访问控制(RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control)有两种方式，具体取决于您选择的[会话策略](/concepts/session-strategies)。我们将分别展示这两种方式的示例。
 
-## Getting the role
+## 获取角色
 
-Start by adding a `profile()` callback to the providers' config to determine the user role:
+首先在提供者配置中添加 `profile()` 回调函数来确定用户角色：
 
 <Code>
 <Code.Next>
@@ -69,19 +69,18 @@ export const { handle } = SvelteKitAuth({
 </Code>
 
 <Callout>
-  Determining the users role is your responsibility, you can either add your own
-  logic or if your provider returns a role you can use that instead.
+  确定用户角色是您的责任，您可以添加自己的逻辑，或者如果您的提供者返回角色信息，也可以直接使用。
 </Callout>
 
-## Persisting the role
+## 持久化角色
 
-Persisting the role will be different depending on the [session strategy](/concepts/session-strategies) you're using. If you don't know which session strategy you're using, then most likely you're using JWT (the default one).
+根据您使用的[会话策略](/concepts/session-strategies)，角色持久化的方式会有所不同。如果您不确定当前使用的会话策略，那么很可能使用的是默认的 JWT 策略。
 
-### With JWT
+### 使用 JWT
 
-When you don't have a database configured, the role will be persisted in a cookie, by using the `jwt()` callback. On sign-in, the `role` property is exposed from the `profile` callback on the `user` object. Persist the `user.role` value by assigning it to `token.role`. That's it!
+当未配置数据库时，角色将通过 `jwt()` 回调函数持久化到 cookie 中。在登录时，`profile` 回调中的 `user` 对象会暴露 `role` 属性。只需将 `user.role` 赋值给 `token.role` 即可完成持久化。
 
-If you also want to use the role on the client, you can expose it via the `session` callback.
+如果还需要在客户端使用角色信息，可以通过 `session` 回调函数进行暴露。
 
 <Code>
 <Code.Next>
@@ -173,15 +172,14 @@ export const { handle } = SvelteKitAuth({
 </Code>
 
 <Callout type="info">
-  With this strategy, if you want to update the role, the user needs to be
-  forced to sign in again.
+  使用此策略时，如需更新角色信息，需要强制用户重新登录。
 </Callout>
 
-### With Database
+### 使用数据库
 
-When you have a database, you can save the user role on the [User model](/reference/core/adapters#adapteruser). The below example is showing you how to do this with Prisma, but the idea is the same for all adapters.
+当您拥有数据库时，可以将用户角色保存在[User模型](/reference/core/adapters#adapteruser)上。以下示例展示了如何使用Prisma实现这一点，但该思路适用于所有适配器。
 
-First, add a `role` column to the User model.
+首先，在User模型中添加`role`列。
 
 ```prisma filename="/prisma/schema.prisma"
 model User {
@@ -196,9 +194,9 @@ model User {
 }
 ```
 
-The `profile()` callback's return value is used to create users in the database. That's it! Your newly created users will now have an assigned role.
+`profile()`回调的返回值用于在数据库中创建用户。就这样！新创建的用户现在将拥有分配的角色。
 
-If you also want to use the role on the client, you can expose it via the `session` callback.
+如果您还想在客户端使用角色，可以通过`session`回调将其暴露出来。
 
 <Code>
 <Code.Next>
@@ -284,13 +282,12 @@ export { handle } from "./auth"
 </Code>
 
 <Callout type="info">
-  It is up to you how you want to manage to update the roles, either through
-  direct database access or building your role update API.
+  具体如何管理角色更新由您决定，可以通过直接数据库访问或构建自己的角色更新API来实现。
 </Callout>
 
-## Using the role
+## 使用角色
 
-The user can access the information stored in the current session through the authorization function exported from the configuration file of the respective framework. This function retrieves information exposed via the `session` and `jwt` callbacks in the configuration file. With this information, you can implement different strategies and logic to display the UI based on your needs.
+用户可以通过从相应框架的配置文件中导出的授权函数访问当前会话中存储的信息。该函数会检索配置文件中通过`session`和`jwt`回调暴露的信息。利用这些信息，您可以根据需要实现不同的策略和逻辑来显示UI。
 
 <Code>
 <Code.Next>
@@ -367,15 +364,13 @@ export const load: PageServerLoad = async (event) => {
 </Code>
 
 <Callout>
-  When using Next.js and JWT, you can alternatively also use
-  [Middleware](/getting-started/session-management/protecting#nextjs-middleware)
-  to redirect the user based on their role, even before rendering the page.
+  使用Next.js和JWT时，您也可以选择通过[中间件](/getting-started/session-management/protecting#nextjs-middleware)根据用户角色进行重定向，甚至在页面渲染之前完成。
 </Callout>
 
-## Resources
+## 相关资源
 
-- [Concepts: Session strategies](/concepts/session-strategies)
-- [Adapters: User model](/getting-started/database#user-model)
-- [Adapters: Prisma adapter](/getting-started/adapters/prisma)
-- [Next.js: Middleware](/getting-started/session-management/protecting#nextjs-middleware)
+- [概念：会话策略](/concepts/session-strategies)
+- [适配器：用户模型](/getting-started/database#user-model)
+- [适配器：Prisma 适配器](/getting-started/adapters/prisma)
+- [Next.js：中间件](/getting-started/session-management/protecting#nextjs-middleware)
 - [TypeScript](/getting-started/typescript)

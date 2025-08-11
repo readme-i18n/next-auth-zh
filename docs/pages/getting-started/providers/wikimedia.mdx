@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/wikimedia.svg" height="64" width="64" />
 
-# Wikimedia Provider
+# Wikimedia 提供商
 
-## Resources
+## 相关资源
 
-- [Wikimedia OAuth documentation](https://www.mediawiki.org/wiki/Extension:OAuth)
+- [Wikimedia OAuth 文档](https://www.mediawiki.org/wiki/Extension:OAuth)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/wikimedia
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_WIKIMEDIA_ID
 AUTH_WIKIMEDIA_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -97,23 +97,23 @@ app.use("/auth/*", ExpressAuth({ providers: [Wikimedia] }))
   </Code.Express>
 </Code>
 
-- Go to and accept the Consumer Registration doc: https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration
-- Request a new OAuth 2.0 consumer to get the `clientId` and `clientSecret`: https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2
-  - Add the following redirect URL into the console: `http://<your-next-app-url>/api/auth/callback/wikimedia`
-  - Do not check the box next to This consumer is only for **your username**
-  - Unless you explicitly need a larger scope, feel free to select the radio button labelled User identity verification only - no ability to read pages or act on the users behalf.
+- 访问并接受消费者注册文档：https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration
+- 申请新的 OAuth 2.0 消费者以获取 `clientId` 和 `clientSecret`：https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose/oauth2
+  - 在控制台添加以下重定向 URL：`http://<your-next-app-url>/api/auth/callback/wikimedia`
+  - 不要勾选 **仅限您的用户名使用此消费者** 的复选框
+  - 除非明确需要更大权限范围，否则建议选择标有"仅用户身份验证 - 无读取页面或代表用户操作的权限"的单选框
 
-After registration, you can initially test your application only with your own Wikimedia account.
-You may have to wait several days for the application to be approved for it to be used by everyone.
+注册后，您最初只能使用自己的 Wikimedia 账户测试应用程序。
+可能需要等待数天申请获批后，才能供所有用户使用。
 
-### Notes
+### 注意事项
 
-This provider also supports all Wikimedia projects:
+该提供商同时支持所有 Wikimedia 项目：
 
-- Wikipedia
-- Wikidata
-- Wikibooks
-- Wiktionary
-- etc..
+- 维基百科
+- 维基数据
+- 维基教科书
+- 维基词典
+- 等等...
 
-Please be aware that Wikimedia accounts do not have to have an associated email address. So you may want to add check if the user has an email address before allowing them to login.
+请注意 Wikimedia 账户不一定关联电子邮箱。因此您可能需要先检查用户是否拥有邮箱地址，再允许其登录。

@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/mattermost.svg" height="64" width="64" />
 
-# Mattermost Provider
+# Mattermost 提供商
 
-## Resources
+## 相关资源
 
-- [Mattermost OAuth documentation](https://example.com)
+- [Mattermost OAuth 文档](https://example.com)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,7 +37,7 @@ https://example.com/auth/callback/mattermost
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_MATTERMOST_ID
@@ -45,7 +45,7 @@ AUTH_MATTERMOST_SECRET
 AUTH_MATTERMOST_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,7 +98,7 @@ app.use("/auth/*", ExpressAuth({ providers: [Mattermost] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- To create your Mattermost OAuth2 app visit `http://<your Mattermost instance url>/<your team>/integrations/oauth2-apps`
-- The Mattermost provider requires the `issuer` option to be set. This is the base url of your Mattermost instance. e.g `https://my-cool-server.cloud.mattermost.com`
+- 创建 Mattermost OAuth2 应用请访问 `http://<your Mattermost instance url>/<your team>/integrations/oauth2-apps`
+- Mattermost 提供商需要设置 `issuer` 选项，这是您 Mattermost 实例的基础 URL。例如 `https://my-cool-server.cloud.mattermost.com`

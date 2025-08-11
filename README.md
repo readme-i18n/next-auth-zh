@@ -1,5 +1,5 @@
 > [!NOTE]
-> The Auth.js/NextAuth.js project is not provided by, nor otherwise affiliated with Vercel Inc. or its subsidiaries. Any contributions to this project by individuals affiliated with Vercel are made in their personal capacity.
+> Auth.js/NextAuth.js 项目并非由 Vercel Inc. 或其子公司提供，也不隶属于这些公司。Vercel 相关人员的任何贡献均以个人身份进行。
 
 <p align="center">
   <br/>
@@ -32,48 +32,48 @@
   </p>
 </p>
 
-## Features
+## 功能特性
 
-### Flexible and easy to use
+### 灵活易用
 
-- Designed to work with any OAuth service, it supports 2.0+, OIDC
-- Built-in support for [many popular sign-in services](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers)
-- Email/Passwordless authentication
-- Passkeys/WebAuthn support
-- Bring Your Database - or none! - stateless authentication with any backend (Active Directory, LDAP, etc.)
-- Runtime-agnostic, runs anywhere! (Docker, Node.js, Serverless, etc.)
+- 设计兼容任何 OAuth 服务，支持 2.0+ 和 OIDC
+- 内置对[众多流行登录服务](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers)的支持
+- 电子邮件/无密码认证
+- 支持通行密钥/WebAuthn
+- 自带数据库或无需数据库 - 可与任何后端（Active Directory、LDAP 等）实现无状态认证
+- 运行时无关，随处运行！（Docker、Node.js、Serverless 等）
 
-### Own your data
+### 数据自主掌控
 
-Auth.js can be used with or without a database.
+Auth.js 可搭配数据库使用，也可不依赖数据库。
 
-- An open-source solution that allows you to keep control of your data
-- Built-in support for [MySQL, MariaDB, Postgres, Microsoft SQL Server, MongoDB, SQLite, GraphQL, etc.](https://adapters.authjs.dev)
-- Works great with databases from popular hosting providers
+- 开源解决方案让您完全掌控数据
+- 内置支持 [MySQL、MariaDB、Postgres、Microsoft SQL Server、MongoDB、SQLite、GraphQL 等](https://adapters.authjs.dev)
+- 完美兼容主流托管服务商的数据库
 
-### Secure by default
+### 默认安全防护
 
-- Promotes the use of passwordless sign-in mechanisms
-- Designed to be secure by default and encourage best practices for safeguarding user data
-- Uses Cross-Site Request Forgery (CSRF) Tokens on POST routes (sign in, sign out)
-- Default cookie policy aims for the most restrictive policy appropriate for each cookie
-- When JSON Web Tokens are used, they are encrypted by default (JWE) with A256CBC-HS512
-- Features tab/window syncing and session polling to support short-lived sessions
-- Attempts to implement the latest guidance published by [Open Web Application Security Project](https://owasp.org)
+- 提倡使用无密码登录机制
+- 默认采用安全设计，鼓励保护用户数据的最佳实践
+- 在POST路由（登录、登出）上使用跨站请求伪造(CSRF)令牌
+- 默认cookie策略为每种cookie采用最严格的适用策略
+- 使用JSON Web令牌时默认采用A256CBC-HS512算法进行加密(JWE)
+- 支持标签页/窗口同步和会话轮询功能，适用于短期会话场景
+- 遵循[开放Web应用安全项目](https://owasp.org)发布的最新安全指南
 
-Advanced configuration allows you to define your routines to handle controlling what accounts are allowed to sign in, for encoding and decoding JSON Web Tokens and to set custom cookie security policies and session properties, so you can control who can sign in and how often sessions have to be re-validated.
+高级配置允许自定义以下流程：控制允许登录的账户、编解码JSON Web令牌、设置自定义cookie安全策略和会话属性，从而掌控登录权限和会话重新验证频率。
 
 ### TypeScript
 
-Auth.js libraries are written with type safety in mind. [Check out the docs](https://authjs.dev/getting-started/typescript) for more information.
+Auth.js库在开发时充分考虑了类型安全性。[查阅文档](https://authjs.dev/getting-started/typescript)获取更多信息。
 
-## Security
+## 安全须知
 
-If you think you have found a vulnerability (or are not sure) in Auth.js or any of the related packages (i.e. Adapters), we ask you to read our [Security Policy](https://authjs.dev/security) to reach out responsibly. Please do not open Pull Requests/Issues/Discussions before consulting with us.
+若您发现Auth.js或相关包（如适配器）存在潜在漏洞（或不确定），请阅读我们的[安全政策](https://authjs.dev/security)后通过正规渠道联系。未经协商请勿直接提交Pull Requests/Issues/Discussions。
 
-## Acknowledgments
+## 致谢
 
-[Auth.js is made possible thanks to all of its contributors.](https://authjs.dev/contributors)
+[Auth.js 的诞生离不开所有贡献者的支持。](https://authjs.dev/contributors)
 
 <a href="https://github.com/nextauthjs/next-auth/graphs/contributors">
   <img width="500px" src="https://contrib.rocks/image?repo=nextauthjs/next-auth" />
@@ -82,11 +82,12 @@ If you think you have found a vulnerability (or are not sure) in Auth.js or any 
 <a href="https://vercel.com?utm_source=nextauthjs&utm_campaign=oss"></a>
 </div>
 
-### Sponsors
+### 赞助者
 
-We have an [OpenCollective](https://opencollective.com/nextauth) for companies and individuals looking to contribute financially to the project!
+我们为希望为项目提供资金支持的企业和个人设立了 [OpenCollective](https://opencollective.com/nextauth)！
 
 <!--sponsors start-->
+
 <table>
   <tbody>
     <tr>
@@ -224,20 +225,19 @@ We have an [OpenCollective](https://opencollective.com/nextauth) for companies a
   </tbody>
 </table>
 
-- 💵 Financial Sponsor
-- ☁️ Infrastructure Support
+- 💵 资金赞助
+- ☁️ 基础设施支持
 
 <br />
 <!--sponsors end-->
 
-## Contributing
+## 参与贡献
 
-We're open to all community contributions! If you'd like to contribute in any way, please first read
-our [Contributing Guide](https://github.com/nextauthjs/.github/blob/main/CONTRIBUTING.md).
+我们欢迎所有社区贡献！如果您希望以任何方式参与贡献，请先阅读我们的[贡献指南](https://github.com/nextauthjs/.github/blob/main/CONTRIBUTING.md)。
 
 > [!NOTE]
-> The Auth.js/NextAuth.js project is not provided by, nor otherwise affiliated with Vercel Inc. or its subsidiaries. Any contributions to this project by individuals affiliated with Vercel are made in their personal capacity.
+> Auth.js/NextAuth.js 项目并非由 Vercel Inc. 或其子公司提供，也不与之存在任何关联。Vercel 相关人员的任何贡献均以个人名义进行。
 
-## License
+## 许可协议
 
-ISC
+ISC...

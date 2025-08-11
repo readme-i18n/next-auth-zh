@@ -7,21 +7,21 @@ import { Code } from "@/components/Code"
   height="64"
 />
 
-# Azure Table Storage Adapter
+# Azure 表存储适配器
 
-## Resources
+## 相关资源
 
-- [Azure Tables documentation](https://azure.microsoft.com/en-us/products/storage/tables)
+- [Azure 表存储文档](https://azure.microsoft.com/en-us/products/storage/tables)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/azure-tables-adapter
 ```
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_AZURE_ACCOUNT=storageaccountname
@@ -29,9 +29,9 @@ AUTH_AZURE_ACCESS_KEY=longRandomKey
 AUTH_AZURE_TABLES_ENDPOINT=https://$AZURE_ACCOUNT.table.core.windows.net
 ```
 
-### Configuration
+### 配置
 
-1. Create a table for authentication data, `auth` in the example below.
+1. 创建一个用于存储认证数据的表，以下示例中命名为 `auth`
 
 <Code>
 <Code.Next>

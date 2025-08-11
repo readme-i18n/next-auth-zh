@@ -1,8 +1,8 @@
 import { Callout } from "nextra/components"
 
-# Debugging
+# 调试
 
-Debugging Auth.js starts with enabling the `debug` option in your main Auth.js configuration.
+调试 Auth.js 首先需要在主配置中启用 `debug` 选项。
 
 ```ts filename="./auth.ts" {4}
 import NextAuth from "next-auth"
@@ -12,11 +12,11 @@ export const { handlers, auth } = NextAuth({
 })
 ```
 
-This will use the `console` methods to log out many details about the authentication process, including requests, responses, errors, and database requests and responses.
+该选项会使用 `console` 方法输出认证流程的详细信息，包括请求、响应、错误以及数据库请求和响应。
 
-## Logging
+## 日志记录
 
-You can customize the logging output by providing your own logger. This is useful if you want to send logs to a logging service, or if you want to customize the format of the logs.
+您可以通过自定义日志记录器来调整日志输出格式。这在需要将日志发送到日志服务或自定义日志格式时非常有用。
 
 ```ts filename="./auth.ts"
 import log from "logging-service"
@@ -36,8 +36,8 @@ export const { handlers, auth } = NextAuth({
 ```
 
 <Callout type="warning">
-  Enabling the `debug` option in production can lead to sensitive information
-  being saved in your logs. Make sure to sanitize any sensitive information.
+  在生产环境启用 `debug`
+  选项可能导致敏感信息被记录到日志中。请确保对任何敏感信息进行脱敏处理。
 </Callout>
 
-When `logger` options are set, the `debug` option is ignored
+当设置了 `logger` 选项时，`debug` 选项将被忽略

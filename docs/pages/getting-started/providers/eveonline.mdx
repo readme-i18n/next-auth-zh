@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/eveonline.svg" height="64" width="128" />
 
-# EVEOnline Provider
+# EVEOnline 提供商
 
-## Resources
+## 相关资源
 
-- [EveOnline OAuth documentation](https://developers.eveonline.com/blog/article/sso-to-authenticated-calls)
+- [EveOnline OAuth 文档](https://developers.eveonline.com/blog/article/sso-to-authenticated-calls)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/eveonline
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_EVEONLINE_ID
 AUTH_EVEONLINE_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -97,11 +97,11 @@ app.use("/auth/*", ExpressAuth({ providers: [EveOnline] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- When creating your application, make sure to select `Authentication & API Access` as the connection type. Also ensure that the `publicData` scope is selected.
+- 创建应用程序时，请确保选择 `Authentication & API Access` 作为连接类型。同时确保勾选 `publicData` 作用域。
 
-- If using JWT for the session, you can add the `CharacterID` to the JWT and session. For example:
+- 如果使用 JWT 进行会话管理，可以将 `CharacterID` 添加到 JWT 和会话中。例如：
 
 ```ts
 const AuthConfig = {

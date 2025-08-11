@@ -3,32 +3,31 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/sequelize.svg" height="64" width="64" />
 
-# Sequelize Adapter
+# Sequelize 适配器
 
-## Resources
+## 相关资源
 
-- [Sequelize documentation](https://sequelize.org/docs/v6/getting-started/)
-- [Connecting to a Database](https://sequelize.org/master/manual/getting-started.html#connecting-to-a-database)
+- [Sequelize 文档](https://sequelize.org/docs/v6/getting-started/)
+- [连接数据库](https://sequelize.org/master/manual/getting-started.html#connecting-to-a-database)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/sequelize-adapter sequelize
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 DATABASE_URL=postgres://postgres:adminadmin@0.0.0.0:5432/db
 ```
 
-### Configuration
+### 配置
 
 <Callout type="warning">
-  You'll also have to manually install [the driver for your
-  database](https://sequelize.org/master/manual/getting-started.html) of choice.
+  您还需要手动安装[所选数据库的驱动程序](https://sequelize.org/master/manual/getting-started.html)。
 </Callout>
 
 <Code>
@@ -106,12 +105,11 @@ app.use(
 </Code.Express>
 </Code>
 
-### Schema
+### 数据库模式
 
-By default, the sequelize adapter will not create tables in your database. In production, best practice is to create the [required tables](/concepts/database-models) in your database via [migrations](https://sequelize.org/master/manual/migrations.html). In development, you are able to call [`sequelize.sync()`](https://sequelize.org/master/manual/model-basics.html#model-synchronization) to have sequelize create the necessary tables, foreign keys and indexes:
+默认情况下，sequelize 适配器不会在数据库中创建表。在生产环境中，最佳实践是通过[迁移](https://sequelize.org/master/manual/migrations.html)在数据库中创建[所需的表](/concepts/database-models)。在开发环境中，您可以调用 [`sequelize.sync()`](https://sequelize.org/master/manual/model-basics.html#model-synchronization) 让 sequelize 自动创建必要的表、外键和索引：
 
-> This schema is adapted for use in Sequelize and based upon our main
-> [schema](/concepts/database-models)
+> 此模式已适配 Sequelize 使用，并基于我们的主[模式](/concepts/database-models)
 
 ```ts filename="./auth.ts"
 import NextAuth from "next-auth"
@@ -129,11 +127,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-## Advanced usage
+## 高级用法
 
-### Using custom models
+### 使用自定义模型
 
-Sequelize models are option to customization like so:
+Sequelize 模型可按如下方式进行自定义：
 
 ```ts filename="./auth.ts"
 import NextAuth from "next-auth"

@@ -1,14 +1,14 @@
 ---
-title: Configuring your own HTTP Email
+title: 配置自定义 HTTP 邮件服务
 ---
 
 import { Code } from "@/components/Code"
 
-# HTTP Email
+# HTTP 邮件服务
 
-We have a few built-in HTTP Email providers like [Resend](/getting-started/providers/resend), [SendGrid](/getting-started/providers/sendgrid) and [Postmark](/getting-started/providers/postmark), sometimes you may want to use your own HTTP endpoint to send emails.
+我们内置了几个 HTTP 邮件服务提供商，如 [Resend](/getting-started/providers/resend)、[SendGrid](/getting-started/providers/sendgrid) 和 [Postmark](/getting-started/providers/postmark)，但有时您可能需要使用自己的 HTTP 端点来发送邮件。
 
-To do this, we can write our own provider with a custom [`sendVerificationRequest`](/reference/core/providers/email#sendverificationrequest) method. Don't forget, an `email` type provider **requires** a database adapter.
+为此，我们可以通过自定义 [`sendVerificationRequest`](/reference/core/providers/email#sendverificationrequest) 方法来编写自己的提供商。请注意，`email` 类型的提供商**必须**搭配数据库适配器使用。
 
 <Code>
 <Code.Next>
@@ -105,7 +105,7 @@ app.use(
 </Code.Express>
 </Code>
 
-After we've setup the initial configuration, you've got to write `sendVerificationRequest` function. Below is a simple version which just sends a text email with a link to the user.
+完成初始配置后，您需要编写 `sendVerificationRequest` 函数。以下是一个简单版本，仅向用户发送包含链接的纯文本邮件。
 
 ```ts filename="./lib/authSendRequest.ts"
 export async function sendVerificationRequest({ identifier: email, url }) {
@@ -138,7 +138,7 @@ export async function sendVerificationRequest({ identifier: email, url }) {
 }
 ```
 
-A more advanced `sendVerificationRequest` can be seen below, this is a version of the builtin function.
+下方展示了一个更高级的 `sendVerificationRequest` 实现，这是内置函数的一个版本。
 
 ```ts filename="./lib/authSendRequest.ts"
 export async function sendVerificationRequest(params) {
@@ -212,4 +212,4 @@ function html(params: { url: string; host: string; theme: Theme }) {
 }
 ```
 
-To sign in via this custom provider, you would refer to it by the id in when you are calling the sign-in method, for example: `signIn('http-email', { email: 'user@company.com' })`.
+要通过此自定义提供商登录，您需要在调用登录方法时引用其 ID，例如：`signIn('http-email', { email: 'user@company.com' })`。

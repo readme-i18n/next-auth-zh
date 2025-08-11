@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/reddit.svg" height="64" width="64" />
 
-# Reddit Provider
+# Reddit 提供商
 
-## Resources
+## 相关资源
 
-- [Reddit API documentation](https://www.reddit.com/dev/api/)
-- [Reddit app console](https://www.reddit.com/prefs/apps/)
+- [Reddit API 文档](https://www.reddit.com/dev/api/)
+- [Reddit 应用控制台](https://www.reddit.com/prefs/apps/)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/reddit
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_REDDIT_ID
 AUTH_REDDIT_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,11 +98,11 @@ app.use("/auth/*", ExpressAuth({ providers: [Reddit] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Reddit requires authorization every time you go through their page.
-- Allows one callback URL per Client ID / Client Secret.
-- This Provider template only has a one hour access token to it and only has the "identity" scope. If you want to get a refresh token as well you must set these authorization params:
+- Reddit 要求每次访问其页面时都需要授权。
+- 每个客户端 ID/客户端密钥仅允许一个回调 URL。
+- 此提供商模板仅包含一小时的访问令牌，且仅具有 "identity" 作用域。如需获取刷新令牌，必须设置以下授权参数：
 
 ```ts filename="./auth.ts"
 export const { handlers, auth, signin, signout } = NextAuth({

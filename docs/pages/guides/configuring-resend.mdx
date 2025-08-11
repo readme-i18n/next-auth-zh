@@ -1,34 +1,33 @@
 import { Callout, Steps, Tabs } from "nextra/components"
 import { Screenshot } from "@/components/Screenshot"
 
-# Magic links with Resend
+# 使用 Resend 实现魔法链接登录
 
-In this tutorial, we'll be setting up Auth.js in a Next.js application to be able to log in with **Resend**.
+本教程将指导您在 Next.js 应用中配置 Auth.js，实现通过 **Resend** 进行登录。
 
-Magic links (also known as "passwordless") authentication is a login method which uses emails containing a verification token embedded in a URL. When the user clicks on the link, they will be redirected to your Auth.js app and be logged in, as long as that verification token is still valid.
+魔法链接（又称"无密码"）认证是一种通过电子邮件发送包含验证令牌的 URL 来实现的登录方式。用户点击链接后，只要验证令牌仍然有效，就会被重定向到您的 Auth.js 应用并完成登录。
 
 <Callout type="info">
-  This tutorial uses Resend as the Passwordless email provider and Next.js as
-  the framework. Note that for any OAuth provider or any framework, **the
-  process will be the same/very similar**, mainly differing on how you register
-  your application in the chosen provider's dashboard.
+  本教程使用 Resend 作为无密码邮件服务提供商，Next.js 作为框架。请注意，对于任何
+  OAuth
+  提供商或框架，**配置过程都相同/非常相似**，主要区别在于如何在所选提供商的控制台中注册您的应用。
 </Callout>
 
-## Setting up Auth.js
+## 配置 Auth.js
 
-### Installing Auth.js and Next.js
+### 安装 Auth.js 和 Next.js
 
-For this tutorial, we're gonna use the default [Auth.js & Next.js example app](https://github.com/nextauthjs/next-auth-example). If you already have an existing Next.js app, it should work too. If you don't, clone the repository:
+本教程将使用默认的 [Auth.js & Next.js 示例应用](https://github.com/nextauthjs/next-auth-example)。如果您已有现成的 Next.js 应用，同样适用。若没有，请克隆该仓库：
 
 ```bash
 git clone https://github.com/nextauthjs/next-auth-example.git && cd next-auth-example
 ```
 
-If you're using the example app, Auth.js is already installed, otherwise follow the [installation instructions](/getting-started/installation).
+如果使用示例应用，Auth.js 已预装完成，否则请遵循 [安装指南](/getting-started/installation) 进行操作。
 
-### Creating the server config
+### 创建服务器配置
 
-Next, we're gonna create the main Auth.js configuration file which contains the necessary configuration for Auth.js, as well as the dynamic route handler.
+接下来，我们将创建主 Auth.js 配置文件，其中包含 Auth.js 的必要配置以及动态路由处理器。
 
 ```ts filename="./auth.ts"
 import NextAuth from "next-auth"
@@ -43,11 +42,11 @@ export const { handlers, auth } = NextAuth({
 export { GET, POST } from "@/auth"
 ```
 
-Since this is a [catch-all dynamic route](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), it will respond to all the relevant Auth.js API routes so that your application can interact with the chosen OAuth provider using the [OAuth 2](https://oauth.net/2) protocol.
+由于这是一个[全捕获动态路由](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments)，它将响应所有相关的 Auth.js API 路由，使您的应用能够通过 [OAuth 2](https://oauth.net/2) 协议与所选 OAuth 提供商进行交互。
 
-### Adding environment variables
+### 添加环境变量
 
-If you haven't, create an `.env.local` file as explained in the [installation section](/getting-started/installation) and add the following Resend API key variable.
+如未操作，请按照[安装章节](/getting-started/installation)说明创建 `.env.local` 文件，并添加以下 Resend API 密钥变量。
 
 ```bash filename=".env.local" {3}
 AUTH_SECRET="changeMe"
@@ -55,24 +54,24 @@ AUTH_SECRET="changeMe"
 AUTH_RESEND_KEY=
 ```
 
-We will be filling `AUTH_RESEND_KEY` with a proper key from the Resend developer portal once we've registered our account and application.
+待我们注册账户和应用后，将从 Resend 开发者门户获取有效密钥填入 `AUTH_RESEND_KEY`。
 
-## Registering your App
+## 注册应用
 
-To be able to send Emails using Resend you'll need to do two things.
+要使用 Resend 发送邮件，您需要完成两项操作：
 
-1. Create an API Key
-2. Verify your Domain
+1. 创建 API 密钥
+2. 验证域名
 
-### API Key
+### API 密钥
 
-You'll need to sign up for an account at [Resend](https://resend.com), and then go to ["API Keys"](https://resend.com/api-keys) in the main sidebar. There you can click on **"Create API Key"**. We only need "Sending Access".
+您需在 [Resend](https://resend.com) 注册账户，然后进入主侧边栏的["API 密钥"](https://resend.com/api-keys)页面。点击**"创建 API 密钥"**，我们仅需"发送权限"。
 
-### Domain
+### 域名
 
-To verify your domain, follow the [Resend docs](https://resend.com/docs/dashboard/domains/introduction) and come back once you've got everything set up with your domain.
+按照 [Resend 文档](https://resend.com/docs/dashboard/domains/introduction)完成域名验证，待所有配置完成后返回此处。
 
-Next, you will have to update the `from` address to be from the domain you've configured and verified in Resend.
+接下来，您需要将 `from` 地址更新为已在 Resend 中配置并验证的域名。
 
 ```ts
 import NextAuth from "next-auth"
@@ -87,9 +86,9 @@ export const { handlers, auth } = NextAuth({
 })
 ```
 
-## Wiring all together
+## 整体配置
 
-Now that we have the required API key, paste it into your `.env.local` file we created earlier.
+现在我们已经获得了所需的 API 密钥，将其粘贴到之前创建的 `.env.local` 文件中。
 
 ```bash filename=".env.local" {3}
 AUTH_SECRET="changeMe"
@@ -97,34 +96,33 @@ AUTH_SECRET="changeMe"
 AUTH_RESEND_KEY={apiKey}
 ```
 
-With all the pieces in place, you can now start your local dev server and test the login process.
+所有准备工作就绪后，现在可以启动本地开发服务器并测试登录流程。
 
 ```bash npm2yarn
 npm run dev
 ```
 
-Navigate to [`http://localhost:3000`](http://localhost:3000). You should see the following page:
+访问 [`http://localhost:3000`](http://localhost:3000)，您应该会看到以下页面：
 
 import AppStart from "../../public/img/oauth-setup/app-start.webp"
 
 <Screenshot src={AppStart} alt="App Start" />
 
-Click on **"Sign in"**, you should be redirected to the default Auth.js signin page. You can [customize this page](/guides/pages/signin) to fit your needs. Next, enter your email address in the email input field and click **"Sign in with Resend"**.
+点击 **"登录"**，您将被重定向到默认的 Auth.js 登录页面。您可以[自定义此页面](/guides/pages/signin)以满足需求。接下来，在邮箱输入框中输入您的电子邮件地址并点击 **"使用 Resend 登录"**。
 
-Go to your email inbox and you should find the email from your Auth.js application with a button labelled "Sign in". Click on this button and you should be redirected back to your local dev app and be signed in!
+前往您的收件箱，应该会收到来自 Auth.js 应用的邮件，其中包含一个标有"登录"的按钮。点击此按钮后，您将被重定向回本地开发应用并完成登录！
 
 import GitHubAuthSuccess from "../../public/img/oauth-setup/github-auth-success.webp"
 
 <Screenshot src={GitHubAuthSuccess} alt="GitHub Authentication Success" />
 
-If you've landed back here that means everything worked! We have completed the whole passwordless authentication flow so that your users can log in to your application via passwordless magic-links!
+如果您成功返回此处，说明一切正常！我们已经完成了完整的无密码认证流程，让用户可以通过无密码魔法链接登录您的应用！
 
 <Callout>
-  You can customize the contents of this email and modify some additional Resend
-  parameters. For more details, check out our [Resend
-  provider](/getting-started/providers/resend) docs page.
+  您可以自定义此邮件内容并修改一些额外的 Resend 参数。更多详情，请查看我们的
+  [Resend 提供商](/getting-started/providers/resend)文档页面。
 </Callout>
 
-## Deployment
+## 部署
 
-Deploying your Auth.js application with Resend does not require any other changes. Just make sure you've added all the required environment variables to your production environment. Refer to the [Deployment page](/getting-started/deployment) for more information.
+使用 Resend 部署您的 Auth.js 应用程序无需进行其他更改。只需确保您已将所需的所有环境变量添加到生产环境中。更多信息请参阅[部署页面](/getting-started/deployment)。

@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/facebook.svg" height="64" width="64" />
 
-# Facebook Provider
+# Facebook 提供商
 
-## Resources
+## 相关资源
 
-- [Facebook OAuth documentation](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/)
-- [Facebook Developer Apps](https://developers.facebook.com/apps/)
+- [Facebook OAuth 文档](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/)
+- [Facebook 开发者应用](https://developers.facebook.com/apps/)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/facebook
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_FACEBOOK_ID
 AUTH_FACEBOOK_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,8 +98,8 @@ app.use("/auth/*", ExpressAuth({ providers: [Facebook] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Production applications cannot use localhost URLs to sign in with Facebook. You need to use a dedicated development application in Facebook to use localhost callback URLs.
-- Email address may not be returned for accounts created on mobile.
-- `clientId` is your Facebook App ID, `clientSecret` is your Facebook App Secret.
+- 生产环境应用无法使用 localhost 地址通过 Facebook 登录。您需要使用 Facebook 专门的开发应用来使用 localhost 回调地址。
+- 通过移动设备创建的账户可能不会返回电子邮件地址。
+- `clientId` 是您的 Facebook 应用 ID，`clientSecret` 是您的 Facebook 应用密钥。

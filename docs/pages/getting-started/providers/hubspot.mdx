@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/hubspot.svg" height="64" width="64" />
 
-# Hubspot Provider
+# Hubspot 提供商
 
-## Resources
+## 相关资源
 
-- [HubSpot OAuth documentation](https://developers.hubspot.com/docs/api/oauth-quickstart-guide)
+- [HubSpot OAuth 文档](https://developers.hubspot.com/docs/api/oauth-quickstart-guide)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/hubspot
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_HUBSPOT_ID
 AUTH_HUBSPOT_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -97,7 +97,7 @@ app.use("/auth/*", ExpressAuth({ providers: [Hubspot] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- HubSpot returns a limited amount of information on the token holder (see [docs](https://legacydocs.hubspot.com/docs/methods/oauth2/get-access-token-information)).
-- One other issue is that the name and profile photo cannot be fetched through API as discussed [here](https://community.hubspot.com/t5/APIs-Integrations/Profile-photo-is-not-retrieved-with-User-API/m-p/325521).
+- HubSpot 返回的令牌持有者信息有限（参见[文档](https://legacydocs.hubspot.com/docs/methods/oauth2/get-access-token-information)）。
+- 另一个问题是无法通过 API 获取姓名和个人资料照片，如[此讨论](https://community.hubspot.com/t5/APIs-Integrations/Profile-photo-is-not-retrieved-with-User-API/m-p/325521)所述。

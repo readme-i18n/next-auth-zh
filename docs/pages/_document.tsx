@@ -4,7 +4,7 @@ import { SkipNavLink } from "nextra-theme-docs"
 class AuthDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="zh">
         <Head />
         <body>
           <SkipNavLink styled />

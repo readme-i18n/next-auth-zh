@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/battlenet.svg" height="64" width="64" />
 
-# Battle.net Provider
+# Battle.net 提供商
 
-## Resources
+## 相关资源
 
-- [BattleNet OAuth documentation](https://develop.battle.net/documentation/guides/using-oauth)
+- [BattleNet OAuth 文档](https://develop.battle.net/documentation/guides/using-oauth)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,7 +37,7 @@ https://example.com/auth/callback/battlenet
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_BATTLENET_ID
@@ -45,7 +45,7 @@ AUTH_BATTLENET_SECRET
 AUTH_BATTLENET_ISSUER
 ```
 
-issuer must be one of these values, based on the available regions:
+issuer 必须基于可用区域选择以下值之一：
 
 ```
 type BattleNetIssuer =
@@ -56,7 +56,7 @@ type BattleNetIssuer =
 | "https://tw.battle.net/oauth"
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>

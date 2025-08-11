@@ -5,14 +5,14 @@ import { Code } from "@/components/Code"
 
 # Fusion Auth
 
-## Resources
+## 相关资源
 
-- [FusionAuth OAuth documentation](https://fusionauth.io/docs/v1/tech/oauth/)
-- [FusionAuth 5-minute setup guide](https://fusionauth.io/docs/v1/tech/5-minute-setup-guide).
+- [FusionAuth OAuth 文档](https://fusionauth.io/docs/v1/tech/oauth/)
+- [FusionAuth 5分钟快速设置指南](https://fusionauth.io/docs/v1/tech/5-minute-setup-guide).
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,7 +38,7 @@ https://example.com/auth/callback/fusionauth
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_FUSIONAUTH_ID
@@ -47,7 +47,7 @@ AUTH_FUSIONAUTH_TENANT_ID
 AUTH_FUSIONAUTH_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -140,19 +140,18 @@ app.use(
 </Code>
 
 <Callout type="warning">
-  If you're using multi-tenancy, you need to pass in the tenantId option to
-  apply the proper theme.
+  如果使用多租户功能，必须传入 tenantId 参数以应用正确的主题样式。
 </Callout>
 
-### Notes
+### 注意事项
 
-- An application can be created at `https://your-fusionauth-server-url/admin/application`
+- 可通过 `https://your-fusionauth-server-url/admin/application` 创建应用
 
-In the OAuth settings for your application, configure the following.
+在应用的 OAuth 设置中配置以下内容：
 
-- Redirect URL
+- 回调地址
   - https://localhost:3000/api/auth/callback/fusionauth
-- Enabled grants
-  - Make sure _Authorization Code_ is enabled.
+- 启用授权类型
+  - 确保已启用 _授权码模式_
 
-If using JSON Web Tokens, you need to make sure the signing algorithm is RS256, you can create an RS256 key pair by going to Settings, Key Master, generate RSA and choosing SHA-256 as algorithm. After that, go to the JWT settings of your application and select this key as Access Token signing key and Id Token signing key.
+若使用 JSON Web Tokens，需确保签名算法为 RS256。可通过以下步骤创建密钥对：进入 Settings → Key Master → 生成 RSA 密钥并选择 SHA-256 算法。完成后进入应用的 JWT 设置，将此密钥选为访问令牌签名密钥和 ID 令牌签名密钥。

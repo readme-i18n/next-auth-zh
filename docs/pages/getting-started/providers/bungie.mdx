@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/bungie.svg" height="64" width="128" />
 
-# Bungie Provider
+# Bungie 提供商
 
-## Resources
+## 相关资源
 
-- [Bungie OAuth documentation](https://github.com/Bungie-net/api/wiki/OAuth-Documentation)
+- [Bungie OAuth 文档](https://github.com/Bungie-net/api/wiki/OAuth-Documentation)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,7 +37,7 @@ https://example.com/auth/callback/bungie
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_BUNGIE_ID
@@ -45,20 +45,20 @@ AUTH_BUNGIE_SECRET
 AUTH_BUNGIE_API_KEY
 ```
 
-### Configuration
+### 配置
 
-Navigate to https://www.bungie.net/en/Application and fill in the required details:
+访问 https://www.bungie.net/en/Application 并填写必要信息：
 
-- Application name
-- Application Status
-- Website
-- OAuth Client Type
-  - Confidential
-- Redirect URL
+- 应用名称
+- 应用状态
+- 网站
+- OAuth 客户端类型
+  - 保密型
+- 回调 URL
   - https://localhost:3000/api/auth/callback/bungie
-- Scope
-  - `Access items like your Bungie.net notifications, memberships, and recent Bungie.Net forum activity.`
-- Origin Header
+- 权限范围
+  - `访问您的 Bungie.net 通知、会员资格及近期 Bungie.Net 论坛活动等项目`
+- 来源标头
 
 <Code>
   <Code.Next>
@@ -140,7 +140,7 @@ app.use(
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Bungie requires all clients to be using **https**.
-- Bungie does not allow the hostname `localhost`, so for local development, you must use `127.0.0.1` for example
+- Bungie 要求所有客户端必须使用 **https**
+- Bungie 不允许使用主机名 `localhost`，因此在本地开发时必须改用 `127.0.0.1`

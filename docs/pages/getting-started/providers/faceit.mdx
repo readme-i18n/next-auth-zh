@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/faceit.svg" height="64" width="64" />
 
-# Faceit Provider
+# Faceit 提供商
 
-## Resources
+## 相关资源
 
-- [FACEIT OAuth documentation](https://cdn.faceit.com/third_party/docs/FACEIT_Connect_3.0.pdf)
+- [FACEIT OAuth 文档](https://cdn.faceit.com/third_party/docs/FACEIT_Connect_3.0.pdf)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/faceit
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_FACEIT_ID
 AUTH_FACEIT_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -97,7 +97,7 @@ app.use("/auth/*", ExpressAuth({ providers: [FaceIt] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Grant type: `Authorization Code`
-- Scopes required to get basic infos like email, nickname, guid and avatar: `openid, email, profile`
+- 授权类型: `Authorization Code`
+- 获取基础信息(如邮箱、昵称、GUID 和头像)所需的作用域: `openid, email, profile`

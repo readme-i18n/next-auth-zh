@@ -2,21 +2,21 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/unstorage.svg" width="64" height="64" />
 
-# Unstorage Adapter
+# Unstorage 适配器
 
-## Resources
+## 相关资源
 
-- [Unstorage documentation](https://unstorage.unjs.io/)
+- [Unstorage 文档](https://unstorage.unjs.io/)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install unstorage @auth/unstorage-adapter
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -93,15 +93,15 @@ app.use(
 </Code.Express>
 </Code>
 
-### Advanced usage
+### 高级用法
 
-#### Using multiple apps with a single storage
+#### 多个应用共享同一存储
 
-If you have multiple Auth.js connected apps using the same storage, you need different key prefixes for every app.
+如果多个 Auth.js 关联应用使用相同的存储，需要为每个应用设置不同的键前缀。
 
-You can change the prefixes by passing an `options` object as the second argument to the adapter factory function.
+可以通过向适配器工厂函数传递第二个参数 `options` 对象来修改前缀。
 
-The default values for this object are:
+该对象的默认值为：
 
 ```ts
 const defaultOptions = {
@@ -116,7 +116,7 @@ const defaultOptions = {
 }
 ```
 
-Usually changing the `baseKeyPrefix` should be enough for this scenario, but for more custom setups, you can also change the prefixes of every single key.
+通常在此场景下修改 `baseKeyPrefix` 就足够了，但对于更自定义的配置，也可以单独修改每个键的前缀。
 
 ```ts
 import NextAuth from "next-auth"
@@ -130,13 +130,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-#### Using `getItemRaw`/`setItemRaw` instead of `getItem`/`setItem`
+#### 使用 `getItemRaw`/`setItemRaw` 替代 `getItem`/`setItem`
 
-If you are using storage that supports JSON, you can make it use `getItemRaw/setItemRaw` instead of `getItem/setItem`.
+如果使用的存储支持 JSON，可以使其使用 `getItemRaw/setItemRaw` 而非 `getItem/setItem`。
 
-This is an experimental feature. Please check [unjs/unstorage#142](https://github.com/unjs/unstorage/issues/142) for more information.
+此为实验性功能。更多信息请参阅 [unjs/unstorage#142](https://github.com/unjs/unstorage/issues/142)。
 
-You can enable this functionality by passing `useItemRaw: true` (default: false) in the `options` object as the second argument to the adapter factory function.
+通过在适配器工厂函数的第二个参数 `options` 对象中传递 `useItemRaw: true`（默认为 false）可启用此功能。
 
 ```ts
 export const { handlers, auth, signIn, signOut } = NextAuth({

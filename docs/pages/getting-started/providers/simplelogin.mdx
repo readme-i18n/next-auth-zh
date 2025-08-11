@@ -8,17 +8,17 @@ import { Code } from "@/components/Code"
   width="64"
 />
 
-# SimpleLogin Provider
+# SimpleLogin 提供商
 
-## Resources
+## 相关资源
 
-- [Sign in with SimpleLogin](https://simplelogin.io/developer/)
-- [SimpleLogin OAuth documentation](https://simplelogin.io/docs/siwsl/intro/)
-- [SimpleLogin OAuth Configuration](https://app.simplelogin.io/developer)
+- [通过 SimpleLogin 登录](https://simplelogin.io/developer/)
+- [SimpleLogin OAuth 文档](https://simplelogin.io/docs/siwsl/intro/)
+- [SimpleLogin OAuth 配置](https://app.simplelogin.io/developer)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -44,14 +44,14 @@ https://example.com/auth/callback/simplelogin
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_SIMPLELOGIN_ID
 AUTH_SIMPLELOGIN_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -104,13 +104,13 @@ app.use("/auth/*", ExpressAuth({ providers: [SimpleLogin] }))
   </Code.Express>
 </Code>
 
-## Notes
+## 注意事项
 
-### Authorized Redirect URIs
+### 授权回调 URI
 
-The "Authorized redirect URIs" used must include your full domain and end in the callback path. By default, SimpleLogin whitelists all `http[s]://localhost:*` address to facilitate local development. For example;
+使用的"授权回调 URI"必须包含完整域名并以回调路径结尾。默认情况下，SimpleLogin 已将所有的 `http[s]://localhost:*` 地址加入白名单以方便本地开发。例如：
 
-- For production: `https://{YOUR_DOMAIN}/api/auth/callback/simplelogin`
-- For development: By default **localhost** is whitelisted.
+- 生产环境：`https://{YOUR_DOMAIN}/api/auth/callback/simplelogin`
+- 开发环境：默认情况下 **localhost** 已被加入白名单。
 
-**Authorized Redirect URIs** must be **HTTPS** for security reason (except for `localhost`).
+出于安全考虑，**授权回调 URI** 必须使用 **HTTPS**（`localhost` 除外）。

@@ -1,18 +1,18 @@
 import { Code } from "@/components/Code"
 import { Screenshot } from "@/components/Screenshot"
 
-# Built-in Pages
+# 内置页面
 
-Auth.js comes by default with a set of pages that are presented to the user as they go through their authentication journey (sign up, sign in, sign out, error, etc...). This is helpful so that you don't need to write those from scratch when using the library first time. The UI created is based on the providers specified in your configuration file.
+Auth.js 默认提供了一组页面，这些页面会在用户进行身份验证流程（注册、登录、登出、错误处理等）时展示。这一特性非常实用，让你初次使用该库时无需从零开始编写这些页面。生成的用户界面基于你在配置文件中指定的身份提供者。
 
-If you do not pass a `providerId`, the `signIn` function will redirect the user to the signin page.
+如果没有传递 `providerId` 参数，`signIn` 函数会将用户重定向至登录页面。
 
 import SignInPage from "../../../public/img/tutorials/sign-in-page.webp"
 
 <Screenshot src={SignInPage} alt="Sign-in Page" />
 
-In this case the app has been configured with [GitHub](/getting-started/providers/github) and [Credentials](/getting-started/providers/credentials) providers.
+本例中应用已配置了 [GitHub](/getting-started/providers/github) 和 [Credentials](/getting-started/providers/credentials) 提供者。
 
-If we added the [Google](/getting-started/providers/google) provider to our Auth.js config file (`./auth.ts`), then a 3rd option to sign in with Google would be available.
+如果我们在 Auth.js 配置文件（`./auth.ts`）中添加 [Google](/getting-started/providers/google) 提供者，那么登录页面将会出现第三个使用 Google 登录的选项。
 
-If you'd like to build your own sign in page, checkout our guide on custom sign-in pages.
+如需构建自定义登录页面，请参阅我们关于自定义登录页面的指南。

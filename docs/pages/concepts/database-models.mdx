@@ -1,14 +1,13 @@
 import { Callout } from "nextra/components"
 
-# Database models
+# 数据库模型
 
-Auth.js can be used with any database. Models tell you what structures Auth.js expects from your database. Models will vary slightly depending on which adapter you use, but in general, will have a similar structure to the graph below. Each model can be extended with additional fields.
+Auth.js 可与任何数据库配合使用。模型定义了 Auth.js 对数据库结构的预期要求。根据使用的适配器不同，模型会略有差异，但总体结构与下方图示相似。每个模型均可通过额外字段进行扩展。
 
 <Callout type="info">
-  Auth.js uses `camelCase` for its database rows while respecting the
-  conventional `snake_case` formatting for OAuth-related values. If the mixed
-  casing is an issue for you, most adapters have a dedicated documentation
-  section on how to force a casing convention.
+  Auth.js 对其数据库行使用 `camelCase` 命名法，同时遵循 OAuth 相关值的传统
+  `snake_case`
+  格式。若混合命名方式对您造成困扰，多数适配器文档都专门介绍了如何强制统一命名规范。
 </Callout>
 
 ```mermaid
@@ -52,72 +51,56 @@ erDiagram
 
 ---
 
-### User
+### 用户模型
 
-The User model is for information such as the user's name and email address. Email address is optional, but if one is specified for a `User`, then it must be unique.
-
-<Callout>
-  User creation in the database is automatic and happens when the user is logged
-  in for the first time with an authentication provider (either OAuth, magic
-  links or plain credentials).
-</Callout>
-
-**OAuth sign in**
-
-If the first sign-in is via the [OAuth Provider](/getting-started/authentication/oauth), the default data
-saved is `id`, `name`, `email` and `image`. You can add more profile data by returning extra
-fields in your [OAuth provider](/guides/configuring-oauth-providers#use-your-own-provider)'s [`profile()`](/reference/core/providers#profile) callback.
-
-**Magic links sign in**
-
-If the first sign-in is via the [Email Provider](/getting-started/authentication/email), then the saved user will have `id`, `email`, `emailVerified`, where `emailVerified` is the timestamp of when the user was created.
-
-### Account
-
-The Account model is for information about accounts associated with a `User`. A single `User` can have multiple `Account`(s), but each `Account` can only have one `User`.
+用户模型存储姓名、电子邮箱等信息。邮箱地址为可选字段，但若为某 `User` 指定了邮箱，则该邮箱必须保持唯一性。
 
 <Callout>
-  Account creation in the database is automatic and happens when the user is
-  logged in for the first time with an authentication provider (either OAuth,
-  magic links or plain credentials) or the
-  [`Adapter.linkAccount`](/reference/core/adapters#linkaccount) method is
-  invoked.
+  数据库中的用户创建是自动完成的，在用户首次通过认证提供方（OAuth、魔法链接或普通凭证）登录时触发。
 </Callout>
 
-The default data saved is `access_token`, `expires_at`, `refresh_token`, `id_token`, `token_type`,
-`scope` and `session_state`. You can save other fields or remove the ones you don't need by
-returning them in the [OAuth provider](/guides/configuring-oauth-providers#use-your-own-provider)'s [`account()`](/reference/core/providers#account) callback.
+**OAuth 登录**
 
-Linking `Accounts`(s) to `User`(s) happen automatically, only when they have the same e-mail address, and the user is currently signed in. Check the [FAQ](/concepts#security) for more information on why this is a requirement.
+若首次登录通过 [OAuth 提供方](/getting-started/authentication/oauth) 完成，默认保存的数据包括 `id`、`name`、`email` 和 `image`。您可通过在 [OAuth 提供方](/guides/configuring-oauth-providers#use-your-own-provider) 的 [`profile()`](/reference/core/providers#profile) 回调中返回额外字段来补充更多资料数据。
 
-You can manually unlink accounts if your adapter implements the
-`unlinkAccount` method. Make sure to take all the necessary security steps to
-avoid data loss.
+**魔法链接登录**
 
-### Session
+如果首次登录是通过[Email Provider](/getting-started/authentication/email)，那么保存的用户将包含`id`、`email`、`emailVerified`字段，其中`emailVerified`是用户创建时的时间戳。
 
-Even if you are using a database, you can still use **JWT** for session handling for fast access, in which case, this model can be opted out in your database.
+### 账户
 
-- [Learn more about session strategies](/concepts/session-strategies) and their trade-offs.
-
-The Session model is used for database sessions and it can store arbitrary data for an active user session. A single `User` can have multiple `Session`(s), each `Session` can only have one `User`.
-
-When a Session is read, its `expires` field is checked to see if the session is still valid. If it has expired, the session is deleted from the database. You can also do this clean-up periodically in the background to avoid Auth.js
-extra delete call to the database during an active session retrieval. This
-might result in a slight performance increase.
-
-### VerificationToken
-
-The `VerificationToken` model is used to store tokens for email-based **magic-link** sign in.
-
-A single `User` can have multiple open `VerificationToken`s active (e.g. sign in with different devices).
+Account模型用于存储与`User`关联的账户信息。单个`User`可以拥有多个`Account`，但每个`Account`只能属于一个`User`。
 
 <Callout>
-  Due to users forgetting or failures during the sign-in flow, you might end up
-  with unwanted rows in your database. You might want to periodically clean
-  these up to avoid filling up your database with unnecessary data.
+  数据库中的账户创建是自动进行的，当用户首次通过认证提供者（OAuth、魔法链接或普通凭证）登录时，或调用[`Adapter.linkAccount`](/reference/core/adapters#linkaccount)方法时会自动创建。
 </Callout>
 
-It has been designed so that it can be extended for other verification purposes in the future (e.g. 2FA / magic codes, etc... ).
+默认保存的数据包括`access_token`、`expires_at`、`refresh_token`、`id_token`、`token_type`、`scope`和`session_state`。您可以通过[OAuth提供者](/guides/configuring-oauth-providers#use-your-own-provider)的[`account()`](/reference/core/providers#account)回调返回其他字段或移除不需要的字段。
 
-Auth.js makes sure that every token is usable only once, and by default has a short lifetime (1 day, can be configured by `maxAge`). If your user did not manage to finish the sign-in flow in time, they will have to start the sign-in process again.
+只有当`Accounts`与`User`具有相同的电子邮件地址且用户当前已登录时，系统才会自动将它们关联起来。有关为何需要此要求的更多信息，请参阅[FAQ](/concepts#security)。
+
+如果您的适配器实现了`unlinkAccount`方法，可以手动解除账户关联。请确保采取所有必要的安全措施以避免数据丢失。
+
+### 会话
+
+即使您正在使用数据库，仍可选择使用 **JWT** 进行会话处理以实现快速访问，此时可以在数据库中跳过此模型。
+
+- [详细了解会话策略](/concepts/session-strategies)及其权衡取舍。
+
+Session 模型用于数据库会话，可为活跃用户会话存储任意数据。单个 `User` 可拥有多个 `Session`，而每个 `Session` 仅能关联一个 `User`。
+
+读取 Session 时，系统会检查其 `expires` 字段以验证会话是否有效。若已过期，则会从数据库中删除该会话。您也可通过后台定期清理来避免 Auth.js 在活跃会话检索期间额外调用数据库删除操作，这可能会带来轻微的性能提升。
+
+### 验证令牌
+
+`VerificationToken` 模型用于存储基于电子邮件的 **magic-link** 登录令牌。
+
+单个 `User` 可同时存在多个有效的 `VerificationToken`（例如通过不同设备登录时）。
+
+<Callout>
+  由于用户遗忘或登录流程中断，数据库中可能会残留无效数据行。建议定期清理这些数据，避免数据库被无用信息填满。
+</Callout>
+
+该模型设计支持未来扩展其他验证用途（例如双重认证/动态验证码等）。
+
+Auth.js 确保每个令牌只能使用一次，且默认具有较短的有效期（1天，可通过 `maxAge` 配置）。如果用户未能在有效期内完成登录流程，则必须重新开始登录流程。

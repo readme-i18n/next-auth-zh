@@ -3,17 +3,17 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/slack.svg" height="64" width="64" />
 
-# Slack Provider
+# Slack 提供商
 
-## Resources
+## 相关资源
 
-- [Slack Authentication documentation](https://api.slack.com/authentication)
-- [Sign-in with Slack](https://api.slack.com/docs/sign-in-with-slack)
-- [Slack app console](https://api.slack.com/apps)
+- [Slack 认证文档](https://api.slack.com/authentication)
+- [使用 Slack 登录](https://api.slack.com/docs/sign-in-with-slack)
+- [Slack 应用控制台](https://api.slack.com/apps)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -39,14 +39,14 @@ https://example.com/auth/callback/slack
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_SLACK_ID
 AUTH_SLACK_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -99,6 +99,6 @@ app.use("/auth/*", ExpressAuth({ providers: [Slack] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Slack requires that the redirect URL of your app uses https, even for local development. An easy workaround for this is using a service like [ngrok](https://ngrok.com/) that creates a secure tunnel to your app, using https. Remember to set the url as `AUTH_URL` as well.
+- Slack 要求应用的 redirect URL 必须使用 https，即使在本地开发环境中也是如此。一个简单的解决方案是使用 [ngrok](https://ngrok.com/) 等服务，它会为你的应用创建安全的 https 隧道。请记得将该 URL 同时设置为 `AUTH_URL`。

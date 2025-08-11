@@ -1,9 +1,9 @@
 import { Callout } from "nextra/components"
 import { Code } from "@/components/Code"
 
-# Get Session
+# 获取会话
 
-Once a user is logged in, you often want to get the session object in order to use the data in some way. A common use-case is to show their profile picture or display some other user information.
+用户登录后，通常需要获取会话对象以便以某种方式使用其中的数据。一个常见用例是显示用户的个人资料图片或其他用户信息。
 
 <Code>
 <Code.Next>
@@ -204,9 +204,8 @@ app.get("/", (req, res) => {
 </Code.Express>
 </Code>
 
-If you'd like to extend your session with more fields from your OAuth provider, for example, please check out our ["extending the session" guide](/guides/extending-the-session).
+如果您希望从OAuth提供商扩展会话字段，请参阅我们的["扩展会话"指南](/guides/extending-the-session)。
 
 <Callout>
-  By default, GET requests to the session endpoint will automatically return the
-  headers to prevent caching.
+  默认情况下，向会话端点发送的GET请求会自动返回防止缓存的头部信息。
 </Callout>

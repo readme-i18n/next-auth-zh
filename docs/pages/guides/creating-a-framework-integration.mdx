@@ -1,39 +1,39 @@
-# Creating a Framework Integration
+# 创建框架集成
 
-The core functionalities of Auth.js - `@auth/core` - are built on top of the Web Standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)/[Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) mental model, and therefore are framework-agnostic. For each framework, we provide an integration layer that allows you to use the authentication features in a way that is specific to the framework. See the [list of integrations](/getting-started/integrations) that are currently available.
+Auth.js 的核心功能 - `@auth/core` - 基于 Web 标准 [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request)/[Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) 模型构建，因此与框架无关。我们为每个框架提供集成层，使您能够以特定于框架的方式使用身份验证功能。查看当前可用的[集成列表](/getting-started/integrations)。
 
-We welcome contributions of new official integrations. If you are interested in creating & maintaining a new integration, please read the following guidelines.
+我们欢迎贡献新的官方集成。如果您有兴趣创建和维护新的集成，请阅读以下指南。
 
-## Official framework guidelines
+## 官方框架指南
 
-If you want to create a new official framework integration and distribute it under `@auth/` namespace, please make sure to follow the next steps and fulfill our maintenance requirements below:
+如果您想创建一个新的官方框架集成并在 `@auth/` 命名空间下分发，请确保遵循以下步骤并满足我们的维护要求：
 
-### Setting up a new integration
+### 设置新集成
 
-We provide a script that generates all the required files for a new integration. To run the script, run the following command:
+我们提供了一个脚本，用于生成新集成所需的所有文件。要运行该脚本，请执行以下命令：
 
 ```bash npm2yarn
 npm setup-fw-integration <framework-name>
 ```
 
-This will copy all the files from our official template at `./packages/frameworks-template` to a new directory under `packages/` with all the required files, and rename the placeholders to the name of the framework you provided.
+这将从我们的官方模板 `./packages/frameworks-template` 复制所有文件到 `packages/` 下的新目录，并将占位符重命名为您提供的框架名称。
 
-- Coding styles. The source code files should:
+- 代码风格。源代码文件应满足以下要求：
 
-  - Be written in TypeScript
-  - Pass the linting rules of the monorepo
-  - Have a named export exported from its main module. For example: `export function ExpressAuth()`
+  - 使用 TypeScript 编写
+  - 通过 monorepo 的代码检查规则
+  - 从主模块导出命名导出项。例如：`export function ExpressAuth()`
 
-- API reference documentation - We use [TypeDoc](https://typedoc.org/) for automated documentation generation. The documentation should:
+- API 参考文档 - 我们使用 [TypeDoc](https://typedoc.org/) 自动生成文档。文档应包含：
 
-  - Be written in JSDoc comments.
-  - Explain how to use and configure the integration: How to do Session management, how to login/logout, how to configure the base URL.
-  - Include a link to the official framework documentation in the reference section.
+  - 使用 JSDoc 注释编写
+  - 说明如何使用和配置集成：如何进行会话管理、登录/登出操作、如何配置基础 URL
+  - 在参考章节中包含指向官方框架文档的链接
 
-- Deployed Example. This task can be in a follow-up PR. The deployed example should:
+- 部署示例。此项任务可在后续 PR 中完成。部署示例应满足：
 
-  - All the actions (URL) should work as expected.
-  - Have at least one OAuth provider configured.
-  - The example code should live under `apps/examples/<framework-name>`. For example: `apps/examples/express`.
+  - 所有操作（URL）都能按预期工作
+  - 至少配置一个 OAuth 提供商
+  - 示例代码应存放在 `apps/examples/<framework-name>` 目录下。例如：`apps/examples/express`
 
-The above are required for us to distribute the package as an official package. Once the checklist is completed, you can mark the PR as "Ready for review" and the maintainers will review it.
+以上条件是我们将该包作为官方包分发的必要条件。完成检查清单后，您可以将 PR 标记为"准备审核"，维护人员将进行审查。

@@ -1,16 +1,16 @@
 import { Code } from "@/components/Code"
 
-# Supporting corporate proxies
+# 支持企业代理
 
-Auth.js libraries use the `fetch` API to communicate with OAuth providers. If your organization uses a corporate proxy, you may need to configure the `fetch` API to use the proxy.
+Auth.js 库使用 `fetch` API 与 OAuth 提供商通信。如果您的组织使用企业代理，可能需要配置 `fetch` API 以使用代理。
 
-## Using a custom fetch function
+## 使用自定义 fetch 函数
 
-You can provide a custom `fetch` function by passing it as an option to the provider.
+您可以通过将自定义 `fetch` 函数作为选项传递给提供程序来使用它。
 
-# Using Undici Library
+# 使用 Undici 库
 
-Here, we use the `undici` library to make requests through a proxy server, by passing a `dispatcher` to the `fetch` implementation by `undici`.
+这里我们使用 `undici` 库通过代理服务器发出请求，通过向 `undici` 的 `fetch` 实现传递一个 `dispatcher`。
 
 <Code>
   <Code.Next>
@@ -34,9 +34,9 @@ export const { handlers, auth } = NextAuth({
   </Code.Next>
 </Code>
 
-# Using HttpsProxyAgent
+# 使用 HttpsProxyAgent
 
-On Edge Runtimes or with proxy restrictions, the `undici` library may not work. Using a simpler approach with HttpsProxyAgent by passing a `proxyAgent` to the `fetch` implementation.
+在 Edge 运行时或存在代理限制的环境中，`undici` 库可能无法工作。可以使用更简单的方法，通过向 `fetch` 实现传递 `proxyAgent` 来使用 HttpsProxyAgent。
 
 <Code>
   <Code.Next>
@@ -63,6 +63,6 @@ export const { handlers, auth } = NextAuth({
   </Code.Next>
 </Code>
 
-## Resources
+## 相关资源
 
-- [`undici` - Basic Proxy Request with local agent dispatcher](https://undici.nodejs.org/#/docs/api/ProxyAgent?id=example-basic-proxy-request-with-local-agent-dispatcher)
+- [`undici` - 使用本地代理调度器的基础代理请求](https://undici.nodejs.org/#/docs/api/ProxyAgent?id=example-basic-proxy-request-with-local-agent-dispatcher)

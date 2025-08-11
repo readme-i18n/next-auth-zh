@@ -3,23 +3,21 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/azure.svg" height="64" width="64" />
 
-# Azure AD Provider
+# Azure AD 提供商
 
 <Callout type="warning">
-  Deprecated - Microsoft has rebranded this product [Microsoft Entra
-  ID](/getting-started/providers/microsoft-entra-id) and all support work will
-  be going into that IdP. We recommend you migrate to using that provider as
-  well.
+  已弃用 - 微软已将该产品更名为 [Microsoft Entra
+  ID](/getting-started/providers/microsoft-entra-id)，所有支持工作都将转移到该身份提供商。我们建议您也迁移至使用该提供商。
 </Callout>
 
-## Resources
+## 相关资源
 
-- [AzureAD OAuth documentation](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow/)
-- [AzureAD OAuth apps](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app/)
+- [AzureAD OAuth 文档](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow/)
+- [AzureAD OAuth 应用](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app/)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -45,7 +43,7 @@ https://example.com/auth/callback/azure-ad
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_AZURE_AD_ID
@@ -53,7 +51,7 @@ AUTH_AZURE_AD_SECRET
 AUTH_AZURE_AD_TENANT_ID
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -106,22 +104,22 @@ app.use("/auth/*", ExpressAuth({ providers: [AzureAd] }))
   </Code.Express>
 </Code>
 
-#### To allow specific Active Directory users access:
+#### 允许特定 Active Directory 用户访问：
 
-- In https://portal.azure.com/ search for "Azure Active Directory", and select your organization.
-- Next, go to "App Registration" in the left menu, and create a new one.
-- Pay close attention to "Who can use this application or access this API?"
-  - This allows you to scope access to specific types of user accounts
-  - Only your tenant, all azure tenants, or all azure tenants and personal Microsoft accounts (Skype, Xbox, Outlook.com, etc.)
-- When asked for a redirection URL, use `https://yourapplication.com/api/auth/callback/azure-ad` or for development `http://localhost:3000/api/auth/callback/azure-ad`.
-- After your App Registration is created, under "Client Credential" create your Client secret.
-- Click on "API Permissions" and click "Grant admin consent for..." to allow User.Read access to your tenant.
-- Now copy your:
-  - Application (client) ID
-  - Directory (tenant) ID
-  - Client secret (value)
+- 在 https://portal.azure.com/ 中搜索 "Azure Active Directory"，然后选择您的组织。
+- 接着，在左侧菜单中选择 "App Registration"，并创建一个新的应用注册。
+- 特别注意 "谁可以使用此应用程序或访问此 API？"
+  - 这允许您限定特定类型用户账户的访问范围
+  - 仅限您的租户、所有 Azure 租户，或所有 Azure 租户及个人 Microsoft 账户（Skype、Xbox、Outlook.com 等）
+- 当要求提供重定向 URL 时，使用 `https://yourapplication.com/api/auth/callback/azure-ad` 或开发环境使用 `http://localhost:3000/api/auth/callback/azure-ad`。
+- 应用注册创建完成后，在 "Client Credential" 下创建您的客户端密钥。
+- 点击 "API Permissions" 并选择 "Grant admin consent for..." 以允许对您的租户进行 User.Read 访问。
+- 现在复制您的：
+  - 应用程序(客户端) ID
+  - 目录(租户) ID
+  - 客户端密钥(值)
 
-In `.env.local` create the following entries:
+在 `.env.local` 中创建以下条目：
 
 ```
 AUTH_AZURE_AD_CLIENT_ID=<copy Application (client) ID here>
@@ -129,25 +127,23 @@ AUTH_AZURE_AD_CLIENT_SECRET=<copy generated client secret value here>
 AUTH_AZURE_AD_TENANT_ID=<copy the tenant id here>
 ```
 
-That will default the tenant to use the `common` authorization endpoint. [For more details see here](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols#endpoints).
+这将默认使用 `common` 授权端点作为租户。[更多详情请参见此处](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols#endpoints)。
 
-If you want your application to receive authorization requests from not only the tenants but also all Microsoft users just add "common" in AUTH_AZURE_AD_TENANT_ID, this will "skip" tenants authorization.
+如果您希望应用程序不仅能接收来自租户的授权请求，还能接收所有 Microsoft 用户的请求，只需在 AUTH_AZURE_AD_TENANT_ID 中添加 "common"，这将"跳过"租户授权。
 
 ```
 AUTH_AZURE_AD_TENANT_ID=common
 ```
 
 <Callout type="info">
-  Azure AD returns the profile picture in an ArrayBuffer, instead of just a URL
-  to the image, so our provider converts it to a base64 encoded image string and
-  returns that instead. See:
-  https://docs.microsoft.com/en-us/graph/api/profilephoto-get?view=graph-rest-1.0#examples.
-  The default image size is 48x48 to avoid [running out of
-  space](https://next-auth.js.org/faq#:~:text=What%20are%20the%20disadvantages%20of%20JSON%20Web%20Tokens%3F)
-  in case the session is saved as a JWT.
+  Azure AD 返回的是 ArrayBuffer 格式的个人资料图片，而非简单的图片
+  URL，因此我们的提供程序会将其转换为 base64 编码的图片字符串并返回。详见：
+  https://docs.microsoft.com/en-us/graph/api/profilephoto-get?view=graph-rest-1.0#examples。
+  默认图片尺寸为 48x48，以避免当会话以 JWT
+  形式保存时[超出存储空间](https://next-auth.js.org/faq#:~:text=What%20are%20the%20disadvantages%20of%20JSON%20Web%20Tokens%3F)。
 </Callout>
 
-In `pages/api/auth/[...nextauth].js` find or add the `AzureAD` entries:
+在 `pages/api/auth/[...nextauth].js` 文件中查找或添加 `AzureAD` 配置项：
 
 ```js
 import AzureADProvider from "next-auth/providers/azure-ad"

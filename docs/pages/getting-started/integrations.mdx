@@ -1,56 +1,50 @@
 import { Callout } from "nextra/components"
 
-# Integrations
+# 集成方案
 
-Here are the state of planned and released integrations under the `@auth/*` and `@next-auth/*` scope, as well as `next-auth`. It also includes community created and maintained integrations. Integrations listed as "Planned" are something we'd love help with! See the [help needed](#help-needed) section below.
+以下是 `@auth/*` 和 `@next-auth/*` 范畴下以及 `next-auth` 相关的计划中和已发布的集成状态，同时也包含社区创建和维护的集成方案。标记为"计划中"的集成项目我们非常期待您的协助！详见下方[需要帮助](#help-needed)章节。
 
 <Callout>
-  Is your framework not supported? You can easily contribute by creating a
-  framework integration by [following this
-  guide](/guides/creating-a-framework-integration).
+  您的框架尚未获得支持？您可以通过[遵循本指南](/guides/creating-a-framework-integration)创建框架集成来轻松贡献代码。
 </Callout>
 
 <Callout type="info">
-  Note that because of preventing breaking changes on package imports,
-  `next-auth` is the only framework package which is not named following the
-  `@auth/*` convention. This library initially was born as `next-auth` but [over
-  the years has evolved](/contributors#history) to be framework agnostic.
+  请注意，为防止包导入的破坏性变更，`next-auth` 是唯一未遵循 `@auth/*`
+  命名规范的框架包。该库最初以 `next-auth`
+  命名，但[经过多年发展](/contributors#history)已成为框架无关方案。
 </Callout>
 
-Framework and database integrations are all based on the [Auth.js Core library](/reference/core). In most cases, you will not interact with this package directly, as it is intended for library authors.
+框架与数据库集成均基于[Auth.js核心库](/reference/core)实现。大多数情况下您无需直接操作该包，因其主要面向库作者设计。
 
-| Frameworks                            | Status                                                                                    |
-| ------------------------------------- | ----------------------------------------------------------------------------------------- |
-| NextAuth.js (`next-auth`)             | [v5 (beta)](https://nextjs.authjs.dev), [v4 (maintenance mode)](https://next-auth.js.org) |
-| Astro Auth (`@auth/astro`)            | [Open PR](https://github.com/nextauthjs/next-auth/pull/9856)                              |
-| Express Auth (`@auth/express`)        | [Experimental Release](https://express.authjs.dev)                                        |
-| Fastify Auth (`@auth/fastify`)        | [Open PR](https://github.com/nextauthjs/next-auth/pull/9587)                              |
-| Nuxt Auth (`@auth/nuxt`)              | [Open PR](https://github.com/nextauthjs/next-auth/pull/10684)                             |
-| Qwik Auth (`@auth/qwik`)              | [Released](https://qwik.authjs.dev)                                                       |
-| Remix Auth (`@auth/remix`)            | [Open PR](https://github.com/nextauthjs/next-auth/pull/6767)                              |
-| SolidStart Auth (`@auth/solid-start`) | [Experimental Release](https://authjs.dev/reference/solid-start)                          |
-| SvelteKit Auth (`@auth/sveltekit`)    | [Experimental Release](https://sveltekit.authjs.dev)                                      |
+| 框架                                  | 状态                                                                                |
+| ------------------------------------- | ----------------------------------------------------------------------------------- |
+| NextAuth.js (`next-auth`)             | [v5 (测试版)](https://nextjs.authjs.dev), [v4 (维护模式)](https://next-auth.js.org) |
+| Astro Auth (`@auth/astro`)            | [开放PR](https://github.com/nextauthjs/next-auth/pull/9856)                         |
+| Express Auth (`@auth/express`)        | [实验性发布](https://express.authjs.dev)                                            |
+| Fastify Auth (`@auth/fastify`)        | [开放PR](https://github.com/nextauthjs/next-auth/pull/9587)                         |
+| Nuxt Auth (`@auth/nuxt`)              | [开放PR](https://github.com/nextauthjs/next-auth/pull/10684)                        |
+| Qwik Auth (`@auth/qwik`)              | [已发布](https://qwik.authjs.dev)                                                   |
+| Remix Auth (`@auth/remix`)            | [开放PR](https://github.com/nextauthjs/next-auth/pull/6767)                         |
+| SolidStart Auth (`@auth/solid-start`) | [实验性发布](https://authjs.dev/reference/solid-start)                              |
+| SvelteKit Auth (`@auth/sveltekit`)    | [实验性发布](https://sveltekit.authjs.dev)                                          |
 
-| Databases              | Status                                                                  |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `@auth/*-adapter`      | Released. Fully compatible with `next-auth` and all `@auth/*` libraries |
-| `@next-auth/*-adapter` | Maintenance has stopped. Update to `@auth/*-adapter`                    |
+| 数据库                 | 状态                                             |
+| ---------------------- | ------------------------------------------------ |
+| `@auth/*-adapter`      | 已发布。完全兼容 `next-auth` 和所有 `@auth/*` 库 |
+| `@next-auth/*-adapter` | 已停止维护。请升级至 `@auth/*-adapter`           |
 
-## Community Integrations
+## 社区集成方案
 
-The community has published some great integrations / client packages for various frameworks and
-libraries. We'd love to make some packages official in the future, if you're responsible for any of
-them and are interested in collaborating, please do not hesitate to reach out!
+社区已为各类框架和库发布了一些优秀的集成/客户端包。我们未来希望将部分包转为官方维护，如果您是相关包的维护者并有合作意向，欢迎随时联系我们！
 
-| Client     | Links                                                                                       |
-| ---------- | ------------------------------------------------------------------------------------------- |
-| Hono.js    | [Auth.js middleware](https://github.com/honojs/middleware/tree/main/packages/auth-js)       |
-| Rakkas     | [Auth.js Integration Example](https://github.com/rakkasjs/rakkasjs/tree/main/examples/auth) |
-| SolidStart | [`@solid-mediakit/auth`](https://www.npmjs.com/package/@solid-mediakit/auth)                |
-| Astro      | [`auth-astro`](https://github.com/nowaythatworked/auth-astro)                               |
-| Nuxt       | [`@sidebase/nuxt-auth`](https://auth.sidebase.io)                                           |
+| 客户端     | 相关链接                                                                          |
+| ---------- | --------------------------------------------------------------------------------- |
+| Hono.js    | [Auth.js 中间件](https://github.com/honojs/middleware/tree/main/packages/auth-js) |
+| Rakkas     | [Auth.js 集成示例](https://github.com/rakkasjs/rakkasjs/tree/main/examples/auth)  |
+| SolidStart | [`@solid-mediakit/auth`](https://www.npmjs.com/package/@solid-mediakit/auth)      |
+| Astro      | [`auth-astro`](https://github.com/nowaythatworked/auth-astro)                     |
+| Nuxt       | [`@sidebase/nuxt-auth`](https://auth.sidebase.io)                                 |
 
-### Help needed
+### 需要协助
 
-In case you are a maintainer of a package that uses `@auth/core`, feel free to [reach out to
-Balázs](https://twitter.com/balazsorban44) or [info@authjs.dev](mailto:info@authjs.dev), if you want to collaborate on making it an official package, maintained in our repository. If you are interested in bringing `@auth/core` support to your favorite framework, we would love to hear from you!
+如果您是使用 `@auth/core` 的软件包维护者，欢迎[联系 Balázs](https://twitter.com/balazsorban44) 或发送邮件至 [info@authjs.dev](mailto:info@authjs.dev)，若有意合作将其发展为官方维护的软件包。如果您有兴趣为您喜爱的框架添加 `@auth/core` 支持，我们非常期待您的来信！

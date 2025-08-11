@@ -3,28 +3,28 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/fauna.svg" height="64" width="64" />
 
-# Fauna Adapter
+# Fauna 适配器
 
-## Resources
+## 相关资源
 
-- [Fauna documentation](https://docs.fauna.com/fauna/current/)
+- [Fauna 文档](https://docs.fauna.com/fauna/current/)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/fauna-adapter fauna
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 AUTH_FAUNA_CLIENT=http://localhost:8443
 AUTH_FAUNA_SECRET=abc123
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -113,9 +113,9 @@ app.use(
 </Code.Express>
 </Code>
 
-### Migrating to v2
+### 迁移至 v2 版本
 
-In `@auth/adapter-fauna@2.0.0`, we've renamed the collections to use an uppercase naming pattern in accordance with the Fauna best practices. If you're migrating from v1, you'll need to rename your collections to match the new naming scheme. Additionally, we've renamed the indexes to match the new method-like index names (i.e. `account_by_user_id` to `Account.byUserId`). For more information on migrating your Fauna schema, see their migration guide [here](https://docs.fauna.com/fauna/current/migration)
+在 `@auth/adapter-fauna@2.0.0` 中，我们根据 Fauna 最佳实践将集合名称改为大写命名模式。若要从 v1 迁移，您需要重命名集合以匹配新命名方案。此外，我们已将索引重命名为方法式索引名称（例如 `account_by_user_id` 改为 `Account.byUserId`）。有关迁移 Fauna 架构的更多信息，请参阅其迁移指南[此处](https://docs.fauna.com/fauna/current/migration)
 
 <Accordions>
   <Accordion title="Migration Example">
@@ -170,9 +170,9 @@ Collection.byName("verification_tokens")!.update({
   </Accordion>
 </Accordions>
 
-#### Schema
+#### 架构
 
-Run the following commands inside of the `Shell` tab in the Fauna dashboard to setup the appropriate collections and indexes.
+在 Fauna 仪表板的 `Shell` 标签页中运行以下命令来设置相应的集合和索引。
 
 ```ts filename="authjs-fauna-adapter-schema.fql"
 Collection.create({
@@ -241,9 +241,9 @@ Collection.create({
 })
 ```
 
-#### Custom Collection Names
+#### 自定义集合名称
 
-If you want to use custom collection names, you can pass them as an option to the adapter, like this:
+如需使用自定义集合名称，可将其作为选项传递给适配器，如下所示：
 
 ```js
 FaunaAdapter(client, {
@@ -256,4 +256,4 @@ FaunaAdapter(client, {
 })
 ```
 
-Make sure the collection names you pass to the provider match the collection names of your Fauna database.
+请确保传递给提供程序的集合名称与 Fauna 数据库中的集合名称一致。

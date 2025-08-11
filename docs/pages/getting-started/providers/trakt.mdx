@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/trakt.svg" height="64" width="64" />
 
-# Trakt Provider
+# Trakt 提供商
 
-## Resources
+## 相关资源
 
-- [Trakt OAuth documentation](https://trakt.docs.apiary.io/#reference/authentication-oauth)
+- [Trakt OAuth 文档](https://trakt.docs.apiary.io/#reference/authentication-oauth)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/trakt
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_TRAKT_ID
 AUTH_TRAKT_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -97,8 +97,8 @@ app.use("/auth/*", ExpressAuth({ providers: [Trakt] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- If you're using the api in production by calling `api.trakt.tv`. Follow the example. If you wish to develop on Trakt's sandbox environment by calling `api-staging.trakt.tv`, change the URLs.
-- Trakt does not allow hotlinking images. Even the authenticated user's profile picture.
-- Trakt does not supply the authenticated user's email.
+- 若您在生产环境中通过调用 `api.trakt.tv` 使用该 API，请遵循示例。若希望在 Trakt 沙盒环境（调用 `api-staging.trakt.tv`）进行开发，需修改对应 URL。
+- Trakt 不允许图片热链接，包括已认证用户的个人资料图片。
+- Trakt 不提供已认证用户的电子邮箱信息。

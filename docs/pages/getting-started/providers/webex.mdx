@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/webex.svg" height="64" width="64" />
 
-# Webex Provider
+# Webex 提供商
 
-## Resources
+## 相关资源
 
-- [Webex OAuth 2.0 Integration Guide](https://developer.webex.com/docs/integrations)
-- [Login with Webex](https://developer.webex.com/docs/login-with-webex)
+- [Webex OAuth 2.0 集成指南](https://developer.webex.com/docs/integrations)
+- [使用 Webex 登录](https://developer.webex.com/docs/login-with-webex)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/webex
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_WEBEX_ID
 AUTH_WEBEX_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,6 +98,6 @@ app.use("/auth/*", ExpressAuth({ providers: [Webex] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- The returned user profile from Webex when using the profile callback. Please refer to [People - Get My Own Details](https://developer.webex.com/docs/api/v1/people/get-my-own-details) on Webex Developer portal for additional fields. Returned fields may vary depending on the user's role, the OAuth integration's scope, and the organization the OAuth integration belongs to.
+- 使用 profile 回调时 Webex 返回的用户资料。更多字段请参考 Webex 开发者门户上的 [People - 获取我的详细信息](https://developer.webex.com/docs/api/v1/people/get-my-own-details)。返回的字段可能因用户角色、OAuth 集成的权限范围以及 OAuth 集成所属的组织而有所不同。

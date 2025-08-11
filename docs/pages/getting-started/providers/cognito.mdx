@@ -3,17 +3,17 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/cognito.svg" height="64" width="64" />
 
-# Cognito Provider
+# Cognito 提供商
 
-## Resources
+## 相关资源
 
-- [Cognito Portal](https://console.aws.amazon.com/cognito/v2/home)
-- [Cognito OAuth documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
-- [Cognito Hosted Domain](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-assign-domain.html)
+- [Cognito 控制台](https://console.aws.amazon.com/cognito/v2/home)
+- [Cognito OAuth 文档](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
+- [Cognito 托管域名](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-assign-domain.html)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -39,7 +39,7 @@ https://example.com/auth/callback/cognito
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_COGNITO_ID
@@ -47,7 +47,7 @@ AUTH_COGNITO_SECRET
 AUTH_COGNITO_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -105,22 +105,21 @@ app.use(
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-You need to select your AWS region to go the the Cognito dashboard.
+您需要选择 AWS 区域才能进入 Cognito 仪表盘。
 
 <Callout type="info">
-  The issuer is a URL, that looks like this: `https://cognito-idp.{region}
-  .amazonaws.com/{PoolId}`, where `PoolId` is from General Settings in Cognito,
-  not to be confused with the App Client ID.
+  颁发者是一个 URL，格式如下：`https://cognito-idp.{region}
+  .amazonaws.com/{PoolId}`，其中 `PoolId` 来自 Cognito 的通用设置，
+  注意不要与应用客户端 ID 混淆。
 </Callout>
 
 <Callout type="info">
-  Before you can set these settings, you must set up an Amazon Cognito hosted
-  domain. The setting can be found in `App Client/Edit Hosted UI`.
+  在配置这些设置前，您必须先设置 Amazon Cognito 托管域名。 该设置位于
+  `应用客户端/编辑托管 UI` 中。
 </Callout>
 
 <Callout type="warning">
-  Make sure you select all the appropriate client settings or the OAuth flow
-  will not work.
+  请确保选择所有适用的客户端设置，否则 OAuth 流程将无法工作。
 </Callout>

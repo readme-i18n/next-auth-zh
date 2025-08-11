@@ -8,21 +8,21 @@ import { Accordion, Accordions } from "@/components/Accordion"
 
 <img align="right" src="/img/adapters/dynamodb.svg" width="64" height="64" />
 
-# DynamoDB Adapter
+# DynamoDB 适配器
 
-## Resources
+## 相关资源
 
-- [DynamoDB documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+- [DynamoDB 文档](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/dynamodb-adapter @aws-sdk/lib-dynamodb @aws-sdk/client-dynamodb
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 AUTH_DYNAMODB_ID=accessKey
@@ -30,10 +30,10 @@ AUTH_DYNAMODB_SECRET=secretKey
 AUTH_DYNAMODB_REGION=eu-west-1
 ```
 
-### Configuration
+### 配置
 
-You need to pass `DynamoDBDocument` client from the modular [`aws-sdk`](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html) v3 to the adapter.
-The default table name is `next-auth`, but you can customise that by passing `{ tableName: 'your-table-name' }` as the second parameter in the adapter.
+你需要将模块化 [`aws-sdk`](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html) v3 中的 `DynamoDBDocument` 客户端传递给适配器。
+默认表名为 `next-auth`，但你可以通过向适配器的第二个参数传递 `{ tableName: 'your-table-name' }` 来自定义表名。
 
 <Code>
 <Code.Next>
@@ -170,19 +170,18 @@ app.use(
 </Code.Express>
 </Code>
 
-### AWS Credentials
+### AWS 凭证
 
 <Callout type="info">
-  Always follow the **principle of least privilege** when giving access to AWS
-  services/resources -> identities should only be permitted to perform the
-  smallest set of actions necessary to fulfill a specific task.
+  在授予 AWS 服务/资源访问权限时，始终遵循**最小权限原则** ->
+  身份应仅被允许执行完成特定任务所需的最小操作集。
 </Callout>
 
-1. Open the [AWS console](https://console.aws.amazon.com/) and go to "IAM", then "Users".
-2. Create a new user. The purpose of this user is to give programmatic access to DynamoDB.
-3. Create an Access Key and then copy Key ID and Secret to your `.env`/`.env.local` file.
-4. Select "Add Permission" and "Create Inline Policy".
-5. Copy the JSON below into the JSON input and replace `region`, `account_id` and `table_name` with your values.
+1. 打开 [AWS 控制台](https://console.aws.amazon.com/) 并进入 "IAM"，然后选择 "Users"
+2. 创建新用户。该用户的目的是为 DynamoDB 提供编程访问权限
+3. 创建访问密钥，然后将密钥 ID 和 Secret 复制到你的 `.env`/`.env.local` 文件中
+4. 选择 "Add Permission" 和 "Create Inline Policy"
+5. 将以下 JSON 复制到 JSON 输入中，并将 `region`、`account_id` 和 `table_name` 替换为你的实际值
 
 ```json
 {
@@ -212,11 +211,11 @@ app.use(
 }
 ```
 
-## Advanced usage
+## 高级用法
 
-### IaC Templates
+### 基础设施即代码模板
 
-Below are some infrastructure-as-code templates for popular providers to help you spin up DynamoDB.
+以下是针对流行提供商的基础设施即代码模板，可帮助你快速部署 DynamoDB。
 
 <Accordions>
 <Accordion title="CDK">
@@ -317,21 +316,21 @@ resource "aws_dynamodb_table" "authjs" {
 </Accordion>
 </Accordions>
 
-### Default schema
+### 默认架构
 
-The table respects the single table design pattern. This has many advantages:
+该表遵循单表设计模式，具有以下显著优势：
 
-- Only one table to manage, monitor and provision.
-- Querying relations is faster than with multi-table schemas (for eg. retrieving all sessions for a user).
-- Only one table needs to be replicated if you want to go multi-region.
+- 仅需管理、监控和维护单个表
+- 关联查询比多表架构更高效（例如获取用户的所有会话记录）
+- 实现多区域部署时只需复制单个表
 
-![DynamoDB Table](https://i.imgur.com/hGZtWDq.png)
+![DynamoDB 表结构示意图](https://i.imgur.com/hGZtWDq.png)
 
-By default, the adapter expects a table with a partition key `pk` and a sort key `sk`, as well as a global secondary index named `GSI1` with `GSI1PK` as partition key and `GSI1SK` as sorting key. To automatically delete sessions and verification requests after they expire using [dynamodb TTL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) you should [enable the TTL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/time-to-live-ttl-how-to.html) with attribute name `expires`. You can set whatever you want as the table name and the billing method. You can find the full schema in the table structure section below.
+默认情况下，适配器要求表包含分区键 `pk` 和排序键 `sk`，同时需要配置名为 `GSI1` 的全局二级索引，其分区键为 `GSI1PK`，排序键为 `GSI1SK`。若要通过 [DynamoDB TTL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html) 自动清理过期会话和验证请求，应在 `expires` 属性上[启用 TTL 功能](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/time-to-live-ttl-how-to.html)。表名称和计费方式可自由定义，完整结构请参阅下文表格结构章节。
 
-### Using a custom schema
+### 使用自定义架构
 
-You can configure your custom table schema by passing the `options` key to the adapter constructor:
+通过向适配器构造函数传递 `options` 键可配置自定义表结构：
 
 ```js filename="./auth.js"
 const adapter = DynamoDBAdapter(client, {

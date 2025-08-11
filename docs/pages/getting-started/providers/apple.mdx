@@ -2,19 +2,19 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/apple.svg" width="64" height="65" />
 
-# Apple Provider
+# Apple 提供商
 
-## Resources
+## 相关资源
 
-- Sign in with Apple [Overview](https://developer.apple.com/sign-in-with-apple/get-started/)
-- Sign in with Apple [REST API](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api)
-- [How to retrieve](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api/authenticating_users_with_sign_in_with_apple#3383773) the user's information from Apple ID servers
+- 使用 Apple 登录 [概述](https://developer.apple.com/sign-in-with-apple/get-started/)
+- 使用 Apple 登录 [REST API](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api)
+- [如何从 Apple ID 服务器获取](https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api/authenticating_users_with_sign_in_with_apple#3383773)用户信息
 
-> **_NOTE:_** Apple currently does not support [RedirectProxyUrl](https://github.com/nextauthjs/next-auth/blob/3ec06842682a31e53fceabca701a362abda1e7dd/packages/core/src/lib/utils/providers.ts#L48) usage.
+> **_NOTE:_** Apple 目前不支持使用 [RedirectProxyUrl](https://github.com/nextauthjs/next-auth/blob/3ec06842682a31e53fceabca701a362abda1e7dd/packages/core/src/lib/utils/providers.ts#L48)。
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -40,14 +40,14 @@ https://example.com/auth/callback/apple
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_APPLE_ID
 AUTH_APPLE_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>

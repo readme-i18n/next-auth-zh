@@ -2,30 +2,30 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/edgedb.svg" height="64" width="64" />
 
-# EdgeDB Adapter
+# EdgeDB 适配器
 
-## Resources
+## 相关资源
 
-- [EdgeDB documentation](https://www.edgedb.com/docs/)
+- [EdgeDB 文档](https://www.edgedb.com/docs/)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install edgedb @auth/edgedb-adapter
 npm install @edgedb/generate --save-dev
 ```
 
-Ensure you have the EdgeDB CLI installed. Follow the instructions below, or read the [EdgeDB quickstart](https://www.edgedb.com/docs/intro/quickstart) to install the EdgeDB CLI and initialize a project
+请确保已安装 EdgeDB CLI。按照以下说明操作，或阅读 [EdgeDB 快速入门](https://www.edgedb.com/docs/intro/quickstart) 来安装 EdgeDB CLI 并初始化项目
 
-### Environment Variables
+### 环境变量
 
 ```sh
 AUTH_EDGEDB_DSN="edgedb://edgedb:p4ssw0rd@10.0.0.1"
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -104,31 +104,31 @@ app.use(
 
 ### EdgeDB CLI
 
-#### Linux or macOS
+#### Linux 或 macOS
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.edgedb.com | sh
 ```
 
-#### Windows
+#### Windows 系统
 
 ```powershell
 iwr https://ps1.edgedb.com -useb | iex
 ```
 
-Check that the CLI is available with the `edgedb --version` command. If you get a `Command not found` error, you may need to open a new terminal window before the `edgedb` command is available.
+通过 `edgedb --version` 命令检查 CLI 是否可用。如果出现 `Command not found` 错误，可能需要打开新的终端窗口才能使 `edgedb` 命令生效。
 
-Once the CLI is installed, initialize a project from the application’s root directory. You’ll be presented with a series of prompts.
+安装 CLI 后，从应用程序根目录初始化项目。系统会显示一系列提示信息。
 
 ```bash
 edgedb project init
 ```
 
-This process will spin up an EdgeDB instance and [“link”](https://www.edgedb.com/docs/cli/edgedb_instance/edgedb_instance_link#edgedb-instance-link) it with your current directory. As long as you’re inside that directory, CLI commands and client libraries will be able to connect to the linked instance automatically, without additional configuration.
+此过程将启动一个 EdgeDB 实例并将其与当前目录进行["链接"](https://www.edgedb.com/docs/cli/edgedb_instance/edgedb_instance_link#edgedb-instance-link)。只要在该目录内，CLI 命令和客户端库就能自动连接到已链接的实例，无需额外配置。
 
-### Schema
+### 数据模型
 
-Replace the contents of the auto-generated file in `dbschema/default.esdl` with the following:
+将 `dbschema/default.esdl` 中自动生成的文件内容替换为以下内容：
 
 ```js filename="default.esdl"
 module default {
@@ -204,29 +204,29 @@ module default {
 using future nonrecursive_access_policies;
 ```
 
-### Migration
+### 迁移
 
-1. Create a migration
+1. 创建迁移
 
 ```
 edgedb migration create
 ```
 
-2. Apply the migration
+2. 应用迁移
 
 ```
 edgedb migrate
 ```
 
-To learn more about [EdgeDB migrations](https://www.edgedb.com/docs/intro/migrations#generate-a-migration) check out the [Migrations docs](https://www.edgedb.com/docs/intro/migrations).
+要了解更多关于 [EdgeDB 迁移](https://www.edgedb.com/docs/intro/migrations#generate-a-migration)的信息，请查阅 [迁移文档](https://www.edgedb.com/docs/intro/migrations)。
 
-### Generate
+### 生成
 
 ```npm2yarn
 npx @edgedb/generate edgeql-js
 ```
 
-This will generate the [query builder](https://www.edgedb.com/docs/clients/js/querybuilder) so that you can write fully typed EdgeQL queries with TypeScript in a code-first way.
+这将生成[查询构建器](https://www.edgedb.com/docs/clients/js/querybuilder)，使您能够以代码优先的方式使用TypeScript编写完全类型化的EdgeQL查询。
 
 ```ts
 const query = e.select(e.User, () => ({
@@ -241,40 +241,40 @@ const query = e.select(e.User, () => ({
 return await query.run(client)
 ```
 
-## Deploying
+## 部署指南
 
-### Deploy EdgeDB
+### 部署EdgeDB
 
-First deploy an EdgeDB instance on your preferred cloud provider:
+首先在您选择的云服务提供商上部署EdgeDB实例：
 
 - [AWS](https://www.edgedb.com/docs/guides/deployment/aws_aurora_ecs)
 - [Google Cloud](https://www.edgedb.com/docs/guides/deployment/gcp)
 - [Azure](https://www.edgedb.com/docs/guides/deployment/azure_flexibleserver)
 - [DigitalOcean](https://www.edgedb.com/docs/guides/deployment/digitalocean)
 - [Fly.io](https://www.edgedb.com/docs/guides/deployment/fly_io)
-- [Docker](https://www.edgedb.com/docs/guides/deployment/docker) (cloud-agnostic)
+- [Docker](https://www.edgedb.com/docs/guides/deployment/docker) (云环境通用)
 
-### Find your instance’s DSN
+### 获取实例DSN
 
-The DSN is also known as a connection string. It will have the format `edgedb://username:password@hostname:port`. The exact instructions for this depend on which cloud provider you're deploying to.
+DSN也称为连接字符串，其格式为`edgedb://username:password@hostname:port`。具体获取方式取决于您使用的云服务提供商。
 
-### Set an environment variable
+### 设置环境变量
 
 ```env filename=".env"
 AUTH_EDGEDB_DSN=edgedb://johndoe:supersecure@myhost.com:420
 ```
 
-### Apply migrations
+### 应用迁移
 
-Use the DSN to apply migrations against your remote instance.
+使用DSN对远程实例执行迁移操作。
 
 ```bash
 edgedb migrate --dsn <your-instance-dsn>
 ```
 
-### Set up a `prebuild` script
+### 配置`prebuild`脚本
 
-Add the following `prebuild` script to your `package.json`. When your hosting provider initializes the build, it will trigger this script which will generate the query builder. The `npx @edgedb/generate edgeql-js` command will read the value of the `EDGEDB_DSN` environment variable, connect to the database, and generate the query builder before your hosting provider starts building the project.
+在您的 `package.json` 中添加以下 `prebuild` 脚本。当托管服务商初始化构建时，将触发此脚本生成查询构建器。`npx @edgedb/generate edgeql-js` 命令会读取 `EDGEDB_DSN` 环境变量的值，连接数据库，并在托管服务商开始构建项目前生成查询构建器。
 
 ```diff filename="package.json"
 "scripts": {

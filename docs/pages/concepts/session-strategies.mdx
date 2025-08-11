@@ -1,51 +1,48 @@
 import { Callout } from "nextra/components"
 
-# Session strategies
+# 会话策略
 
-When a user visits your application, you want them to not have to log in every single time. After logging in once, your application should save some data about the user and allow them to pick up where they left off the next time they visit. This is called a session. **Auth.js supports 2 main session strategies**, the JWT-based session and Database session.
+当用户访问您的应用程序时，您希望他们不必每次都重新登录。在首次登录后，应用程序应保存一些用户数据，允许他们在下次访问时恢复之前的会话状态。这被称为会话机制。**Auth.js 支持两种主要会话策略**，即基于 JWT 的会话和数据库会话。
 
 <Callout>
-  Both session strategies have advantages and disadvantages, which you have to
-  evaluate based on the requirements of your application.
+  两种会话策略各有优缺点，您需要根据应用程序的具体需求进行评估选择。
 </Callout>
 
-You can configure the session strategy using the [`session.strategy`](/reference/core#strategy) option in the main Auth.js config file.
+您可以通过主 Auth.js 配置文件中的 [`session.strategy`](/reference/core#strategy) 选项来配置会话策略。
 
-## JWT Session
+## JWT 会话
 
-Auth.js can create sessions using [JSON Web Tokens (JWT)](https://datatracker.ietf.org/doc/html/rfc7519). This is the default session strategy for Auth.js unless a database provider is configured. When a user signs in, a JWT is created [in a `HttpOnly` cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#block_access_to_your_cookies). Making the cookie `HttpOnly` prevents JavaScript from accessing it client-side (via `document.cookie`, for example), which makes it harder for attackers to steal the value. In addition, the JWT is encrypted with a secret key only known to the server. So, even if an attacker were to steal the JWT from the cookie, they could not decrypt it. Combined with a short expiration time, this makes JWTs a secure way to create sessions.
+Auth.js 可以使用 [JSON Web Tokens (JWT)](https://datatracker.ietf.org/doc/html/rfc7519) 创建会话。除非配置了数据库提供程序，否则这是 Auth.js 的默认会话策略。当用户登录时，JWT 会被创建在 [`HttpOnly` cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#block_access_to_your_cookies) 中。将 cookie 设置为 `HttpOnly` 可以防止 JavaScript 在客户端访问它（例如通过 `document.cookie`），这使得攻击者更难窃取其值。此外，JWT 使用只有服务器知道的密钥进行加密。因此，即使攻击者从 cookie 中窃取了 JWT，也无法解密它。结合较短的过期时间，这使得 JWT 成为一种安全的会话创建方式。
 
-When a user signs out, Auth.js deletes the JWT from the cookies, destroying the session.
+当用户注销时，Auth.js 会从 cookie 中删除 JWT，从而销毁会话。
 
-### Advantages
+### 优势
 
-- JWTs as a session do not require a database to store sessions; this can be faster, cheaper, and easier to scale.
-- This strategy requires fewer resources as you don't need to manage an extra database/service.
-- You may then use the created token to pass information between services and APIs on the same domain without having to contact a database to verify the included information.
-- You can use JWT to securely store information without exposing it to third-party JavaScript running on your site.
+- 使用 JWT 作为会话不需要数据库来存储会话；这种方式更快、成本更低且更易于扩展。
+- 该策略需要更少的资源，因为您不需要管理额外的数据库或服务。
+- 您可以使用创建的令牌在同一域的服务和 API 之间传递信息，而无需联系数据库来验证包含的信息。
+- 您可以使用 JWT 安全地存储信息，而不会将其暴露给在您的网站上运行的第三方 JavaScript。
 
-### Disadvantages
+### 劣势
 
-- Expiring a JSON Web Token before its encoded expiry is not possible - doing so requires maintaining a server-side blocklist of invalidated tokens (at least until they truly expire) and checking every token against the list every time a token is presented. Auth.js **will** destroy the cookie, but if the user has the JWT saved elsewhere, it will be valid (the server will accept it) until it expires. (Shorter session expiry times are used when using JSON Web Tokens as session tokens to allow sessions to be invalidated sooner and simplify this problem.)
-- Auth.js enables advanced features to mitigate the downsides of using shorter session expiry times on the user experience, including automatic session token rotation, optionally sending keep-alive messages (session polling) to prevent short-lived sessions from expiring if there is a window or tab open, background re-validation, and automatic tab/window syncing that keeps sessions in sync across windows any time session state changes or a window or tab gains or loses focus.
-- As with database session tokens, JSON Web Tokens are limited in the amount of data you can store in them. There is typically a limit of around 4096 bytes per cookie, though the exact limit varies between browsers. The more data you try to store in a token and the more other cookies you set, the closer you will come to this limit. Auth.js implements session cookie chunking so that cookies over the 4kb limit will get split and reassembled upon parsing. However, since this data needs to be transmitted on every request, you need to be aware of how much data you want to transfer using this technique.
-- Even if appropriately configured, information stored in an encrypted JWT should not be assumed to be impossible to decrypt at some point - e.g., due to the discovery of a defect or advances in technology. Data stored in an encrypted JSON Web Token (JWE) _may_ be compromised at some point. The recommendation is to generate a [secret](/reference/core#secret) with high entropy.
+- 无法在 JSON Web Token 编码过期时间前使其失效 - 要实现此功能需要维护一个服务器端的失效令牌黑名单（至少在其真正过期前），并在每次提交令牌时检查该列表。Auth.js **会**销毁 cookie，但如果用户将 JWT 保存在其他地方，该令牌在过期前仍然有效（服务器会接受它）。（当使用 JSON Web Token 作为会话令牌时，会采用较短的会话过期时间，以便更快地使会话失效并简化此问题。）
+- Auth.js 提供了高级功能来缓解较短会话过期时间对用户体验的影响，包括自动会话令牌轮换、可选发送保活消息（会话轮询）以防止在有窗口或标签页打开时短期会话过期、后台重新验证以及自动标签页/窗口同步，可在会话状态变更或窗口/标签页获得/失去焦点时保持多窗口间的会话同步。
+- 与数据库会话令牌类似，JSON Web Token 在可存储数据量方面存在限制。通常每个 cookie 的大小限制约为 4096 字节，但具体限制因浏览器而异。尝试在令牌中存储的数据越多，设置的其他 cookie 越多，就越接近此限制。Auth.js 实现了会话 cookie 分块机制，超过 4kb 限制的 cookie 会在解析时被拆分并重新组装。但由于这些数据需要在每个请求中传输，您需要注意通过此技术传输的数据量。
+- 即使配置得当，也不应假定存储在加密 JWT 中的信息永远无法被解密 - 例如由于漏洞发现或技术进步。存储在加密 JSON Web Token (JWE) 中的数据*可能*在某个时间点被泄露。建议生成具有高熵值的[密钥](/reference/core#secret)。
 
-## Database session
+## 数据库会话
 
-Alternatively to a JWT session strategy, Auth.js also supports database sessions. In this case, instead of saving a JWT with user data after signing in, Auth.js will create a session in your database. A session ID is then saved in a `HttpOnly` cookie. This is similar to the JWT session strategy, but instead of saving the user data in the cookie, it only stores an obscure value pointing to the session in the database. So whenever you try to access the user session, you will query the database for the data.
+作为 JWT 会话策略的替代方案，Auth.js 也支持数据库会话。在这种模式下，登录后 Auth.js 不会保存包含用户数据的 JWT，而是在您的数据库中创建会话。随后会话 ID 会被保存在 `HttpOnly` cookie 中。这与 JWT 会话策略类似，但不同之处在于它不会将用户数据存储在 cookie 里，而是仅保存一个指向数据库会话的模糊值。因此每当您尝试访问用户会话时，都需要查询数据库获取数据。
 
-When a user signs out, the session is deleted from the database, and the session ID is deleted from the cookies.
+当用户注销时，会话会从数据库中删除，同时会话 ID 也会从 cookies 中移除。
 
-### Advantages
+### 优势
 
-- Database sessions can be at any time modified server-side, so you can implement features that might be more difficult - but not impossible - using the JWT strategy, etc.: "sign out everywhere", or limiting concurrent logins
-- Auth.js has no opinion on the type of database you are using; we have a big list of [official
-  database adapters](/getting-started/database), but you can [implement your
-  own](/guides/creating-a-database-adapter) as well
+- 数据库会话可随时在服务端修改，因此您可以实现一些使用 JWT 策略较难（但并非不可能）实现的功能，例如："全局注销" 或限制并发登录
+- Auth.js 不限定您使用的数据库类型；我们提供了[官方数据库适配器列表](/getting-started/database)，您也可以[自行实现适配器](/guides/creating-a-database-adapter)
 
-### Disadvantages
+### 劣势
 
-- Database sessions need a roundtrip to your database, so they might be slower at scale unless your connections/databases are accommodated for it
-- Many database adapters are not yet compatible with the Edge, which would allow faster and cheaper session retrieval
-- Setting up a database takes more effort and requires extra services to manage compared to the stateless JWT strategy
+- 数据库会话需要与数据库进行往返通信，因此在大规模场景下可能会较慢，除非您的连接/数据库已针对此进行优化
+- 目前许多数据库适配器尚不兼容 Edge 环境，而 Edge 环境能实现更快且更经济的会话检索
+- 相比无状态的 JWT 策略，数据库方案需要更多设置工作，并且需要额外服务来管理

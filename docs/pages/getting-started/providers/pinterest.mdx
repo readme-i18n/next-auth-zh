@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/pinterest.svg" height="64" width="64" />
 
-# Pinterest Provider
+# Pinterest 提供商
 
-## Resources
+## 相关资源
 
-- [Pinterest OAuth documentation](https://developers.pinterest.com/docs/getting-started/authentication/)
-- [Pinterest app console](https://developers.pinterest.com/apps/)
+- [Pinterest OAuth 文档](https://developers.pinterest.com/docs/getting-started/authentication/)
+- [Pinterest 应用控制台](https://developers.pinterest.com/apps/)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/pinterest
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_PINTEREST_ID
 AUTH_PINTEREST_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,6 +98,6 @@ app.use("/auth/*", ExpressAuth({ providers: [Pinterest] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- To use in production, make sure the app has standard API access and not trial access
+- 如需在生产环境使用，请确保应用具有标准 API 访问权限而非试用权限

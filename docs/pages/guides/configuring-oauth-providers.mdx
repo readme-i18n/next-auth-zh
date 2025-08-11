@@ -1,17 +1,17 @@
 import { Callout, Steps } from "nextra/components"
 import { Code } from "@/components/Code"
 
-# Configuring an OAuth provider
+# 配置 OAuth 提供商
 
-## Override default provider config
+## 覆盖默认提供商配置
 
-For built-in providers, usually you only need to specify a client id and client secret, and in case of OIDC (OpenID Connect), an issuer as well.
-We can [infer these from environment variables](/guides/environment-variables#oauth-variables).
+对于内置提供商，通常您只需指定客户端ID(client id)和客户端密钥(client secret)，如果是OIDC(OpenID Connect)则还需指定颁发者(issuer)。
+我们可以[从环境变量中推断这些值](/guides/environment-variables#oauth-variables)。
 
-If you need to override any of the defaults provider config options, you can add them in the provider's function call and they will be deeply-merged with our [defaults](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers).
-That means you only have to override part of the options that you need to be different. For example if you want different scopes, overriding `authorization.params.scope` is enough, instead of the whole `authorization` option.
+如需覆盖任何默认提供商配置选项，您可以在提供商的函数调用中添加它们，这些选项将与我们的[默认配置](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers)进行深度合并。
+这意味着您只需覆盖需要变更的部分选项。例如若需调整作用域(scope)，仅需覆盖`authorization.params.scope`而非整个`authorization`选项。
 
-For example, to override a provider's default `scope`s, you can do the following:
+例如，要覆盖提供商默认的`scope`，您可以如下操作：
 
 <Code>
 <Code.Next>
@@ -61,7 +61,7 @@ export { handle } from "./auth"
 </Code.Svelte>
 </Code>
 
-Another example, the `profile` callback will return `name`, `email` and `picture` by default, but you might want to return more information from the provider. What you return will be used to create the user object in the database.
+另一个例子，默认情况下`profile`回调会返回`name`、`email`和`picture`，但您可能希望从提供商获取更多信息。您返回的内容将用于创建数据库中的用户对象。
 
 <Code>
 <Code.Next>
@@ -126,15 +126,14 @@ export { handle } from "./auth"
 </Code.Svelte>
 </Code>
 
-## Use your own provider
+## 使用自定义提供商
 
 <Callout>
-  Check our [built-in OAuth providers](/getting-started/authentication/oauth)
-  first, before creating one from scratch.
+  在从头创建提供商前，请先查看我们的[内置OAuth提供商](/getting-started/authentication/oauth)。
 </Callout>
 
-We support any [OAuth](https://datatracker.ietf.org/doc/html/rfc6749) or [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) compliant provider.
-Start by passing an object to the [`providers` list](/reference/core#providers):
+我们支持任何符合 [OAuth](https://datatracker.ietf.org/doc/html/rfc6749) 或 [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) 规范的提供商。
+首先向 [`providers` 列表](/reference/core#providers) 传入一个对象：
 
 <Code>
 <Code.Next>
@@ -196,44 +195,43 @@ export { handle } from "./auth"
 </Code.Svelte>
 </Code>
 
-Then, set the [callback URL](https://www.ietf.org/archive/id/draft-ietf-oauth-v2-1-07.html#name-client-redirection-endpoint) in your provider's dashboard to `https://app.com/{basePath}/callback/{id}`.
+然后在提供商的控制面板中将 [回调 URL](https://www.ietf.org/archive/id/draft-ietf-oauth-v2-1-07.html#name-client-redirection-endpoint) 设置为 `https://app.com/{basePath}/callback/{id}`。
 
 <Callout type="info">
-  By default, `basePath` is `/api/auth` for Next.js, and `/auth` in all other
-  integrations. See [`basePath`](/reference/core#basepath).
+  默认情况下，Next.js 的 `basePath` 是 `/api/auth`，其他所有集成中则为
+  `/auth`。详见 [`basePath`](/reference/core#basepath)。
 </Callout>
 
-That's it! 🎉
+这样就完成了！🎉
 
-## Adding a new built-in provider
+## 添加新的内置提供商
 
-If you think your custom provider might be useful to others, we encourage you to open a PR and add it to the built-in list.
+如果您认为自定义提供商可能对他人有用，我们鼓励您提交 PR 将其添加到内置列表中。
 
 <Steps>
 
-### Creating the provider's file
+### 创建提供者文件
 
-Create a new `{provider}.ts` file under the [`packages/core/src/providers`](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers) directory.
+在 [`packages/core/src/providers`](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers) 目录下新建一个 `{provider}.ts` 文件。
 
-### Adhere to our code conventions
+### 遵循代码规范
 
-Use the [built-in providers](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers) as a guide, make sure your provider adheres to the same code conventions, .i.e:
+参考[内置提供者](https://github.com/nextauthjs/next-auth/tree/main/packages/core/src/providers)的实现方式，确保您的提供者遵循相同的代码规范，例如：
 
-- Use TypeScript
-- Use a named default export: `export default function YourProvider`
-- Export the TypeScript `interface` that defines the provider's available user info properties
-- Add the necessary JSDoc comments/documentation. For example, the [Auth0 provider](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/auth0.ts) is a good example for OIDC and the [GitHub Provider](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/github.ts) is an OAuth provider.)
-- Add links to the provider's API reference/documentation so others can understand how to set up this provider
+- 使用 TypeScript
+- 使用命名默认导出：`export default function YourProvider`
+- 导出定义提供者用户信息属性的 TypeScript `interface`
+- 添加必要的 JSDoc 注释/文档。例如 [Auth0 提供者](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/auth0.ts)是 OIDC 的优秀示例，而 [GitHub 提供者](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/github.ts)则是 OAuth 提供者的范例。
+- 添加指向提供者 API 参考/文档的链接，方便他人了解如何配置该提供者
 
-### Add your provider in the GitHub issues dropdown
+### 在 GitHub 问题下拉菜单中添加您的提供者
 
-Add the new provider name to the `Provider type` dropdown options in [`the provider issue template`](https://github.com/nextauthjs/next-auth/edit/main/.github/ISSUE_TEMPLATE/2_bug_provider.yml)
+将新提供者名称添加到 [`提供者问题模板`](https://github.com/nextauthjs/next-auth/edit/main/.github/ISSUE_TEMPLATE/2_bug_provider.yml) 的 `Provider type` 下拉选项中
 
-### Add a logo
+### 添加徽标
 
-Add a logo `{provider}.svg` to the
-[`docs/static/img/providers`](https://github.com/nextauthjs/next-auth/tree/main/docs/static/img/providers) directory.
+将徽标文件 `{provider}.svg` 添加到 [`docs/static/img/providers`](https://github.com/nextauthjs/next-auth/tree/main/docs/static/img/providers) 目录。
 
 </Steps>
 
-Once the PR is merged, others will also be able to discover and use this provider with any of our integrations. That's it! 🎉
+当 PR 合并后，其他开发者也能通过我们的任何集成发现并使用该提供者。大功告成！🎉

@@ -2,22 +2,18 @@ import { Callout } from "nextra/components"
 import { Link } from "@/components/Link"
 import manifest from "@/data/manifest.json"
 
-# Database Adapters
+# 数据库适配器
 
 <Callout type="info">
-  Auth.js integrations save sessions in a cookie by default. Therefore, setting
-  up a database is optional. However, if you want to persist user information in
-  your own database, or you want to implement certain flows, you will need to
-  use a Database Adapter.
+  Auth.js 默认将会话保存在 cookie
+  中。因此，配置数据库是可选的。但如果您需要在自有数据库中持久化用户信息，或实现特定流程，则必须使用数据库适配器。
 </Callout>
 
-**Database Adapters** are the bridge we use to connect Auth.js to your database. For instance, [when implementing magic links](/getting-started/authentication/email), the Email provider will require you to setup a database adapter to be able to store the [verification tokens](/concepts/database-models#verificationtoken) present on the links.
+**数据库适配器**是连接 Auth.js 与数据库的桥梁。例如[实现魔法链接](/getting-started/authentication/email)时，Email 提供商将要求您配置数据库适配器以存储链接中的[验证令牌](/concepts/database-models#verificationtoken)。
 
-## Official Adapters
+## 官方适配器
 
-Below is a list of official adapters that are distributed as their own packages under the `@auth/`
-namespace. Their source code is available in the [`nextauthjs/next-auth`
-monorepo](https://github.com/nextauthjs/next-auth/tree/main/packages). If you're going to create a database adapter, please make sure you familiarise yourself [with the models](/concepts/database-models) Auth.js expects to be present and check out our "[creating a database adapter](/guides/creating-a-database-adapter)" guide.
+以下是官方适配器列表，它们作为独立包发布在 `@auth/` 命名空间下。源代码存放于 [`nextauthjs/next-auth` 代码库](https://github.com/nextauthjs/next-auth/tree/main/packages)。如需创建数据库适配器，请确保熟悉 Auth.js 要求的[数据模型](/concepts/database-models)，并参阅[创建数据库适配器](/guides/creating-a-database-adapter)指南。
 
 <div className="mb-12 mt-8 grid w-full grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3 lg:grid-cols-4">
   {Object.entries(manifest.adapters).map(([value, label]) => (
@@ -33,17 +29,17 @@ monorepo](https://github.com/nextauthjs/next-auth/tree/main/packages). If you're
 </div>
 
 <Callout>
-  If you don't find an adapter for your database or service of choice, you can
-  create one yourself. Have a look at our guide on [how to create a database
-  adapter](/guides/creating-a-database-adapter). If you create a new adapter,
-  we'd love it if you [opened a
-  PR](/guides/creating-a-database-adapter#official-adapter-guidelines) to share
-  it with everyone!
+  如果找不到适合您所选数据库或服务的适配器，您可以
+  自行创建一个。请参阅我们的指南了解[如何创建数据库
+  适配器](/guides/creating-a-database-adapter)。如果您创建了新适配器，
+  我们非常欢迎您[提交
+  PR](/guides/creating-a-database-adapter#official-adapter-guidelines)
+  与大家分享！
 </Callout>
 
-## Models
+## 数据模型
 
-This is a generic ER Diagram of what the full database schema should look like. Your database adapter of choice will include a template schema with more details for applying this schema to the underlying database. For more details, check out our [database models](/concepts/database-models) documentation. Please note, that the entire schema is not required for every use-case, for more details check out our [database adapters guide](/guides/creating-a-database-adapter).
+这是完整数据库模式应呈现的通用 ER 图。您选择的数据库适配器将包含一个模板模式，其中包含更多细节用于将此模式应用到基础数据库。更多详情，请查看我们的[数据库模型](/concepts/database-models)文档。请注意，并非所有使用场景都需要完整的模式，更多细节请参阅我们的[数据库适配器指南](/guides/creating-a-database-adapter)。
 
 ```mermaid
 %%{init: {'theme':'neutral'}}%%

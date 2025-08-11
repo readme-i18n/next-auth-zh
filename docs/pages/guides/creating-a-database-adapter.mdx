@@ -1,20 +1,20 @@
 import { Callout } from "nextra/components"
 
-# Creating a database adapter
+# 创建数据库适配器
 
-Auth.js adapters allow you to integrate with any (even multiple) database/back-end service, even if we don't have an [official package](https://github.com/nextauthjs/next-auth/tree/main/packages) available yet. (We welcome PRs for new adapters! See the [guidelines](#official-adapter-guidelines) below.)
+Auth.js 适配器允许您与任何（甚至多个）数据库/后端服务集成，即使我们尚未提供[官方包](https://github.com/nextauthjs/next-auth/tree/main/packages)。（我们欢迎提交新适配器的 PR！请参阅下方的[指南](#official-adapter-guidelines)。）
 
-Auth.js adapters are very flexible, and you can implement only the methods you need, and only create the database tables/columns that are actually going to be used.
+Auth.js 适配器非常灵活，您可以仅实现所需的方法，并仅创建实际会使用的数据库表/列。
 
-An Auth.js adapter is a function that receives an ORM/database client and returns an object with methods (based on the [`Adapter` interface](/reference/core/adapters#adapter)) that interact with the database. The same database Adapter will be compatible with any Auth.js library.
+Auth.js 适配器是一个接收 ORM/数据库客户端并返回包含方法（基于 [`Adapter` 接口](/reference/core/adapters#adapter)）的对象，这些方法与数据库交互。同一个数据库适配器将与任何 Auth.js 库兼容。
 
-Optionally, you can run our [Adapter tests](https://github.com/nextauthjs/next-auth/blob/main/packages/utils/adapter.ts) on your adapter to ensure it is compliant with the Auth.js.
+可选地，您可以在适配器上运行我们的[适配器测试](https://github.com/nextauthjs/next-auth/blob/main/packages/utils/adapter.ts)，以确保其符合 Auth.js 规范。
 
-## User management
+## 用户管理
 
-Auth.js differentiates between users and accounts. A user can have multiple accounts. An account is created for each provider type the user signs in with for the first time. For example, if a user signs in with Google and then with Facebook, they will have two accounts, one for each provider. The first provider the user signs in with will also be used to create the user object. See the [`profile()` provider method](/reference/core/providers#profile).
+Auth.js 区分用户和账户。一个用户可以拥有多个账户。用户首次使用每种提供者类型登录时都会创建一个账户。例如，如果用户使用 Google 登录，然后使用 Facebook 登录，他们将拥有两个账户，每个提供者一个。用户首次登录的提供者也将用于创建用户对象。请参阅 [`profile()` 提供者方法](/reference/core/providers#profile)。
 
-### Methods and models
+### 方法与模型
 
 <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
   <span>
@@ -44,28 +44,27 @@ Auth.js differentiates between users and accounts. A user can have multiple acco
   ```
 </div>
 
-See also: [User](/concepts/database-models#user) and [Account](/concepts/database-models#account) models.
+另请参阅: [用户](/concepts/database-models#user) 和 [账户](/concepts/database-models#account) 模型。
 
 <Callout type="info">
-  Although Auth.js doesn't require it, for basic display purposes, we recommend
-  adding the following columns to the `User` table as well: `name`, `email`,
-  `image`. You can configure the columns via the [`profile()` provider
-  method](/reference/core/providers#profile). If you don't need to save these
-  properties, create an empty `profile() {}` method.
+  虽然 Auth.js 并不强制要求，但为了基本显示目的，我们建议在 `User`
+  表中添加以下列：`name`、`email`、`image`。您可以通过 [`profile()`
+  提供者方法](/reference/core/providers#profile)
+  配置这些列。如果不需要保存这些属性，创建一个空的 `profile() {}` 方法即可。
 </Callout>
 
 <Callout type="info">
-  Although Auth.js doesn't require it, the `Account` table typically saves
-  tokens retrieved from the provider. You can configure the columns via the
-  [`account()` provider method](/reference/core/providers#account). If you don't
-  need to save tokens, create an empty `account() {}` method.
+  虽然 Auth.js 不作强制要求，但 `Account`
+  表通常会保存从提供者处获取的令牌。您可以通过 [`account()`
+  提供者方法](/reference/core/providers#account)
+  配置这些列。如果不需要保存令牌，创建一个空的 `account() {}` 方法即可。
 </Callout>
 
-## Database session management
+## 数据库会话管理
 
-Auth.js can manage sessions in two ways. Learn about them and their advantages and disadvantages at [Concepts: Session strategies](/concepts/session-strategies).
+Auth.js 提供两种会话管理方式。了解其优缺点请参阅 [概念：会话策略](/concepts/session-strategies)。
 
-### Methods and models
+### 方法与模型
 
 <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
   <span>
@@ -96,17 +95,17 @@ Auth.js can manage sessions in two ways. Learn about them and their advantages a
   ```
 </div>
 
-If you want to use database sessions, you will need to implement the following methods:
+如需使用数据库会话，您需要实现以下方法：
 
-To add database session management, you will need to expand your database tables/columns as follows:
+要添加数据库会话管理功能，您需要按以下方式扩展数据库表/列：
 
-See also: [Session](/concepts/database-models#session) models.
+另请参阅: [会话](/concepts/database-models#session) 模型。
 
-## Verification tokens
+## 验证令牌
 
-When you want to support email/passwordless login, Auth.js uses a database to store temporary verification tokens that are tied to a user's email address.
+当您需要支持电子邮件/无密码登录时，Auth.js 会使用数据库存储与用户邮箱地址关联的临时验证令牌。
 
-### Methods and models
+### 方法与模型
 
 <div style={{display: "grid", gridTemplateColumns: "1fr 1fr"}}>
   <span>
@@ -136,42 +135,42 @@ When you want to support email/passwordless login, Auth.js uses a database to st
   ```
 </div>
 
-See also: [Verification Token](/concepts/database-models#verification-token) models.
+另请参阅：[验证令牌](/concepts/database-models#verification-token) 模型。
 
-## Official adapter guidelines
+## 官方适配器指南
 
 <Callout type="info">
-  When all of the below steps are done, you are ready to submit a PR to our
-  [repository](https://github.com/nextauthjs/next-auth).
+  完成以下所有步骤后，即可向我们的
+  [代码库](https://github.com/nextauthjs/next-auth) 提交 PR。
 </Callout>
 
-If you created an adapter and want us to distribute it as an official package, please make sure it meets the following requirements. Check out this [existing adapter](https://github.com/nextauthjs/next-auth/tree/main/packages/adapter-prisma) to learn about the package structure, required files, test setup, config, etc.
+如果您创建了适配器并希望我们将其作为官方包分发，请确保满足以下要求。可参考这个 [现有适配器](https://github.com/nextauthjs/next-auth/tree/main/packages/adapter-prisma) 了解包结构、必需文件、测试配置等内容。
 
-1. The Adapter _must_ implement all methods of the [`Adapter` interface](/reference/core/adapters#adapter)
-1. [Adapter tests](https://github.com/nextauthjs/next-auth/blob/main/packages/utils/adapter.ts) _must_ be included and _must_ pass. Docker is favored over services, to make CI resilient to network errors and to reduce the number of GitHub Action Secrets (which also lets us run these tests in fork PRs)
-1. The Adapter _must_ follow these coding styles
+1. Adapter _必须_ 实现 [`Adapter` 接口](/reference/core/adapters#adapter) 的所有方法
+1. [Adapter 测试](https://github.com/nextauthjs/next-auth/blob/main/packages/utils/adapter.ts) _必须_ 包含且 _必须_ 通过。优先使用 Docker 而非服务，以提高 CI 对网络错误的抵抗力，并减少 GitHub Action Secrets 的数量（这也允许我们在 fork PR 中运行这些测试）
+1. Adapter _必须_ 遵循以下编码风格
 
-   - Written in TypeScript
-   - Passes the linting rules of the monorepo
-   - Does not include polyfills
-   - Configured as an ES module (ESM)
-   - Documented via JSDoc comments
-   - Have at least one named export exported from its main module. (For example `export function MyAdapter(): Adapter {}`)
-   - collection/table names should follow the convention (plural/singular, camelCase/snake_case) of the underlying ORM/database docs/conventions
+   - 使用 TypeScript 编写
+   - 通过 monorepo 的 linting 规则
+   - 不包含 polyfills
+   - 配置为 ES 模块 (ESM)
+   - 通过 JSDoc 注释进行文档化
+   - 主模块至少导出一个命名导出（例如 `export function MyAdapter(): Adapter {}`）
+   - 集合/表名应遵循底层 ORM/数据库文档/约定的惯例（复数/单数，camelCase/snake_case）
 
-1. Configure the monorepo to help us maintain the package
+1. 配置 monorepo 以帮助我们维护包
 
-   - Add a (preferably `.svg`) logo to [this directory](https://github.com/nextauthjs/next-auth/tree/main/docs/public/img/adapters)
-   - Add the Adapter to our GitHub workflow files [here](https://github.com/nextauthjs/next-auth/tree/main/.github/workflows/release.yml#L12) and [here](https://github.com/nextauthjs/next-auth/tree/main/.github/pr-labeler.yml)
-   - Make sure to [`.gitignore` generated files](https://github.com/nextauthjs/next-auth/tree/main/.gitignore#L58) if there are any
+   - 将（最好是 `.svg` 格式的）徽标添加到[此目录](https://github.com/nextauthjs/next-auth/tree/main/docs/public/img/adapters)
+   - 将 Adapter 添加到我们的 GitHub 工作流文件[此处](https://github.com/nextauthjs/next-auth/tree/main/.github/workflows/release.yml#L12)和[此处](https://github.com/nextauthjs/next-auth/tree/main/.github/pr-labeler.yml)
+   - 如果有生成的文件，确保[`.gitignore` 它们](https://github.com/nextauthjs/next-auth/tree/main/.gitignore#L58)
 
-1. The Adapter _must_ be able to handle any property coming from the user
+1. Adapter _必须_ 能够处理来自用户的任何属性
 
-   ORMs/database clients might have their own data types, but Auth.js expects these to be normalized as plain JavaScript objects for consistency. If your ORM/database client does not convert automatically, you need to convert the values when reading/writing from/to the database.
+   ORM/数据库客户端可能有自己的数据类型，但 Auth.js 期望这些数据被规范化为普通的 JavaScript 对象以确保一致性。如果你的 ORM/数据库客户端不会自动转换，你需要在从数据库读取/写入时转换这些值。
 
-   You might be tempted to check the name of a property and convert it based on that, but this is not scalable (eg.: a `User` object might have more than one `Date` property, not only `emailVerified`).
+   你可能会想根据属性名称进行检查并基于此进行转换，但这是不可扩展的（例如：`User` 对象可能有多个 `Date` 属性，而不仅仅是 `emailVerified`）。
 
-   Instead, we recommend creating util functions that convert the values. Below is an example of how to convert dates (if your ORM/database client uses other data types, remember to convert them too, not only dates). It checks if the value can be parsed as a date, and if so, it converts it to a `Date` object. Otherwise, it leaves the original value as is.:
+   相反，我们建议创建用于转换值的实用函数。以下是一个如何转换日期的示例（如果你的 ORM/数据库客户端使用其他数据类型，请记住也要转换它们，而不仅仅是日期）。它会检查值是否可以解析为日期，如果可以，则将其转换为 `Date` 对象。否则，保留原始值不变。：
 
 ```ts
 // https://github.com/honeinc/is-iso-date/blob/8831e79b5b5ee615920dcb350a355ffc5cbf7aed/index.js#L5
@@ -203,7 +202,7 @@ export const format = {
 
 ## TypeScript
 
-You can take advantage of the types that comes with the framework packages (i.e. `next-auth/adapters`, `@auth/sveltekit/adapters`).
+你可以利用框架包中自带的类型（例如 `next-auth/adapters`、`@auth/sveltekit/adapters`）。
 
 ```ts
 import type { Adapter } from "next-auth/adapters"
@@ -215,7 +214,7 @@ function MyAdapter(): Adapter {
 }
 ```
 
-When writing your Adapter in JavaScript, you can still use JSDoc to get helpful editor hints and auto-completion.
+使用 JavaScript 编写适配器时，你仍然可以通过 JSDoc 获取编辑器提示和自动补全功能。
 
 ```js {1}
 /** @return { import("next-auth/adapters").Adapter } */
@@ -226,7 +225,7 @@ function MyAdapter() {
 }
 ```
 
-## Resources
+## 相关资源
 
-- [Official adapters' source code](https://github.com/nextauthjs/next-auth/tree/main/packages)
-- [`Adapter` interface](/reference/core/adapters#adapter)
+- [官方适配器源代码](https://github.com/nextauthjs/next-auth/tree/main/packages)
+- [`Adapter` 接口](/reference/core/adapters#adapter)

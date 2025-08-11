@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/google.svg" height="64" width="64" />
 
-# Google Provider
+# Google 提供商
 
-## Resources
+## 相关资源
 
-- [Google OAuth documentation](https://developers.google.com/identity/protocols/oauth2)
-- [Google OAuth Configuration](https://console.developers.google.com/apis/credentials)
+- [Google OAuth 文档](https://developers.google.com/identity/protocols/oauth2)
+- [Google OAuth 配置](https://console.developers.google.com/apis/credentials)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/google
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_GOOGLE_ID
 AUTH_GOOGLE_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,18 +98,18 @@ app.use("/auth/*", ExpressAuth({ providers: [Google] }))
   </Code.Express>
 </Code>
 
-## Notes
+## 注意事项
 
-### Refresh Token
+### 刷新令牌
 
-Google only provides Refresh Token to an application the first time a user signs in.
+Google 仅在用户首次登录时向应用程序提供刷新令牌。
 
-To force Google to re-issue a Refresh Token, the user needs to remove the application from their account and sign in again:
+要强制 Google 重新发放刷新令牌，用户需要从其账户中移除该应用并重新登录：
 https://myaccount.google.com/permissions
 
-Alternatively, you can also pass options in the `params` object of `authorization` which will force the Refresh Token to always be provided on sign in, however this will ask all users to confirm if they wish to grant your application access every time they sign in.
+或者，您也可以在 `authorization` 的 `params` 对象中传递选项参数，这将强制 Google 在每次登录时都提供刷新令牌，但此操作会导致所有用户在每次登录时都需要确认是否授权您的应用访问权限。
 
-If you need access to the RefreshToken or AccessToken for a Google account and you are not using a database to persist user accounts, this may be something you need to do.
+如果您需要访问 Google 账户的 RefreshToken 或 AccessToken 且未使用数据库持久化用户账户，这可能是一个必要的操作。
 
 ```ts filename="./auth.ts"
 import Google from "next-auth/providers/google"
@@ -129,13 +129,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-For more information on exchanging a code for an access token and refresh token see the [Google OAuth documentation](https://developers.google.com/identity/openid-connect/openid-connect#exchangecode).
+有关如何将授权码交换为访问令牌和刷新令牌的更多信息，请参阅 [Google OAuth 文档](https://developers.google.com/identity/openid-connect/openid-connect#exchangecode)。
 
-### Email Verified
+### 邮箱验证状态
 
-Google also returns a `email_verified` boolean property in the OAuth profile.
+Google 还会在 OAuth 配置文件中返回一个布尔型属性 `email_verified`。
 
-You can use this property to restrict access to people with verified accounts at a particular domain.
+您可以使用此属性来限制仅允许特定域中已验证账户的用户访问。
 
 ```ts filename="@/auth.ts"
 export const { handlers, auth, signIn, signOut } = NextAuth({

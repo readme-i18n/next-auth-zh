@@ -3,17 +3,17 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/tiktok.svg" height="64" width="64" />
 
-# TikTok Provider
+# TikTok 提供商
 
-## Resources
+## 相关资源
 
-- [TikTok app console](https://developers.tiktok.com/)
-- [TikTok login kit documentation](https://developers.tiktok.com/doc/login-kit-web/)
-- [Available Scopes](https://developers.tiktok.com/doc/tiktok-api-scopes/)
+- [TikTok 应用控制台](https://developers.tiktok.com/)
+- [TikTok 登录套件文档](https://developers.tiktok.com/doc/login-kit-web/)
+- [可用权限范围](https://developers.tiktok.com/doc/tiktok-api-scopes/)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -39,14 +39,14 @@ https://example.com/auth/callback/tiktok
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_TIKTOK_ID
 AUTH_TIKTOK_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -99,8 +99,8 @@ app.use("/auth/*", ExpressAuth({ providers: [TikTok] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Production applications cannot use localhost URLs to sign in with TikTok. You need add the domain and Callback/Redirect url's to your TikTok app and have them review and approved by the TikTok Team.
-- Email address is not supported by TikTok.
-- Client_ID will be the Client Key in the TikTok Application
+- 生产环境应用无法使用 localhost URL 进行 TikTok 登录。您需要将域名和回调/重定向 URL 添加到 TikTok 应用中，并提交 TikTok 团队审核通过。
+- TikTok 不支持电子邮件地址登录。
+- Client_ID 对应 TikTok 应用中的 Client Key。

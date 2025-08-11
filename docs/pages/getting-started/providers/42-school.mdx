@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/42-school.svg" height="64" width="64" />
 
-# 42School Provider
+# 42School 提供商
 
-## Resources
+## 相关资源
 
-- [42School OAuth documentation](https://api.intra.42.fr/apidoc/guides/web_application_flow)
+- [42School OAuth 文档](https://api.intra.42.fr/apidoc/guides/web_application_flow)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/42-school
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_42_SCHOOL_ID
 AUTH_42_SCHOOL_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -99,6 +99,6 @@ app.use("/auth/*",
   </Code.Express>
 </Code>
 
-## Notes
+## 注意事项
 
-- 42 returns a field on `Account` called `created_at` which is a number, this is different from the default schema's datatype for this field. Check out the [42 School docs](https://api.intra.42.fr/apidoc/guides/getting_started#make-basic-requests) for more info. Make sure to add or edit this field in your database schema in case if you are using an [database adapter](/getting-started/database).
+- 42 平台会在 `Account` 中返回一个名为 `created_at` 的字段，其值为数字类型，这与默认架构中该字段的数据类型不同。详情请参阅 [42 School 文档](https://api.intra.42.fr/apidoc/guides/getting_started#make-basic-requests)。若您正在使用 [数据库适配器](/getting-started/database)，请确保在数据库架构中添加或编辑此字段。

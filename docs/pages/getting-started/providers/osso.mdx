@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/osso.svg" height="64" width="64" />
 
-# Osso Provider
+# Osso 提供商
 
-## Resources
+## 相关资源
 
-- [Osso Project](https://github.com/enterprise-oss/osso)
+- [Osso 项目](https://github.com/enterprise-oss/osso)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,7 +37,7 @@ https://example.com/auth/callback/osso
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_OSSO_ID
@@ -45,7 +45,7 @@ AUTH_OSSO_SECRET
 AUTH_OSSO_ISSUER
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,8 +98,8 @@ app.use("/auth/*", ExpressAuth({ providers: [Osso] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- You can configure your OAuth Clients on your Osso Admin UI, i.e. https://yourInstance.com/admin/config - you'll need to get a Client ID and Secret and allow-list your redirect URIs.
-- SAML - SSO differs a bit from OAuth, for every tenant who wants to sign in to your application using SAML, you and your customer need to perform a multi-step configuration in Osso's Admin UI and the admin dashboard of the tenant's Identity Provider. Osso provides documentation for providers like Okta and Osso, cloud-based IDPs who also offer a developer account that's useful for testing. Osso also provides a Mock IDP that you can use for testing without needing to sign up for an Identity Provider service.
-- `issuer` should be the fully qualified domain – e.g. `demo.ossoapp.com`
+- 您可以在 Osso 管理界面（例如 https://yourInstance.com/admin/config）配置 OAuth 客户端，需要获取客户端 ID 和密钥，并设置允许的重定向 URI。
+- SAML 单点登录与 OAuth 略有不同，对于每个希望通过 SAML 登录您应用的租户，您和客户都需在 Osso 管理界面和租户身份提供者的管理面板中完成多步骤配置。Osso 为 Okta 等提供商提供了文档，这些基于云的身份提供商也提供可用于测试的开发者账户。Osso 还提供了一个模拟身份提供商(Mock IDP)，无需注册身份提供商服务即可用于测试。
+- `issuer` 应为完全限定域名，例如 `demo.ossoapp.com`

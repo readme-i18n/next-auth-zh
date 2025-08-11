@@ -2,9 +2,9 @@ import { Steps, Callout } from "nextra/components"
 import { Code } from "@/components/Code"
 
 <Steps>
-### Installing Auth.js
+### 安装 Auth.js
 
-Start by installing the appropriate package for your framework.
+首先安装适用于您框架的对应包。
 
 <Code>
   <Code.Next>
@@ -37,34 +37,31 @@ Start by installing the appropriate package for your framework.
 </Code>
 
 <Callout type="info">
-  Installing `@auth/core` is not necessary, as a user you should never have to
-  interact with `@auth/core`.
+  无需安装 `@auth/core`，作为用户您永远不需要直接与 `@auth/core` 交互。
 </Callout>
 
-### Setup Environment
+### 配置环境变量
 
-The only environment variable that is mandatory is the `AUTH_SECRET`. This is a random value used by the library to encrypt tokens and email
-verification hashes. (See [Deployment](/getting-started/deployment) to learn more). You can generate one via the official [Auth.js CLI](https://cli.authjs.dev) running:
+唯一必须的环境变量是 `AUTH_SECRET`。这是一个由库用来加密令牌和邮箱验证哈希的随机值（详见[部署指南](/getting-started/deployment)）。您可以通过官方 [Auth.js CLI](https://cli.authjs.dev) 运行以下命令生成：
 
 ```bash
 npx auth secret
 ```
 
-This will also add it to your `.env` file, respecting the framework conventions (eg.: Next.js' `.env.local`).
+该命令会将其添加到您的 `.env` 文件中，并遵循框架约定（例如 Next.js 使用 `.env.local`）。
 
-### Configure
+### 配置认证
 
-Next, create the Auth.js config file and object. This is where you can control the behaviour of the library and specify custom authentication logic, adapters, etc. We recommend all frameworks to create an `auth.ts` file in the project. In this file we'll pass in all the options to the framework specific initialization function and then export the route handler(s), signin and signout methods, and more.
+接下来创建 Auth.js 配置文件和对象。这里您可以控制库的行为并指定自定义认证逻辑、适配器等。我们建议所有框架在项目中创建 `auth.ts` 文件。在此文件中，我们将所有选项传递给框架特定的初始化函数，然后导出路由处理器、登录/登出方法等。
 
 <Callout type="info">
-  You can name this file whatever you want and place it wherever you like, these
-  are just conventions we've come up with.
+  您可以随意命名此文件并放置在任何位置，这些只是我们建议的约定。
 </Callout>
 
 <Code>
   <Code.Next>
 
-1. Start by creating a new `auth.ts` file at the root of your app with the following content.
+1. 首先在应用根目录创建 `auth.ts` 文件，内容如下：
 
 ```ts filename="./auth.ts"
 import NextAuth from "next-auth"
@@ -74,19 +71,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 })
 ```
 
-2. Add a Route Handler under `/app/api/auth/[...nextauth]/route.ts`.
+2. 在 `/app/api/auth/[...nextauth]/route.ts` 下添加路由处理器。
 
 <Callout>
-  This file must be an App Router Route Handler, however, the rest of your app
-  can stay under `page/` if you'd like.
+  此文件必须是应用路由器的路由处理器，但应用其他部分可以保留在 `page/` 目录下。
 </Callout>
 
 ```ts filename="./app/api/auth/[...nextauth]/route.ts"
-import { handlers } from "@/auth" // Referring to the auth.ts we just created
+import { handlers } from "@/auth" // 引用刚创建的 auth.ts
 export const { GET, POST } = handlers
 ```
 
-3. Add optional Middleware to keep the session alive, this will update the session expiry every time its called.
+3. 添加可选中间件以保持会话活跃，每次调用时都会更新会话过期时间。
 
 ```ts filename="./middleware.ts"
 export { auth as middleware } from "@/auth"
@@ -95,7 +91,7 @@ export { auth as middleware } from "@/auth"
   </Code.Next>
   <Code.Qwik>
 
-1. Start by creating a new `plugin@auth.ts` file in your `src/routes` directory with the following content.
+1. 在 `src/routes` 目录创建 `plugin@auth.ts` 文件，内容如下：
 
 ```ts filename="/src/routes/plugin@auth.ts"
 import { QwikAuth$ } from "@auth/qwik"
@@ -110,7 +106,7 @@ export const { onRequest, useSession, useSignIn, useSignOut } = QwikAuth$(
   </Code.Qwik>
   <Code.Svelte>
 
-1. Start by creating a new `auth.ts` file in your `src/` directory with the following content.
+1. 在 `src/` 目录创建 `auth.ts` 文件，内容如下：
 
 ```ts filename="./src/auth.ts"
 import { SvelteKitAuth } from "@auth/sveltekit"
@@ -120,13 +116,13 @@ export const { handle } = SvelteKitAuth({
 })
 ```
 
-2. Re-export the `handle` method in SvelteKit's `src/hooks.server.ts` file.
+2. 在 SvelteKit 的 `src/hooks.server.ts` 文件中重新导出 `handle` 方法。
 
 ```ts filename="./src/hooks.server.ts"
 export { handle } from "./auth"
 ```
 
-3. That handle function adds an `auth()` method onto our `event.locals`, which is available in any `+layout.server.ts` or `+page.server.ts` file. Therefore, we can access the session in our `load` function like this.
+3. 该 handle 函数会在 `event.locals` 上添加 `auth()` 方法，可在任何 `+layout.server.ts` 或 `+page.server.ts` 文件中使用。因此我们可以这样在 `load` 函数中访问会话：
 
 ```ts filename="./src/routes/+layout.server.ts" {4}
 import type { LayoutServerLoad } from "./$types"
@@ -143,7 +139,7 @@ export const load: LayoutServerLoad = async (event) => {
   </Code.Svelte>
   <Code.Express>
 
-1. Start by importing `ExpressAuth` and adding the handler to the auth route.
+1. 导入 `ExpressAuth` 并将处理器添加到认证路由。
 
 ```ts filename="./src/routes/auth.route.ts" {1, 9}
 import { ExpressAuth } from "@auth/express"
@@ -151,19 +147,19 @@ import express from "express"
 
 const app = express()
 
-// If your app is served through a proxy
-// trust the proxy to allow us to read the `X-Forwarded-*` headers
+// 如果您的应用通过代理提供服务
+// 信任代理以允许读取 `X-Forwarded-*` 头信息
 app.set("trust proxy", true)
 app.use("/auth/*", ExpressAuth({ providers: [] }))
 ```
 
-Note this creates the Auth.js API, but does not yet protect resources. Continue on to [protecting resources](/getting-started/session-management/protecting) for more details.
+注意这创建了 Auth.js API，但尚未保护资源。继续阅读[资源保护](/getting-started/session-management/protecting)获取更多细节。
 
   </Code.Express>
 </Code>
 
-### Setup Authentication Methods
+### 设置认证方法
 
-With that, the basic setup is complete! Next we'll setup the first authentication methods and fill out that `providers` array.
+至此基础配置已完成！接下来我们将设置第一个认证方法并填充 `providers` 数组。
 
 </Steps>

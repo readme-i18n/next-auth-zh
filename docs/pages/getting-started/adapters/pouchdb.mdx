@@ -3,21 +3,21 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/pouchdb.svg" width="64" height="64" />
 
-# PouchDB Adapter
+# PouchDB 适配器
 
-## Resources
+## 相关资源
 
-- [PouchDB documentation](https://pouchdb.com/api.html)
+- [PouchDB 文档](https://pouchdb.com/api.html)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install pouchdb pouchdb-find @auth/pouchdb-adapter
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -111,24 +111,24 @@ app.use(
 </Code>
 
 <Callout>
-  Depending on your architecture you can use PouchDB's http adapter to reach any
-  database compliant with the CouchDB protocol (CouchDB, Cloudant, etc.) or use
-  any other PouchDB compatible adapter (leveldb, in-memory, etc.)
+  根据您的架构设计，可以使用 PouchDB 的 http 适配器连接任何兼容 CouchDB
+  协议的数据库（CouchDB、Cloudant 等），或使用其他 PouchDB
+  兼容适配器（leveldb、内存数据库等）
 </Callout>
 
 <Callout type="info">
-  Your PouchDB instance MUST provide the `pouchdb-find` plugin since it is used
-  internally by the adapter to build and manage indexes
+  您的 PouchDB 实例必须安装 `pouchdb-find`
+  插件，因为适配器内部会使用该插件来构建和管理索引
 </Callout>
 
-### Advanced usage
+### 高级用法
 
-#### Memory-First Caching Strategy
+#### 内存优先缓存策略
 
-If you need to boost your authentication layer performance, you may use PouchDB's powerful sync features and various adapters, to build a memory-first caching strategy.
+如需提升认证层性能，可利用 PouchDB 强大的同步功能和多种适配器构建内存优先缓存策略。
 
-Use an in-memory PouchDB as your main authentication database, and synchronize it with any other persisted PouchDB. You may do a one way, one-off replication at startup from the persisted PouchDB into the in-memory PouchDB, then two-way, continuous sync.
+使用内存型 PouchDB 作为主认证数据库，并与任何持久化 PouchDB 保持同步。可在启动时从持久化 PouchDB 到内存 PouchDB 执行单向一次性复制，随后建立双向持续同步。
 
-This will most likely not increase performance much in a serverless environment due to various reasons such as concurrency, function startup time increases, etc.
+在无服务器环境中，由于并发性、函数启动时间增加等原因，此方案可能不会显著提升性能。
 
-For more details, please see https://pouchdb.com/api.html#sync
+更多细节请参阅 https://pouchdb.com/api.html#sync

@@ -1,59 +1,58 @@
 ---
-title: Migrating to v5
+title: 迁移至 v5 版本
 ---
 
 import { Callout, Tabs, Steps } from "nextra/components"
 
-# Upgrade Guide (NextAuth.js v5)
+# 升级指南 (NextAuth.js v5)
 
 <Callout type="info">
-  This guide only applies to `next-auth` upgrades for users of Next.js. Feel
-  free to skip to the next section,
-  [Installation](/getting-started/installation), if you are not upgrading to
-  `next-auth@5`.
+  本指南仅适用于 Next.js 用户的 `next-auth` 升级。如果您不打算升级至
+  `next-auth@5`，可直接跳转至下一章节
+  [安装指南](/getting-started/installation)。
 </Callout>
 
-**NextAuth.js version 5** is a major rewrite of the `next-auth` package, that being said, we introduced as few breaking changes as possible. For all else, this document will guide you through the migration process.
+**NextAuth.js 第 5 版** 是对 `next-auth` 包的重大重构，尽管如此，我们尽可能减少了破坏性变更。本文件将指导您完成整个迁移过程。
 
-Get started by installing the latest version of `next-auth` with the `beta` tag.
+首先通过 `beta` 标签安装最新版本的 `next-auth`。
 
 ```bash npm2yarn
 npm install next-auth@beta
 ```
 
-## New Features
+## 新特性
 
-#### Main changes
+#### 主要变更
 
-- App Router-first (`pages/` still supported)
-- OAuth support on preview deployments ([Read more](/getting-started/deployment#securing-a-preview-deployment))
-- Simplified setup (shared config, inferred [env variables](/guides/environment-variables#environment-variable-inference))
-- New `account()` callback on providers ([`account()` docs](/reference/core/providers#account))
-- Edge-compatible
+- 优先支持 App Router（仍兼容 `pages/` 目录）
+- 预览部署支持 OAuth（[了解更多](/getting-started/deployment#securing-a-preview-deployment)）
+- 简化配置（共享配置，自动推断 [环境变量](/guides/environment-variables#environment-variable-inference)）
+- 新增提供商的 `account()` 回调（[`account()` 文档](/reference/core/providers#account)）
+- 支持 Edge 运行时
 
-#### Universal `auth()`
+#### 通用 `auth()` 方法
 
-- A single method to authenticate anywhere
-- Use `auth()` instead of `getServerSession`, `getSession`, `withAuth`, `getToken`, and `useSession` ([Read more](#authenticating-server-side))
+- 单一认证方法适用于所有场景
+- 使用 `auth()` 替代 `getServerSession`、`getSession`、`withAuth`、`getToken` 和 `useSession`（[详见下文](#authenticating-server-side)）
 
-## Breaking Changes
+## 重大变更
 
-- Auth.js now builds on `@auth/core` with stricter [OAuth](https://www.ietf.org/rfc/rfc6749.html)/[OIDC](https://openid.net/specs/openid-connect-core-1_0.html) spec-compliance, which might break some existing OAuth providers. See our [open issues](https://github.com/nextauthjs/next-auth/issues?q=is%3Aopen+is%3Aissue+label%3Aproviders) for more details.
-- OAuth 1.0 support is deprecated.
-- The minimum required Next.js version is now [14.0](https://nextjs.org/14).
-- The import `next-auth/next` is replaced. See [Authenticating server-side](#authenticating-server-side) for more details.
-- The import `next-auth/middleware` is replaced. See [Authenticating server-side](#authenticating-server-side) for more details.
-- When the `idToken: boolean` option is set to `false`, it won't entirely disable the ID token. Instead, it signals `next-auth` to also visit the `userinfo_endpoint` for the final user data. Previously, `idToken: false` opted out to check the `id_token` validity at all.
+- Auth.js 现基于 `@auth/core` 构建，对 [OAuth](https://www.ietf.org/rfc/rfc6749.html)/[OIDC](https://openid.net/specs/openid-connect-core-1_0.html) 规范的合规性要求更为严格，可能导致部分现有 OAuth 提供商无法兼容。详情请参阅我们的 [待解决问题](https://github.com/nextauthjs/next-auth/issues?q=is%3Aopen+is%3Aissue+label%3Aproviders)。
+- 不再支持 OAuth 1.0 版本。
+- 最低要求的 Next.js 版本现已升级至 [14.0](https://nextjs.org/14)。
+- `next-auth/next` 导入路径已变更，详见[服务端认证](#authenticating-server-side)章节。
+- `next-auth/middleware` 导入路径已变更，详见[服务端认证](#authenticating-server-side)章节。
+- 当 `idToken: boolean` 选项设为 `false` 时，不会完全禁用 ID 令牌，而是指示 `next-auth` 同时访问 `userinfo_endpoint` 获取最终用户数据。此前 `idToken: false` 会完全跳过 `id_token` 的有效性验证。
 
-## Migration
+## 迁移指南
 
 <Steps>
 
-### Configuration File
+### 配置文件
 
-One of our goals was to avoid exporting your configuration from one file and passing it around as `authOptions` throughout your application. To achieve this, we settled on moving the configuration file to the root of the repository and having it export the necessary functions you can use everywhere else. (`auth`, `signIn`, `signOut`, `handlers` etc.).
+我们的目标之一是避免从单一文件导出配置并在整个应用中作为 `authOptions` 传递。为此，我们决定将配置文件移至仓库根目录，并导出可在其他位置使用的必要函数（如 `auth`、`signIn`、`signOut`、`handlers` 等）。
 
-The configuration file should look very similar to your previous route-based Auth.js configuration. Except that we're doing it in a new file in the root of the repository now, and we're exporting methods to be used elsewhere. Below is a simple example of a v5 configuration file.
+配置文件应与之前基于路由的 Auth.js 配置非常相似。区别在于我们现在将其放在仓库根目录的新文件中，并导出供其他地方使用的方法。以下是一个简单的 v5 配置文件示例：
 
 ```ts filename="./auth.ts" {5}
 import NextAuth from "next-auth"
@@ -65,49 +64,49 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 })
 ```
 
-Some things to note about the new configuration:
+关于新配置需要注意以下几点：
 
-1. This is now in a file named `auth.ts` in the root of your repository. It can technically be named anything, but you'll be importing the exported methods from here across your app, so we'd recommend keeping it short.
-2. There is no need to install `@auth/core` to import the provider definitions from, these come from `next-auth` itself.
-3. The configuration object passed to the `NextAuth()` function is the same as before.
-4. The returned methods exported from the `NextAuth()` function call are new and will be required elsewhere in your application.
+1. 该文件现在位于仓库根目录的 `auth.ts` 中。技术上可以任意命名，但由于需要在应用中导入导出的方法，建议保持简短。
+2. 无需安装 `@auth/core` 来导入提供者定义，这些现在直接来自 `next-auth`。
+3. 传递给 `NextAuth()` 函数的配置对象与之前相同。
+4. 从 `NextAuth()` 函数调用返回并导出的方法是新增的，将在应用的其他部分使用。
 
-The old configuration file, contained in the API Route (`pages/api/auth/[...nextauth].ts` / `app/api/auth/[...nextauth]/route.ts`), now becomes much shorter. **These exports are designed to be used in an App Router API Route**, but the rest of your app can stay in the Pages Router if you are gradually migrating!
+旧的配置文件（位于 API 路由 `pages/api/auth/[...nextauth].ts` 或 `app/api/auth/[...nextauth]/route.ts` 中）现在变得非常简短。**这些导出专为 App Router 的 API 路由设计**，但如果正在逐步迁移，应用的其余部分可以继续使用 Pages Router！
 
 ```ts filename="app/api/auth/[...nextauth]/route.ts"
 import { handlers } from "@/auth"
 export const { GET, POST } = handlers
 ```
 
-## Authenticating server-side
+## 服务端认证
 
-Auth.js has had a few different ways to authenticate server-side in the past, so we've tried to simplify this as much as possible.
+Auth.js 过去有几种不同的服务端认证方式，我们已尽可能简化这一过程。
 
-Now that Next.js components are **server-first** by default, and thanks to the investment in using standard Web APIs, we were able to simplify the authentication process to a single `auth()` function call in most cases.
+由于 Next.js 组件默认**优先在服务端运行**，并且得益于对标准 Web API 的投入，我们能够将认证过程简化为大多数情况下只需调用一次 `auth()` 函数。
 
-### Authentication methods
+### 认证方法
 
-See the table below for a summary of the changes. Below that are `diff` examples of how to use the new `auth()` method in various environments and contexts.
+下表总结了变更内容，下方是不同环境和上下文中使用新 `auth()` 方法的 `diff` 示例。
 
-| Where                   | v4                                                    | v5                               |
-| ----------------------- | ----------------------------------------------------- | -------------------------------- |
-| **Server Component**    | `getServerSession(authOptions)`                       | `auth()` call                    |
-| **Middleware**          | `withAuth(middleware, subset of authOptions)` wrapper | `auth` export / `auth()` wrapper |
-| **Client Component**    | `useSession()` hook                                   | `useSession()` hook              |
-| **Route Handler**       | _Previously not supported_                            | `auth()` wrapper                 |
-| **API Route (Edge)**    | _Previously not supported_                            | `auth()` wrapper                 |
-| **API Route (Node.js)** | `getServerSession(req, res, authOptions)`             | `auth(req, res)` call            |
-| **API Route (Node.js)** | `getToken(req)` (No session rotation)                 | `auth(req, res)` call            |
-| **getServerSideProps**  | `getServerSession(ctx.req, ctx.res, authOptions)`     | `auth(ctx)` call                 |
-| **getServerSideProps**  | `getToken(ctx.req)` (No session rotation)             | `auth(req, res)` call            |
+| 场景                   | v4                                                   | v5                            |
+| ---------------------- | ---------------------------------------------------- | ----------------------------- |
+| **服务端组件**         | `getServerSession(authOptions)`                      | `auth()` 调用                 |
+| **中间件**             | `withAuth(middleware, subset of authOptions)` 包装器 | `auth` 导出 / `auth()` 包装器 |
+| **客户端组件**         | `useSession()` 钩子                                  | `useSession()` 钩子           |
+| **路由处理器**         | _之前不支持_                                         | `auth()` 包装器               |
+| **API 路由 (Edge)**    | _之前不支持_                                         | `auth()` 包装器               |
+| **API 路由 (Node.js)** | `getServerSession(req, res, authOptions)`            | `auth(req, res)` 调用         |
+| **API 路由 (Node.js)** | `getToken(req)` (无会话轮换)                         | `auth(req, res)` 调用         |
+| **getServerSideProps** | `getServerSession(ctx.req, ctx.res, authOptions)`    | `auth(ctx)` 调用              |
+| **getServerSideProps** | `getToken(ctx.req)` (无会话轮换)                     | `auth(req, res)` 调用         |
 
-#### Details
+#### 详情
 
-<Tabs items={["Server Component (App)", "Client Component (App)", "Middleware", "API Routes (Pages)", "getServerSideProps (Pages)"]}>
+<Tabs items={["服务端组件 (App)", "客户端组件 (App)", "中间件", "API 路由 (Pages)", "getServerSideProps (Pages)"]}>
 
 <Tabs.Tab>
 
-Auth.js v4 has supported reading the session in Server Components for a while via `getServerSession`. This has been also simplified to the same `auth()` function.
+Auth.js v4 已通过 `getServerSession` 支持在服务端组件中读取会话。现在已简化为相同的 `auth()` 函数。
 
 ```diff filename="app/page.tsx"
 - import { authOptions } from "pages/api/auth/[...nextauth]"
@@ -124,7 +123,7 @@ export default async function Page() {
 </Tabs.Tab>
 <Tabs.Tab>
 
-Imports from `next-auth/react` are now marked with the [`"use client"`](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive) directive. Therefore, they can be used in client components just like they were used in previous versions. Don't forget, client components that attempt to access the session via context will need to be wrapped in a `<SessionProvider />`.
+从 `next-auth/react` 导入的内容现在标记了 [`"use client"`](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive) 指令。因此，可以像以前版本一样在客户端组件中使用。请注意，尝试通过上下文访问会话的客户端组件需要包裹在 `<SessionProvider />` 中。
 
 ```ts filename="components/clientComponent.tsx"
 'use client';
@@ -150,7 +149,7 @@ const ClientComponent = () => {
 + export { auth as middleware } from "@/auth"
 ```
 
-For advanced use cases, you can use `auth` as a wrapper for your Middleware:
+对于高级用例，可以将 `auth` 用作中间件的包装器：
 
 ```ts filename="middleware.ts"
 import { auth } from "@/auth"
@@ -159,18 +158,18 @@ export default auth((req) => {
   // req.auth
 })
 
-// Optionally, don't invoke Middleware on some paths
+// 可选：不在某些路径上调用中间件
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }
 ```
 
-Check out additional [Middleware docs](/getting-started/session-management/protecting#nextjs-middleware) for more details.
+查看额外的[中间件文档](/getting-started/session-management/protecting#nextjs-middleware)获取更多详情。
 
 </Tabs.Tab>
 <Tabs.Tab>
 
-Instead of importing `getServerSession` from `next-auth/next` or `getToken` from `next-auth/jwt`, you can now import the `auth` function exported from your `auth.ts` config file and call it without passing `authOptions`.
+现在可以从 `auth.ts` 配置文件中导入 `auth` 函数并调用，而无需传递 `authOptions`，不再需要从 `next-auth/next` 导入 `getServerSession` 或从 `next-auth/jwt` 导入 `getToken`。
 
 ```diff filename='pages/api/example.ts'
 - import { getServerSession } from "next-auth/next"
@@ -189,15 +188,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 ```
 
 <Callout>
-  Whenever `auth()` is passed the res object, it will rotate the session expiry.
-  This was not the case with `getToken()` previously. The default session expiry
-  is 30 days, but you can change it by setting `authOptions.session.maxAge`.
+  当 `auth()` 传递了 res 对象时，它将轮换会话过期时间。 这与之前的 `getToken()`
+  不同。默认会话过期时间为 30 天， 但可以通过设置 `authOptions.session.maxAge`
+  来更改。
 </Callout>
 
 </Tabs.Tab>
 <Tabs.Tab>
 
-Instead of importing `getServerSession` from `next-auth/next` or `getToken` from `next-auth/jwt`, you can now import the `auth` function from your config file and call it without passing `authOptions`.
+现在可以从配置文件中导入 `auth` 函数并调用，而无需传递 `authOptions`，不再需要从 `next-auth/next` 导入 `getServerSession` 或从 `next-auth/jwt` 导入 `getToken`。
 
 ```diff filename="pages/protected.tsx"
 - import { getServerSession } from "next-auth/next"
@@ -210,7 +209,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 -  const token = await getToken({ req: context.req })
 +  const session = await auth(context)
   if (session) {
-    // Do something with the session
+    // 使用会话执行操作
   }
 
   return { props: { session } }
@@ -218,19 +217,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 ```
 
 <Callout>
-  Whenever `auth()` is passed the `res` object (i.e. as a part of `context`), it
-  will rotate the session expiry. This was not the case with `getToken()`
-  previously.
+  当 `auth()` 传递了 `res` 对象（即作为 `context` 的一部分）时，
+  它将轮换会话过期时间。这与之前的 `getToken()` 不同。
 </Callout>
 
 </Tabs.Tab>
 </Tabs>
 
-## Adapters
+## 适配器
 
-### Adapter packages
+### 适配器包
 
-Beginning with `next-auth` v5, you should now install database adapters from the `@auth/*-adapter` scope, instead of `@next-auth/*-adapter`. Database adapters don't rely on any Next.js features, so it made more sense to move them to this new scope.
+从 `next-auth` v5 开始，现在应从 `@auth/*-adapter` 作用域安装数据库适配器，而不是 `@next-auth/*-adapter`。数据库适配器不依赖任何 Next.js 功能，因此将其移至新作用域更为合理。
 
 ```diff
 - npm install @next-auth/prisma-adapter
@@ -238,34 +236,27 @@ Beginning with `next-auth` v5, you should now install database adapters from the
 ```
 
 <Callout type="info">
-  Check out the [adapters page](/getting-started/database) for a list of
-  official adapters, or the "[create a database
-  adapter](/guides/creating-a-database-adapter)" guide to learn how to create
-  your own.
+  查看[适配器页面](/getting-started/database)获取官方适配器列表，
+  或参阅"[创建数据库适配器](/guides/creating-a-database-adapter)"指南学习如何创建自己的适配器。
 </Callout>
 
-### Database Migrations
+### 数据库迁移
 
-NextAuth.js v5 **does not introduce any breaking changes to the database schema**. However, since OAuth 1.0 support is dropped, the (previously optional) `oauth_token_secret` and `oauth_token` fields can be removed from the `account` table if you are not using them.
+NextAuth.js v5 **未对数据库模式引入任何破坏性变更**。但由于不再支持 OAuth 1.0，如果不使用，可以从 `account` 表中移除（之前可选的）`oauth_token_secret` 和 `oauth_token` 字段。
 
-Furthermore, previously uncommon fields like GitHub's `refresh_token_expires_in` fields were
-required to be added to the `account` table. This is no longer the case, and you can remove it if
-you are not using it. If you do use it, please make sure to return it via the new [`account()` callback](/reference/core/providers#account).
+此外，之前不常见的字段（如 GitHub 的 `refresh_token_expires_in`）需要添加到 `account` 表中。现在不再需要，如果不使用可以移除。如果使用，请确保通过新的 [`account()` 回调](/reference/core/providers#account)返回它。
 
-## Edge compatibility
+## Edge 兼容性
 
-While Auth.js strictly uses standard [Web APIs](https://developer.mozilla.org/en-US/docs/Web/API) (and thus can run in any environment that supports them), some libraries or ORMs (Object-Relational Mapping) packages that you rely on might not be ready yet. In this case, you can split the auth configuration into multiple files.
+尽管 Auth.js 严格使用标准 [Web API](https://developer.mozilla.org/en-US/docs/Web/API)（因此可以在任何支持这些 API 的环境中运行），但依赖的某些库或 ORM（对象关系映射）包可能尚未准备就绪。在这种情况下，可以将认证配置拆分为多个文件。
 
-Auth.js supports two [session strategies](/concepts/session-strategies). When you are using an adapter, it will default to the `database` strategy. **Unless your database and its adapter is compatible with the Edge runtime/infrastructure, you will not be able to use the `"database"` session strategy**.
+Auth.js 支持两种[会话策略](/concepts/session-strategies)。使用适配器时，默认使用 `database` 策略。**除非数据库及其适配器与 Edge 运行时/基础设施兼容，否则无法使用 `"database"` 会话策略**。
 
-So for example, if you are using an adapter that relies on an ORM/library that is not yet compatible with Edge runtime(s) below is an example where we force the `jwt` strategy and split up the configuration so the library doesn't attempt to access the database in edge environments, like in the middleware.
+例如，如果使用的适配器依赖于尚未兼容 Edge 运行时的 ORM/库，以下示例强制使用 `jwt` 策略并拆分配置，以避免在中间件等边缘环境中访问数据库。
 
-<Callout>
-  The following filenames are only a convention, they can be named anything you
-  like.
-</Callout>
+<Callout>以下文件名仅为约定，可以任意命名。</Callout>
 
-1. Create an `auth.config.ts` file which exports an object containing your Auth.js configuration options. You can put all common configuration here **which does not rely on the adapter**. Notice this is exporting a configuration object only, we're not calling `NextAuth()` here.
+1. 创建 `auth.config.ts` 文件，导出一个包含 Auth.js 配置选项的对象。可以在此处放置**不依赖适配器**的所有通用配置。注意这里仅导出配置对象，不调用 `NextAuth()`。
 
 ```ts filename="auth.config.ts"
 import GitHub from "next-auth/providers/github"
@@ -274,7 +265,7 @@ import type { NextAuthConfig } from "next-auth"
 export default { providers: [GitHub] } satisfies NextAuthConfig
 ```
 
-2. Next, create an `auth.ts` file and add your adapter and the `jwt` session strategy there. This is the `auth.ts` configuration file you will import from in the rest of your application, other than in the middleware.
+2. 接下来，创建 `auth.ts` 文件并添加适配器和 `jwt` 会话策略。这是将在应用中导入的 `auth.ts` 配置文件，中间件除外。
 
 ```ts filename="auth.ts" {4, 9, 11}
 import NextAuth from "next-auth"
@@ -291,45 +282,45 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 })
 ```
 
-3. In your middleware file, import the configuration object from your first `auth.config.ts` file and use it to lazily initialize Auth.js there. In effect, initialize Auth.js separately with all of your common options, but **without the edge incompatible adapter**.
+3. 在中间件文件中，从第一个 `auth.config.ts` 文件导入配置对象，并用于延迟初始化 Auth.js。实际上，单独初始化 Auth.js 并包含所有通用选项，但**不包含边缘不兼容的适配器**。
 
 ```ts filename="middleware.ts" {1} /NextAuth/
 import authConfig from "./auth.config"
 import NextAuth from "next-auth"
 
-// Use only one of the two middleware options below
-// 1. Use middleware directly
+// 仅使用以下两种中间件选项之一
+// 1. 直接使用中间件
 // export const { auth: middleware } = NextAuth(authConfig)
 
-// 2. Wrapped middleware option
+// 2. 包装中间件选项
 const { auth } = NextAuth(authConfig)
 export default auth(async function middleware(req: NextRequest) {
-  // Your custom middleware logic goes here
+  // 自定义中间件逻辑
 })
 ```
 
-The above is just an example. **The main idea**, is to separate the part of the configuration that is edge-compatible from the rest, and only import the edge-compatible part in Middleware/Edge pages/routes. You can read more about this workaround in the [Prisma docs](/getting-started/adapters/prisma), for example.
+以上仅为示例。**主要思路**是将边缘兼容的配置部分与其他部分分离，并仅在中间件/边缘页面/路由中导入边缘兼容部分。例如，可以在 [Prisma 文档](/getting-started/adapters/prisma) 中阅读有关此解决方法的更多信息。
 
-Please follow up with your library/database/ORM's maintainer to see if they are planning to support the Edge runtime/infrastructure.
+请关注库/数据库/ORM 的维护者，了解他们是否计划支持 Edge 运行时/基础设施。
 
-For more information in general about edge compatibility and how Auth.js fits into this, check out our [edge compatibility article](/guides/edge-compatibility).
+有关边缘兼容性及 Auth.js 如何适应的更多信息，请参阅我们的[边缘兼容性文章](/guides/edge-compatibility)。
 
-## Environment Variables
+## 环境变量
 
-There are **no breaking changes to the environment variables**, but we have cleaned up a few things which make some of them unnecessary. Therefore, we wanted to share some best practices around environment variables.
+**环境变量没有破坏性变更**，但我们清理了一些使其变得不必要的内容。因此，我们想分享一些关于环境变量的最佳实践。
 
-- All environment variables should be prefixed with `AUTH_`, `NEXTAUTH_` is no longer in use.
-- If you name your provider `secret` / `clientId` variables using this syntax, i.e. `AUTH_GITHUB_SECRET` and `AUTH_GITHUB_ID`, they will be auto-detected and you won't have to explicitly pass them into your provider's configuration.
-- The `NEXTAUTH_URL`/`AUTH_URL` is not strictly necessary anymore in most environments. We will auto-detect the host based on the request headers.
-- The `AUTH_TRUST_HOST` environment variable serves the same purpose as setting `trustHost: true` in your Auth.js configuration. This is necessary when running Auth.js behind a proxy. When set to true we will trust the `X-Forwarded-Host` and `X-Forwarded-Proto` headers passed to the app by the proxy to auto-detect the host URL (`AUTH_URL`)
-- The `AUTH_SECRET` environment variable is the **only variable that is really necessary**. You do not need to additionally pass this value into your config as the `secret` configuration option if you've set the environment variable.
+- 所有环境变量应以 `AUTH_` 为前缀，不再使用 `NEXTAUTH_`。
+- 如果使用 `AUTH_GITHUB_SECRET` 和 `AUTH_GITHUB_ID` 这样的语法命名提供者的 `secret` / `clientId` 变量，它们将被自动检测，无需显式传递到提供者配置中。
+- 在大多数环境中，`NEXTAUTH_URL`/`AUTH_URL` 不再严格必需。我们将根据请求头自动检测主机。
+- `AUTH_TRUST_HOST` 环境变量的作用与在 Auth.js 配置中设置 `trustHost: true` 相同。在代理后运行 Auth.js 时需要此设置。设置为 true 时，我们将信任代理传递给应用的 `X-Forwarded-Host` 和 `X-Forwarded-Proto` 头以自动检测主机 URL (`AUTH_URL`)。
+- `AUTH_SECRET` 环境变量是**唯一真正必需的变量**。如果已设置环境变量，无需额外将其作为 `secret` 配置选项传递到配置中。
 
-For more information about environment variables and environment variable inference, check out our [environment variable](/guides/environment-variables) page.
+有关环境变量和环境变量推断的更多信息，请查看我们的[环境变量](/guides/environment-variables)页面。
 
 ## TypeScript
 
-- `NextAuthOptions` is renamed to `NextAuthConfig`
-- The following types are now exported from all framework packages like `next-auth` and `@auth/sveltekit`:
+- `NextAuthOptions` 重命名为 `NextAuthConfig`
+- 以下类型现在从所有框架包（如 `next-auth` 和 `@auth/sveltekit`）中导出：
 
 ```ts
 export type {
@@ -341,14 +332,14 @@ export type {
 } from "@auth/core/types"
 ```
 
-- All `Adapter` types are re-exported from `/adapters` in the framework packages as well, i.e. from `next-auth/adapters`, `@auth/sveltekit/adapters`, etc.
+- 所有 `Adapter` 类型也从框架包的 `/adapters` 中重新导出，例如 `next-auth/adapters`、`@auth/sveltekit/adapters` 等。
 
 </Steps>
 
 ## Cookies
 
-- The `next-auth` prefix is renamed to `authjs`.
+- `next-auth` 前缀已更名为 `authjs`。
 
-## Summary
+## 概述
 
-We hope this migration goes smoothly for everyone! If you have any questions or get stuck anywhere, feel free to create [a new issue](https://github.com/nextauthjs/next-auth/issues/new) on GitHub, or come chat with us in the [Discord](https://discord.authjs.dev) server.
+我们希望这次迁移对所有人来说都能顺利进行！如果您有任何疑问或在任何地方遇到困难，欢迎在 GitHub 上创建[新问题](https://github.com/nextauthjs/next-auth/issues/new)，或者加入我们的 [Discord](https://discord.authjs.dev) 服务器进行交流。

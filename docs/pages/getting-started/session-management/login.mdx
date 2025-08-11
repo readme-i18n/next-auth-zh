@@ -2,9 +2,9 @@ import { Callout } from "nextra/components"
 import { Screenshot } from "@/components/Screenshot"
 import { Code } from "@/components/Code"
 
-# Handling Signin and Signout
+# 处理登录与登出
 
-To signin your users, make sure you have at least one [authentication method](/getting-started/authentication) setup. You then need to build a button which will call the sign in function from your Auth.js framework package.
+要让用户登录，请确保至少配置了一种[认证方式](/getting-started/authentication)。然后需要构建一个按钮，该按钮将调用 Auth.js 框架包中的登录函数。
 
 <Code>
   <Code.Next>
@@ -172,15 +172,13 @@ export { router }
   </Code.Express>
 </Code>
 
-You can also pass a provider to the `signIn` function which will attempt to login directly with that provider. Otherwise, when clicking this button in your application, the user will be redirected to the configured sign in page. If you did not setup a [custom sign in page](/guides/pages/signin), the user will be redirected to the default signin page at `/[basePath]/signin`.
+你也可以向 `signIn` 函数传递一个 provider 参数，这将尝试直接使用该提供商登录。否则，当用户在应用中点击此按钮时，将被重定向到配置的登录页面。如果未设置[自定义登录页](/guides/pages/signin)，用户将被重定向到默认登录页 `/[basePath]/signin`。
 
 import DefaultSignInPage from "../../../public/img/getting-started/default-signin-page.webp"
 
 <Screenshot src={DefaultSignInPage} alt="Default Sign-in Page" />
 
-Once authenticated, the user will be redirected back to the page they started the signin from. If
-you want the user to be redirected somewhere else after sign in (.i.e `/dashboard`), you can do so
-by passing the target URL as `redirectTo` in the sign-in options.
+认证成功后，用户将被重定向回发起登录的原始页面。若希望用户在登录后跳转到其他位置（例如 `/dashboard`），可通过在登录选项中传递 `redirectTo` 参数指定目标 URL。
 
 <Code>
 <Code.Next>
@@ -286,9 +284,9 @@ export { router }
 </Code.Express>
 </Code>
 
-### Signout
+### 登出
 
-Signing out can be done similarly to signing in. Most frameworks offer both a client-side and server-side method for signing out as well.
+登出操作与登录类似。大多数框架同时提供客户端和服务端的登出方法。
 
 <Code>
 <Code.Next>
@@ -450,6 +448,6 @@ export { router }
 </Code>
 
 <Callout>
-  Note that when signing out of an OAuth provider like GitHub in an Auth.js
-  application, the user will not be signed out of GitHub elsewhere.
+  请注意：在 Auth.js 应用中登出 GitHub 等 OAuth 提供商时，用户不会在其他地方退出
+  GitHub 账户。
 </Callout>

@@ -1,5 +1,5 @@
 ---
-title: Email Providers
+title: 邮件服务提供商
 ---
 
 import { useState } from "react"
@@ -11,19 +11,16 @@ import { Link } from "@/components/Link"
 import { Screenshot } from "@/components/Screenshot"
 import MagicLink from "../../../public/img/magic-links/start.webp"
 
-# Email Provider
+# 邮件服务提供商
 
-This login mechanism starts by the user providing their email address at the login form. Then a **Verification Token** is sent to the provided email address. The user then has 24 hours to click the link in the email body to "consume" that token and register their account, otherwise the verification token will expire and they will have to request a new one.
+该登录机制首先要求用户在登录表单中提供其电子邮件地址。随后系统会向该邮箱发送一个**验证令牌**。用户需在24小时内点击邮件中的链接来"使用"该令牌并完成账户注册，否则验证令牌将失效，用户需重新申请新的验证令牌。
 
 <Callout>
-  An Email Provider can be used with both [JSON Web Tokens](https://jwt.io/) and
-  [database](/concepts/session-strategies#database-session) session, whichever
-  you choose, you **must still configure a database** so that Auth.js can save
-  the verification tokens and look them up when the user attempts to login. It
-  is not possible to enable an email provider without using a database.
+  邮件服务提供商可同时兼容[JSON Web Tokens](https://jwt.io/)和
+  [数据库](/concepts/session-strategies#database-session)会话策略。无论选择哪种方式，您**都必须配置数据库**，以便Auth.js能够保存验证令牌并在用户尝试登录时进行查询。不使用数据库的情况下无法启用邮件服务提供商。
 </Callout>
 
-### Providers
+### 服务提供商
 
 <div className="flex flex-col w-full gap-6 items-start">
   <RichTabs

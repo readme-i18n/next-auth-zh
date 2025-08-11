@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/osu.svg" height="64" width="64" />
 
-# Osu Provider
+# Osu 提供商
 
-## Resources
+## 相关资源
 
-- [osu! OAuth documentation](https://osu.ppy.sh/docs/index.html#authentication)
-- [osu! app console](https://osu.ppy.sh/home/account/edit#new-oauth-application)
+- [osu! OAuth 文档](https://osu.ppy.sh/docs/index.html#authentication)
+- [osu! 应用控制台](https://osu.ppy.sh/home/account/edit#new-oauth-application)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/osu
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_OSU_ID
 AUTH_OSU_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,6 +98,6 @@ app.use("/auth/*", ExpressAuth({ providers: [Osu] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- osu! does not provide a user email.
+- osu! 不提供用户邮箱信息。

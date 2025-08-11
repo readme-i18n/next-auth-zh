@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/vk.svg" width="64" height="64" />
 
-# VK Provider
+# VK 提供商
 
-## Resources
+## 相关资源
 
-- [VK API documentation](https://vk.com/dev/first_guide)
-- [VK App configuration](https://vk.com/apps?act=manage)
+- [VK API 文档](https://vk.com/dev/first_guide)
+- [VK 应用配置](https://vk.com/apps?act=manage)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/vk
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_VK_ID
 AUTH_VK_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,9 +98,9 @@ app.use("/auth/*", ExpressAuth({ providers: [Vk] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- By default the provider uses 5.126 version of the API. See https://vk.com/dev/versions for more info. If you want to use a different version, you can pass it to provider's options object:
+- 默认情况下，该提供商使用 5.126 版本的 API。更多信息请参阅 https://vk.com/dev/versions。如需使用其他版本，可将其传入提供商的配置对象：
 
 ```ts filename="./auth.ts"
 const apiVersion = "5.126"

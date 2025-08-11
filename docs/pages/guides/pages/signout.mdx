@@ -1,11 +1,11 @@
 import { Code } from "@/components/Code"
 import { Screenshot } from "@/components/Screenshot"
 
-# Custom sign out page
+# 自定义登出页面
 
-Is easy to configure Auth.js to display a custom sign out page in case you need it.
+Auth.js 可以轻松配置为在需要时显示自定义登出页面。
 
-Here's the code for a simple sign out page built on top of the [example app](https://github.com/nextauthjs/next-auth-example):
+以下是基于[示例应用](https://github.com/nextauthjs/next-auth-example)构建的简单登出页面代码：
 
 <Code>
 <Code.Next>
@@ -109,10 +109,10 @@ export const actions = { default: signOut } satisfies Actions
 </Code.Svelte>
 </Code>
 
-Now if the user navigates to `/signout` they'll see the following page:
+当用户访问 `/signout` 路径时，将会看到以下页面：
 
 import CustomSignOut from "../../../public/img/tutorials/custom-sign-out.webp"
 
 <Screenshot src={CustomSignOut} alt="Custom Sign-out" />
 
-If they click "Sign out", the session will be deleted and they will be redirected to the homepage.
+如果点击"登出"按钮，会话将被删除并重定向至首页。

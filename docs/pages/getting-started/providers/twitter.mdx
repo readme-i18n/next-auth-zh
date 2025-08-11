@@ -3,15 +3,15 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/twitter.svg" height="64" width="64" />
 
-# Twitter/X Provider
+# Twitter/X 提供商
 
-## Resources
+## 相关资源
 
-- [Twitter App documentation](https://developer.twitter.com/en/apps)
+- [Twitter 应用文档](https://developer.twitter.com/en/apps)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -37,14 +37,14 @@ https://example.com/auth/callback/twitter
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_TWITTER_ID
 AUTH_TWITTER_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -97,7 +97,7 @@ app.use("/auth/*", ExpressAuth({ providers: [Twitter] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- Auth.js now uses Twitter/X OAuth 2.0 by default. There's no need to set `version` anymore.
-- Email is currently not supported by Twitter/X OAuth 2.0.
+- Auth.js 现在默认使用 Twitter/X OAuth 2.0，不再需要设置 `version` 参数
+- Twitter/X OAuth 2.0 目前不支持获取用户邮箱

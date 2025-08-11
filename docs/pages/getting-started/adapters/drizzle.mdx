@@ -6,39 +6,39 @@ import { Accordion, Accordions } from "@/components/Accordion"
   <img align="right" src="/img/adapters/drizzle.svg" width="64" height="64" />
 </a>
 
-# Drizzle ORM Adapter
+# Drizzle ORM 适配器
 
-## Resources
+## 相关资源
 
-- [Drizzle ORM documentation](https://orm.drizzle.team/docs/overview)
+- [Drizzle ORM 文档](https://orm.drizzle.team/docs/overview)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install drizzle-orm @auth/drizzle-adapter
 npm install drizzle-kit --save-dev
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 AUTH_DRIZZLE_URL=postgres://postgres:postgres@127.0.0.1:5432/db
 ```
 
-### Configuration
+### 配置
 
-To use this adapter, you must have setup Drizzle ORM and Drizzle Kit in your project. Drizzle provides a simple [quick start guide](https://orm.drizzle.team/kit-docs/quick). For more details, follow the Drizzle documentation for your respective database ([PostgreSQL](https://orm.drizzle.team/docs/get-started-postgresql), [MySQL](https://orm.drizzle.team/docs/get-started-mysql) or [SQLite](https://orm.drizzle.team/docs/get-started-sqlite)). In summary, that setup should look something like this.
+使用此适配器前，需确保已在项目中安装配置好 Drizzle ORM 和 Drizzle Kit。Drizzle 提供了简明的[快速入门指南](https://orm.drizzle.team/kit-docs/quick)。更多细节请参考对应数据库的 Drizzle 文档（[PostgreSQL](https://orm.drizzle.team/docs/get-started-postgresql)、[MySQL](https://orm.drizzle.team/docs/get-started-mysql) 或 [SQLite](https://orm.drizzle.team/docs/get-started-sqlite)）。基本配置流程如下：
 
-1. Create your schema file, based off of one of the ones below.
-2. Install a supported database driver to your project, like `@libsql/client`, `mysql2` or `postgres`.
-3. Create a `drizzle.config.ts` [file](https://orm.drizzle.team/kit-docs/conf).
-4. Generate the initial migration from your schema file with a command like, `drizzle-kit generate`.
-5. Apply migrations by using `migrate()` function or push changes directly to your database with a command like, `drizzle-kit push`.
-6. If your schemas differ from the default ones, pass them as the second parameter to the adapter.
+1. 根据下方示例创建模式文件
+2. 安装支持的数据库驱动，如 `@libsql/client`、`mysql2` 或 `postgres`
+3. 创建 `drizzle.config.ts` [配置文件](https://orm.drizzle.team/kit-docs/conf)
+4. 执行类似 `drizzle-kit generate` 的命令从模式文件生成初始迁移
+5. 使用 `migrate()` 函数应用迁移，或执行类似 `drizzle-kit push` 的命令直接将变更推送到数据库
+6. 若使用非默认模式，需将其作为适配器的第二个参数传入
 
-#### Schemas
+#### 模式文件
 
 <Accordions>
 <Accordion title="PostgreSQL">
@@ -358,7 +358,7 @@ export const authenticators = sqliteTable(
 </Accordion>
 </Accordions>
 
-### Adapter Setup
+### 适配器设置
 
 <Code>
 <Code.Next>
@@ -427,12 +427,12 @@ app.use(
 </Code.Express>
 </Code>
 
-#### Passing your own Schemas
+#### 使用自定义模式
 
-If you want to use your own tables, you can pass them as a second argument to `DrizzleAdapter`.
+如需使用自定义表结构，可将模式作为第二个参数传递给 `DrizzleAdapter`
 
-- The `sessionsTable` is optional and only required if you're using the database session strategy.
-- The `verificationTokensTable` is optional and only required if you're using a Magic Link provider.
+- `sessionsTable` 是可选的，仅在使用数据库会话策略时需要配置。
+- `verificationTokensTable` 是可选的，仅在使用 Magic Link 身份提供者时需要配置。
 
 ```ts filename="auth.ts"
 import NextAuth from "next-auth"
@@ -451,9 +451,9 @@ export const { handlers, auth } = NextAuth({
 })
 ```
 
-### Migrating your database
+### 数据库迁移
 
-With your schema now described in your code, you'll need to migrate your database to your schema. An example `migrate.ts` file looks like this. For more information, check out Drizzle's migration [quick start guide](https://orm.drizzle.team/docs/migrations).
+现在您已在代码中定义了数据库架构，接下来需要将数据库迁移至该架构。以下是一个示例 `migrate.ts` 文件。更多信息请参阅 Drizzle 的迁移[快速入门指南](https://orm.drizzle.team/docs/migrations)。
 
 ```ts filename="migrate.ts"
 import "dotenv/config"
@@ -467,4 +467,4 @@ await migrate(db, { migrationsFolder: "./drizzle" })
 await connection.end()
 ```
 
-Full documentation on how to manage migrations with Drizzle can be found at the Drizzle Kit [Migrations page](https://orm.drizzle.team/kit-docs/overview#running-migrations).
+关于如何使用 Drizzle 管理迁移的完整文档，请访问 Drizzle Kit 的[迁移页面](https://orm.drizzle.team/kit-docs/overview#running-migrations)。

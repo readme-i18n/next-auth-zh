@@ -3,29 +3,25 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/sailpoint.svg" height="64" width="64" />
 
-# SailPoint ISC Provider
+# SailPoint ISC 提供商
 
-SailPoint Identity Secure Cloud (ISC) is an enterprise SaaS platform for identity and security. In order to use this OAuth integration, you will need an ISC tenant. If you're a SailPoint customer or partner, please talk to your SailPoint account manager for more details. If you are a developer, check out the [SailPoint Developer Community](https://developer.sailpoint.com/discuss/).
+SailPoint Identity Secure Cloud (ISC) 是一个面向身份与安全的企业级 SaaS 平台。要使用此 OAuth 集成，您需要拥有 ISC 租户。如果您是 SailPoint 客户或合作伙伴，请联系您的 SailPoint 客户经理获取详细信息。开发者可访问 [SailPoint 开发者社区](https://developer.sailpoint.com/discuss/)。
 
 <Callout>
-  This provider is not shipped with any of the Auth.js packages because it is an
-  enterprise provider for which we cannot obtain a tenant to test and ensure
-  compatibility. That being said, we'd like to make providers like these
-  available to our users, so we will share a copy and paste version of the
-  provider on respective docs pages like this. The provider configuration below
-  is provided as-is and has been submitted by a community member with access to
-  a SailPoint tenant.
+  该提供商未随任何 Auth.js
+  软件包分发，因为这是一个企业级提供商，我们无法获取租户进行测试和兼容性验证。尽管如此，我们希望向用户提供此类提供商，因此我们将在文档页面（如本页）分享可复制粘贴的提供商配置。下方提供的提供商配置按原样提供，由拥有
+  SailPoint 租户访问权限的社区成员提交。
 </Callout>
 
-## Resources
+## 相关资源
 
-- [SailPoint Identity Secure Cloud Authentication](https://developer.sailpoint.com/docs/api/authentication#choose-authorization-grant-flow)
-- [Managing API Keys and Personal Access Tokens](https://documentation.sailpoint.com/saas/help/common/api_keys.html?h=oauth+client#creating-an-api-key)
-- [SailPoint Developer Community](https://developer.sailpoint.com/discuss/)
+- [SailPoint Identity Secure Cloud 认证](https://developer.sailpoint.com/docs/api/authentication#choose-authorization-grant-flow)
+- [管理 API 密钥和个人访问令牌](https://documentation.sailpoint.com/saas/help/common/api_keys.html?h=oauth+client#creating-an-api-key)
+- [SailPoint 开发者社区](https://developer.sailpoint.com/discuss/)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -58,16 +54,16 @@ https://example.com/auth/callback/sailpoint
   </Code.Express>
 </Code>
 
-### Create OAuth Client
+### 创建 OAuth 客户端
 
-First, you'll need to create a client in your SailPoint admin console in order to get your `clientId` and `clientSecret`. You can follow this [guide](https://documentation.sailpoint.com/saas/help/common/api_keys.html?h=oauth+client#creating-an-api-key), or follow the main steps below.
+首先，您需要在 SailPoint 管理控制台中创建一个客户端以获取 `clientId` 和 `clientSecret`。您可以按照此[指南](https://documentation.sailpoint.com/saas/help/common/api_keys.html?h=oauth+client#creating-an-api-key)操作，或遵循以下主要步骤：
 
-1. Create an OAuth Client () with grant types: `AUTHORIZATION_TOKEN` and `REFRESH_TOKEN`.
-2. Set the redirect URL to match your callback URL, based on the example above.
-3. Finally, select the scopes `sp:scope:all`.
-4. Click "**Create**" and note down the generated `clientId` and `clientSecret`.
+1. 创建一个 OAuth 客户端 ()，授权类型选择：`AUTHORIZATION_TOKEN` 和 `REFRESH_TOKEN`。
+2. 将重定向 URL 设置为与上述示例中的回调 URL 匹配。
+3. 最后，选择作用域 `sp:scope:all`。
+4. 点击"**创建**"并记录生成的 `clientId` 和 `clientSecret`。
 
-### Environment Variables
+### 环境变量
 
 ```sh
 AUTH_SAILPOINT_ID=
@@ -76,9 +72,9 @@ AUTH_SAILPOINT_BASE_URL=https://{tenant}.identitynow.com
 AUTH_SAILPOINT_BASE_API_URL=https://{tenant}.api.identitynow.com
 ```
 
-### Configuration
+### 配置
 
-Unlike other Auth.js providers, this cannot be imported from the package (see the note at the top of this page for more details). However, you can copy and paste the following object into your `providers` array to enable this provider.
+与其他 Auth.js 提供程序不同，此配置无法从包中导入（有关详细信息，请参阅本页顶部的说明）。不过，您可以将以下对象复制粘贴到 `providers` 数组中以启用此提供程序。
 
 <Code>
   <Code.Next>
@@ -225,11 +221,11 @@ app.use(
   </Code.Express>
 </Code>
 
-### Profile
+### 用户资料
 
-The SailPoint `userprofile` endpoint will return more fields, but by default the [User table](/getting-started/database#models) only supports `id`, `name`, `email`, and `image`. Therefore, if you'd like to use any of the following fields and you're using a database adapter with Auth.js, make sure you modify the `User` table schema in whichever adapter and database you're using. Then you can additionally return any of these fields from the `profile` callback above.
+SailPoint 的 `userprofile` 端点会返回更多字段，但默认情况下 [用户表](/getting-started/database#models) 仅支持 `id`、`name`、`email` 和 `image`。因此，如果您想使用以下任何字段并且正在使用带有 Auth.js 的数据库适配器，请确保修改您所用适配器和数据库中的 `User` 表结构。然后您还可以从上述 `profile` 回调中返回以下任何字段。
 
-The available fields from the SailPoint `userprofile` endpoint response include the following.
+SailPoint `userprofile` 端点响应中可用的字段包括以下内容。
 
 ```ts
 type SailPointProfile = {

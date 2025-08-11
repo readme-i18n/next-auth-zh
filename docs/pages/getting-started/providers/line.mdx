@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/line.svg" height="64" width="64" />
 
-# Line Provider
+# LINE 提供商
 
-## Resources
+## 相关资源
 
-- [LINE Login documentation](https://developers.line.biz/en/docs/line-login/integrate-line-login/)
-- [LINE app console](https://developers.line.biz/console/)
+- [LINE 登录文档](https://developers.line.biz/en/docs/line-login/integrate-line-login/)
+- [LINE 应用控制台](https://developers.line.biz/console/)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/line
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_LINE_ID
 AUTH_LINE_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,8 +98,8 @@ app.use("/auth/*", ExpressAuth({ providers: [Line] }))
   </Code.Express>
 </Code>
 
-Create a provider and a LINE login channel at https://developers.line.biz/console/. In the settings of the channel under LINE Login, activate web app and configure your callback URL as defined above.
+在 https://developers.line.biz/console/ 创建提供商和 LINE 登录渠道。在 LINE Login 下的渠道设置中，启用 web 应用并按上述定义配置回调 URL。
 
-### Notes
+### 注意事项
 
-- To retrieve email address, you need to apply for Email address permission. Open [Line Developer Console](https://developers.line.biz/console/), go to your Login Channel. Scroll down bottom to find **OpenID Connect** -> **Email address permission**. Click **Apply** and follow the instruction.
+- 如需获取邮箱地址，需申请邮箱地址权限。打开 [Line 开发者控制台](https://developers.line.biz/console/)，进入您的登录渠道。滚动至底部找到 **OpenID Connect** -> **Email address permission**。点击 **Apply** 并按照指引操作。

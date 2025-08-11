@@ -8,15 +8,15 @@ import { Code } from "@/components/Code"
   width="64"
 />
 
-# United Effects Provider
+# United Effects 提供商
 
-## Resources
+## 相关资源
 
-- [UnitedEffects Auth.js documentation](https://docs.unitedeffects.com/integrations/nextauthjs)",
+- [UnitedEffects Auth.js 文档](https://docs.unitedeffects.com/integrations/nextauthjs)",
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -42,14 +42,14 @@ https://example.com/auth/callback/united-effects
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_UNITEDEFFECTS_ID
 AUTH_UNITEDEFFECTS_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -102,6 +102,6 @@ app.use("/auth/*", ExpressAuth({ providers: [UnitedEffects] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- `issuer` should be the fully qualified URL including your Auth Group ID – e.g. `https://auth.unitedeffects.com/YQpbQV5dbW-224dCovz-3`
+- `issuer` 应为包含您认证组 ID 的完整 URL，例如 `https://auth.unitedeffects.com/YQpbQV5dbW-224dCovz-3`

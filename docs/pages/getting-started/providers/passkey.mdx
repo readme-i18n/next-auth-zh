@@ -4,42 +4,41 @@ import { Accordion, Accordions } from "@/components/Accordion"
 
 <img align="right" src="/img/providers/passkey.svg" width="128" height="128" />
 
-# Passkey
+# 通行密钥
 
-## Setup
+## 配置
 
 <Callout type="warning">
-  The WebAuthn / Passkeys provider is experimental and not yet recommended for
-  production use.
+  WebAuthn / 通行密钥提供程序目前处于实验阶段，不建议在生产环境中使用。
 </Callout>
 
-The Passkeys provider **requires a database adapter** as well as a new table in that database. Please see the docs page for your adapter for the respective migration details.
+通行密钥提供程序**需要数据库适配器**以及该数据库中的新表。请参阅适配器的文档页面以获取相应的迁移详细信息。
 
-Passkeys are currently supported in the following adapters / framework packages.
+目前以下适配器/框架包支持通行密钥。
 
-| Package                   | Minimum Version | Link                                        |
+| 包名称                    | 最低版本        | 链接                                        |
 | ------------------------- | --------------- | ------------------------------------------- |
 | `next-auth`               | `5.0.0-beta.17` |                                             |
 | `@auth/sveltekit`         | `1.0.2`         |                                             |
-| `@auth/prisma-adapter`    | `1.3.3`         | [Docs](/getting-started/adapters/prisma)    |
-| `@auth/unstorage-adapter` | `2.1.0`         | [Docs](/getting-started/adapters/unstorage) |
-| `@auth/drizzle-adapter`   | `1.1.1`         | [Docs](/getting-started/adapters/drizzle)   |
+| `@auth/prisma-adapter`    | `1.3.3`         | [文档](/getting-started/adapters/prisma)    |
+| `@auth/unstorage-adapter` | `2.1.0`         | [文档](/getting-started/adapters/unstorage) |
+| `@auth/drizzle-adapter`   | `1.1.1`         | [文档](/getting-started/adapters/drizzle)   |
 
 <Steps>
-### Install peer dependencies
+### 安装 peer 依赖项
 
 ```bash npm2yarn
 npm install @simplewebauthn/browser@9.0.1 @simplewebauthn/server@9.0.3
 ```
 
-The `@simplewebauthn/browser` peer dependency is only required for custom signin pages. If you're using the Auth.js default pages, you can skip installing that peer dependency.
+`@simplewebauthn/browser` peer 依赖项仅在使用自定义登录页面时需要。如果使用 Auth.js 默认页面，可以跳过安装该 peer 依赖项。
 
-### Database Setup
+### 数据库设置
 
-The Passkeys provider requires an additional table called `Authenticator`. Passkeys are now supported in multiple adapters, please see their respective docs pages for more detailed migration steps. We'll use Prisma as an example going forward here, but there is also a raw SQL migration included below.
+Passkeys 提供程序需要一个额外的 `Authenticator` 表。目前多个适配器已支持 Passkeys，具体迁移步骤请参阅各自的文档页面。以下以 Prisma 为例，同时也提供了原始 SQL 迁移方案。
 
 <Accordions>
-<Accordion title="Prisma Schema">
+<Accordion title="Prisma 模式">
 
 ```prisma {18, 54-66}
 datasource db {
@@ -111,9 +110,9 @@ model Authenticator {
 ```
 
   </Accordion>
-  <Accordion title="SQL Migration">
+  <Accordion title="SQL 迁移">
 
-This migration works for **PostgreSQL** and **SQLite**.
+此迁移适用于 **PostgreSQL** 和 **SQLite**。
 
 ```sql filename="./migration/add-webauthn-authenticator-table-postgres.sql"
 -- CreateTable
@@ -134,7 +133,7 @@ CREATE TABLE "Authenticator" (
 CREATE UNIQUE INDEX "Authenticator_credentialID_key" ON "Authenticator"("credentialID");
 ```
 
-This migration works for **MySQL** / **MariaDB**.
+此迁移适用于 **MySQL** / **MariaDB**。
 
 ```sql filename="./migration/add-webauthn-authenticator-table-mysql.sql"
 -- CreateTable
@@ -158,13 +157,13 @@ CREATE UNIQUE INDEX Authenticator_credentialID_key ON Authenticator(credentialID
   </Accordion>
   </Accordions>
 
-#### Edge Compatibility
+#### 边缘兼容性
 
-If you're using `next-auth` with Next.js and middleware, you should ensure that your database client of choice is "edge compatible". If you're using an older version of Prisma or another adapter that is not edge compatible, you'll need to make some adjustments. Check out our [edge compatibility](/guides/edge-compatibility) guide for more details. There is also Prisma specific information in the [Prisma adapter docs](/getting-started/adapters/prisma#edge-compatibility).
+如果在 Next.js 和中间件中使用 `next-auth`，需确保所选数据库客户端具有"边缘兼容性"。若使用旧版 Prisma 或其他不兼容的适配器，需进行调整。详见 [边缘兼容性](/guides/edge-compatibility) 指南。[Prisma 适配器文档](/getting-started/adapters/prisma#edge-compatibility) 中也有 Prisma 相关说明。
 
-### Update Auth.js Configuration
+### 更新 Auth.js 配置
 
-Add the `Passkey` provider to your configuration and make sure you're using a compatible database adapter. You'll also need to explicitly enable the experimental WebAuthn feature.
+将 `Passkey` 提供程序添加到配置中，并确保使用兼容的数据库适配器。同时需要显式启用实验性 WebAuthn 功能。
 
 ```ts filename="./auth.ts" {10}
 import Passkey from "next-auth/providers/passkey"
@@ -180,11 +179,11 @@ export default {
 }
 ```
 
-If you're using the built-in Auth.js pages, then you are good to go now! Navigating to your `/signin` route should include a "Signin with Passkeys" button now.
+如果使用 Auth.js 内置页面，现在已完成配置！访问 `/signin` 路由应能看到"使用 Passkeys 登录"按钮。
 
-### Custom Pages
+### 自定义页面
 
-If you're building a custom signin page, you can leverage the `next-auth/webauthn` `signIn` function to initiate both WebAuthn registration and authentication. Remember, when using the WebAuthn `signIn` function, you'll also need the `@simplewebauth/browser` peer dependency installed.
+如果构建自定义登录页面，可以使用 `next-auth/webauthn` 的 `signIn` 函数来启动 WebAuthn 注册和认证流程。注意：使用 WebAuthn `signIn` 函数时需要安装 `@simplewebauth/browser` peer 依赖项。
 
 ```ts filename="app/login/page.tsx" {4} /webauthn/
 "use client"
@@ -199,10 +198,10 @@ export default function Login() {
     <div>
       {status === "authenticated" ? (
         <button onClick={() => signIn("passkey", { action: "register" })}>
-          Register new Passkey
+          注册新 Passkey
         </button>
       ) : status === "unauthenticated" ? (
-        <button onClick={() => signIn("passkey")}>Sign in with Passkey</button>
+        <button onClick={() => signIn("passkey")}>使用 Passkey 登录</button>
       ) : null}
     </div>
   )
@@ -211,6 +210,6 @@ export default function Login() {
 
 </Steps>
 
-## Options
+## 选项
 
-You can find all of the Passkeys provider options under the [API reference](/reference/core/providers/webauthn#webauthnconfig).
+您可以在 [API 参考文档](/reference/core/providers/webauthn#webauthnconfig) 中找到所有 Passkeys 提供商的配置选项。

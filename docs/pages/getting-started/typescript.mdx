@@ -4,36 +4,33 @@ import { Code } from "@/components/Code"
 
 # TypeScript
 
-Auth.js is committed to type-safety, so it's written in TypeScript and 100% type safe. It comes with its own type definitions to use in your project.
+Auth.js 致力于类型安全，因此采用 TypeScript 编写并保持 100% 类型安全。它提供了自带的类型定义供您在项目中使用。
 
-Even if you don't use TypeScript, IDEs like VS Code will pick this up to provide you with a better developer experience. While you are typing, you will get suggestions about what certain objects/functions look like, and sometimes links to documentation, examples, and other valuable resources.
+即使您不使用 TypeScript，像 VS Code 这样的 IDE 也能利用这些类型信息来提供更优的开发体验。在编码过程中，您将获得关于特定对象/函数结构的智能提示，有时还会显示文档链接、示例代码和其他有价值的资源。
 
-## Philosophy
+## 设计理念
 
-We have chosen [module
-augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
-over [generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) as the main technique to type Auth.js resources across your application in case you extend them.
+我们选择采用[模块扩充](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)而非[泛型](https://www.typescriptlang.org/docs/handbook/2/generics.html)作为主要技术方案，以便在您扩展 Auth.js 资源时实现全应用的类型化。
 
 <details>
 <summary>
-<b>Why not use <a href="https://www.typescriptlang.org/docs/handbook/2/generics.html">generics</a>?</b>
+<b>为何不使用<a href="https://www.typescriptlang.org/docs/handbook/2/generics.html">泛型</a>？</b>
 </summary>
-The interfaces that are shared across submodules are not passed to Auth.js library functions as generics.
+各子模块共享的接口并不会作为泛型参数传递给 Auth.js 库函数。
 
-Whenever these types are used, the functions always expect to return these formats. With generics, one might be able to override the type in one place, but not the other, which would cause the types to be out of sync with the implementation.
+当使用这些类型时，函数始终预期返回这些固定格式。若采用泛型方案，可能在某一处覆盖了类型定义而另一处未同步修改，这将导致类型与实际实现不同步。
 
-With module augmentation, you defined the types once, and you can be sure that they are always the same where it's expected.
+通过模块扩充技术，您只需定义一次类型，就能确保它们在所有预期位置保持一致性。
 
 </details>
 
-## Module Augmentation
+## 模块扩充
 
-Auth.js libraries come with certain interfaces that are shared across submodules and different Auth.js libraries (For example: `next-auth` and `@auth/prisma-adapter` will rely on types from `@auth/core`).
+Auth.js 库提供了一系列跨子模块和不同 Auth.js 库（例如 `next-auth` 和 `@auth/prisma-adapter` 会依赖 `@auth/core` 中的类型）共享的接口。
 
-Good examples of such interfaces are `Session` or `User`. You can use TypeScript's [Module
-Augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) to extend these types to add your own properties across Auth.js without having to pass generic all over the place.
+典型的接口示例包括 `Session` 或 `User`。您可以使用 TypeScript 的[模块扩充](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)功能来扩展这些类型，从而在整个 Auth.js 中添加自定义属性，而无需到处传递泛型参数。
 
-Let's look at extending `Session` for example.
+我们以扩展 `Session` 接口为例进行说明。
 
 <Code>
 <Code.Next>
@@ -190,7 +187,7 @@ export const authConfig: ExpressAuthConfig = {
 </Code.Express>
 </Code>
 
-Module augmentation is not limited to specific interfaces. You can augment any `interface` we've defined, here are some of the more common interfaces that you might want to override based on your use case.
+模块扩充不仅限于特定接口。您可以扩充我们定义的任何 `interface`，以下是您可能根据使用场景需要覆盖的一些常见接口。
 
 ```ts filename="types.d.ts"
 declare module "next-auth" {
@@ -224,13 +221,13 @@ declare module "next-auth/jwt" {
 ```
 
 <Callout type="info">
-  The module declaration can be added to any file that is
-  ["included"](https://www.typescriptlang.org/tsconfig#include) in your
-  project&apos;s `tsconfig.json`.
+  模块声明可以添加到项目 `tsconfig.json` 中
+  ["include"](https://www.typescriptlang.org/tsconfig#include)
+  配置包含的任何文件。
 </Callout>
 
-## Resources
+## 相关资源
 
-1. [TypeScript documentation: Module Augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
-2. [DigitalOcean: Module Augmentation in TypeScript](https://www.digitalocean.com/community/tutorials/typescript-module-augmentation)
-3. [Creating a Database Adapter](/guides/creating-a-database-adapter)
+1. [TypeScript 文档：模块扩充](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
+2. [DigitalOcean：TypeScript 中的模块扩充](https://www.digitalocean.com/community/tutorials/typescript-module-augmentation)
+3. [创建数据库适配器](/guides/creating-a-database-adapter)

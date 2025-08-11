@@ -2,21 +2,21 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/pg.svg" height="64" width="64" />
 
-# PostgreSQL Adapter
+# PostgreSQL 适配器
 
-## Resources
+## 相关资源
 
-- [Pg documentation](https://www.postgresql.org/docs/)
+- [Pg 文档](https://www.postgresql.org/docs/)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/pg-adapter pg
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 DATABASE_HOST=
@@ -25,7 +25,7 @@ DATABASE_USER=
 DATABASE_PASSWORD=
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -196,10 +196,9 @@ app.use(
 </Code.Express>
 </Code>
 
-### Schema
+### 数据库模式
 
-The SQL schema for the tables used by this adapter is as follows. Learn more about the models at our
-doc page on [Database Models](/guides/creating-a-database-adapter).
+本适配器使用的数据表 SQL 结构如下。更多关于模型的信息，请参阅我们的 [数据库模型](/guides/creating-a-database-adapter) 文档页面。
 
 ```sql
 CREATE TABLE verification_token

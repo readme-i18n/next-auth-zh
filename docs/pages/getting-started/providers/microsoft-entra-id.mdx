@@ -11,19 +11,19 @@ import { Code } from "@/components/Code"
 # Microsoft Entra ID
 
 <Callout>
-  Microsoft has renamed **Azure AD** to **Microsoft Entra ID**, more information
-  about the new name can be found
-  [here](https://learn.microsoft.com/en-us/entra/fundamentals/new-name).
+  微软已将 **Azure AD** 更名为 **Microsoft Entra
+  ID**，关于新命名的更多信息可查阅
+  [此处](https://learn.microsoft.com/en-us/entra/fundamentals/new-name)。
 </Callout>
 
-## Resources
+## 相关资源
 
-- [Microsoft Entra OAuth documentation](https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow)
-- [Microsoft Entra OAuth apps](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app)
+- [Microsoft Entra OAuth 文档](https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow)
+- [Microsoft Entra OAuth 应用](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -56,7 +56,7 @@ https://example.com/auth/callback/microsoft-entra-id
   </Code.Express>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_MICROSOFT_ENTRA_ID_ID
@@ -64,49 +64,39 @@ AUTH_MICROSOFT_ENTRA_ID_SECRET
 AUTH_MICROSOFT_ENTRA_ID_ISSUER
 ```
 
-### Register Application
+### 注册应用程序
 
-1. Log in to the [Microsoft Entra admin center](https://entra.microsoft.com/).
+1. 登录 [Microsoft Entra 管理中心](https://entra.microsoft.com/)。
 
-2. In the left sidebar, navigate to Identity --> Applications --> App
-   Registrations.
+2. 在左侧边栏中，导航至 Identity --> Applications --> App Registrations（应用注册）。
 
-3. Click on New registration.
+3. 点击 New registration（新建注册）。
 
-4. Give your application a name. This name will be displayed to the user when
-   they log in.
+4. 为您的应用程序命名。此名称将在用户登录时显示给他们。
 
-5. Select the account types you want to allow to log in. The
-   `AUTH_MICROSOFT_ENTRA_ID_ISSUER` variable will be based on the selection you
-   make here.
+5. 选择允许登录的账户类型。`AUTH_MICROSOFT_ENTRA_ID_ISSUER` 变量的值将基于此处选择：
 
-   - **Single tenant only** - Only allow users from your organization.<br />
+   - **仅单租户** - 仅允许您组织的用户登录。<br />
      `https://login.microsoftonline.com/<Directory (tenant) ID>/v2.0`
 
-   - **Multi-tenant** - Allow users from any organization.<br />
+   - **多租户** - 允许任何组织的用户登录。<br />
      `https://login.microsoftonline.com/organizations/v2.0`
 
-   - **Multi-tenant + Personal** - Allow any Microsoft account (work, school,
-     personal).<br />
+   - **多租户 + 个人账户** - 允许任何 Microsoft 账户（工作、学校或个人账户）登录。<br />
      `https://login.microsoftonline.com/common/v2.0`
 
-   - **Personal Only** - Only allow personal Microsoft accounts.<br />
+   - **仅个人账户** - 仅允许个人 Microsoft 账户登录。<br />
      `https://login.microsoftonline.com/consumers/v2.0`
 
-6. Set the Redirect URI platform to `web` and the Callback URI for your
-   application. When developing you will set this to your local host
-   environment
-   (example `http://localhost:3000/api/auth/callback/microsoft-entra-id`).
+6. 将重定向 URI 平台设置为 `web`，并配置应用程序的回调 URI。开发时可设置为本地主机环境（例如 `http://localhost:3000/api/auth/callback/microsoft-entra-id`）。
 
-7. From the application overview page copy the **Application (client) ID** and
-   paste it in the `AUTH_MICROSOFT_ENTRA_ID_ID` variable.
+7. 从应用程序概览页面复制 **Application (client) ID**（应用程序客户端 ID），并粘贴到 `AUTH_MICROSOFT_ENTRA_ID_ID` 变量中。
 
-8. Navigate to Certificates & secrets and create a new client secret.
+8. 导航至 Certificates & secrets（证书和密码）并创建新的客户端密钥。
 
-9. Copy the secret value (this will be hidden when you leave this page) and
-   paste it in the `AUTH_MICROSOFT_ENTRA_ID_SECRET` variable.
+9. 复制密钥值（离开此页面后将不可见），并粘贴到 `AUTH_MICROSOFT_ENTRA_ID_SECRET` 变量中。
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -199,15 +189,8 @@ AUTH_MICROSOFT_ENTRA_ID_SECRET="<Client secret value>"
 AUTH_MICROSOFT_ENTRA_ID_ISSUER="https://login.microsoftonline.com/<Directory (tenant) ID>/v2.0"
 ```
 
-## Notes
+## 注意事项
 
-- If the issuer paramater is not set it will default to
-  `https://login.microsoftonline.com/common/v2.0`.
+- 如果未设置 issuer 参数，将默认使用 `https://login.microsoftonline.com/common/v2.0`。
 
-- Microsoft Entra returns the profile picture in an ArrayBuffer, instead of
-  just a URL to the image, so our provider converts it to a base64 encoded
-  image string and returns that instead. See
-  [Microsoft Graph profilePhoto](https://learn.microsoft.com/en-us/graph/api/profilephoto-get?view=graph-rest-1.0&tabs=http#examples).
-  The default image size is 48x48 to avoid
-  [running out of space](https://next-auth.js.org/faq#json-web-tokens) in case
-  the session is saved as a JWT.
+- Microsoft Entra 会以 ArrayBuffer 格式返回个人资料图片，而非直接返回图片 URL。因此我们的提供程序会将其转换为 base64 编码的图片字符串后返回。详见 [Microsoft Graph profilePhoto](https://learn.microsoft.com/en-us/graph/api/profilephoto-get?view=graph-rest-1.0&tabs=http#examples)。默认图片尺寸为 48x48 像素，以避免当会话以 JWT 形式保存时[超出存储限制](https://next-auth.js.org/faq#json-web-tokens)。

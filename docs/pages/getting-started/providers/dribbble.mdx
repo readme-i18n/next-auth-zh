@@ -3,17 +3,17 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/dribbble.svg" height="64" width="64" />
 
-# Dribbble Provider
+# Dribbble 提供商
 
-## Resources
+## 相关资源
 
 - [Dribbble API](https://developer.dribbble.com)
 - [Dribbble OAuth](https://developer.dribbble.com/v2/oauth/)
 - [Dribbble Applications](https://dribbble.com/account/applications/new)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -39,14 +39,14 @@ https://example.com/auth/callback/dribbble
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_DRIBBBLE_ID
 AUTH_DRIBBBLE_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -99,6 +99,6 @@ app.use("/auth/*", ExpressAuth({ providers: [Dribbble] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- You can optionally set the scope to `public upload` for more advanced scenarios. If omitted, the default `public` scope will be used for authentication purposes.
+- 对于更高级的场景，您可以选择将作用域设置为 `public upload`。如果省略，默认将使用 `public` 作用域进行身份验证。

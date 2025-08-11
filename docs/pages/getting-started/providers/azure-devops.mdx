@@ -8,23 +8,23 @@ import { Code } from "@/components/Code"
   width="64"
 />
 
-# Azure DevOps Provider
+# Azure DevOps 提供商
 
 <Callout type="warning">
-  Deprecated - While still available, Microsoft is [no longer
-  supporting](https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#available-oauth-models)
-  Azure DevOps OAuth and recommends using [Microsoft Entra
-  ID](/getting-started/providers/microsoft-entra-id) instead.
+  已弃用 -
+  虽然仍可使用，但微软已[不再支持](https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#available-oauth-models)
+  Azure DevOps OAuth，并建议改用 [Microsoft Entra
+  ID](/getting-started/providers/microsoft-entra-id)。
 </Callout>
 
-## Resources
+## 相关资源
 
-- [Azure DevOps Apps documentation](https://aex.dev.azure.com)
-- [Microsoft documentation](https://docs.microsoft.com/en-us) · [Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/) · [Authorize access to REST APIs with OAuth 2.0](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops])
+- [Azure DevOps 应用文档](https://aex.dev.azure.com)
+- [微软文档](https://docs.microsoft.com/en-us) · [Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/) · [使用 OAuth 2.0 授权访问 REST API](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops])
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -50,46 +50,46 @@ https://example.com/auth/callback/azure-devops
   </Code.Svelte>
 </Code>
 
-### Environment variables
+### 环境变量
 
-In `.env.local` create the following entries:
+在 `.env.local` 中创建以下条目：
 
 ```
 AZURE_DEVOPS_APP_ID=<copy App ID value here>
 AZURE_DEVOPS_CLIENT_SECRET=<copy generated client secret value here>
 ```
 
-### Register application
+### 注册应用程序
 
 [`https://app.vsaex.visualstudio.com/app/register`](https://app.vsaex.visualstudio.com/app/register)
 
-Provide the required details:
+提供所需信息：
 
-1. Company name
-2. Application name
-3. Application website
-4. Authorization callback URL
-   - `https://example.com/api/auth/callback/azure-devops` for production
-   - `https://localhost/api/auth/callback/azure-devops` for development
-5. Authorized scopes
-   - Required minimum is `User profile (read)`
+1. 公司名称
+2. 应用程序名称
+3. 应用程序网站
+4. 授权回调 URL
+   - 生产环境使用 `https://example.com/api/auth/callback/azure-devops`
+   - 开发环境使用 `https://localhost/api/auth/callback/azure-devops`
+5. 授权范围
+   - 最低要求为 `用户资料（读取）`
 
-Click ‘Create Application’
+点击「创建应用程序」
 
 <Callout type="warning">
-- You are required to use HTTPS even for the localhost
+- 即使是本地环境也必须使用 HTTPS
 
-- You will have to delete and create a new application to change the scopes later
+- 后续如需修改授权范围，必须删除并重新创建应用
 
 </Callout>
 
-The following data is relevant for the next step:
+以下数据将用于后续步骤：
 
-- App ID
-- Client Secret (after clicking the ‘Show’ button, ignore App Secret entry above it)
-- Authorized Scopes
+- 应用 ID
+- 客户端密钥（点击"显示"按钮后获取，忽略其上方的应用密钥条目）
+- 已授权范围
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -167,9 +167,9 @@ app.use(
   </Code.Express>
 </Code>
 
-### Refresh token rotation
+### 刷新令牌轮换
 
-Use the [main guide](/guides/refresh-token-rotation) as your starting point with the following considerations:
+请以[主指南](/guides/refresh-token-rotation)为起点，并注意以下事项：
 
 ```ts filename="./auth.ts"
 export const { signIn, signOut, auth } = NextAuth({

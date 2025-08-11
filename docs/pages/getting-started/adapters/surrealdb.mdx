@@ -2,23 +2,23 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/surrealdb.svg" height="64" width="64" />
 
-# SurrealDB Adapter
+# SurrealDB 适配器
 
-## Resources
+## 相关资源
 
-- [SurrealDB documentation](https://www.surrealdb.com/docs)
+- [SurrealDB 文档](https://www.surrealdb.com/docs)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/surrealdb-adapter surrealdb
 ```
 
-### Environment Variables
+### 环境变量
 
-A valid authentication combination must be provided. The following authentication combinations are supported:
+必须提供有效的认证组合。支持以下认证方式：
 
 - RootAuth
 - NamespaceAuth
@@ -36,7 +36,7 @@ SURREAL_NS (required when using RootAuth or NamespaceAuth)
 SURREAL_DB (required when using RootAuth or NamespaceAuth)
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -105,9 +105,9 @@ app.use(
 </Code.Express>
 </Code>
 
-The SurrealDB adapter does not handle connections automatically, so you will have to make sure that you pass the Adapter a `SurrealDBClient` that is connected already. Below you can see an example how to do this.
+SurrealDB 适配器不会自动处理连接，因此需要确保传递给适配器的 `SurrealDBClient` 已建立连接。下方示例展示了具体实现方法。
 
-### Utils File
+### 工具文件
 
 ```ts filename="./lib/surrealdb_utils.ts"
 import type { ConnectOptions, AnyAuth } from "surrealdb"
@@ -228,9 +228,9 @@ export function toAnyAuth({
 }
 ```
 
-### Authorization
+### 授权认证
 
-The clientPromise provides a connection to the database. You could use any connect option you wish. For quick setup, use the DatabaseAuth method. For best security, we recommend creating a Record Access method if you know how to properly setup access table permissions.
+clientPromise 用于建立数据库连接。您可以选择任意连接方式。快速配置建议使用 DatabaseAuth 方法，最佳安全实践推荐创建 Record Access 方法（需正确设置访问表权限）。
 
 ```ts filename="./lib/surrealdb.ts"
 import { type Surreal } from "surrealdb"
@@ -269,10 +269,10 @@ const clientPromise = new Promise<Surreal>(async (resolve, reject) => {
 })
 ```
 
-#### HTTP ENGINE
+#### HTTP 引擎
 
-With this configuration, we can use the database's http endpoint. Thus, the `AUTH_SURREAL_URL` should begin with `http` or `https`.
+此配置使用数据库的 HTTP 端点，因此 `AUTH_SURREAL_URL` 应以 `http` 或 `https` 开头。
 
-#### Websocket ENGINE
+#### Websocket 引擎
 
-With this configuration, we can use the database's websocket endpoint. Thus, the `AUTH_SURREAL_URL` should begin with `ws` or `wss`.
+此配置使用数据库的 Websocket 端点，因此 `AUTH_SURREAL_URL` 应以 `ws` 或 `wss` 开头。

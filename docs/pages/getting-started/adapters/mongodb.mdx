@@ -2,27 +2,27 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/mongodb.svg" width="48" height="48" />
 
-# MongoDB Adapter
+# MongoDB 适配器
 
-## Resources
+## 相关资源
 
-- [MongoDB documentation](https://docs.mongodb.com/)
+- [MongoDB 文档](https://docs.mongodb.com/)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/mongodb-adapter mongodb
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 MONGODB_URI=
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -90,9 +90,9 @@ app.use(
 </Code.Express>
 </Code>
 
-The MongoDB adapter does not handle connections automatically, so you will have to make sure that you pass the Adapter a `MongoClient` that is connected already.
+MongoDB 适配器不会自动处理连接，因此您需要确保向适配器传递一个已连接的 `MongoClient` 实例。
 
-### Add the MongoDB client
+### 添加 MongoDB 客户端
 
 ```ts filename="lib/db.ts"
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb

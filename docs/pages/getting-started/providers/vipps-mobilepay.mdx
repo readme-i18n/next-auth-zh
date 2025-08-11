@@ -11,20 +11,20 @@ import { Code } from "@/components/Code"
   height="50"
 />
 
-# Vipps MobilePay Provider
+# Vipps MobilePay 提供商
 
-[Vipps MobilePay](https://vippsmobilepay.com/) is a widespread mobile payment application for mobile in Norway, Sweden, Denmark and Finland. The brand is split, where you have Vipps in Norway and Sweden, and MobilePay in Denmark and Finland, but both brands/apps are using the same API.
+[Vipps MobilePay](https://vippsmobilepay.com/) 是一款在挪威、瑞典、丹麦和芬兰广泛使用的移动支付应用。该品牌分为两部分：挪威和瑞典使用 Vipps，丹麦和芬兰使用 MobilePay，但两个品牌/应用都使用相同的 API。
 
-## Resources
+## 相关资源
 
-- [Vipps MobilePay login documentation](https://developer.vippsmobilepay.com/docs/APIs/login-api/)
-- [Official Vipps MobilePay Buttons](https://developer.vippsmobilepay.com/docs/knowledge-base/design-guidelines/buttons/)
-- [Vipps MobilePay Public Testing discovery endpoint](https://apitest.vipps.no/access-management-1.0/access/.well-known/openid-configuration)
-- [Vipps MobilePay Public Production discovery endpoint](https://api.vipps.no/access-management-1.0/access/.well-known/openid-configuration)
+- [Vipps MobilePay 登录文档](https://developer.vippsmobilepay.com/docs/APIs/login-api/)
+- [官方 Vipps MobilePay 按钮](https://developer.vippsmobilepay.com/docs/knowledge-base/design-guidelines/buttons/)
+- [Vipps MobilePay 公共测试发现端点](https://apitest.vipps.no/access-management-1.0/access/.well-known/openid-configuration)
+- [Vipps MobilePay 公共生产发现端点](https://api.vipps.no/access-management-1.0/access/.well-known/openid-configuration)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -50,22 +50,22 @@ https://example.com/auth/callback/vipps
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_VIPPS_ID
 AUTH_VIPPS_SECRET
 ```
 
-### Test API
+### 测试 API
 
-To use the test mode, you need to override the issuer with the test API endpoint.
+要使用测试模式，您需要使用测试 API 端点覆盖 issuer。
 
 ```
 Vipps({ issuer: "https://apitest.vipps.no/access-management-1.0/access/" })
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>

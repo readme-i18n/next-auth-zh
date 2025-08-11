@@ -3,27 +3,27 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/typeorm.svg" height="64" width="64" />
 
-# TypeORM Adapter
+# TypeORM 适配器
 
-## Resources
+## 相关资源
 
-- [TypeORM documentation](https://typeorm.io)
+- [TypeORM 文档](https://typeorm.io)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/typeorm-adapter typeorm
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 AUTH_TYPEORM_CONNECTION=postgres://postgres:adminadmin@0.0.0.0:5432/db
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -86,17 +86,17 @@ app.use(
 </Code.Express>
 </Code>
 
-`TypeORMAdapter` takes either a connection string, or a [`ConnectionOptions`](https://github.com/typeorm/typeorm/blob/master/docs/connection-options.md) object as its first parameter.
+`TypeORMAdapter` 接受连接字符串或 [`ConnectionOptions`](https://github.com/typeorm/typeorm/blob/master/docs/connection-options.md) 对象作为其第一个参数。
 
-### Advanced usage
+### 高级用法
 
-#### Custom models
+#### 自定义模型
 
-The TypeORM adapter uses [`Entity` classes](https://github.com/typeorm/typeorm/blob/master/docs/entities.md) to define the shape of your data.
+TypeORM 适配器使用 [`Entity` 类](https://github.com/typeorm/typeorm/blob/master/docs/entities.md)来定义数据结构。
 
-You can override the default entities and add additional fields with a custom entities file.
+您可以通过自定义实体文件覆盖默认实体并添加额外字段。
 
-1. Create a file containing your modified entities:
+1. 创建包含修改后实体的文件：
 
 ```ts filename="lib/entities.ts" {38-39}
 import {
@@ -234,7 +234,7 @@ export class VerificationTokenEntity {
 }
 ```
 
-2. Pass them to `TypeORMAdapter`
+2. 将它们传递给 `TypeORMAdapter`
 
 ```ts filename="./auth.ts"
 import NextAuth from "next-auth"
@@ -247,23 +247,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 ```
 
 <Callout type="info">
-  The `synchronize: true` option in TypeORM will generate SQL that exactly
-  matches the entities. This will automatically apply any changes it finds in
-  the entity model. This is a useful option in development.
+  TypeORM 中的 `synchronize: true` 选项会生成与实体完全匹配的
+  SQL。这将自动应用实体模型中的所有变更。这在开发环境中是个有用的选项。
 </Callout>
 
 <Callout type="warning">
-  `synchronize: true` should not be enabled against production databases as it
-  may cause data loss if the configured schema does not match the expected
-  schema! We recommend that you synchronize/migrate your production database at
-  build-time.
+  切勿在生产数据库上启用 `synchronize:
+  true`，如果配置的架构与预期架构不匹配，可能导致数据丢失！我们建议在构建时同步/迁移生产数据库。
 </Callout>
 
-#### Naming Conventions
+#### 命名规范
 
-If mixed snake_case and camelCase column names are an issue for you and/or your underlying database system, we recommend using TypeORM's naming strategy feature to change the target field names. There is a package called `typeorm-naming-strategies` which includes a `snake_case` strategy which will translate the fields from how Auth.js expects them, to snake_case in the actual database.
+如果混合使用 snake_case 和 camelCase 列名对您或底层数据库系统造成困扰，我们推荐使用 TypeORM 的命名策略功能来修改目标字段名称。有一个名为 `typeorm-naming-strategies` 的包，其中包含 `snake_case` 策略，可将字段从 Auth.js 预期的格式转换为实际数据库中的 snake_case 格式。
 
-For example, you can add the naming convention option to the connection object in your NextAuth config.
+例如，您可以在 NextAuth 配置的连接对象中添加命名约定选项。
 
 ```ts filename="./auth.ts"
 import NextAuth from "next-auth"

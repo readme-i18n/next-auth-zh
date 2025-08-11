@@ -4,32 +4,32 @@ import { Accordion, Accordions } from "@/components/Accordion"
 
 <img align="right" src="/img/adapters/prisma.svg" width="64" height="64" />
 
-# Prisma Adapter
+# Prisma 适配器
 
-## Resources
+## 相关资源
 
-- [Prisma documentation](https://www.prisma.io/docs)
+- [Prisma 文档](https://www.prisma.io/docs)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @prisma/client @auth/prisma-adapter
 npm install prisma --save-dev
 ```
 
-### Environment Variables
+### 环境变量
 
-Prisma needs to set up the environment variable to establish a connection with your database and retrieve data. Prisma requires the `DATABASE_URL` environment variable to create the connection. For more information, read the [docs](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/connect-your-database-typescript-postgresql).
+Prisma 需要设置环境变量来建立与数据库的连接并获取数据。Prisma 要求使用 `DATABASE_URL` 环境变量来创建连接。更多信息请参阅[文档](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/connect-your-database-typescript-postgresql)。
 
 ```sh
 DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA
 ```
 
-### Configuration
+### 配置
 
-To improve performance using `Prisma ORM`, we can set up the Prisma instance to ensure only one instance is created throughout the project and then import it from any file as needed. This approach avoids recreating instances of PrismaClient every time it is used. Finally, we can import the Prisma instance from the `auth.ts` file configuration.
+为了在使用 `Prisma ORM` 时提升性能，我们可以设置 Prisma 实例以确保整个项目中只创建一个实例，然后根据需要从任何文件导入。这种方法避免了每次使用时都重新创建 PrismaClient 实例。最后，我们可以从 `auth.ts` 配置文件导入 Prisma 实例。
 
 ```ts filename="prisma.ts"
 import { PrismaClient } from "@prisma/client"
@@ -42,9 +42,8 @@ if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
 ```
 
 <Callout type="warning">
-  We recommend using version `@prisma/client@5.12.0` or above if using
-  middleware or any other edge runtime(s). See [edge
-  compatibility](#edge-compatibility) below for more information.
+  如果使用中间件或其他边缘运行时，我们推荐使用 `@prisma/client@5.12.0`
+  或更高版本。更多信息请参阅下方的[边缘兼容性](#edge-compatibility)部分。
 </Callout>
 
 <Code>
@@ -114,28 +113,28 @@ app.use(
 </Code.Express>
 </Code>
 
-### Edge Compatibility
+### 边缘兼容性
 
-Prisma has shipped edge runtime support for their client in version `5.12.0`. You can read more about it on their [edge documentation](https://www.prisma.io/docs/orm/prisma-client/deployment/edge/overview). This requires specific database drivers and therefore is only compatible with certain database types / hosting providers. Check their [list of supported drivers](https://www.prisma.io/docs/orm/prisma-client/deployment/edge/overview#which-database-drivers-are-edge-compatible) before getting started. You can check out an example Auth.js application with `next-auth` and Prisma on the edge [here](https://github.com/ndom91/authjs-prisma-edge-example).
+Prisma 已在 `5.12.0` 版本中为其客户端提供了边缘运行时支持。您可以通过他们的[边缘文档](https://www.prisma.io/docs/orm/prisma-client/deployment/edge/overview)了解更多详情。该功能需要特定的数据库驱动支持，因此仅兼容部分数据库类型/托管服务提供商。开始使用前请查阅他们的[支持驱动列表](https://www.prisma.io/docs/orm/prisma-client/deployment/edge/overview#which-database-drivers-are-edge-compatible)。您可以在[此处](https://github.com/ndom91/authjs-prisma-edge-example)查看一个结合 `next-auth` 和 Prisma 的边缘运行时 Auth.js 应用示例。
 
-For more about edge compatibility in general, check out our [edge compatibility guide](/guides/edge-compatibility).
+关于边缘兼容性的更多通用信息，请参阅我们的[边缘兼容性指南](/guides/edge-compatibility)。
 
-The original database edge-runtime workaround, to split your `auth.ts` configuration into two, will be kept below.
+原始数据库边缘运行时的变通方案（即将 `auth.ts` 配置拆分为两部分的方法）仍保留在下方。
 
-#### Old Edge Workaround
+#### 旧版边缘解决方案
 
-At the moment, Prisma is still working on being fully compatible with edge runtimes like Vercel's. See the issue being tracked [here](https://github.com/prisma/prisma/issues/20560), and Prisma's announcement about early edge support in the `5.9.1` [changelog](https://github.com/prisma/prisma/releases/tag/5.9.0). There are two options to deal with this issue:
+目前 Prisma 仍在完善对 Vercel 等边缘运行时的全面兼容性。相关进展可追踪[此议题](https://github.com/prisma/prisma/issues/20560)，Prisma 在 `5.9.1` 版本的[更新日志](https://github.com/prisma/prisma/releases/tag/5.9.0)中宣布了早期边缘支持。现有两种解决方案应对此问题：
 
-- Use the Prisma's [Accelerate](https://pris.ly/d/accelerate) feature
-- Follow our [Edge Compatibility](/guides/edge-compatibility) page as the workaround. This uses the `jwt` session strategy and separates the `auth.ts` configuration into two files.
+- 使用 Prisma 的 [Accelerate](https://pris.ly/d/accelerate) 功能
+- 按照我们的 [Edge 兼容性指南](/guides/edge-compatibility) 作为临时解决方案。该方法采用 `jwt` 会话策略，并将 `auth.ts` 配置拆分为两个文件。
 
-Using Prisma with the `jwt` session strategy and `@prisma/client@5.9.1` or above doesn't require any additional modifications, other than ensuring you don't do any database queries in your middleware.
+在 Prisma 使用 `jwt` 会话策略且版本为 `@prisma/client@5.9.1` 或更高时，除确保不在中间件执行数据库查询外，无需额外修改。
 
-Since `@prisma/client@5.9.1`, Prisma no longer throws about being incompatible with the edge runtime at instantiation, but at query time. Therefore, it is possible to import it in files being used in your middleware as long as you do not execute any queries in your middleware.
+自 `@prisma/client@5.9.1` 起，Prisma 不再在实例化时抛出与 edge 运行时兼容性相关的错误，而是在查询时抛出。因此只要不在中间件中执行查询操作，即可在中间件使用的文件中导入 Prisma。
 
-### Schema
+### 数据库模式
 
-You need to use at least Prisma `2.26.0`. Create a schema file at `prisma/schema.prisma` with the following models.
+需使用 Prisma `2.26.0` 或更高版本。在 `prisma/schema.prisma` 路径下创建包含以下模型的架构文件。
 
 <Accordions>
 <Accordion title="PostgreSQL">
@@ -515,38 +514,37 @@ This has all been applied in the above example schema already.
 </Accordion>
 </Accordions>
 
-### Apply Schema
+### 应用数据模型
 
-This will create an SQL migration file and execute it:
+此操作将创建 SQL 迁移文件并执行：
 
 ```bash npm2yarn
 npm exec prisma migrate dev
 ```
 
-Note that you will need to specify your database connection string in the environment variable `DATABASE_URL`. You can do this by setting it in a `.env` file at the root of your project.
+注意需在环境变量 `DATABASE_URL` 中指定数据库连接字符串。可通过在项目根目录的 `.env` 文件中设置该变量实现。
 
-### Generate Prisma Client
+### 生成 Prisma 客户端
 
-`prisma migrate dev` will also generate the Prisma client, but if you need to generate it again manually you can run the following command.
+`prisma migrate dev` 命令也会生成 Prisma 客户端，但如需手动重新生成，可运行以下命令。
 
 ```bash npm2yarn
 npm exec prisma generate
 ```
 
-### Development Workflow
+### 开发流程
 
-When you're working on your application and making changes to your database schema, you'll need to
-run the migrate command again every time you make changes to the schema in order for Prisma to (1) generate a migration file and apply it to the underlying database and (2) regenerate the Prisma client in your project with the latest types and model methods.
+在开发应用程序并修改数据库架构时，每次对架构进行更改后都需要重新运行迁移命令，以便 Prisma 能够：(1) 生成迁移文件并将其应用到基础数据库；(2) 使用最新的类型和模型方法重新生成项目中的 Prisma 客户端。
 
 ```bash npm2yarn
 npm exec prisma migrate dev
 ```
 
-### Naming Conventions
+### 命名规范
 
-If mixed `snake_case` and `camelCase` column names is an issue for you and/or your underlying database system, we recommend using Prisma's [`@map()` feature](https://www.prisma.io/docs/concepts/components/prisma-schema/names-in-underlying-database) to change the field names. This won't affect Auth.js, but will allow you to customize the column names to whichever naming convention you prefer.
+如果混合使用 `snake_case` 和 `camelCase` 列名对您或底层数据库系统造成困扰，我们建议使用 Prisma 的 [`@map()` 功能](https://www.prisma.io/docs/concepts/components/prisma-schema/names-in-underlying-database)来更改字段名称。这不会影响 Auth.js，但允许您将列名自定义为任何偏好的命名规范。
 
-For example, moving to `snake_case` and plural table names.
+例如，迁移到使用 `snake_case` 和复数表名。
 
 ```prisma filename="schema.prisma"
 model Account {

@@ -1,11 +1,11 @@
 import { Code } from "@/components/Code"
 import { Screenshot } from "@/components/Screenshot"
 
-# Custom error page
+# 自定义错误页面
 
-Auth.js can be configured to display a custom error page when something goes wrong during the user authentication flow (sign in, sign out, etc..).
+当用户认证流程（登录、登出等）出现问题时，可以配置 Auth.js 显示自定义错误页面。
 
-In order to override Auth.js's `/api/auth/error` page we have to define our custom page in the AuthConfig:
+要覆盖 Auth.js 默认的 `/api/auth/error` 页面，我们需要在 AuthConfig 中定义自定义页面：
 
 <Code>
 <Code.Next>
@@ -23,7 +23,7 @@ const authConfig: NextAuthConfig = {
 </Code.Next>
 </Code>
 
-Using the [example app](https://github.com/nextauthjs/next-auth-example), let's build a simple custom error page by creating `app/error/page.tsx`
+以[示例应用](https://github.com/nextauthjs/next-auth-example)为基础，通过创建 `app/error/page.tsx` 来构建一个简单的自定义错误页面：
 
 <Code>
 <Code.Next>
@@ -37,16 +37,16 @@ export default function AuthErrorPage() {
 </Code.Next>
 </Code>
 
-Auth.js forwards the following errors as error query parameters in the URL to our custom error page:
+Auth.js 会将以下错误作为 URL 查询参数转发到我们的自定义错误页面：
 
-| Query Param     | Example URL                       | Description                                                                                   |
-| --------------- | --------------------------------- | --------------------------------------------------------------------------------------------- |
-| `Configuration` | `/auth/error?error=Configuration` | There is a problem with the server configuration. Check if your options are correct.          |
-| `AccessDenied`  | `/auth/error?error=AccessDenied`  | Usually occurs, when you restricted access through the signIn callback, or redirect callback. |
-| `Verification`  | `/auth/error?error=Verification`  | Related to the Email provider. The token has expired or has already been used.                |
-| `Default`       | `/auth/error?error=Default`       | Catch all, will apply, if none of the above matched.                                          |
+| 查询参数        | 示例 URL                          | 描述                                               |
+| --------------- | --------------------------------- | -------------------------------------------------- |
+| `Configuration` | `/auth/error?error=Configuration` | 服务器配置存在问题。请检查您的选项是否正确。       |
+| `AccessDenied`  | `/auth/error?error=AccessDenied`  | 通常发生在通过 signIn 回调或重定向回调限制访问时。 |
+| `Verification`  | `/auth/error?error=Verification`  | 与 Email 提供商相关。令牌已过期或已被使用。        |
+| `Default`       | `/auth/error?error=Default`       | 全局捕获，当以上都不匹配时适用。                   |
 
-So now we can update our custom error page with it:
+现在我们可以用它来更新自定义错误页面：
 
 <Code>
 <Code.Next>
@@ -95,7 +95,7 @@ export default function AuthErrorPage() {
 </Code.Next>
 </Code>
 
-Now, when an error happens, Auth.js will redirect the user to our custom error page:
+当发生错误时，Auth.js 会将用户重定向到我们的自定义错误页面：
 
 import CustomErrorPage from "../../../public/img/tutorials/custom-error-page.webp"
 

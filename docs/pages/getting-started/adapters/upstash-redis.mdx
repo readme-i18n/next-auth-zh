@@ -7,28 +7,28 @@ import { Code } from "@/components/Code"
   height="64"
 />
 
-# Upstash Redis Adapter
+# Upstash Redis 适配器
 
-## Resources
+## 相关资源
 
-- [Upstash documentation](https://docs.upstash.com/redis)
+- [Upstash 文档](https://docs.upstash.com/redis)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @upstash/redis @auth/upstash-redis-adapter
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 UPSTASH_REDIS_URL,
 UPSTASH_REDIS_TOKEN
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -117,15 +117,15 @@ app.use(
 </Code.Express>
 </Code>
 
-### Advanced usage
+### 高级用法
 
-#### Using multiple apps with a single Upstash Redis instance
+#### 在单个 Upstash Redis 实例上运行多个应用
 
-The Upstash free-tier allows for only one Redis instance. If you have multiple Auth.js connected apps using this instance, you need different key prefixes for every app.
+Upstash 免费版仅允许创建一个 Redis 实例。如果多个 Auth.js 连接的应用共用该实例，需要为每个应用设置不同的键前缀。
 
-You can change the prefixes by passing an `options` object as the second argument to the adapter factory function.
+可通过向适配器工厂函数传入第二个参数 `options` 对象来修改前缀。
 
-The default values for this object are:
+该对象的默认值为：
 
 ```ts
 const defaultOptions = {
@@ -140,7 +140,7 @@ const defaultOptions = {
 }
 ```
 
-Usually changing the `baseKeyPrefix` should be enough for this scenario, but for more custom setups, you can also change the prefixes of every single key.
+通常在此场景下只需修改 `baseKeyPrefix` 即可，但对于更复杂的自定义配置，也可以单独修改每个键的前缀。
 
 ```ts
 export const { handlers, auth, signIn, signOut } = NextAuth({

@@ -3,17 +3,17 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/notion.svg" height="64" width="64" />
 
-# Notion Provider
+# Notion 提供商
 
-## Resources
+## 相关资源
 
-- [Notion documentation](https://developers.notion.com/docs)
-- [Notion Authorization documentation](https://developers.notion.com/docs/authorization)
-- [Notion Integrations](https://www.notion.so/my-integrations)
+- [Notion 文档](https://developers.notion.com/docs)
+- [Notion 授权文档](https://developers.notion.com/docs/authorization)
+- [Notion 集成](https://www.notion.so/my-integrations)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -39,7 +39,7 @@ https://example.com/auth/callback/notion
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_NOTION_ID
@@ -47,7 +47,7 @@ AUTH_NOTION_SECRET
 AUTH_NOTION_REDIRECT_URI
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -134,7 +134,7 @@ app.use(
   </Code.Express>
 </Code>
 
-## Notes
+## 注意事项
 
-- You need to select "Public Integration" on the configuration page to get an `oauth_id` and `oauth_secret`. Private integrations do not provide these details.
-- You must provide a `clientId` and `clientSecret` to use this provider, as-well as a redirect URI (due to this being required by Notion endpoint to fetch tokens).
+- 您需要在配置页面选择"公共集成"以获取 `oauth_id` 和 `oauth_secret`。私有集成不提供这些信息。
+- 使用此提供商时，您必须提供 `clientId` 和 `clientSecret`，以及重定向 URI（因为 Notion 端点获取令牌时需要此参数）。

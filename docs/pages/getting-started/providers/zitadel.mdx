@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/zitadel.svg" height="64" width="64" />
 
-# Zitadel Provider
+# Zitadel 提供商
 
-## Resources
+## 相关资源
 
-- [ZITADEL OpenID Endpoints](https://zitadel.com/docs/apis/openidoauth/endpoints)
-- [ZITADEL recommended OAuth Flows](https://zitadel.com/docs/guides/integrate/oauth-recommended-flows)
+- [ZITADEL OpenID 端点](https://zitadel.com/docs/apis/openidoauth/endpoints)
+- [ZITADEL 推荐的 OAuth 流程](https://zitadel.com/docs/guides/integrate/oauth-recommended-flows)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,14 +38,14 @@ https://example.com/auth/callback/zitadel
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_ZITADEL_ID
 AUTH_ZITADEL_SECRET
 ```
 
-### Configuration
+### 配置
 
 <Code>
   <Code.Next>
@@ -98,16 +98,16 @@ app.use("/auth/*", ExpressAuth({ providers: [Zitadel] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-The Redirect URIs used when creating the credentials must include your full domain and end in the callback path. For example:
+创建凭证时使用的重定向 URI 必须包含您的完整域名并以回调路径结尾。例如：
 
-- For production: `https://{YOUR_DOMAIN}/api/auth/callback/zitadel`
-- For development: `http://localhost:3000/api/auth/callback/zitadel`
+- 生产环境：`https://{YOUR_DOMAIN}/api/auth/callback/zitadel`
+- 开发环境：`http://localhost:3000/api/auth/callback/zitadel`
 
-Make sure to enable dev mode in ZITADEL console to allow redirects for local development.
+请确保在 ZITADEL 控制台中启用开发模式，以允许本地开发的重定向。
 
-ZITADEL also returns a email_verified boolean property in the profile. You can use this property to restrict access to people with verified accounts.
+ZITADEL 还会在配置文件中返回一个 email_verified 布尔属性。您可以使用此属性来限制仅允许已验证账户的用户访问。
 
 ```ts filename=pages/api/auth/[...nextauth].js
 const options = {

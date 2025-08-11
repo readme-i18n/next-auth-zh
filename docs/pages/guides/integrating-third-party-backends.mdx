@@ -1,17 +1,15 @@
-# Integrating with third-party backends
+# 与第三方后端集成
 
-When logging in through a provider, you can use the received OAuth tokens to authenticate against a third-party API.
-These tokens can be used to authorize requests to backends that are supporting the corresponding provider.
+通过提供商登录时，您可以使用收到的 OAuth 令牌对第三方 API 进行身份验证。这些令牌可用于授权向支持相应提供商的后端发送请求。
 
-For example:
+例如：
 
-- GitHub's `access_token` will give you access to GitHub's APIs.
-- Self-managed providers (like [Keycloak](https://www.keycloak.org), [`oidc-provider`](https://github.com/panva/node-oidc-provider), etc.) can be used to authorize against custom third-party backends.
+- GitHub 的 `access_token` 将允许您访问 GitHub 的 API。
+- 自托管提供商（如 [Keycloak](https://www.keycloak.org)、[`oidc-provider`](https://github.com/panva/node-oidc-provider) 等）可用于授权自定义第三方后端。
 
-## Storing the token in the session
+## 将令牌存储在会话中
 
-The token(s) are made available in the `account` parameter of the jwt callback.
-To store them in the session, they can be attached to the token first.
+令牌会在 jwt 回调的 `account` 参数中提供。要将它们存储在会话中，可以先将它们附加到令牌上。
 
 ```typescript
 jwt({ token, trigger, session, account }) {
@@ -22,7 +20,7 @@ jwt({ token, trigger, session, account }) {
 }
 ```
 
-In order to access the token when making API requests, it needs to be made available to the Auth.js session.
+为了在发起 API 请求时访问令牌，需要使其对 Auth.js 会话可用。
 
 ```typescript
 async session({ session, token }) {
@@ -31,10 +29,9 @@ async session({ session, token }) {
 }
 ```
 
-## Using the token to make authorized API requests
+## 使用令牌发起授权 API 请求
 
-OAuth tokens are commonly attached as `Authorization: Bearer <>` header.
-It is recommended to attach this header server side, like a [Route Handler](https://nextjs.org/docs/app/building-your-application/routing/route-handlers).
+OAuth 令牌通常作为 `Authorization: Bearer <>` 标头附加。建议在服务器端附加此标头，例如通过 [路由处理器](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)。
 
 ```typescript
 export async function handler(request: NextRequest) {
@@ -46,10 +43,10 @@ export async function handler(request: NextRequest) {
 }
 ```
 
-## Configuring the backend to authorize requests through your provider
+## 配置后端以通过您的提供商授权请求
 
-Consult your backend framework's documentation on how to verify incoming access tokens.
-Below is an [example](https://github.com/nextauthjs/authjs-third-party-backend/tree/main/backend-express) with Express.js using a [Keycloak](https://providers.authjs.dev/keycloak) instance.
+请查阅您后端框架的文档以了解如何验证传入的访问令牌。  
+以下是一个使用 [Keycloak](https://providers.authjs.dev/keycloak) 实例的 Express.js [示例](https://github.com/nextauthjs/authjs-third-party-backend/tree/main/backend-express)。
 
 ```javascript
 const app = express()
@@ -71,9 +68,9 @@ app.get("*", jwtCheck, (req, res) => {
 // ...
 ```
 
-## Resources
+## 相关资源
 
-- Further examples for different backend frameworks can be found [here](https://github.com/nextauthjs/authjs-third-party-backend/tree/main).
-- A full example of how to integrate a client app with a third-party API can be found in the [next-auth-example](https://github.com/nextauthjs/next-auth-example).
-- [Keycloak](https://www.keycloak.org) - Open Source Identity and Access Management For Modern Applications and Services
-- [`oidc-provider`](https://github.com/panva/node-oidc-provider) - OpenID Certified™ OAuth 2.0 Authorization Server implementation for Node.js
+- 其他后端框架的更多示例可在[此处](https://github.com/nextauthjs/authjs-third-party-backend/tree/main)找到。
+- 客户端应用与第三方 API 集成的完整示例可查看 [next-auth-example](https://github.com/nextauthjs/next-auth-example)。
+- [Keycloak](https://www.keycloak.org) - 面向现代应用和服务的开源身份与访问管理
+- [`oidc-provider`](https://github.com/panva/node-oidc-provider) - Node.js 实现的 OpenID Certified™ OAuth 2.0 授权服务器

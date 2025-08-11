@@ -1,11 +1,11 @@
 import { Callout } from "nextra/components"
 import { Code } from "@/components/Code"
 
-# Protecting Resources
+# 资源保护
 
-Protecting routes can be done generally by checking for the session and taking an action if an active session is not found, like redirecting the user to the login page or simply returning a `401: Unauthenticated` response.
+保护路由通常可以通过检查会话来实现，如果未找到有效会话，则执行相应操作，例如将用户重定向到登录页面或直接返回 `401: Unauthenticated` 响应。
 
-### Pages
+### 页面配置
 
 <Code>
 <Code.Next>
@@ -152,9 +152,9 @@ app.use("/", root)
 </Code.Express>
 </Code>
 
-### API Routes
+### API 路由
 
-Protecting API routes in the various frameworks can also be done with the `auth` export.
+在各框架中保护 API 路由同样可以通过 `auth` 导出实现。
 
 <Code>
 <Code.Next>
@@ -240,15 +240,15 @@ API Routes are protected in the same way as any other route in Express, see [the
 </Code.Express>
 </Code>
 
-### Next.js Middleware
+### Next.js 中间件
 
-With Next.js 12+, the easiest way to protect a set of pages is using the middleware file. You can create a `middleware.ts` file in your root pages directory with the following contents.
+在 Next.js 12+ 中，保护一组页面的最简单方法是使用中间件文件。您可以在页面根目录创建包含以下内容的 `middleware.ts` 文件。
 
 ```ts filename="middleware.ts"
 export { auth as middleware } from "@/auth"
 ```
 
-Then define `authorized` callback in your `auth.ts` file. For more details check out the [reference docs](/reference/nextjs#authorized).
+然后在 `auth.ts` 文件中定义 `authorized` 回调函数。更多细节请查阅[参考文档](/reference/nextjs#authorized)。
 
 ```ts filename="auth.ts"
 import NextAuth from "next-auth"
@@ -263,7 +263,7 @@ export const { auth, handlers } = NextAuth({
 })
 ```
 
-You can also use the `auth` method as a wrapper if you'd like to implement more logic inside the middleware.
+如果您需要在中间件中实现更多逻辑，也可以将 `auth` 方法作为包装器使用。
 
 ```ts filename="middleware.ts"
 import { auth } from "@/auth"
@@ -276,7 +276,7 @@ export default auth((req) => {
 })
 ```
 
-You can also use a regex to match multiple routes or you can negate certain routes in order to protect all remaining routes. The following example avoids running the middleware on paths such as the favicon or static images.
+您还可以使用正则表达式匹配多个路由，或通过排除特定路由来保护剩余所有路由。以下示例避免了在 favicon 或静态图片等路径上运行中间件。
 
 ```ts filename="middleware.ts"
 export const config = {
@@ -284,9 +284,8 @@ export const config = {
 }
 ```
 
-Middleware will protect pages as defined by the `matcher` config export. For more details about the matcher, check out the [Next.js docs](https://nextjs.org/docs/pages/building-your-application/routing/middleware#matching-paths).
+中间件将根据 `matcher` 配置导出来保护页面。有关匹配器的更多细节，请参阅 [Next.js 文档](https://nextjs.org/docs/pages/building-your-application/routing/middleware#matching-paths)。
 
 <Callout>
-  You should not rely on middleware exclusively for authorization. Always ensure
-  that the session is verified as close to your data fetching as possible.
+  不应仅依赖中间件进行授权验证。请始终确保在尽可能接近数据获取的位置进行会话验证。
 </Callout>

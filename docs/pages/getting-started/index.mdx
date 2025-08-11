@@ -6,13 +6,13 @@ import { Plus, ArrowSquareOut, GithubLogo, Flask } from "@/icons"
 import manifest from "@/data/manifest.json"
 import { FrameworkLink } from "@/components/FrameworkLink"
 
-# What is Auth.js?
+# 什么是 Auth.js？
 
-Auth.js is a <abbr title="Designed to work seamlessly across different JavaScript runtime environments without relying on specific features or behaviors of any particular runtime">runtime agnostic</abbr> library based on standard Web APIs that integrates deeply with multiple modern JavaScript frameworks to provide an authentication experience that's simple to get started with, easy to extend, and always private and secure!
+Auth.js 是一个<abbr title="设计为可在不同 JavaScript 运行时环境中无缝工作，不依赖任何特定运行时的特性或行为">运行时无关</abbr>的库，基于标准 Web API 实现，深度集成多种现代 JavaScript 框架，提供开箱即用的认证体验，易于扩展且始终保障隐私安全！
 
-This documentation covers `next-auth@5.0.0-beta` and later and all other frameworks under the `@auth/*` namespace. Documentation for `next-auth@4.x.y` can still be found at [next-auth.js.org](https://next-auth.js.org).
+本文档涵盖 `next-auth@5.0.0-beta` 及更高版本，以及 `@auth/*` 命名空间下的所有其他框架。`next-auth@4.x.y` 的文档仍可在 [next-auth.js.org](https://next-auth.js.org) 查阅。
 
-Select your framework of choice to get started, or view the example application deployment or repository with the buttons below.
+选择您偏好的框架开始使用，或通过下方按钮查看示例应用部署及代码仓库。
 
 <div className="mb-12 mt-8 flex w-full flex-wrap items-start justify-around gap-2">
   <FrameworkLink
@@ -51,30 +51,25 @@ Select your framework of choice to get started, or view the example application 
   </Link>
 </div>
 
-Check the [integrations page](/getting-started/integrations) for all supported packages. We are working on supporting more frameworks, but you can create your own or
-help us create one for your favorite framework.
+查看[集成页面](/getting-started/integrations)获取所有支持的包。我们正在努力支持更多框架，您也可以自行创建或协助我们为您喜爱的框架开发适配器。
 
 <Callout type="info">
-  To reduce migration overhead, NextAuth.js for Next.js will continue to be
-  released under the `next-auth` package name, instead of the `@auth/*`
-  convention. Auth.js was born out of `next-auth` but [over the years has
-  evolved](/contributors#history) to be framework agnostic.
+  为降低迁移成本，Next.js 版的 NextAuth.js 将继续以 `next-auth` 包名发布，而非采用 `@auth/*` 命名规范。Auth.js 脱胎于 `next-auth`，但[经过多年发展](/contributors#history)已成为框架无关方案。
 
-Confused about Auth.js and NextAuth.js? Have a look at [our
-history](/contributors#history).
+对 Auth.js 和 NextAuth.js 的关系感到困惑？请参阅[发展历程](/contributors#history)。
 
 </Callout>
 
-## Authentication methods
+## 认证方式
 
-There are 4 ways to authenticate users with Auth.js:
+Auth.js 提供 4 种用户认证方式：
 
-- [OAuth authentication](/getting-started/authentication/oauth) (_Sign in with Google, GitHub, LinkedIn, etc..._)
-- [Magic Links](/getting-started/authentication/email) (_Email Provider like Forward Email, Resend, Sendgrid, Nodemailer etc..._)
-- [Credentials](/getting-started/authentication/credentials) (_Username and Password, Integrating with external APIs, etc..._)
-- [WebAuthn](/getting-started/authentication/webauthn) (_Passkeys, etc..._)
+- [OAuth 认证](/getting-started/authentication/oauth)（_使用 Google、GitHub、LinkedIn 等账号登录_）
+- [魔法链接](/getting-started/authentication/email)（_邮件服务提供商如 Forward Email、Resend、Sendgrid、Nodemailer 等_）
+- [凭证认证](/getting-started/authentication/credentials)（_用户名密码、集成外部 API 等_）
+- [WebAuthn](/getting-started/authentication/webauthn)（_通行密钥等_）
 
-### Official Providers
+### 官方提供商
 
 <ListDisclosure limit={8}>
   {Object.entries(manifest.providersOAuth).map(([id, name]) => (
@@ -89,9 +84,9 @@ There are 4 ways to authenticate users with Auth.js:
   ))}
 </ListDisclosure>
 
-### Supported Databases
+### 支持的数据库
 
-Optionally, Auth.js can be integrated with an external database via Database adapters, in case you need or want to store user data.
+可选地，Auth.js 可以通过数据库适配器与外部数据库集成，用于存储用户数据。
 
 <ListDisclosure limit={8}>
   {Object.entries(manifest.adapters).map(([value, label]) => (

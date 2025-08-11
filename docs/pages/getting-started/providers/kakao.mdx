@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/kakao.svg" height="64" width="64" />
 
-# Kakao Provider
+# Kakao 提供商
 
-## Resources
+## 相关资源
 
-- [Kakao OAuth documentation](https://developers.kakao.com/product/kakaoLogin)
-- [Kakao OAuth configuration](https://developers.kakao.com/docs/latest/en/kakaologin/common)
+- [Kakao OAuth 文档](https://developers.kakao.com/product/kakaoLogin)
+- [Kakao OAuth 配置](https://developers.kakao.com/docs/latest/en/kakaologin/common)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,16 +38,16 @@ https://example.com/auth/callback/kakao
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_KAKAO_ID
 AUTH_KAKAO_SECRET
 ```
 
-### Configuration
+### 配置
 
-Create a provider and a Kakao application at https://developers.kakao.com/console/app. In the settings of the app under Kakao Login, activate web app, change consent items and configure callback URL.
+访问 https://developers.kakao.com/console/app 创建提供商和 Kakao 应用。在应用的 Kakao Login 设置中，启用 web app，修改授权项并配置回调 URL。
 
 <Code>
   <Code.Next>
@@ -100,21 +100,21 @@ app.use("/auth/*", ExpressAuth({ providers: [Kakao] }))
   </Code.Express>
 </Code>
 
-### Notes
+### 注意事项
 
-- The "Authorized redirect URIs" used when creating the credentials must include your full domain and end in the callback path as shown above.
+- 创建凭证时使用的"授权重定向 URI"必须包含完整域名，并以如上所示的回调路径结尾。
 
 ![스크린샷 2023-11-28 오후 9 27 41](https://github.com/nextauthjs/next-auth/assets/66895208/7d4c2df6-45a6-4937-bb10-4b47c987bff4)
 
-- For production: `https://{YOUR_DOMAIN}/api/auth/callback/kakao`
-- For development: `http://localhost:3000/api/auth/callback/kakao`
+- 生产环境: `https://{YOUR_DOMAIN}/api/auth/callback/kakao`
+- 开发环境: `http://localhost:3000/api/auth/callback/kakao`
 
-- Kakao's client key is in **Summary(It is written as 요약정보 in Korean.) tab's App Keys Field** (My Application > App Settings > Summary)
+- Kakao 的客户端密钥位于**Summary(韩语显示为 요약정보)标签页的 App Keys 字段**(我的应用 > 应用设置 > Summary)
 
 ![스크린샷 2023-11-28 오후 9 47 17](https://github.com/nextauthjs/next-auth/assets/66895208/a87e5705-26b9-4f83-99d7-6df097a3632c)
 
-- Kakao's clientSecret key is in **Security(It is written as 보안 in Korean.) tab's App Keys Field** (My Application > Product Settings > Kakao Login > Security)
+- Kakao 的 clientSecret 密钥位于**Security(韩语显示为 보안)标签页的 App Keys 字段**(我的应用 > 产品设置 > Kakao Login > Security)
 
 ![스크린샷 2023-11-28 오후 9 38 25](https://github.com/nextauthjs/next-auth/assets/66895208/6a763921-4f70-40f4-a3e1-9abc78276d45)
 
-- Kakao dev console has a button at the top right to change from KR to ENG
+- Kakao 开发者控制台右上角设有切换韩语(KR)与英语(ENG)的按钮

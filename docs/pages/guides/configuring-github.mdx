@@ -2,32 +2,31 @@ import { Callout, Tabs } from "nextra/components"
 import { Screenshot } from "@/components/Screenshot"
 import { Code } from "@/components/Code"
 
-# OAuth with GitHub
+# 使用 GitHub 进行 OAuth 认证
 
-In this tutorial, we'll be setting up Auth.js in a Next.js application to be able to log in with **GitHub**.
+本教程将指导您在 Next.js 应用中配置 Auth.js，实现通过 **GitHub** 账号登录功能。
 
 <Callout type="info">
-  This tutorial uses GitHub as the OAuth provider and Next.js as the framework.
-  Note that for any OAuth provider or any framework, **the process will be the
-  same/very similar**, mainly differing on how you register your application in
-  the chosen provider's dashboard.
+  本教程以 GitHub 作为 OAuth 提供商，Next.js 作为开发框架。 请注意，对于任何
+  OAuth
+  提供商或框架，**配置流程基本相同/非常相似**，主要区别在于如何在所选提供商的控制台中注册您的应用。
 </Callout>
 
-## Setting up Auth.js
+## 配置 Auth.js
 
-### Installing Auth.js and Next.js
+### 安装 Auth.js 和 Next.js
 
-For this tutorial, we're gonna use the default [Auth.js & Next.js example app](https://github.com/nextauthjs/next-auth-example). If you already have an existing Next.js app, it should work too. If you don't, clone the repository:
+本教程将使用默认的 [Auth.js & Next.js 示例应用](https://github.com/nextauthjs/next-auth-example)。如果您已有现成的 Next.js 应用，同样适用。若没有，请克隆该仓库：
 
 ```bash
 git clone https://github.com/nextauthjs/next-auth-example.git && cd next-auth-example
 ```
 
-If you're using the example app, Auth.js is already installed, otherwise follow the [installation instructions](/getting-started/installation).
+如果使用示例应用，Auth.js 已预装完成，否则请遵循 [安装指南](/getting-started/installation)。
 
-### Creating the server config
+### 创建服务端配置
 
-Next, we're gonna create the main Auth.js configuration file which contains the necessary configuration for Auth.js, as well as the dynamic route handler.
+接下来，我们将创建主 Auth.js 配置文件，其中包含 Auth.js 的必要配置以及动态路由处理器。
 
 ```ts filename="./auth.ts"
 import NextAuth from "next-auth"
@@ -44,11 +43,11 @@ export const { GET, POST } = handlers
 export const runtime = "edge" // optional
 ```
 
-Since this is a [catch-all dynamic route](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments), it will respond to all the relevant Auth.js API routes so that your application can interact with the chosen OAuth provider using the [OAuth 2](https://oauth.net/2) protocol.
+由于这是 [全捕获动态路由](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes#catch-all-segments)，它将响应所有相关的 Auth.js API 路由，使您的应用能够通过 [OAuth 2](https://oauth.net/2) 协议与所选 OAuth 提供商进行交互。
 
-### Adding environment variables
+### 添加环境变量
 
-If you haven't, create an `.env.local` file as explained in the [installation section](/getting-started/installation) and add the following two GitHub variables:
+如果尚未创建，请按照[安装章节](/getting-started/installation)的说明创建 `.env.local` 文件，并添加以下两个 GitHub 变量：
 
 ```bash filename=".env.local" {3-4}
 AUTH_SECRET="changeMe"
@@ -57,27 +56,27 @@ AUTH_GITHUB_ID=
 AUTH_GITHUB_SECRET=
 ```
 
-We will be filling `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET` with proper values from the GitHub Developer Portal once we have registered our application in GitHub.
+我们将在 GitHub 开发者门户中注册应用后，用正确的值填充 `AUTH_GITHUB_ID` 和 `AUTH_GITHUB_SECRET`。
 
-## Registering your App
+## 注册应用
 
-### Creating an OAuth App in GitHub
+### 在 GitHub 创建 OAuth 应用
 
-To get the required credentials from GitHub, we need to create an application in their developer settings.
+要从 GitHub 获取所需凭证，我们需要在其开发者设置中创建应用。
 
-Go to the [GitHub developer settings](https://github.com/settings/developers), also found under **Settings** → **Developers** → **OAuth Apps**, and click "New OAuth App":
+访问 [GitHub 开发者设置](https://github.com/settings/developers)，路径为 **Settings** → **Developers** → **OAuth Apps**，点击 "New OAuth App"：
 
 import CreatingOAuthApp from "../../public/img/oauth-setup/creating-oauth-app.webp"
 
 <Screenshot src={CreatingOAuthApp} alt="Creating an OAuth App on GitHub" />
 
-Next, you'll be presented with a screen to register your application. Fill in all the required fields.
+接下来会出现应用注册页面。填写所有必填字段。
 
 import CallbackUrl from "../../public/img/oauth-setup/callback-url.webp"
 
 <Screenshot src={CallbackUrl} />
 
-The default callback URL should generally take the form of `[origin]/api/auth/callback/[provider]`, however, the default is slightly different depending on which framework you're using.
+默认回调 URL 通常格式为 `[origin]/api/auth/callback/[provider]`，但具体默认值会根据您使用的框架略有不同。
 
 <Code>
 <Code.Next>
@@ -132,30 +131,30 @@ Notice no `/api` path parameter.
 </Code.Express>
 </Code>
 
-Once you've entered all the required fields, press **"Register application"**.
+填写完所有必填字段后，点击 **"Register application"**。
 
-### Secrets
+### 密钥
 
-After successfully registering your application, GitHub will present us with the required details.
+成功注册应用后，GitHub 会显示所需的详细信息。
 
 import ClientIdSecret from "../../public/img/oauth-setup/clientid-secret.webp"
 
 <Screenshot src={ClientIdSecret} alt="Generating clientId and clientSecret" />
 
-We need 2 things from this screen, the **Client ID** and **Client Secret**.
+我们需要从这个页面获取两项内容：**Client ID** 和 **Client Secret**。
 
-The Client ID is always visible, it is a public identifier of your OAuth application within GitHub.
+Client ID 始终可见，它是您的 OAuth 应用在 GitHub 中的公共标识符。
 
-To get a Client Secret, you have to click on **"Generate a new client secret"**, which will create your first client secret. You can easily create a new client secret here in case your first one gets leaked, lost, etc.
+要获取客户端密钥(Client Secret)，您需要点击**"生成新的客户端密钥"**按钮，这将创建您的第一个客户端密钥。如果首个密钥发生泄露、丢失等情况，您可以在此轻松创建新的密钥。
 
 <Callout>
-  Keep your **Client Secret** secure and never expose it to the public or share
-  it with people outside your organization.
+  请妥善保管您的**客户端密钥(Client
+  Secret)**，切勿公开暴露或与组织外部人员共享。
 </Callout>
 
-## Wiring all together
+## 完整配置流程
 
-Now that we have the required Client ID and Client Secret, paste them into your `.env.local` file we created earlier.
+现在我们已经获取了必需的客户端ID(Client ID)和客户端密钥，将它们粘贴到之前创建的`.env.local`文件中。
 
 ```bash filename=".env.local" {3-4}
 AUTH_SECRET="changeMe"
@@ -164,43 +163,42 @@ AUTH_GITHUB_ID={clientId}
 AUTH_GITHUB_SECRET={clientSecret}
 ```
 
-With all the pieces in place, you can now start your local dev server and test the login process.
+所有组件就绪后，您现在可以启动本地开发服务器并测试登录流程。
 
 ```bash npm2yarn
 npm run dev
 ```
 
-Navigate to [`http://localhost:3000`](http://localhost:3000). You should see the following page:
+访问 [`http://localhost:3000`](http://localhost:3000)，您应该会看到以下页面：
 
 import AppStart from "../../public/img/oauth-setup/app-start.webp"
 
 <Screenshot src={AppStart} alt="App Start" />
 
-Click on **"Sign in"**, you should be redirected to the default Auth.js signin page. You can [customize this page](/guides/pages/signin) to fit your needs. Next, click on **"Sign in with GitHub"**. Auth.js will redirect you to GitHub, where GitHub will recognize your application and ask the user to confirm they want to authenticate to your new application by entering their credentials.
+点击**"登录"**按钮，您将被重定向至默认的Auth.js登录页面。您可以[自定义此页面](/guides/pages/signin)以满足需求。接着点击**"使用GitHub登录"**，Auth.js会将您重定向至GitHub，GitHub会识别您的应用程序并要求用户通过输入凭证确认是否要验证新应用。
 
 import GitHubCredentials from "../../public/img/oauth-setup/github-auth-credentials.webp"
 
 <Screenshot src={GitHubCredentials} alt="GitHub Credentials" />
 
-Once authenticated, GitHub will redirect the user back to your app and Auth.js will take care of the rest:
+认证通过后，GitHub会将用户重定向回您的应用，Auth.js将处理后续流程：
 
 import GitHubAuthSuccess from "../../public/img/oauth-setup/github-auth-success.webp"
 
 <Screenshot src={GitHubAuthSuccess} alt="GitHub Authentication Success" />
 
-If you've landed back here that means everything worked! We have completed the whole OAuth authentication flow so that users can log in to your application via GitHub!
+如果您成功返回此处，说明一切运行正常！我们已完成完整的OAuth认证流程，用户现在可以通过GitHub登录您的应用了！
 
 <Callout type="info">
-  As you can see, most of the time required setting up OAuth in your application
-  is spent registering your application in the OAuth provider's dashboard (some
-  are easier to navigate, some are harder). Once registered, the setup via
-  Auth.js should be straight forward.
+  可以看到，在应用中设置 OAuth 的大部分时间都花费在 OAuth
+  提供商的控制台注册应用上（有些界面更易操作，有些则较复杂）。一旦完成注册，通过
+  Auth.js 的配置过程就会变得简单直接。
 </Callout>
 
-## Deployment
+## 部署
 
-Before you can release your app to production, you'll need to change a few things.
+在将应用发布到生产环境前，你需要进行几项调整。
 
-Unfortunately, GitHub is among the providers which do not let you register multiple callback URLs for one application. Therefore, you'll need to register a separate application in GitHub's dashboard [as we did previously](/guides/configuring-github#registering-our-app) but set the callback URL to your application's production domain (.i.e `https://example.com/api/auth/callback/github`). You'll then also have a new **Client ID** and **Client Secret** that you need to add to your production environment via your hosting provider's dashboard (Vercel, Netlify, Cloudflare, etc.) or however you manage environment variables in production.
+遗憾的是，GitHub 属于那些不允许为单个应用注册多个回调 URL 的提供商之一。因此，你需要在 GitHub 控制台[像之前那样](/guides/configuring-github#registering-our-app)单独注册一个应用，但要将回调 URL 设置为你的生产环境域名（例如 `https://example.com/api/auth/callback/github`）。随后你会获得新的**客户端 ID**和**客户端密钥**，需要通过托管平台控制台（Vercel、Netlify、Cloudflare 等）或其他生产环境变量管理方式添加到生产环境中。
 
-Refer to the [Deployment page](/getting-started/deployment) for more information.
+更多信息请参阅[部署页面](/getting-started/deployment)。

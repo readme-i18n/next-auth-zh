@@ -2,21 +2,21 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/neo4j.svg" height="64" width="128" />
 
-# Neo4j Adapter
+# Neo4j 适配器
 
-## Resources
+## 相关资源
 
-- [Neo4j documentation](https://neo4j.com/docs/)
+- [Neo4j 文档](https://neo4j.com/docs/)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/neo4j-adapter neo4j-driver
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 NEO4J_URI=bolt://localhost
@@ -24,7 +24,7 @@ NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=abc
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -124,33 +124,33 @@ app.use(
 </Code.Express>
 </Code>
 
-### Schema
+### 数据库模式
 
-#### Node labels
+#### 节点标签
 
-The following node labels are used.
+使用以下节点标签。
 
 - User
 - Account
 - Session
 - VerificationToken
 
-#### Relationships
+#### 关系
 
-The following relationships and relationship labels are used.
+使用以下关系及关系标签。
 
 - `(:User)-[:HAS_ACCOUNT]->(:Account)`
 - `(:User)-[:HAS_SESSION]->(:Session)`
 
-#### Properties
+#### 属性
 
-This schema is adapted for use in Neo4j and is based upon our main [models](https://authjs.dev/reference/core/adapters#models). Please check there for the node properties. Relationships have no properties.
+此模式已适配用于 Neo4j，基于我们的核心[模型](https://authjs.dev/reference/core/adapters#models)。节点属性请参考该文档。关系不包含属性。
 
-#### Indexes
+#### 索引
 
-Optimum indexes will vary on your edition of Neo4j i.e. community or enterprise, and in case you have your own additional data on the nodes. Below are basic suggested indexes.
+最优索引方案会因您使用的 Neo4j 版本（社区版或企业版）以及节点上是否附加自定义数据而有所不同。以下是基础建议索引方案。
 
-1. For **both** Community Edition & Enterprise Edition create constraints and indexes
+1. 为**社区版和企业版**同时创建约束和索引
 
 ```sql
 CREATE CONSTRAINT user_id_constraint IF NOT EXISTS
@@ -169,7 +169,7 @@ CREATE INDEX session_session_token_index IF NOT EXISTS
 FOR (s:Session) ON (s.sessionToken);
 ```
 
-2a. For Community Edition **only** create single-property indexes
+2a. **仅社区版**需创建单属性索引
 
 ```sql
 CREATE INDEX account_provider_index IF NOT EXISTS
@@ -185,7 +185,7 @@ CREATE INDEX verification_token_token_index IF NOT EXISTS
 FOR (v:VerificationToken) ON (v.token);
 ```
 
-2b. For Enterprise Edition **only** create composite node key constraints and indexes
+2b. **仅企业版**需创建复合节点键约束和索引
 
 ```sql
 CREATE CONSTRAINT account_provider_composite_constraint IF NOT EXISTS

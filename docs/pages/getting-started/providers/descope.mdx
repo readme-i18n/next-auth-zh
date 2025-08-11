@@ -3,16 +3,16 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/providers/descope.svg" width="64" height="64" />
 
-# Descope Provider
+# Descope 提供商
 
-## Resources
+## 相关资源
 
 - [Descope OIDC](https://docs.descope.com/manage/idpapplications/oidc/)
-- [Descope Flows](https://docs.descope.com/customize/flows)
+- [Descope 流程](https://docs.descope.com/customize/flows)
 
-## Setup
+## 配置
 
-### Callback URL
+### 回调 URL
 
 <Code>
   <Code.Next>
@@ -38,7 +38,7 @@ https://example.com/auth/callback/descope
   </Code.Svelte>
 </Code>
 
-### Environment Variables
+### 环境变量
 
 ```
 AUTH_DESCOPE_ID
@@ -46,14 +46,14 @@ AUTH_DESCOPE_SECRET
 AUTH_DESCOPE_ISSUER
 ```
 
-### Configuration
+### 配置
 
-Follow these steps:
+按照以下步骤操作：
 
-1. Log into the [Descope console](https://app.descope.com)
-2. Follow the [OIDC instructions](https://docs.descope.com/manage/idpapplications/oidc/)
+1. 登录 [Descope 控制台](https://app.descope.com)
+2. 按照 [OIDC 说明](https://docs.descope.com/manage/idpapplications/oidc/)操作
 
-Add the required environment variables from above to your `.env.local` file.
+将上述所需环境变量添加到您的 `.env.local` 文件中。
 
 <Code>
   <Code.Next>
@@ -106,8 +106,8 @@ app.use("/auth/*", ExpressAuth({ providers: [Descope] }))
   </Code.Express>
 </Code>
 
-### Using Descope Widgets
+### 使用 Descope 小部件
 
-If you wish to use Descope [Widgets](https://docs.descope.com/widgets) with NextAuth.js, you will have to wrap your NextAuth.js components with our Next.js SDK and `<AuthProvider>`.
+如果您希望在 NextAuth.js 中使用 Descope [小部件](https://docs.descope.com/widgets)，需要使用我们的 Next.js SDK 和 `<AuthProvider>` 包装您的 NextAuth.js 组件。
 
-For more information on this, please look at our documentation [here](https://docs.descope.com/getting-started/nextauth/app-router#nextauth-and-widgets).
+有关更多信息，请参阅我们的文档[此处](https://docs.descope.com/getting-started/nextauth/app-router#nextauth-and-widgets)。

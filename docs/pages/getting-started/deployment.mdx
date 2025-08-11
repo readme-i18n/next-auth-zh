@@ -1,28 +1,27 @@
 import { Callout } from "nextra/components"
 import { Accordion, Accordions } from "@/components/Accordion"
 
-# Deployment
+# 部署
 
-## Environment Variables
+## 环境变量
 
 <Callout>
-  For consistency, we recommend prefixing all Auth.js environment variables with
-  `AUTH_`. This way we can better autodetect them, and they can also be
-  distinguished from other environment variables more easily.
+  为了保持一致性，我们建议所有 Auth.js 环境变量都以 `AUTH_`
+  作为前缀。这样我们可以更好地自动检测它们，也能更轻松地区分于其他环境变量。
 </Callout>
 
-Auth.js libraries require you to set an `AUTH_SECRET` environment variable. This is used to encrypt cookies and tokens. It should be a cryptographically secure random string of at least 32 characters:
+Auth.js 库要求您设置 `AUTH_SECRET` 环境变量，该变量用于加密 cookies 和令牌。它应当是一个至少 32 个字符的加密安全随机字符串：
 
 ```bash npm2yarn
 npm exec auth secret
 ```
 
-If you are using an [OAuth Provider](/concepts/oauth), your provider will provide you with a **Client ID** and **Client Secret** that you will need to set as environment variables as well (in the case of an OIDC provider, like Auth0, a third `issuer` value might be also required, refer to the provider's specific documentation).
+如果您使用 [OAuth 提供商](/concepts/oauth)，您的提供商将为您提供 **Client ID** 和 **Client Secret**，您也需要将它们设置为环境变量（对于 OIDC 提供商，如 Auth0，可能还需要第三个 `issuer` 值，请参阅提供商的特定文档）。
 
 <Callout type="info">
-Auth.js supports **environment variable inference**, meaning that if you name your provider environment variables following a specific syntax, you won't need to explicitly pass them to the providers in your configuration.
+Auth.js 支持 **环境变量推断**，这意味着如果您按照特定语法命名您的提供商环境变量，您无需在配置中显式传递给提供商。
 
-Client ID's and client secrets should be named `AUTH_[PROVIDER]_ID` and `AUTH_[PROVIDER]_SECRET`. If your provider requires an issuer, that should be named `AUTH_[PROVIDER]_ISSUER`. For example:
+Client ID 和 client secret 应命名为 `AUTH_[PROVIDER]_ID` 和 `AUTH_[PROVIDER]_SECRET`。如果您的提供商需要 issuer，则应命名为 `AUTH_[PROVIDER]_ISSUER`。例如：
 
 ```bash
 AUTH_OKTA_ID=abc
@@ -30,46 +29,44 @@ AUTH_OKTA_SECRET=abc
 AUTH_OKTA_ISSUER=abc
 ```
 
-For more information, check out our [environment variables](/guides/environment-variables) page.
+更多信息，请查看我们的 [环境变量](/guides/environment-variables) 页面。
 
 </Callout>
 
 ### `AUTH_SECRET`
 
-This is the only strictly required environment variable. It is the secret used to encode the JWT and encrypt things in transit. As mentioned above, we recommend at least a 32 character random string. This can be generated via the CLI with `npm exec auth secret` or via openssl with `openssl rand -base64 33`.
+这是唯一严格必需的环境变量。它用于编码 JWT 和在传输过程中加密数据的密钥。如前所述，我们建议至少使用 32 个字符的随机字符串。可以通过 CLI 命令 `npm exec auth secret` 生成，或使用 openssl 命令 `openssl rand -base64 33` 生成。
 
 ### `AUTH_TRUST_HOST`
 
-When deploying your application behind a reverse proxy, you'll need to set `AUTH_TRUST_HOST` equal
-to `true`. This tells Auth.js to trust the `X-Forwarded-Host` header from the reverse proxy. Auth.js will automatically infer this to be true if we detect the environment variable indicating that your application is running on one of the supported hosting providers. Currently `VERCEL` and `CF_PAGES` (Cloudflare Pages) are supported.
+当您的应用程序部署在反向代理后方时，需要将 `AUTH_TRUST_HOST` 设置为 `true`。这会告知 Auth.js 信任来自反向代理的 `X-Forwarded-Host` 标头。如果检测到环境变量表明您的应用程序运行在受支持的托管提供商上，Auth.js 会自动推断该值为 true。目前支持 `VERCEL` 和 `CF_PAGES`（Cloudflare Pages）。
 
 ### `AUTH_URL`
 
-This environment variable is mostly unnecessary with v5 as the host is inferred from the request headers. However, if you are using a different base path, you can set this environment variable as well. For example, `AUTH_URL=http://localhost:3000/web/auth` or `AUTH_URL=https://company.com/app1/auth`
+在 v5 版本中这个环境变量大多情况下不需要，因为主机地址会从请求头中自动推断。但如果您使用不同的基础路径，也可以设置此环境变量。例如：`AUTH_URL=http://localhost:3000/web/auth` 或 `AUTH_URL=https://company.com/app1/auth`
 
 ### `AUTH_REDIRECT_PROXY_URL`
 
-> **_NOTE:_** Some providers (eg Apple) do not support [redirect proxy](https://github.com/nextauthjs/next-auth/blob/3ec06842682a31e53fceabca701a362abda1e7dd/packages/core/src/lib/utils/providers.ts#L48) usage.
+> **_NOTE:_** 部分提供商（例如 Apple）不支持使用[重定向代理](https://github.com/nextauthjs/next-auth/blob/3ec06842682a31e53fceabca701a362abda1e7dd/packages/core/src/lib/utils/providers.ts#L48)。
 
-This environment variable is designed for advanced use-cases only, when using Auth.js as a proxy for preview deploys, for example. For more details, see the [securing preview deploys](#securing-a-preview-deployment) section below.
+此环境变量仅设计用于高级使用场景，例如将 Auth.js 作为预览部署的代理时。更多详情请参阅下方的[保护预览部署](#securing-a-preview-deployment)章节。
 
-## Serverless
+## 无服务器部署
 
-1. Create the required [environment variables](#environment-variables) for your desired environments. Don't forget to also add the required environment variables for your provider(s) of choice (i.e. OAuth `clientId` / `clientSecret`, etc.).
-2. When using an OAuth provider, make sure the callback URL for your production URL is setup correctly. Many OAuth providers will only allow you to set 1 `callbackUrl` per OAuth application. In which case, you'll need to create separate applications for each environment (development, production, etc.). Other providers, like Google, allow you to add many `callbackUrl`s to one application.
-   - By default, the callbackUrl for `next-auth` (Next.js) applications should look something like this: `https://company.com/api/auth/callback/[provider]` (replace `company.com` with your domain and `provider` with the provider name, i.e. `github`).
-   - All other frameworks (`@auth/sveltekit`, `@auth/express`, etc.), by default, will use the path `/auth/callback/[provider]`.
-3. Deploy! After having setup those two prerequisites, you should be able to deploy and run your Auth.js application on Netlify, Vercel, etc.
+1. 为所需环境创建必要的[环境变量](#environment-variables)。别忘了同时添加所选提供商要求的必备环境变量（例如 OAuth 的 `clientId`/`clientSecret` 等）。
+2. 使用 OAuth 提供商时，请确保生产环境的回调 URL 配置正确。许多 OAuth 提供商每个应用仅允许设置一个 `callbackUrl`。这种情况下，您需要为每个环境（开发、生产等）创建独立的应用。而 Google 等其他提供商则允许在一个应用中添加多个 `callbackUrl`。
+   - 默认情况下，`next-auth`（Next.js）应用的回调 URL 应形如：`https://company.com/api/auth/callback/[provider]`（将 `company.com` 替换为您的域名，`provider` 替换为提供商名称，如 `github`）。
+   - 其他框架（`@auth/sveltekit`、`@auth/express` 等）默认使用路径 `/auth/callback/[provider]`。
+3. 开始部署！完成上述两项前提条件后，您应该能够在 Netlify、Vercel 等平台上部署并运行 Auth.js 应用。
 
 <Callout type="warning">
-  If you are storing users in a [database](/getting-started/database), we
-  recommend using a different OAuth app for development/production so that you
-  don't mix your test and production user base.
+  如果您将用户存储在[数据库](/getting-started/database)中，我们建议为开发/生产环境使用不同的
+  OAuth 应用，以避免测试用户与生产用户数据混杂。
 </Callout>
 
-## Observability
+## 可观测性
 
-To pass on your current user's details on to your observability tools, you can use the callbacks provided by Auth.js. For example, in the `session` callback, you could pass the `user.id` on to Sentry.
+要将当前用户的详细信息传递至可观测性工具，您可以使用 Auth.js 提供的回调函数。例如，在 `session` 回调中，可以将 `user.id` 传递给 Sentry。
 
 ```ts filename="auth.ts"
 import * as Sentry from "@sentry/browser"
@@ -91,15 +88,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-## Self-hosted
+## 自托管部署
 
-Auth.js can also be deployed anywhere you can deploy your framework of choice. Check out the framework's documentation on self-hosting.
+Auth.js 可以部署在任何支持您所选框架的环境中。请查阅对应框架关于自托管的文档说明。
 
-### Docker
+### Docker 支持
 
-In a Docker environment, make sure to set either `trustHost: true` in your Auth.js configuration or the `AUTH_TRUST_HOST` environment variable to `true`.
+在 Docker 环境中，请确保在 Auth.js 配置中设置 `trustHost: true` 或将 `AUTH_TRUST_HOST` 环境变量设为 `true`。
 
-Our example application is also hosted via Docker [here](https://nextjs-docker-example.authjs.dev) (see the [source code](https://github.com/nextauthjs/next-auth-example)). Below is an example `Dockerfile` for a Next.js application using Auth.js.
+我们的示例应用也通过 Docker 托管在[此处](https://nextjs-docker-example.authjs.dev)（查看[源代码](https://github.com/nextauthjs/next-auth-example)）。以下是一个使用 Auth.js 的 Next.js 应用的示例 `Dockerfile`。
 
 ```docker filename="Dockerfile"
 # syntax=docker/dockerfile:1
@@ -162,35 +159,35 @@ ENV HOSTNAME "0.0.0.0"
 CMD ["node", "server.js"]
 ```
 
-## Securing a preview deployment
+## 保护预览部署环境
 
-> **_NOTE:_** Some providers (eg Apple) do not support [redirect proxy](https://github.com/nextauthjs/next-auth/blob/3ec06842682a31e53fceabca701a362abda1e7dd/packages/core/src/lib/utils/providers.ts#L48) usage.
+> **_NOTE:_** 部分提供商（例如 Apple）不支持[重定向代理](https://github.com/nextauthjs/next-auth/blob/3ec06842682a31e53fceabca701a362abda1e7dd/packages/core/src/lib/utils/providers.ts#L48)功能。
 
-Most OAuth providers cannot be configured with multiple callback URLs or using a wildcard.
+大多数 OAuth 提供商不支持配置多个回调 URL 或使用通配符。
 
-However, Auth.js **supports Preview deployments**, even **with most OAuth providers**. The idea is to have one deployment which proxies authentication requests to the dynamic URLs of your main application. So you could have 1 stable deployment, like at `auth.company.com` where you would point all your OAuth provider's `callbackUrl`s, and this application would then, upon successful authentication, redirect the user back to the preview deploy URL, like `https://git-abc123-myapp.vercel.app`. Follow these steps to get started with securing preview deploys with Auth.js.
+然而，Auth.js **支持预览部署**，甚至**兼容大多数 OAuth 提供商**。其核心思路是通过一个固定部署来代理认证请求，将其转发至主应用动态生成的 URL。例如，您可以维护一个稳定的部署（如 `auth.company.com`），将所有 OAuth 提供商的 `callbackUrl` 指向该地址。认证成功后，该应用会将用户重定向回预览部署的 URL（如 `https://git-abc123-myapp.vercel.app`）。按照以下步骤即可为预览部署配置 Auth.js 安全认证：
 
-1. Determine a stable deployment URL. For example, a deployment whose URL does not change between builds, for example. `auth.yourdomain.com` (using a subdomain is not a requirement, this can be the main site's URL too, for example.)
-2. In **both the preview and stable environment**, set `AUTH_REDIRECT_PROXY_URL` to that stable deployment URL, including the path from where Auth.js handles the routes. Eg.: (`https://auth.yourdomain.com/api/auth`). If the variable is not set in the stable environment, the proxy functionality will not be enabled!
-3. Update the `callbackUrl` in your OAuth provider's configuration to use the stable deployment URL. For example, for GitHub it would be `https://auth.yourdomain.com/api/auth/callback/github`.
+1. 确定一个稳定的部署 URL。例如选择构建后不会变更的部署地址，如 `auth.yourdomain.com`（使用子域名并非强制要求，主站点 URL 同样适用）
+2. 在**预览环境和稳定环境**中，将 `AUTH_REDIRECT_PROXY_URL` 设置为该稳定部署 URL，需包含 Auth.js 处理路由的路径。例如：(`https://auth.yourdomain.com/api/auth`)。若稳定环境中未设置该变量，代理功能将无法启用！
+3. 更新 OAuth 提供商配置中的 `callbackUrl` 为稳定部署 URL。以 GitHub 为例，应设置为 `https://auth.yourdomain.com/api/auth/callback/github`。
 
-Fun fact: all of our example apps are using the proxy functionality!
+冷知识：我们所有的示例应用都在使用代理功能！
 
 <Callout type="info">
-  To support preview deployments, the `AUTH_SECRET` value needs to be the same
-  for the stable deployment and deployments that will need OAuth support.
+  为了支持预览部署，`AUTH_SECRET` 值必须在稳定部署和需要 OAuth
+  支持的部署之间保持一致。
 </Callout>
 
 <details>
 <summary>
-<b>How does this work?</b>
+<b>这是如何工作的？</b>
 </summary>
-To support preview deployments, Auth.js requires a deployment URL that is stable across deploys as a redirect proxy server.
+为了支持预览部署，Auth.js 需要一个在多次部署间保持稳定的部署 URL 作为重定向代理服务器。
 
-It will redirect the OAuth callback request to the preview deployment URL, but only when the `AUTH_REDIRECT_PROXY_URL` environment variable is set.
+只有当设置了 `AUTH_REDIRECT_PROXY_URL` 环境变量时，它才会将 OAuth 回调请求重定向到预览部署 URL。
 
-When a user initiates an OAuth sign-in flow on a preview deployment, we save its URL in the `state` query parameter but set the `redirect_uri` to the stable deployment.
+当用户在预览部署上发起 OAuth 登录流程时，我们会将其 URL 保存在 `state` 查询参数中，但将 `redirect_uri` 设置为稳定部署的 URL。
 
-Then, the OAuth provider will redirect the user to the stable URL mentioned above, which will verify the `state` parameter and redirect the user to the preview deployment URL if the `state` is valid. This is secured by relying on the same server-side `AUTH_SECRET` for the stable deployment and the preview deployment.
+然后，OAuth 提供商会将用户重定向到上述稳定 URL，该 URL 会验证 `state` 参数，并在 `state` 有效时将用户重定向到预览部署 URL。这是通过依赖稳定部署和预览部署使用相同的服务器端 `AUTH_SECRET` 来确保安全的。
 
 </details>

@@ -2,27 +2,27 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/neon.svg" height="64" width="64" />
 
-# Neon Adapter
+# Neon 适配器
 
-## Resources
+## 相关资源
 
-- [Neon documentation](https://neon.tech/docs/)
+- [Neon 文档](https://neon.tech/docs/)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/neon-adapter @neondatabase/serverless
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 DATABASE_URL=
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -111,10 +111,9 @@ app.use(
 </Code.Express>
 </Code>
 
-### Schema
+### 数据库模式
 
-The SQL schema for the tables used by this adapter is as follows. Learn more about the models at our
-doc page on [Database Models](/guides/creating-a-database-adapter).
+该适配器使用的表结构如下所示。更多关于模型的信息，请参阅我们的[数据库模型](/guides/creating-a-database-adapter)文档页面。
 
 ```sql
 CREATE TABLE verification_token

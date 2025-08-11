@@ -3,28 +3,28 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/dgraph.svg" width="64" height="64" />
 
-# Dgraph Adapter
+# Dgraph 适配器
 
-## Resources
+## 相关资源
 
-- [Dgraph documentation](https://dgraph.io/docs)
+- [Dgraph 文档](https://dgraph.io/docs)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install @auth/dgraph-adapter
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 AUTH_DGRAPH_GRAPHQL_ENDPOINT=http://localhost:8080/graphql
 AUTH_DGRAPH_GRAPHQL_KEY=abc123
 ```
 
-### Configuration
+### 配置
 
 <Code>
 <Code.Next>
@@ -113,18 +113,17 @@ app.use(
 </Code.Express>
 </Code>
 
-### Unsecure Schema
+### 非安全模式
 
-The quickest way to use Dgraph is by applying the unsecure schema to your [local](https://dgraph.io/docs/graphql/admin/#modifying-a-schema) Dgraph instance or if using Dgraph [cloud](https://dgraph.io/docs/cloud/cloud-quick-start/#the-schema) you can paste the schema in the codebox to update.
+使用 Dgraph 的最快方式是将非安全模式应用到您的[本地](https://dgraph.io/docs/graphql/admin/#modifying-a-schema) Dgraph 实例，如果使用 Dgraph [云服务](https://dgraph.io/docs/cloud/cloud-quick-start/#the-schema)，您可以将模式粘贴到代码框中以更新。
 
 <Callout type="warning">
-  This approach is not secure or for production use, and does not require a
-  `jwtSecret`.
+  此方法不安全且不适用于生产环境，且不需要 `jwtSecret`。
 </Callout>
 
-> This schema is adapted for use in Dgraph and based upon our main [schema](https://authjs.dev/reference/core/adapters)
+> 此模式已适配用于 Dgraph，并基于我们的主要[模式](https://authjs.dev/reference/core/adapters)
 
-#### Example
+#### 示例
 
 ```graphql
 type Account {
@@ -167,12 +166,11 @@ type VerificationToken {
 }
 ```
 
-### Secure schema
+### 安全模式
 
-For production deployments you will want to restrict the access to the types used
-by next-auth. The main form of access control used in Dgraph is via `@auth` directive alongside types in the schema.
+对于生产部署，您需要限制对 next-auth 使用的类型的访问。Dgraph 中主要的访问控制形式是通过 `@auth` 指令与模式中的类型一起使用。
 
-#### Example
+#### 示例
 
 ```graphql
 type Account
@@ -261,28 +259,24 @@ type VerificationToken
 
 ### Dgraph.Authorization
 
-In order to secure your graphql backend define the `Dgraph.Authorization` object at the
-bottom of your schema and provide `authHeader` and `jwtSecret` values to the DgraphClient.
+为了保护您的 graphql 后端，请在模式底部定义 `Dgraph.Authorization` 对象，并向 DgraphClient 提供 `authHeader` 和 `jwtSecret` 值。
 
 ```js
 # Dgraph.Authorization {"VerificationKey":"<YOUR JWT SECRET HERE>","Header":"<YOUR AUTH HEADER HERE>","Namespace":"YOUR CUSTOM NAMESPACE HERE","Algo":"HS256"}
 ```
 
-### VerificationKey and jwtSecret
+### VerificationKey 和 jwtSecret
 
-This is the key used to sign the JWT. Ex. `process.env.SECRET` or `process.env.APP_SECRET`.
+这是用于签署 JWT 的密钥。例如 `process.env.SECRET` 或 `process.env.APP_SECRET`。
 
-### Header and authHeader
+### Header 和 authHeader
 
-The `Header` tells Dgraph where to lookup a JWT within the headers of the incoming requests made to the dgraph server.
-You have to configure it at the bottom of your schema file. This header is the same as the `authHeader` property you
-provide when you instantiate the `DgraphClient`.
+`Header` 用于指示 Dgraph 在传入服务器的请求头中查找 JWT 的位置。
+您需要在 schema 文件底部配置该头部，此头部与实例化 `DgraphClient` 时提供的 `authHeader` 属性相同。
 
-### The nextAuth secret
+### nextAuth 密钥
 
-The `$nextAuth` secret is securely generated using the `jwtSecret` and injected by the DgraphAdapter in order to allow interacting with the JWT DgraphClient for anonymous user requests made within the system `ie. login, register`. This allows
-secure interactions to be made with all the auth types required by next-auth. You have to specify it for each auth rule of
-each type defined in your secure schema.
+`$nextAuth` 密钥通过 `jwtSecret` 安全生成，并由 DgraphAdapter 注入，以便系统内匿名用户请求（如登录、注册）能够与 JWT DgraphClient 交互。这使得 next-auth 所需的所有认证类型都能进行安全交互。您需要在安全 schema 中为每种类型定义的每个认证规则指定该密钥。
 
 ```js
 type VerificationRequest
@@ -295,11 +289,9 @@ type VerificationRequest
 }
 ```
 
-### JWT session and `@auth` directive
+### JWT 会话与 `@auth` 指令
 
-Dgraph only works with HS256 or RS256 algorithms. If you want to use session jwt to securely interact with your dgraph
-database you must customize next-auth `encode` and `decode` functions, as the default algorithm is HS512. You can
-further customize the jwt with roles if you want to implement [`RBAC logic`](https://dgraph.io/docs/graphql/authorization/directive/#role-based-access-control).
+Dgraph 仅支持 HS256 或 RS256 算法。若需使用会话 JWT 安全连接 dgraph 数据库，必须自定义 next-auth 的 `encode` 和 `decode` 函数，因为默认算法为 HS512。您还可以通过角色进一步定制 JWT，以实现 [`RBAC 逻辑`](https://dgraph.io/docs/graphql/authorization/directive/#role-based-access-control)。
 
 ```js filename="./auth.js"
 import NextAuth from "next-auth"
@@ -324,4 +316,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 })
 ```
 
-Once your `Dgraph.Authorization` is defined in your schema and the JWT settings are set, this will allow you to define [`@auth rules`](https://dgraph.io/docs/graphql/authorization/authorization-overview/) for every part of your schema.
+在 schema 中定义 `Dgraph.Authorization` 并设置 JWT 参数后，即可为 schema 的每个部分定义 [`@auth 规则`](https://dgraph.io/docs/graphql/authorization/authorization-overview/)。

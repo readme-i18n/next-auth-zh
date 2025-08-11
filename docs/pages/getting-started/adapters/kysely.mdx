@@ -3,21 +3,21 @@ import { Code } from "@/components/Code"
 
 <img align="right" src="/img/adapters/kysely.svg" width="64" height="64" />
 
-# Kysely Adapter
+# Kysely 适配器
 
-## Resources
+## 相关资源
 
-- [Kysely documentation](https://kysely.dev/docs/intro)
+- [Kysely 文档](https://kysely.dev/docs/intro)
 
-## Setup
+## 配置
 
-### Installation
+### 安装
 
 ```bash npm2yarn
 npm install kysely @auth/kysely-adapter
 ```
 
-### Environment Variables
+### 环境变量
 
 ```sh
 DATABASE_HOST=
@@ -26,9 +26,9 @@ DATABASE_USER=
 DATABASE_PASSWORD=
 ```
 
-### Configuration
+### 配置
 
-This adapter supports the same first party dialects that Kysely (as of v0.24.2) supports: PostgreSQL, MySQL, and SQLite. The examples below use PostgreSQL with the [pg](https://www.npmjs.com/package/pg) client.
+该适配器支持与 Kysely (截至 v0.24.2 版本)相同的官方方言：PostgreSQL、MySQL 和 SQLite。以下示例使用 PostgreSQL 配合 [pg](https://www.npmjs.com/package/pg) 客户端。
 
 ```bash npm2yarn
 npm install pg
@@ -102,7 +102,7 @@ app.use(
 </Code.Express>
 </Code>
 
-Kysely's constructor requires a database interface that contains an entry with an interface for each of your tables. You can define these types manually, or use `kysely-codegen` / `prisma-kysely` to automatically generate them. Check out the default [models](/guides/creating-a-database-adapter) required by Auth.js.
+Kysely 的构造函数需要一个数据库接口，其中包含每个表的接口条目。您可以手动定义这些类型，或使用 `kysely-codegen` / `prisma-kysely` 自动生成它们。请查阅 Auth.js 所需的默认[模型](/guides/creating-a-database-adapter)。
 
 ```ts filename="db.ts"
 import { PostgresDialect } from "kysely"
@@ -164,7 +164,7 @@ export const db = new KyselyAuth<Database>({
 ```
 
 <Callout>
-An alternative to manually defining types is generating them from the database schema using [kysely-codegen](https://github.com/RobinBlomberg/kysely-codegen), or from Prisma schemas using [prisma-kysely](https://github.com/valtyr/prisma-kysely). When using generated types with `KyselyAuth`, import `Codegen` and pass it as the second generic arg:
+手动定义类型的替代方案是使用 [kysely-codegen](https://github.com/RobinBlomberg/kysely-codegen) 从数据库模式生成类型，或使用 [prisma-kysely](https://github.com/valtyr/prisma-kysely) 从 Prisma 模式生成。当与 `KyselyAuth` 一起使用生成类型时，导入 `Codegen` 并将其作为第二个泛型参数传递：
 
 ```ts
 import type { Codegen } from "@auth/kysely-adapter"
@@ -173,7 +173,7 @@ new KyselyAuth<Database, Codegen>()
 
 </Callout>
 
-### Schema
+### 数据库模式
 
 ```ts filename="db/migrations/001_create_db.ts"
 import { Kysely, sql } from "kysely"
@@ -250,10 +250,10 @@ export async function down(db: Kysely<any>): Promise<void> {
 }
 ```
 
-> This schema is adapted for use in Kysely and is based upon our main [schema](/reference/core/adapters#models).
+> 此模式已适配用于 Kysely，并基于我们的主[模式](/reference/core/adapters#models)。
 
-For more information about creating and running migrations with Kysely, refer to the [Kysely migrations documentation](https://kysely.dev/docs/migrations).
+有关使用 Kysely 创建和运行迁移的更多信息，请参阅 [Kysely 迁移文档](https://kysely.dev/docs/migrations)。
 
-### Naming conventions
+### 命名约定
 
-If mixed snake_case and camelCase column names is an issue for you and/or your underlying database system, we recommend using Kysely's `CamelCasePlugin` ([see the documentation here](https://kysely-org.github.io/kysely-apidoc/classes/CamelCasePlugin.html)) feature to change the field names. This won't affect NextAuth.js, but will allow you to have consistent casing when using Kysely.
+如果混合使用 snake_case 和 camelCase 列名对您或底层数据库系统造成困扰，我们推荐使用 Kysely 的 `CamelCasePlugin` 功能（[查看文档](https://kysely-org.github.io/kysely-apidoc/classes/CamelCasePlugin.html)）来修改字段命名。这不会影响 NextAuth.js，但能让您在使用 Kysely 时保持命名风格的一致性。
