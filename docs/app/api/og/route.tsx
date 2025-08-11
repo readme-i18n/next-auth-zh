@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 import type { NextRequest } from "next/server"
 
-// export const runtime = "edge"
+export const runtime = "nodejs"
 
 const medium = fetch(new URL("./Inter-Light.ttf", import.meta.url)).then(
   (res) => res.arrayBuffer()
