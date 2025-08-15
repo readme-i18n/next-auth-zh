@@ -138,6 +138,12 @@ const config: DocsThemeConfig = {
           sizes="16x16"
           type="image/png"
         />
+        <meta
+          name="google-site-verification"
+          content="SjZn8zZ_G6c5RI2ocehAWC3Ko1OT1XoX8ELe9fokC4Q"
+        />
+        <meta name="msvalidate.01" content="B3600BDBEC5F481DF226B05AC7ADE5A8" />
+        <meta name="baidu-site-verification" content="codeva-uE3P8CAiIG" />
         <title>{title}</title>
         <meta property="og:url" content={url} />
         <meta property="og:title" content={title} />
