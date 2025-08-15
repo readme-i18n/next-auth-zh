@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Threads</b> integration.</span>
+ * <span>内置的 <b>Threads</b> 集成。</span>
  * <a href="https://www.threads.net/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/threads.svg" height="48" />
  * </a>
@@ -11,47 +11,46 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * [User](https://developers.facebook.com/docs/threads/reference/user)
+ * [用户](https://developers.facebook.com/docs/threads/reference/user)
  */
 export interface ThreadsProfile {
   data: {
     /**
-     * Unique identifier of this user. This is returned as a string in order to avoid complications with languages and tools
-     * that cannot handle large integers.
+     * 该用户的唯一标识符。以字符串形式返回，以避免与无法处理大整数的语言和工具产生兼容性问题。
      */
     id: string
     /**
-     * The Threads handle (username) of this user.
+     * 该用户的Threads用户名。
      *
-     * To return this field, add `fields=username` in the authorization request's query parameter.
+     * 要返回此字段，需在授权请求的查询参数中添加`fields=username`。
      */
     username?: string
     /**
-     * The URL to the profile image for this user, as shown on the user's profile.
+     * 该用户个人资料中显示的图片URL。
      *
-     * To return this field, add `fields=threads_profile_picture_url` in the authorization request's query parameter.
+     * 要返回此字段，需在授权请求的查询参数中添加`fields=threads_profile_picture_url`。
      */
     threads_profile_picture_url?: string
     /**
-     * The text of this user's profile biography (also known as bio), if the user provided one.
+     * 该用户个人资料中的简介文本（也称为bio），如果用户提供了的话。
      *
-     * To return this field, add `fields=threads_biography` in the authorization request's query parameter.
+     * 要返回此字段，需在授权请求的查询参数中添加`fields=threads_biography`。
      */
     threads_biography?: string
   }
 }
 
 /**
- * Add Threads login to your page.
+ * 向您的页面添加Threads登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调URL
  * ```
  * https://example.com/api/auth/callback/threads
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Threads from "@auth/core/providers/threads"
@@ -67,42 +66,39 @@ export interface ThreadsProfile {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Threads OAuth documentation](https://developers.facebook.com/docs/threads)
- * - [Threads OAuth apps](https://developers.facebook.com/apps/)
+ * - [Threads OAuth 文档](https://developers.facebook.com/docs/threads)
+ * - [Threads OAuth 应用](https://developers.facebook.com/apps/)
  *
- * ### Notes
+ * ### 注意事项
  *
  * :::warning
  *
- * Email address is not returned by the Threads API.
+ * Threads API 不会返回电子邮件地址。
  *
  * :::
  *
  * :::tip
  *
- * Threads required callback URL to be configured in your Facebook app and Facebook required you to use **https** even for localhost! In order to do that, you either need to [add an SSL to your localhost](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/) or use a proxy such as [ngrok](https://ngrok.com/docs).
+ * Threads 要求回调URL在您的Facebook应用中配置，且Facebook要求即使是本地主机也使用**https**！为此，您需要[为本地主机添加SSL](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/)或使用代理如[ngrok](https://ngrok.com/docs)。
  *
  * :::
  *
- * By default, Auth.js assumes that the Threads provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js假设Threads提供者基于[OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html)规范。
  *
  * :::tip
  *
- * The Threads provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/threads.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Threads提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/threads.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看[自定义内置OAuth提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js严格遵守规范，对于提供者与规范的任何偏差，Auth.js不承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  *
  * :::
  */

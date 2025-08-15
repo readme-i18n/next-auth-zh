@@ -21,7 +21,7 @@ type UrlParams = Record<string, unknown>
 
 type EndpointRequest<C, R, P> = (
   context: C & {
-    /** Provider is passed for convenience, and also contains the `callbackUrl`. */
+    /** 为了方便传递 Provider，同时也包含 `callbackUrl`。 */
     provider: OAuthConfigInternal<P> & {
       signinUrl: string
       callbackUrl: string
@@ -29,19 +29,18 @@ type EndpointRequest<C, R, P> = (
   }
 ) => Awaitable<R> | void
 
-/** Gives granular control of the request to the given endpoint */
+/** 提供对给定端点请求的精细控制 */
 interface AdvancedEndpointHandler<P extends UrlParams, C, R> {
-  /** Endpoint URL. Can contain parameters. Optionally, you can use `params` */
+  /** 端点 URL。可以包含参数。可选地，你可以使用 `params` */
   url?: string
-  /** These will be prepended to the `url` */
+  /** 这些将被前置到 `url` 前 */
   params?: P
   /**
-   * Control the corresponding OAuth endpoint request completely.
-   * Useful if your provider relies on some custom behaviour
-   * or it diverges from the OAuth spec.
+   * 完全控制对应的 OAuth 端点请求。
+   * 当你的提供者依赖某些自定义行为或与 OAuth 规范有差异时非常有用。
    *
-   * - ⚠ **This is an advanced option.**
-   * You should **try to avoid using advanced options** unless you are very comfortable using them.
+   * - ⚠ **这是一个高级选项。**
+   * 除非你非常熟悉使用高级选项，否则应**尽量避免使用高级选项**。
    */
   request?: EndpointRequest<C, R, P>
   /** @internal */
@@ -50,7 +49,7 @@ interface AdvancedEndpointHandler<P extends UrlParams, C, R> {
 }
 
 /**
- * Either an URL (containing all the parameters) or an object with more granular control.
+ * 可以是一个 URL（包含所有参数）或一个提供更精细控制的对象。
  * @internal
  */
 export type EndpointHandler<
@@ -66,13 +65,13 @@ export type TokenEndpointHandler = EndpointHandler<
   UrlParams,
   {
     /**
-     * Parameters extracted from the request to the `/api/auth/callback/:providerId` endpoint.
-     * Contains params like `state`.
+     * 从请求 `/api/auth/callback/:providerId` 端点提取的参数。
+     * 包含如 `state` 等参数。
      */
     params: CallbackParamsType
     /**
-     * When using this custom flow, make sure to do all the necessary security checks.
-     * This object contains parameters you have to match against the request to make sure it is valid.
+     * 使用此自定义流程时，确保执行所有必要的安全检查。
+     * 此对象包含你必须与请求匹配的参数以确保其有效性。
      */
     checks: OAuthChecks
   },
@@ -101,41 +100,39 @@ export interface OAuthProviderButtonStyles {
    */
   text?: string
   /**
-   * @deprecated Please use 'brandColor' instead
+   * @deprecated 请改用 'brandColor'
    */
   bg?: string
   brandColor?: string
 }
 
-/** TODO: Document */
+/** TODO: 文档 */
 export interface OAuth2Config<Profile>
   extends CommonProviderOptions,
     PartialIssuer {
   /**
-   * Identifies the provider when you want to sign in to
-   * a specific provider.
+   * 当你想要登录到特定提供者时，标识该提供者。
    *
    * @example
    * ```ts
-   * signIn('github') // "github" is the provider ID
+   * signIn('github') // "github" 是提供者 ID
    * ```
    */
   id: string
-  /** The name of the provider. shown on the default sign in page. */
+  /** 提供者的名称。显示在默认登录页面上。 */
   name: string
   /**
-   * OpenID Connect (OIDC) compliant providers can configure
-   * this instead of `authorize`/`token`/`userinfo` options
-   * without further configuration needed in most cases.
-   * You can still use the `authorize`/`token`/`userinfo`
-   * options for advanced control.
+   * 符合 OpenID Connect (OIDC) 的提供者可以配置此项，
+   * 而不是 `authorize`/`token`/`userinfo` 选项，
+   * 在大多数情况下无需进一步配置。
+   * 你仍然可以使用 `authorize`/`token`/`userinfo` 选项进行高级控制。
    *
    * [Authorization Server Metadata](https://datatracker.ietf.org/doc/html/rfc8414#section-3)
    */
   wellKnown?: string
   issuer?: string
   /**
-   * The login process will be initiated by sending the user to this URL.
+   * 登录过程将通过将用户发送到此 URL 来启动。
    *
    * [Authorization endpoint](https://datatracker.ietf.org/doc/html/rfc6749#section-3.1)
    */
@@ -144,24 +141,24 @@ export interface OAuth2Config<Profile>
   userinfo?: string | UserinfoEndpointHandler
   type: "oauth"
   /**
-   * Receives the full {@link Profile} returned by the OAuth provider, and returns a subset.
-   * It is used to create the user in the database.
+   * 接收 OAuth 提供者返回的完整 {@link Profile}，并返回一个子集。
+   * 用于在数据库中创建用户。
    *
-   * Defaults to: `id`, `email`, `name`, `image`
+   * 默认为: `id`, `email`, `name`, `image`
    *
    * @see [Database Adapter: User model](https://authjs.dev/reference/core/adapters#user)
    */
   profile?: ProfileCallback<Profile>
   /**
-   * Receives the full {@link TokenSet} returned by the OAuth provider, and returns a subset.
-   * It is used to create the account associated with a user in the database.
+   * 接收 OAuth 提供者返回的完整 {@link TokenSet}，并返回一个子集。
+   * 用于在数据库中创建与用户关联的账户。
    *
    * :::note
-   * You need to adjust your database's [Account model](https://authjs.dev/reference/core/adapters#account) to match the returned properties.
-   * Check out the documentation of your [database adapter](https://authjs.dev/reference/core/adapters) for more information.
+   * 你需要调整数据库的 [Account model](https://authjs.dev/reference/core/adapters#account) 以匹配返回的属性。
+   * 查看你的 [database adapter](https://authjs.dev/reference/core/adapters) 文档获取更多信息。
    * :::
    *
-   * Defaults to: `access_token`, `id_token`, `refresh_token`, `expires_at`, `scope`, `token_type`, `session_state`
+   * 默认为: `access_token`, `id_token`, `refresh_token`, `expires_at`, `scope`, `token_type`, `session_state`
    *
    * @example
    * ```ts
@@ -188,11 +185,11 @@ export interface OAuth2Config<Profile>
    */
   account?: AccountCallback
   /**
-   * The CSRF protection performed on the callback endpoint.
+   * 在回调端点上执行的 CSRF 保护。
    * @default ["pkce"]
    *
-   * @note When `redirectProxyUrl` or {@link AuthConfig.redirectProxyUrl} is set,
-   * `"state"` will be added to checks automatically.
+   * @note 当设置了 `redirectProxyUrl` 或 {@link AuthConfig.redirectProxyUrl} 时，
+   * `"state"` 将自动添加到检查中。
    *
    * [RFC 7636 - Proof Key for Code Exchange by OAuth Public Clients (PKCE)](https://www.rfc-editor.org/rfc/rfc7636.html#section-4) |
    * [RFC 6749 - The OAuth 2.0 Authorization Framework](https://www.rfc-editor.org/rfc/rfc6749.html#section-4.1.1) |
@@ -202,32 +199,30 @@ export interface OAuth2Config<Profile>
   clientId?: string
   clientSecret?: string
   /**
-   * Pass overrides to the underlying OAuth library.
-   * See [`oauth4webapi` client](https://github.com/panva/oauth4webapi/blob/main/docs/interfaces/Client.md) for details.
+   * 传递覆盖到底层的 OAuth 库。
+   * 详情参见 [`oauth4webapi` client](https://github.com/panva/oauth4webapi/blob/main/docs/interfaces/Client.md)。
    */
   client?: Partial<Client & { token_endpoint_auth_method: string }>
   style?: OAuthProviderButtonStyles
   /**
-   * Normally, when you sign in with an OAuth provider and another account
-   * with the same email address already exists,
-   * the accounts are not linked automatically.
+   * 通常，当你使用 OAuth 提供者登录且另一个账户已存在相同的电子邮件地址时，
+   * 账户不会自动链接。
    *
-   * Automatic account linking on sign in is not secure
-   * between arbitrary providers and is disabled by default.
-   * Learn more in our [Security FAQ](https://authjs.dev/concepts#security).
+   * 在任意提供者之间自动链接账户登录是不安全的，
+   * 默认情况下是禁用的。
+   * 更多信息请参阅我们的 [Security FAQ](https://authjs.dev/concepts#security)。
    *
-   * However, it may be desirable to allow automatic account linking if you trust that the provider involved has securely verified the email address
-   * associated with the account. Set `allowDangerousEmailAccountLinking: true`
-   * to enable automatic account linking.
+   * 然而，如果你信任相关提供者已安全验证了与账户关联的电子邮件地址，
+   * 可能希望允许自动账户链接。设置 `allowDangerousEmailAccountLinking: true`
+   * 以启用自动账户链接。
    */
   allowDangerousEmailAccountLinking?: boolean
   redirectProxyUrl?: AuthConfig["redirectProxyUrl"]
   /** @see {customFetch} */
   [customFetch]?: typeof fetch
   /**
-   * The options provided by the user.
-   * We will perform a deep-merge of these values
-   * with the default configuration.
+   * 用户提供的选项。
+   * 我们将对这些值与默认配置进行深度合并。
    *
    * @internal
    */
@@ -237,7 +232,7 @@ export interface OAuth2Config<Profile>
 }
 
 /**
- * Extension of the {@link OAuth2Config}.
+ * {@link OAuth2Config} 的扩展。
  *
  * @see https://openid.net/specs/openid-connect-core-1_0.html
  */
@@ -246,8 +241,8 @@ export interface OIDCConfig<Profile>
   type: "oidc"
   checks?: Array<NonNullable<OAuth2Config<Profile>["checks"]>[number] | "nonce">
   /**
-   * If set to `false`, the `userinfo_endpoint` will be fetched for the user data.
-   * @note An `id_token` is still required to be returned during the authorization flow.
+   * 如果设置为 `false`，将获取 `userinfo_endpoint` 以获取用户数据。
+   * @note 在授权流程中仍然需要返回一个 `id_token`。
    */
   idToken?: boolean
 }
@@ -257,8 +252,8 @@ export type OAuthConfig<Profile> = OIDCConfig<Profile> | OAuth2Config<Profile>
 export type OAuthEndpointType = "authorization" | "token" | "userinfo"
 
 /**
- * We parsed `authorization`, `token` and `userinfo`
- * to always contain a valid `URL`, with the params
+ * 我们解析了 `authorization`、`token` 和 `userinfo`
+ * 以始终包含一个有效的 `URL`，带有参数
  * @internal
  */
 export type OAuthConfigInternal<Profile> = Omit<
@@ -278,12 +273,12 @@ export type OAuthConfigInternal<Profile> = Omit<
   }
   userinfo?: { url: URL; request?: UserinfoEndpointHandler["request"] }
   /**
-   * Reconstructed from {@link OAuth2Config.redirectProxyUrl},
-   * adding the callback action and provider id onto the URL.
+   * 从 {@link OAuth2Config.redirectProxyUrl} 重构，
+   * 将回调动作和提供者 ID 添加到 URL 上。
    *
-   * If defined, it is favoured over {@link OAuthConfigInternal.callbackUrl} in the authorization request.
+   * 如果定义，在授权请求中优先于 {@link OAuthConfigInternal.callbackUrl}。
    *
-   * When {@link InternalOptions.isOnRedirectProxy} is set, the actual value is saved in the decoded `state.origin` parameter.
+   * 当 {@link InternalOptions.isOnRedirectProxy} 设置时，实际值保存在解码的 `state.origin` 参数中。
    *
    * @example `"https://auth.example.com/api/auth/callback/:provider"`
    *

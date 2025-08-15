@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Dropbox</b> integration.</span>
+ * <span>内置的 <b>Dropbox</b> 集成。</span>
  * <a href="https://dropbox.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/dropbox.svg" height="48" width="48"/>
  * </a>
@@ -11,16 +11,16 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * Add Dropbox login to your page.
+ * 向您的页面添加 Dropbox 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/dropbox
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Dropbox from "@auth/core/providers/dropbox"
@@ -36,29 +36,27 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Dropbox OAuth documentation](https://developers.dropbox.com/oauth-guide)
+ *  - [Dropbox OAuth 文档](https://developers.dropbox.com/oauth-guide)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Dropbox provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Dropbox 提供程序基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::tip
  *
- * The Dropbox provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/dropbox.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Dropbox 提供程序附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/dropbox.ts)。
+ * 要根据您的使用情况覆盖默认值，请查看[自定义内置 OAuth 提供程序](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供程序与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  *
  * :::
  */

@@ -1,7 +1,7 @@
 /**
  * <div class="provider" style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
  * <span style={{fontSize: "1.35rem" }}>
- *  Built-in sign in with <b>Asgardeo</b> integration.
+ *  内置使用 <b>Asgardeo</b> 集成的登录功能。
  * </span>
  * <a href="https://wso2.com/asgardeo/" style={{backgroundColor: "#ECEFF1", padding: "12px", borderRadius: "100%" }}>
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/asgardeo.svg" width="24"/>
@@ -13,36 +13,36 @@
 
 import type { OIDCConfig, OIDCUserConfig } from "./index.js"
 
-/** The returned user profile from Asgardeo when using the profile callback. */
+/** 使用 profile 回调时从 Asgardeo 返回的用户资料。 */
 export interface AsgardeoProfile extends Record<string, any> {
   /**
-   * The user Asgardeo account ID
+   * 用户的 Asgardeo 账户 ID
    */
   sub: string
   /**
-   * The user name
+   * 用户名
    */
   given_name: string
   /**
-   * The user email
+   * 用户邮箱
    */
   email: string
   /**
-   * The user profile picture
+   * 用户头像
    */
   picture: string
 }
 
 /**
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/asgardeo
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Asgardeo from "@auth/core/providers/asgardeo";
@@ -59,47 +59,45 @@ export interface AsgardeoProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Configuring Asgardeo
+ * ### 配置 Asgardeo
  *
- * Follow these steps:
+ * 按照以下步骤操作：
  *
- * 1. Log into the [Asgardeo console](https://console.asgardeo.io)
- * 2. Next, go to "Application" tab (more info [here](https://wso2.com/asgardeo/docs/guides/applications/register-oidc-web-app/))
- * 3. Register a standard based, Open ID connect, application
- * 4. Add the **callback URLs**: `http://localhost:3000/api/auth/callback/asgardeo` (development) and `https://{YOUR_DOMAIN}.com/api/auth/callback/asgardeo` (production)
- * 5. After registering the application, go to "Protocol" tab.
- * 6. Check `code` as the grant type.
- * 7. Add "Authorized redirect URLs" & "Allowed origins fields"
- * 8. Make Email, First Name, Photo URL user attributes mandatory from the console.
+ * 1. 登录 [Asgardeo 控制台](https://console.asgardeo.io)
+ * 2. 接着，转到“应用”标签页（更多信息[在此](https://wso2.com/asgardeo/docs/guides/applications/register-oidc-web-app/)）
+ * 3. 注册一个基于标准的 Open ID Connect 应用
+ * 4. 添加**回调 URLs**：`http://localhost:3000/api/auth/callback/asgardeo`（开发环境）和 `https://{YOUR_DOMAIN}.com/api/auth/callback/asgardeo`（生产环境）
+ * 5. 注册应用后，转到“协议”标签页。
+ * 6. 勾选 `code` 作为授权类型。
+ * 7. 添加“授权重定向 URLs”和“允许的来源字段”
+ * 8. 在控制台中设置邮箱、名字、头像 URL 为用户必填属性。
  *
- * Then, create a `.env` file in the project root add the following entries:
+ * 然后，在项目根目录创建 `.env` 文件并添加以下条目：
  *
  * ```
- * ASGARDEO_CLIENT_ID="Copy client ID from protocol tab here"
- * ASGARDEO_CLIENT_SECRET="Copy client from protocol tab here"
- * ASGARDEO_ISSUER="Copy the issuer url from the info tab here"
+ * ASGARDEO_CLIENT_ID="在此处粘贴从协议标签页复制的客户端 ID"
+ * ASGARDEO_CLIENT_SECRET="在此处粘贴从协议标签页复制的客户端密钥"
+ * ASGARDEO_ISSUER="在此处粘贴从信息标签页复制的发行者 URL"
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Asgardeo - Authentication Guide](https://wso2.com/asgardeo/docs/guides/authentication)
- * - [Learn more about OAuth](https://authjs.dev/concepts/oauth)
+ * - [Asgardeo - 认证指南](https://wso2.com/asgardeo/docs/guides/authentication)
+ * - [了解更多关于 OAuth 的信息](https://authjs.dev/concepts/oauth)
  *
- * ### Notes
+ * ### 注意事项
  *
- * The Asgardeo provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/asgardeo.ts). To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Asgardeo 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/asgardeo.ts)。要根据您的使用场景覆盖默认设置，请查看[自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::info
- * By default, Auth.js assumes that the Asgardeo provider is based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) spec
+ * 默认情况下，Auth.js 假设 Asgardeo 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范
  * :::
  *
- * ## Help
+ * ## 帮助
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  */
 export default function Asgardeo(
   config: OIDCUserConfig<AsgardeoProfile>

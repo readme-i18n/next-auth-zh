@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Google</b> integration.</span>
+ * <span>内置的 <b>Google</b> 集成。</span>
  * <a href="https://google.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/google.svg" height="48" width="48"/>
  * </a>
@@ -30,16 +30,16 @@ export interface GoogleProfile extends Record<string, any> {
 }
 
 /**
- * Add Google login to your page.
+ * 为您的页面添加 Google 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/google
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Google from "@auth/core/providers/google"
@@ -52,31 +52,30 @@ export interface GoogleProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Google OAuth documentation](https://developers.google.com/identity/protocols/oauth2)
- *  - [Google OAuth Configuration](https://console.developers.google.com/apis/credentials)
+ *  - [Google OAuth 文档](https://developers.google.com/identity/protocols/oauth2)
+ *  - [Google OAuth 配置](https://console.developers.google.com/apis/credentials)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Google provider is
- * based on the [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) specification.
+ * 默认情况下，Auth.js 假设 Google 提供者基于 [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
  *
  *
- * The "Authorized redirect URIs" used when creating the credentials must include your full domain and end in the callback path. For example;
+ * 创建凭证时使用的“授权重定向 URI”必须包含您的完整域名并以回调路径结尾。例如；
  *
- * - For production: `https://{YOUR_DOMAIN}/api/auth/callback/google`
- * - For development: `http://localhost:3000/api/auth/callback/google`
+ * - 生产环境：`https://{YOUR_DOMAIN}/api/auth/callback/google`
+ * - 开发环境：`http://localhost:3000/api/auth/callback/google`
  *
  * :::warning
- * Google only provides Refresh Token to an application the first time a user signs in.
+ * Google 仅在用户首次登录时向应用程序提供刷新令牌。
  *
- * To force Google to re-issue a Refresh Token, the user needs to remove the application from their account and sign in again:
+ * 要强制 Google 重新发放刷新令牌，用户需要从其账户中移除应用程序并重新登录：
  * https://myaccount.google.com/permissions
  *
- * Alternatively, you can also pass options in the `params` object of `authorization` which will force the Refresh Token to always be provided on sign in, however this will ask all users to confirm if they wish to grant your application access every time they sign in.
+ * 或者，您也可以在 `authorization` 的 `params` 对象中传递选项，这将强制在登录时始终提供刷新令牌，但这会在每次登录时要求所有用户确认是否希望授予您的应用程序访问权限。
  *
- * If you need access to the RefreshToken or AccessToken for a Google account and you are not using a database to persist user accounts, this may be something you need to do.
+ * 如果您需要访问 Google 账户的 RefreshToken 或 AccessToken 并且没有使用数据库来持久化用户账户，这可能是您需要做的事情。
  *
  * ```ts
  * const options = {
@@ -99,9 +98,9 @@ export interface GoogleProfile extends Record<string, any> {
  * :::
  *
  * :::tip
- * Google also returns a `email_verified` boolean property in the OAuth profile.
+ * Google 还在 OAuth 配置文件中返回一个 `email_verified` 布尔属性。
  *
- * You can use this property to restrict access to people with verified accounts at a particular domain.
+ * 您可以使用此属性限制对特定域已验证账户的人的访问。
  *
  * ```ts
  * const options = {
@@ -111,7 +110,7 @@ export interface GoogleProfile extends Record<string, any> {
  *       if (account.provider === "google") {
  *         return profile.email_verified && profile.email.endsWith("@example.com")
  *       }
- *       return true // Do different verification for other providers that don't have `email_verified`
+ *       return true // 对其他没有 `email_verified` 的提供者进行不同的验证
  *     },
  *   }
  *   ...
@@ -121,18 +120,17 @@ export interface GoogleProfile extends Record<string, any> {
  * :::
  * :::tip
  *
- * The Google provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/google.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Google 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/google.ts)。
+ * 要覆盖默认值以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者对规范的任何偏差，Auth.js 不承担责任。您可以提出问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论](https://authjs.dev/new/github-discussions) 中寻求更多帮助。
  *
  * :::
  */

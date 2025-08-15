@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#0082C9", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Nextcloud</b> integration.</span>
+ * <span>内置的 <b>Nextcloud</b> 集成。</span>
  * <a href="https://nextcloud.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/nextcloud.svg" height="48" width="48"/>
  * </a>
@@ -12,118 +12,118 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * Represents the Nextcloud user profile data returned from the `/ocs/v1.php/cloud/users/`.
- * @see [Check out the documentation for more details](https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/instruction_set_for_users.html#get-data-of-a-single-user)
+ * 表示从 `/ocs/v1.php/cloud/users/` 返回的 Nextcloud 用户个人资料数据。
+ * @see [查看文档以获取更多详情](https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/instruction_set_for_users.html#get-data-of-a-single-user)
  */
 export interface NextcloudProfile extends Record<string, any> {
   /**
-   * The user's username.
+   * 用户的用户名。
    * @example "frank"
    */
   id: string
 
   /**
-   * The email address associated with the user.
+   * 与用户关联的电子邮件地址。
    * @example "frank@domain.tld"
    */
   email: string | null
 
   /**
-   * The display name of the user.
+   * 用户的显示名称。
    * @example "Frank K."
    */
   displayname: string
 
   /**
-   * The phone number of the user.
+   * 用户的电话号码。
    */
   phone: string
 
   /**
-   * The address of the user.
+   * 用户的地址。
    * @example "Foobar 12, 12345 Town"
    */
   address: string
 
   /**
-   * The website URL of the user.
+   * 用户的网站 URL。
    * @example "https://nextcloud.com"
    */
   website: string
 
   /**
-   * The user's Twitter handle.
+   * 用户的 Twitter 句柄。
    * @example "Nextcloud"
    */
   twitter: string
 
   /**
-   * The user's Fediverse handle.
+   * 用户的 Fediverse 句柄。
    */
   fediverse: string
 
   /**
-   * The organization associated with the user.
+   * 与用户关联的组织。
    */
   organisation: string
 
   /**
-   * The role or position of the user.
+   * 用户的角色或职位。
    */
   role: string
 
   /**
-   * The headline or brief description of the user.
+   * 用户的标题或简短描述。
    */
   headline: string
 
   /**
-   * The biography or detailed description of the user.
+   * 用户的传记或详细描述。
    */
   biography: string
 
   /**
-   * An array of group names that the user belongs to.
+   * 用户所属的组名数组。
    * @example ["admin", "group1", "group2"]
    */
   groups: string[]
 
   /**
-   * The language preference of the user.
+   * 用户的语言偏好。
    * @example "en"
    */
   language: string
 
   /**
-   * The locale or language locale of the user.
+   * 用户的区域设置或语言区域。
    * @example "en_US"
    */
   locale: string
 
   /**
-   * Indicates whether the user account is enabled or disabled.
+   * 指示用户账户是启用还是禁用。
    * @example true
    */
   enabled: boolean
 
   /**
-   * The storage location of the user's files.
+   * 用户文件的存储位置。
    * @example "/path/to/nextcloud/data/frank"
    */
   storageLocation: string
 }
 
 /**
- * Add Nextcloud login to your page.
+ * 向您的页面添加 Nextcloud 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/auth/callback/nextcloud
  * ```
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import Nextcloud from "@auth/core/providers/nextcloud"
@@ -136,32 +136,30 @@ export interface NextcloudProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Nextcloud Documentation](https://docs.nextcloud.com/)
+ * - [Nextcloud 文档](https://docs.nextcloud.com/)
  * - [Nextcloud OAuth 2](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/oauth2.html)
- * - [Nextcloud Clients and Client APIs](https://docs.nextcloud.com/server/latest/developer_manual/client_apis/index.html)
- * - [Nextcloud User provisioning API](https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_provisioning_api.html)
+ * - [Nextcloud 客户端和客户端 API](https://docs.nextcloud.com/server/latest/developer_manual/client_apis/index.html)
+ * - [Nextcloud 用户配置 API](https://docs.nextcloud.com/server/latest/admin_manual/configuration_user/user_provisioning_api.html)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Nextcloud provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Nextcloud 提供程序基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::tip
  *
- * The Nextcloud provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/nextcloud.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Nextcloud 提供程序附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/nextcloud.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供程序](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供程序与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

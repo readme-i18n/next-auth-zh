@@ -19,8 +19,8 @@ const logger: LoggerInstance = {
 }
 
 /**
- * Fetch webauthn options from server and prompt user for authentication or registration.
- * Returns either the completed WebAuthn response or an error request.
+ * 从服务器获取 webauthn 选项并提示用户进行认证或注册。
+ * 返回完成的 WebAuthn 响应或错误请求。
  */
 async function webAuthnOptions(
   providerID: ProviderId,
@@ -50,7 +50,7 @@ async function webAuthnOptions(
 }
 
 /**
- * Initiate a WebAuthn signin flow.
+ * 启动 WebAuthn 登录流程。
  * @see https://authjs.dev/getting-started/authentication/webauthn
  */
 export async function signIn(

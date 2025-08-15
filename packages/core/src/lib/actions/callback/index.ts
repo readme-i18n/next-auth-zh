@@ -29,7 +29,7 @@ import {
   verifyRegister,
 } from "../../utils/webauthn-utils.js"
 
-/** Handle callbacks from login services */
+/** 处理来自登录服务的回调 */
 export async function callback(
   request: RequestInternal,
   options: InternalOptions,

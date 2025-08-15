@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
- *  <p>Official <a href="https://www.edgedb.com/">Edge DB</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://www.edgedb.com/">Edge DB</a> 适配器。</p>
  *  <a href="https://www.edgedb.com/">
  *   <img style={{display: "block"}} src="/img/adapters/edgedb.svg" width="38" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install edgedb @auth/edgedb-adapter

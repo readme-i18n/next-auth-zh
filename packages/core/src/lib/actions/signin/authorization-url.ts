@@ -6,7 +6,7 @@ import type { Cookie } from "../../utils/cookie.js"
 import { customFetch } from "../../symbols.js"
 
 /**
- * Generates an authorization/request token URL.
+ * 生成授权/请求令牌的 URL。
  *
  * [OAuth 2](https://www.oauth.com/oauth2-servers/authorization/the-authorization-request/)
  */

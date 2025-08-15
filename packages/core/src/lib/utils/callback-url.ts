@@ -2,14 +2,14 @@ import type { InternalOptions } from "../../types.js"
 
 interface CreateCallbackUrlParams {
   options: InternalOptions
-  /** Try reading value from request body (POST) then from query param (GET) */
+  /** 尝试从请求体（POST）读取值，若不存在则从查询参数（GET）中读取 */
   paramValue?: string
   cookieValue?: string
 }
 
 /**
- * Get callback URL based on query param / cookie + validation,
- * and add it to `req.options.callbackUrl`.
+ * 基于查询参数/cookie + 验证获取回调 URL，
+ * 并将其添加到 `req.options.callbackUrl` 中。
  */
 export async function createCallbackUrl({
   options,

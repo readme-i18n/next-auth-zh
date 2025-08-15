@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
- *  <p>Official <a href="https://docs.fauna.com/fauna/current/">Fauna</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>官方 <a href="https://docs.fauna.com/fauna/current/">Fauna</a> 适配器，用于 Auth.js / NextAuth.js。</p>
  *  <a href="https://fauna.com/features">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/fauna.svg" width="64" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/fauna-adapter fauna
@@ -199,7 +199,7 @@ export function FaunaAdapter(client: Client, config?: AdapterConfig): Adapter {
 }
 
 export const format = {
-  /** Takes an object that's coming from the database and converts it to plain JavaScript. */
+  /** 接收来自数据库的对象并将其转换为纯 JavaScript 对象。 */
   from<T>(object: Record<string, any> = {}): T {
     if (!object) return null as unknown as T
     const newObject: Record<string, unknown> = {}
@@ -209,7 +209,7 @@ export const format = {
       else newObject[key] = value
     return newObject as T
   },
-  /** Takes an object that's coming from Auth.js and prepares it to be written to the database. */
+  /** 接收来自 Auth.js 的对象并准备将其写入数据库。 */
   to<T>(object: Record<string, any>): T {
     const newObject: Record<string, unknown> = {}
     for (const [key, value] of Object.entries(object))

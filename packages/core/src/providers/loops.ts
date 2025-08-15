@@ -1,6 +1,6 @@
 /**
  * <div style={{backgroundColor: "#24292f", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Loops</b> integration.</span>
+ * <span>内置的 <b>Loops</b> 集成。</span>
  * <a href="https://loops.so">
  *  <img style={{display: "block"}} src="https://authjs.dev/img/providers/loops.svg" width="48"/>
  * </a>

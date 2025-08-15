@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>WorkOS</b> integration.</span>
+ * <span>内置的 <b>WorkOS</b> 集成。</span>
  * <a href="https://workos.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/workos.svg" height="48" />
  * </a>
@@ -10,7 +10,7 @@
  */
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 /**
- * - {@link https://workos.com/docs/reference/sso/profile | The returned profile object}
+ * - {@link https://workos.com/docs/reference/sso/profile | 返回的 profile 对象}
  */
 export interface WorkOSProfile extends Record<string, any> {
   object: string
@@ -32,16 +32,16 @@ export interface WorkOSProfile extends Record<string, any> {
 }
 
 /**
- * Add WorkOS login to your page.
+ * 向您的页面添加 WorkOS 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/workos
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import WorkOS from "@auth/core/providers/workos"
@@ -58,28 +58,27 @@ export interface WorkOSProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [WorkOS SSO OAuth documentation](https://workos.com/docs/reference/sso)
+ * - [WorkOS SSO OAuth 文档](https://workos.com/docs/reference/sso)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the WorkOS provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 WorkOS 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
- * WorkOS is not an identity provider itself, but, rather, a bridge to multiple single sign-on (SSO) providers.
- * As a result, we need to make some additional changes to authenticate users using WorkOS.
+ * WorkOS 本身不是一个身份提供者，而是多个单点登录（SSO）提供者之间的桥梁。
+ * 因此，我们需要进行一些额外的更改以使用 WorkOS 认证用户。
  *
- * In order to sign a user in using WorkOS, we need to specify which WorkOS Connection to use.
- * A common way to do this is to collect the user's email address and extract the domain. This can be done using a custom login page.
- * To add a custom login page, you can use the `pages` option:
+ * 为了使用 WorkOS 登录用户，我们需要指定使用哪个 WorkOS 连接。
+ * 一种常见的方法是收集用户的电子邮件地址并提取域名。这可以通过自定义登录页面完成。
+ * 要添加自定义登录页面，您可以使用 `pages` 选项：
  * ```ts
  * pages: {
  *   signIn: "/auth/signin",
  * }
  * ```
- * We can then add a custom login page that displays an input where the user can enter their email address.
- * We then extract the domain from the user's email address and pass it to the `authorizationParams` parameter on the `signIn` function:
+ * 然后，我们可以添加一个自定义登录页面，显示一个输入框，用户可以输入他们的电子邮件地址。
+ * 然后我们从用户的电子邮件地址中提取域名，并将其传递给 `signIn` 函数的 `authorizationParams` 参数：
  * ```js title="pages/auth/signin.js"
  * import { useState } from "react"
  * import { getProviders, signIn } from "next-auth/react"
@@ -106,7 +105,7 @@ export interface WorkOSProfile extends Record<string, any> {
  *                   })
  *                 }
  *               >
- *                 Sign in with SSO
+ *                 使用 SSO 登录
  *               </button>
  *             </div>
  *           )
@@ -115,7 +114,7 @@ export interface WorkOSProfile extends Record<string, any> {
  *         return (
  *           <div key={provider.id}>
  *             <button onClick={() => signIn(provider.id)}>
- *               Sign in with {provider.name}
+ *               使用 {provider.name} 登录
  *             </button>
  *           </div>
  *         )
@@ -134,18 +133,17 @@ export interface WorkOSProfile extends Record<string, any> {
  *
  * :::tip
  *
- * The WorkOS provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/workos.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * WorkOS 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/workos.ts)。
+ * 要覆盖默认值以适应您的用例，请查看[自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在[讨论](https://authjs.dev/new/github-discussions)中寻求更多帮助。
  *
  * :::
  */

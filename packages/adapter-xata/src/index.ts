@@ -6,21 +6,21 @@
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
- * 1. Install Auth.js and the Xata adapter
+ * 1. 安装 Auth.js 和 Xata 适配器
  *
  * ```bash npm2yarn
  * npm install @auth/xata-adapter
  * ```
  *
- * 2. Install the Xata CLI globally if you don't already have it
+ * 2. 全局安装 Xata CLI（如果尚未安装）
  *
  * ```bash npm2yarn
  * npm install -g @xata.io/cli
  * ```
  *
- * 3. Login
+ * 3. 登录
  *
  * ```bash
  * xata auth login
@@ -83,7 +83,7 @@ export function XataAdapter(client: XataClient): Adapter {
     },
     async unlinkAccount({ providerAccountId, provider }) {
       /**
-       * @todo refactor this when we support DELETE WHERE.
+       * @todo 当我们支持 DELETE WHERE 时重构此部分。
        */
       const connectedAccount = await client.db.nextauth_users_accounts
         .filter({
@@ -150,7 +150,7 @@ export function XataAdapter(client: XataClient): Adapter {
 
     async deleteSession(sessionToken) {
       /**
-       * @todo refactor this when we support DELETE WHERE.
+       * @todo 当我们支持 DELETE WHERE 时重构此部分。
        */
       const session = await client.db.nextauth_sessions
         .filter({ sessionToken })
@@ -177,7 +177,7 @@ export function XataAdapter(client: XataClient): Adapter {
     },
     async useVerificationToken(token) {
       /**
-       * @todo refactor this when we support DELETE WHERE.
+       * @todo 当我们支持 DELETE WHERE 时重构此部分。
        */
       const xataToken = await client.db.nextauth_verificationTokens
         .filter({ identifier: token.identifier, token: token.token })

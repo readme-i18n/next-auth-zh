@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Kakao</b> integration.</span>
+ * <span>内置的 <b>Kakao</b> 集成。</span>
  * <a href="https://www.kakaocorp.com/page/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/kakao.svg" height="48" width="48"/>
  * </a>
@@ -78,16 +78,16 @@ export interface KakaoProfile extends Record<string, any> {
 }
 
 /**
- * Add Kakao login to your page.
+ * 向您的页面添加 Kakao 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/kakao
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Kakao from "@auth/core/providers/kakao"
@@ -100,43 +100,42 @@ export interface KakaoProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Kakao OAuth documentation](https://developers.kakao.com/product/kakaoLogin)
- *  - [Kakao OAuth configuration](https://developers.kakao.com/docs/latest/en/kakaologin/common)
+ *  - [Kakao OAuth 文档](https://developers.kakao.com/product/kakaoLogin)
+ *  - [Kakao OAuth 配置](https://developers.kakao.com/docs/latest/en/kakaologin/common)
  *
- * ## Configuration
- * Create a provider and a Kakao application at https://developers.kakao.com/console/app. In the settings of the app under Kakao Login, activate web app, change consent items and configure callback URL.
+ * ## 配置
+ * 在 https://developers.kakao.com/console/app 创建提供者和 Kakao 应用。在应用的 Kakao 登录设置下，激活网页应用，更改同意项并配置回调 URL。
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Kakao provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Kakao 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  *
- * The "Authorized redirect URIs" used when creating the credentials must include your full domain and end in the callback path. For example;
+ * 创建凭证时使用的“授权重定向 URI”必须包含您的完整域名并以回调路径结尾。例如；
  *
  * ![스크린샷 2023-11-28 오후 9 27 41](https://github.com/nextauthjs/next-auth/assets/66895208/7d4c2df6-45a6-4937-bb10-4b47c987bff4)
  *
- * - For production: `https://{YOUR_DOMAIN}/api/auth/callback/kakao`
- * - For development: `http://localhost:3000/api/auth/callback/kakao`
+ * - 生产环境: `https://{YOUR_DOMAIN}/api/auth/callback/kakao`
+ * - 开发环境: `http://localhost:3000/api/auth/callback/kakao`
  *
  * :::tip
  *
- * The Kakao provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/kakao.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Kakao 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/kakao.ts)。
+ * 要覆盖默认值以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
  * :::tip
  *
- * Kakao's client key is in **Summary(It is written as 요약정보 in Korean.) tab's App Keys Field**
- * (My Application > App Settings > Summary)
+ * Kakao 的客户端密钥位于 **Summary(韩语中写作 요약정보) 标签的 App Keys 字段**
+ * (我的应用 > 应用设置 > Summary)
  *
  * ![스크린샷 2023-11-28 오후 9 47 17](https://github.com/nextauthjs/next-auth/assets/66895208/a87e5705-26b9-4f83-99d7-6df097a3632c)
  *
- * Kakao's clientSecret key is in **Security(It is written as 보안 in Korean.) tab's App Keys Field**
- * (My Application > Product Settings > Kakao Login > Security)
+ * Kakao 的 clientSecret 密钥位于 **Security(韩语中写作 보안) 标签的 App Keys 字段**
+ * (我的应用 > 产品设置 > Kakao 登录 > Security)
  *
  * ![스크린샷 2023-11-28 오후 9 38 25](https://github.com/nextauthjs/next-auth/assets/66895208/6a763921-4f70-40f4-a3e1-9abc78276d45)
  *
@@ -144,17 +143,16 @@ export interface KakaoProfile extends Record<string, any> {
  *
  * :::tip
  *
- * Kakao dev console has a button at the top right to change from KR to ENG
+ * Kakao 开发者控制台右上角有一个按钮可以将语言从韩文切换为英文
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

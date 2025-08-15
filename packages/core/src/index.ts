@@ -1,23 +1,23 @@
 /**
  *
  * :::warning Experimental
- * `@auth/core` is under active development.
+ * `@auth/core` 正处于积极开发阶段。
  * :::
  *
- * This is the main entry point to the Auth.js library.
+ * 这是 Auth.js 库的主要入口点。
  *
- * Based on the {@link https://developer.mozilla.org/en-US/docs/Web/API/Request Request}
- * and {@link https://developer.mozilla.org/en-US/docs/Web/API/Response Response} Web standard APIs.
- * Primarily used to implement [framework](https://authjs.dev/getting-started/integrations)-specific packages,
- * but it can also be used directly.
+ * 基于 {@link https://developer.mozilla.org/en-US/docs/Web/API/Request Request}
+ * 和 {@link https://developer.mozilla.org/en-US/docs/Web/API/Response Response} 网络标准 API。
+ * 主要用于实现[框架](https://authjs.dev/getting-started/integrations)特定的包，
+ * 但也可以直接使用。
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/core
  * ```
  *
- * ## Usage
+ * ## 使用
  *
  * ```ts
  * import { Auth } from "@auth/core"
@@ -28,10 +28,10 @@
  * console.log(response instanceof Response) // true
  * ```
  *
- * ## Resources
+ * ## 资源
  *
- * - [Getting started](https://authjs.dev/getting-started)
- * - [Guides](https://authjs.dev/guides)
+ * - [入门指南](https://authjs.dev/getting-started)
+ * - [指南](https://authjs.dev/guides)
  *
  * @module @auth/core
  */
@@ -81,9 +81,9 @@ export async function Auth(
 ): Promise<Response>
 
 /**
- * Core functionality provided by Auth.js.
+ * Auth.js 提供的核心功能。
  *
- * Receives a standard {@link Request} and returns a {@link Response}.
+ * 接收标准的 {@link Request} 并返回 {@link Response}。
  *
  * @example
  * ```ts
@@ -96,7 +96,7 @@ export async function Auth(
  *   trustHost: true,
  * })
  *```
- * @see [Documentation](https://authjs.dev)
+ * @see [文档](https://authjs.dev)
  */
 export async function Auth(
   request: Request,
@@ -199,7 +199,7 @@ export async function Auth(
 }
 
 /**
- * Configure the {@link Auth} method.
+ * 配置 {@link Auth} 方法。
  *
  * @example
  * ```ts
@@ -211,77 +211,76 @@ export async function Auth(
  * const response = await AuthHandler(request, authConfig)
  * ```
  *
- * @see [Initialization](https://authjs.dev/reference/core/types#authconfig)
+ * @see [初始化](https://authjs.dev/reference/core/types#authconfig)
  */
 export interface AuthConfig {
   /**
-   * List of authentication providers for signing in
-   * (e.g. Google, Facebook, Twitter, GitHub, Email, etc) in any order.
-   * This can be one of the built-in providers or an object with a custom provider.
+   * 用于登录的认证提供者列表
+   * （例如 Google、Facebook、Twitter、GitHub、Email 等）可以任意顺序排列。
+   * 可以是内置提供者之一，也可以是带有自定义提供者的对象。
    *
    * @default []
    */
   providers: Provider[]
   /**
-   * A random string used to hash tokens, sign cookies and generate cryptographic keys.
+   * 用于哈希令牌、签名 cookies 和生成加密密钥的随机字符串。
    *
-   * To generate a random string, you can use the Auth.js CLI: `npx auth secret`
+   * 要生成随机字符串，可以使用 Auth.js CLI：`npx auth secret`
    *
    * @note
-   * You can also pass an array of secrets, in which case the first secret that successfully
-   * decrypts the JWT will be used. This is useful for rotating secrets without invalidating existing sessions.
-   * The newer secret should be added to the start of the array, which will be used for all new sessions.
+   * 你也可以传递一个秘密数组，在这种情况下，第一个成功解密 JWT 的秘密将被使用。这对于在不使现有会话失效的情况下轮换秘密非常有用。
+   * 新的秘密应添加到数组的开头，这将用于所有新会话。
    *
    */
   secret?: string | string[]
   /**
-   * Configure your session like if you want to use JWT or a database,
-   * how long until an idle session expires, or to throttle write operations in case you are using a database.
+   * 配置你的会话，比如是否想要使用 JWT 或数据库，
+   * 空闲会话多久过期，或者在使用数据库时限制写操作。
    */
   session?: {
     /**
-     * Choose how you want to save the user session.
-     * The default is `"jwt"`, an encrypted JWT (JWE) in the session cookie.
+     * 选择如何保存用户会话。
+     * 默认为 `"jwt"`，即会话 cookie 中的加密 JWT (JWE)。
      *
-     * If you use an `adapter` however, we default it to `"database"` instead.
-     * You can still force a JWT session by explicitly defining `"jwt"`.
+     * 但如果使用 `adapter`，我们默认改为 `"database"`。
+     * 你仍然可以通过显式定义 `"jwt"` 来强制使用 JWT 会话。
      *
-     * When using `"database"`, the session cookie will only contain a `sessionToken` value,
-     * which is used to look up the session in the database.
+     * 使用 `"database"` 时，会话 cookie 将只包含一个 `sessionToken` 值，
+     * 用于在数据库中查找会话。
      *
-     * [Documentation](https://authjs.dev/reference/core#authconfig#session) | [Adapter](https://authjs.dev/reference/core#authconfig#adapter) | [About JSON Web Tokens](https://authjs.dev/concepts/session-strategies#jwt-session)
+     * [文档](https://authjs.dev/reference/core#authconfig#session) | [适配器](https://authjs.dev/reference/core#authconfig#adapter) | [关于 JSON Web Tokens](https://authjs.dev/concepts/session-strategies#jwt-session)
      */
     strategy?: "jwt" | "database"
     /**
-     * Relative time from now in seconds when to expire the session
+     * 从现在开始的相对时间（秒），会话将过期
      *
-     * @default 2592000 // 30 days
+     * @default 2592000 // 30 天
      */
     maxAge?: number
     /**
-     * How often the session should be updated in seconds.
-     * If set to `0`, session is updated every time.
+     * 会话应多久更新一次（秒）。
+     * 如果设置为 `0`，则每次都会更新会话。
      *
-     * @default 86400 // 1 day
+     * @default 86400 // 1 天
      */
     updateAge?: number
     /**
-     * Generate a custom session token for database-based sessions.
-     * By default, a random UUID or string is generated depending on the Node.js version.
-     * However, you can specify your own custom string (such as CUID) to be used.
+     * 为基于数据库的会话生成自定义会话令牌。
+     * 默认情况下，根据 Node.js 版本生成随机 UUID 或字符串。
+     * 但是，你可以指定自己的自定义字符串（如 CUID）来使用。
      *
-     * @default `randomUUID` or `randomBytes.toHex` depending on the Node.js version
+     * @default `randomUUID` 或 `randomBytes.toHex` 取决于 Node.js 版本
      */
     generateSessionToken?: () => string
   }
   /**
-   * JSON Web Tokens are enabled by default if you have not specified an {@link AuthConfig.adapter}.
-   * JSON Web Tokens are encrypted (JWE) by default. We recommend you keep this behaviour.
+   * 如果你没有指定 {@link AuthConfig.adapter}，默认启用 JSON Web Tokens。
+   * JSON Web Tokens 默认是加密的（JWE）。我们建议你保持这种行为。
    */
   jwt?: Partial<JWTOptions>
   /**
-   * Specify URLs to be used if you want to create custom sign in, sign out and error pages.
-   * Pages specified will override the corresponding built-in page.
+   * 指定 URL 如果你想创建自定义的登录、登出和错误页面。
+   * 指定的页面将覆盖相应的内置页面。
    *
    * @default {}
    * @example
@@ -298,18 +297,18 @@ export interface AuthConfig {
    */
   pages?: Partial<PagesOptions>
   /**
-   * Callbacks are asynchronous functions you can use to control what happens when an action is performed.
-   * Callbacks are *extremely powerful*, especially in scenarios involving JSON Web Tokens
-   * as they **allow you to implement access controls without a database** and to **integrate with external databases or APIs**.
+   * 回调是异步函数，你可以用来控制在执行操作时发生什么。
+   * 回调*极其强大*，特别是在涉及 JSON Web Tokens 的场景中，
+   * 因为它们**允许你在没有数据库的情况下实现访问控制**，并且**与外部数据库或 API 集成**。
    */
   callbacks?: {
     /**
-     * Controls whether a user is allowed to sign in or not.
-     * Returning `true` continues the sign-in flow.
-     * Returning `false` or throwing an error will stop the sign-in flow and redirect the user to the error page.
-     * Returning a string will redirect the user to the specified URL.
+     * 控制用户是否被允许登录。
+     * 返回 `true` 继续登录流程。
+     * 返回 `false` 或抛出错误将停止登录流程并将用户重定向到错误页面。
+     * 返回字符串将用户重定向到指定的 URL。
      *
-     * Unhandled errors will throw an `AccessDenied` with the message set to the original error.
+     * 未处理的错误将抛出 `AccessDenied`，消息设置为原始错误。
      *
      * [`AccessDenied`](https://authjs.dev/reference/core/errors#accessdenied)
      *
@@ -317,7 +316,7 @@ export interface AuthConfig {
      * ```ts
      * callbacks: {
      *  async signIn({ profile }) {
-     *   // Only allow sign in for users with email addresses ending with "yourdomain.com"
+     *   // 只允许电子邮件地址以 "yourdomain.com" 结尾的用户登录
      *   return profile?.email?.endsWith("@yourdomain.com")
      *  }
      * }
@@ -327,38 +326,37 @@ export interface AuthConfig {
       user: User | AdapterUser
       account?: Account | null
       /**
-       * If OAuth provider is used, it contains the full
-       * OAuth profile returned by your provider.
+       * 如果使用 OAuth 提供者，它包含你的提供者返回的完整
+       * OAuth 个人资料。
        */
       profile?: Profile
       /**
-       * If Email provider is used, on the first call, it contains a
-       * `verificationRequest: true` property to indicate it is being triggered in the verification request flow.
-       * When the callback is invoked after a user has clicked on a sign in link,
-       * this property will not be present. You can check for the `verificationRequest` property
-       * to avoid sending emails to addresses or domains on a blocklist or to only explicitly generate them
-       * for email address in an allow list.
+       * 如果使用电子邮件提供者，在第一次调用时，它包含一个
+       * `verificationRequest: true` 属性，表示它是在验证请求流程中触发的。
+       * 当用户在点击登录链接后调用回调时，
+       * 此属性将不存在。你可以检查 `verificationRequest` 属性
+       * 以避免向阻止列表中的地址或域名发送电子邮件，或仅显式为允许列表中的电子邮件地址生成它们。
        */
       email?: {
         verificationRequest?: boolean
       }
-      /** If Credentials provider is used, it contains the user credentials */
+      /** 如果使用凭据提供者，它包含用户凭据 */
       credentials?: Record<string, CredentialInput>
     }) => Awaitable<boolean | string>
     /**
-     * This callback is called anytime the user is redirected to a callback URL (i.e. on signin or signout).
-     * By default only URLs on the same host as the origin are allowed.
-     * You can use this callback to customise that behaviour.
+     * 每当用户被重定向到回调 URL（即登录或登出时）时调用此回调。
+     * 默认情况下，只允许与来源相同主机上的 URL。
+     * 你可以使用此回调来自定义该行为。
      *
-     * [Documentation](https://authjs.dev/reference/core/types#redirect)
+     * [文档](https://authjs.dev/reference/core/types#redirect)
      *
      * @example
      * callbacks: {
      *   async redirect({ url, baseUrl }) {
-     *     // Allows relative callback URLs
+     *     // 允许相对回调 URL
      *     if (url.startsWith("/")) return `${baseUrl}${url}`
      *
-     *     // Allows callback URLs on the same origin
+     *     // 允许同一来源上的回调 URL
      *     if (new URL(url).origin === baseUrl) return url
      *
      *     return baseUrl
@@ -366,33 +364,33 @@ export interface AuthConfig {
      * }
      */
     redirect?: (params: {
-      /** URL provided as callback URL by the client */
+      /** 客户端提供的回调 URL */
       url: string
-      /** Default base URL of site (can be used as fallback) */
+      /** 站点的默认基础 URL（可用作回退） */
       baseUrl: string
     }) => Awaitable<string>
     /**
-     * This callback is called whenever a session is checked.
-     * (i.e. when invoking the `/api/session` endpoint, using `useSession` or `getSession`).
-     * The return value will be exposed to the client, so be careful what you return here!
-     * If you want to make anything available to the client which you've added to the token
-     * through the JWT callback, you have to explicitly return it here as well.
+     * 每当检查会话时调用此回调。
+     * （即调用 `/api/session` 端点，使用 `useSession` 或 `getSession` 时）。
+     * 返回值将暴露给客户端，所以在这里返回什么要小心！
+     * 如果你想向客户端提供任何通过 JWT 回调添加到令牌中的内容，
+     * 你也必须在这里显式返回它。
      *
      * :::note
-     * ⚠ By default, only a subset (email, name, image)
-     * of the token is returned for increased security.
+     * ⚠ 默认情况下，为了增加安全性，
+     * 只返回令牌的一个子集（电子邮件、名称、图像）。
      * :::
      *
-     * The token argument is only available when using the jwt session strategy, and the
-     * user argument is only available when using the database session strategy.
+     * 令牌参数仅在 jwt 会话策略可用时可用，而
+     * 用户参数仅在数据库会话策略可用时可用。
      *
-     * [`jwt` callback](https://authjs.dev/reference/core/types#jwt)
+     * [`jwt` 回调](https://authjs.dev/reference/core/types#jwt)
      *
      * @example
      * ```ts
      * callbacks: {
      *   async session({ session, token, user }) {
-     *     // Send properties to the client, like an access_token from a provider.
+     *     // 向客户端发送属性，如来自提供者的 access_token。
      *     session.accessToken = token.accessToken
      *
      *     return session
@@ -403,18 +401,18 @@ export interface AuthConfig {
     session?: (
       params: ({
         session: { user: AdapterUser } & AdapterSession
-        /** Available when {@link AuthConfig.session} is set to `strategy: "database"`. */
+        /** 当 {@link AuthConfig.session} 设置为 `strategy: "database"` 时可用。 */
         user: AdapterUser
       } & {
         session: Session
-        /** Available when {@link AuthConfig.session} is set to `strategy: "jwt"` */
+        /** 当 {@link AuthConfig.session} 设置为 `strategy: "jwt"` 时可用 */
         token: JWT
       }) & {
         /**
-         * Available when using {@link AuthConfig.session} `strategy: "database"` and an update is triggered for the session.
+         * 当使用 {@link AuthConfig.session} `strategy: "database"` 并触发会话更新时可用。
          *
          * :::note
-         * You should validate this data before using it.
+         * 在使用此数据之前应验证它。
          * :::
          */
         newSession: any
@@ -422,79 +420,77 @@ export interface AuthConfig {
       }
     ) => Awaitable<Session | DefaultSession>
     /**
-     * This callback is called whenever a JSON Web Token is created (i.e. at sign in)
-     * or updated (i.e whenever a session is accessed in the client). Anything you
-     * return here will be saved in the JWT and forwarded to the session callback.
-     * There you can control what should be returned to the client. Anything else
-     * will be kept from your frontend. The JWT is encrypted by default via your
-     * AUTH_SECRET environment variable.
+     * 每当创建（即登录时）或更新（即每当在客户端访问会话时）JSON Web Token 时调用此回调。
+     * 你在这里返回的任何内容都将保存在 JWT 中并转发到会话回调。
+     * 在那里你可以控制应该返回给客户端的内容。其他任何内容
+     * 都将对你的前端保密。默认情况下，JWT 通过你的
+     * AUTH_SECRET 环境变量加密。
      *
-     * [`session` callback](https://authjs.dev/reference/core/types#session)
+     * [`session` 回调](https://authjs.dev/reference/core/types#session)
      */
     jwt?: (params: {
       /**
-       * When `trigger` is `"signIn"` or `"signUp"`, it will be a subset of {@link JWT},
-       * `name`, `email` and `image` will be included.
+       * 当 `trigger` 是 `"signIn"` 或 `"signUp"` 时，它将是 {@link JWT} 的子集，
+       * 包括 `name`、`email` 和 `image`。
        *
-       * Otherwise, it will be the full {@link JWT} for subsequent calls.
+       * 否则，它将是后续调用的完整 {@link JWT}。
        */
       token: JWT
       /**
-       * Either the result of the {@link OAuthConfig.profile} or the {@link CredentialsConfig.authorize} callback.
-       * @note available when `trigger` is `"signIn"` or `"signUp"`.
+       * 要么是 {@link OAuthConfig.profile} 的结果，要么是 {@link CredentialsConfig.authorize} 回调的结果。
+       * @note 当 `trigger` 是 `"signIn"` 或 `"signUp"` 时可用。
        *
-       * Resources:
-       * - [Credentials Provider](https://authjs.dev/getting-started/authentication/credentials)
-       * - [User database model](https://authjs.dev/guides/creating-a-database-adapter#user-management)
+       * 资源：
+       * - [凭据提供者](https://authjs.dev/getting-started/authentication/credentials)
+       * - [用户数据库模型](https://authjs.dev/guides/creating-a-database-adapter#user-management)
        */
       user: User | AdapterUser
       /**
-       * Contains information about the provider that was used to sign in.
-       * Also includes {@link TokenSet}
-       * @note available when `trigger` is `"signIn"` or `"signUp"`
+       * 包含有关用于登录的提供者的信息。
+       * 还包括 {@link TokenSet}
+       * @note 当 `trigger` 是 `"signIn"` 或 `"signUp"` 时可用
        */
       account?: Account | null
       /**
-       * The OAuth profile returned from your provider.
-       * (In case of OIDC it will be the decoded ID Token or /userinfo response)
-       * @note available when `trigger` is `"signIn"`.
+       * 你的提供者返回的 OAuth 个人资料。
+       * （在 OIDC 的情况下，它将是解码的 ID Token 或 /userinfo 响应）
+       * @note 当 `trigger` 是 `"signIn"` 时可用。
        */
       profile?: Profile
       /**
-       * Check why was the jwt callback invoked. Possible reasons are:
-       * - user sign-in: First time the callback is invoked, `user`, `profile` and `account` will be present.
-       * - user sign-up: a user is created for the first time in the database (when {@link AuthConfig.session}.strategy is set to `"database"`)
-       * - update event: Triggered by the `useSession().update` method.
-       * In case of the latter, `trigger` will be `undefined`.
+       * 检查 jwt 回调被调用的原因。可能的原因是：
+       * - 用户登录：第一次调用回调时，`user`、`profile` 和 `account` 将存在。
+       * - 用户注册：第一次在数据库中创建用户（当 {@link AuthConfig.session}.strategy 设置为 `"database"` 时）
+       * - 更新事件：由 `useSession().update` 方法触发。
+       * 在后一种情况下，`trigger` 将是 `undefined`。
        */
       trigger?: "signIn" | "signUp" | "update"
-      /** @deprecated use `trigger === "signUp"` instead */
+      /** @deprecated 使用 `trigger === "signUp"` 代替 */
       isNewUser?: boolean
       /**
-       * When using {@link AuthConfig.session} `strategy: "jwt"`, this is the data
-       * sent from the client via the `useSession().update` method.
+       * 当使用 {@link AuthConfig.session} `strategy: "jwt"` 时，这是从客户端通过 `useSession().update` 方法发送的数据。
        *
-       * ⚠ Note, you should validate this data before using it.
+       * ⚠ 注意，在使用此数据之前应验证它。
        */
       session?: any
     }) => Awaitable<JWT | null>
   }
   /**
-   * Events are asynchronous functions that do not return a response, they are useful for audit logging.
-   * You can specify a handler for any of these events below - e.g. for debugging or to create an audit log.
-   * The content of the message object varies depending on the flow
-   * (e.g. OAuth or Email authentication flow, JWT or database sessions, etc),
-   * but typically contains a user object and/or contents of the JSON Web Token
-   * and other information relevant to the event.
+   * 事件是不返回响应的异步函数，它们对于审计日志记录非常有用。
+   * 你可以为下面任何这些事件指定一个处理程序 - 例如用于调试或创建审计日志。
+   * 消息对象的内容根据流程而变化
+   * （例如 OAuth 或电子邮件认证流程，JWT 或数据库会话等），
+   * 但通常包含用户对象和/或 JSON Web Token 的内容
+   * 以及其他与事件相关的信息。
    *
    * @default {}
    */
   events?: {
     /**
-     * If using a `credentials` type auth, the user is the raw response from your
-     * credential provider.
-     * For other providers, you'll get the User object from your adapter, the account,
-     * and an indicator if the user was new to your Adapter.
+     * 如果使用 `credentials` 类型的认证，用户是你的
+     * 凭据提供者的原始响应。
+     * 对于其他提供者，你将从适配器获取用户对象，账户，
+     * 以及用户是否对你的适配器是新的指示器。
      */
     signIn?: (message: {
       user: User
@@ -503,10 +499,10 @@ export interface AuthConfig {
       isNewUser?: boolean
     }) => Awaitable<void>
     /**
-     * The message object will contain one of these depending on
-     * if you use JWT or database persisted sessions:
-     * - `token`: The JWT for this session.
-     * - `session`: The session object from your adapter that is being ended.
+     * 消息对象将包含以下之一，取决于
+     * 你使用的是 JWT 还是数据库持久会话：
+     * - `token`：此会话的 JWT。
+     * - `session`：来自你的适配器的正在结束的会话对象。
      */
     signOut?: (
       message:
@@ -521,26 +517,26 @@ export interface AuthConfig {
       profile: User | AdapterUser
     }) => Awaitable<void>
     /**
-     * The message object will contain one of these depending on
-     * if you use JWT or database persisted sessions:
-     * - `token`: The JWT for this session.
-     * - `session`: The session object from your adapter.
+     * 消息对象将包含以下之一，取决于
+     * 你使用的是 JWT 还是数据库持久会话：
+     * - `token`：此会话的 JWT。
+     * - `session`：来自你的适配器的会话对象。
      */
     session?: (message: { session: Session; token: JWT }) => Awaitable<void>
   }
-  /** You can use the adapter option to pass in your database adapter. */
+  /** 你可以使用 adapter 选项传入你的数据库适配器。 */
   adapter?: Adapter
   /**
-   * Set debug to true to enable debug messages for authentication and database operations.
+   * 将 debug 设置为 true 以启用认证和数据库操作的调试消息。
    *
-   * - ⚠ If you added a custom {@link AuthConfig.logger}, this setting is ignored.
+   * - ⚠ 如果你添加了自定义 {@link AuthConfig.logger}，此设置将被忽略。
    *
    * @default false
    */
   debug?: boolean
   /**
-   * Override any of the logger levels (`undefined` levels will use the built-in logger),
-   * and intercept logs in NextAuth. You can use this option to send NextAuth logs to a third-party logging service.
+   * 覆盖任何日志级别（`undefined` 级别将使用内置日志记录器），
+   * 并拦截 NextAuth 中的日志。你可以使用此选项将 NextAuth 日志发送到第三方日志服务。
    *
    * @example
    *
@@ -563,71 +559,71 @@ export interface AuthConfig {
    * })
    * ```
    *
-   * - ⚠ When set, the {@link AuthConfig.debug} option is ignored
+   * - ⚠ 设置后，{@link AuthConfig.debug} 选项将被忽略
    *
    * @default console
    */
   logger?: Partial<LoggerInstance>
-  /** Changes the theme of built-in {@link AuthConfig.pages}. */
+  /** 更改内置 {@link AuthConfig.pages} 的主题。 */
   theme?: Theme
   /**
-   * When set to `true` then all cookies set by NextAuth.js will only be accessible from HTTPS URLs.
-   * This option defaults to `false` on URLs that start with `http://` (e.g. http://localhost:3000) for developer convenience.
-   * You can manually set this option to `false` to disable this security feature and allow cookies
-   * to be accessible from non-secured URLs (this is not recommended).
+   * 当设置为 `true` 时，NextAuth.js 设置的所有 cookies 将只能从 HTTPS URL 访问。
+   * 此选项在 URL 以 `http://` 开头（例如 http://localhost:3000）时默认为 `false`，以便开发者方便。
+   * 你可以手动将此选项设置为 `false` 以禁用此安全功能并允许 cookies
+   * 从非安全 URL 访问（这不推荐）。
    *
-   * - ⚠ **This is an advanced option.** Advanced options are passed the same way as basic options,
-   * but **may have complex implications** or side effects.
-   * You should **try to avoid using advanced options** unless you are very comfortable using them.
+   * - ⚠ **这是一个高级选项。** 高级选项的传递方式与基本选项相同，
+   * 但**可能有复杂的含义**或副作用。
+   * 你应该**尽量避免使用高级选项**，除非你非常熟悉它们。
    *
-   * The default is `false` HTTP and `true` for HTTPS sites.
+   * 默认为 HTTP `false` 和 HTTPS 站点 `true`。
    */
   useSecureCookies?: boolean
   /**
-   * You can override the default cookie names and options for any of the cookies used by Auth.js.
-   * You can specify one or more cookies with custom properties
-   * and missing options will use the default values defined by Auth.js.
-   * If you use this feature, you will likely want to create conditional behavior
-   * to support setting different cookies policies in development and production builds,
-   * as you will be opting out of the built-in dynamic policy.
+   * 你可以覆盖 Auth.js 使用的任何 cookies 的默认名称和选项。
+   * 你可以指定一个或多个具有自定义属性的 cookies
+   * 缺少的选项将使用 Auth.js 定义的默认值。
+   * 如果你使用此功能，你可能希望创建条件行为
+   * 以支持在开发和构建生产时设置不同的 cookies 策略，
+   * 因为你将选择退出内置的动态策略。
    *
-   * - ⚠ **This is an advanced option.** Advanced options are passed the same way as basic options,
-   * but **may have complex implications** or side effects.
-   * You should **try to avoid using advanced options** unless you are very comfortable using them.
+   * - ⚠ **这是一个高级选项。** 高级选项的传递方式与基本选项相同，
+   * 但**可能有复杂的含义**或副作用。
+   * 你应该**尽量避免使用高级选项**，除非你非常熟悉它们。
    *
    * @default {}
    */
   cookies?: Partial<CookiesOptions>
   /**
-   * Auth.js relies on the incoming request's `host` header to function correctly. For this reason this property needs to be set to `true`.
+   * Auth.js 依赖于传入请求的 `host` 标头才能正常工作。因此，此属性需要设置为 `true`。
    *
-   * Make sure that your deployment platform sets the `host` header safely.
+   * 确保你的部署平台安全地设置 `host` 标头。
    *
    * :::note
-   * Official Auth.js-based libraries will attempt to set this value automatically for some deployment platforms (eg.: Vercel) that are known to set the `host` header safely.
+   * 官方的基于 Auth.js 的库将尝试为一些已知安全设置 `host` 标头的部署平台（例如：Vercel）自动设置此值。
    * :::
    */
   trustHost?: boolean
   skipCSRFCheck?: typeof skipCSRFCheck
   raw?: typeof raw
   /**
-   * When set, during an OAuth sign-in flow,
-   * the `redirect_uri` of the authorization request
-   * will be set based on this value.
+   * 设置后，在 OAuth 登录流程中，
+   * 授权请求的 `redirect_uri`
+   * 将基于此值设置。
    *
-   * This is useful if your OAuth Provider only supports a single `redirect_uri`
-   * or you want to use OAuth on preview URLs (like Vercel), where you don't know the final deployment URL beforehand.
+   * 这在你 OAuth 提供者只支持单个 `redirect_uri`
+   * 或你想在预览 URL（如 Vercel）上使用 OAuth 时非常有用，在那里你事先不知道最终的部署 URL。
    *
-   * The url needs to include the full path up to where Auth.js is initialized.
+   * URL 需要包括初始化 Auth.js 的完整路径。
    *
-   * @note This will auto-enable the `state` {@link OAuth2Config.checks} on the provider.
+   * @note 这将自动启用提供者上的 `state` {@link OAuth2Config.checks}。
    *
    * @example
    * ```
    * "https://authjs.example.com/api/auth"
    * ```
    *
-   * You can also override this individually for each provider.
+   * 你也可以为每个提供者单独覆盖此设置。
    *
    * @example
    * ```ts
@@ -637,30 +633,30 @@ export interface AuthConfig {
    * })
    * ```
    *
-   * @default `AUTH_REDIRECT_PROXY_URL` environment variable
+   * @default `AUTH_REDIRECT_PROXY_URL` 环境变量
    *
-   * See also: [Guide: Securing a Preview Deployment](https://authjs.dev/getting-started/deployment#securing-a-preview-deployment)
+   * 另见：[指南：保护预览部署](https://authjs.dev/getting-started/deployment#securing-a-preview-deployment)
    */
   redirectProxyUrl?: string
 
   /**
-   * Use this option to enable experimental features.
-   * When enabled, it will print a warning message to the console.
-   * @note Experimental features are not guaranteed to be stable and may change or be removed without notice. Please use with caution.
+   * 使用此选项启用实验性功能。
+   * 启用时，它将在控制台打印警告消息。
+   * @note 实验性功能不保证稳定，可能会更改或移除而不通知。请谨慎使用。
    * @default {}
    */
   experimental?: {
     /**
-     * Enable WebAuthn support.
+     * 启用 WebAuthn 支持。
      *
      * @default false
      */
     enableWebAuthn?: boolean
   }
   /**
-   * The base path of the Auth.js API endpoints.
+   * Auth.js API 端点的基本路径。
    *
-   * @default "/api/auth" in "next-auth"; "/auth" with all other frameworks
+   * @default "/api/auth" 在 "next-auth" 中；所有其他框架为 "/auth"
    */
   basePath?: string
 }

@@ -13,8 +13,8 @@ import { type AuthConfig } from "../../index.js"
 import { customFetch } from "../symbols.js"
 
 /**
- * Adds `signinUrl` and `callbackUrl` to each provider
- * and deep merge user-defined options.
+ * 为每个提供者添加 `signinUrl` 和 `callbackUrl`
+ * 并深度合并用户定义的选项。
  */
 export default function parseProviders(params: {
   url: URL
@@ -107,11 +107,11 @@ function normalizeOAuth(
 }
 
 /**
- * Returns basic user profile from the userinfo response/`id_token` claims.
- * The returned `id` will become the `account.providerAccountId`. `user.id`
- * and `account.id` are auto-generated UUID's.
+ * 从用户信息响应/`id_token`声明中返回基本用户资料。
+ * 返回的 `id` 将成为 `account.providerAccountId`。`user.id`
+ * 和 `account.id` 是自动生成的 UUID。
  *
- * The result if this function is used to create the `User` in the database.
+ * 此函数的结果用于在数据库中创建 `User`。
  * @see https://authjs.dev/reference/core/adapters#user
  * @see https://openid.net/specs/openid-connect-core-1_0.html#IDToken
  * @see https://openid.net/specs/openid-connect-core-1_0.html#
@@ -126,7 +126,7 @@ const defaultProfile: ProfileCallback<Profile> = (profile) => {
 }
 
 /**
- * Returns basic OAuth/OIDC values from the token response.
+ * 从令牌响应中返回基本的 OAuth/OIDC 值。
  * @see https://www.ietf.org/rfc/rfc6749.html#section-5.1
  * @see https://openid.net/specs/openid-connect-core-1_0.html#TokenResponse
  * @see https://authjs.dev/reference/core/adapters#account
@@ -195,7 +195,7 @@ export function isOAuth2Provider(
   return provider.type === "oauth"
 }
 
-/** Either OAuth 2 or OIDC */
+/** 可能是 OAuth 2 或 OIDC */
 export function isOAuthProvider(
   provider: InternalProvider<any>
 ): provider is InternalProvider<"oauth" | "oidc"> {

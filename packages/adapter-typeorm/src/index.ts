@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
- *  <p>Official <a href="https://typeorm.io">TypeORM</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://typeorm.io">TypeORM</a> 适配器。</p>
  *  <a href="https://typeorm.io">
  *   <img style={{display: "block" }} width="56" src="/img/adapters/typeorm.svg" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/typeorm-adapter typeorm
@@ -29,10 +29,10 @@ export const entities = defaultEntities
 
 export type Entities = typeof entities
 
-/** This is the interface for the TypeORM adapter options. */
+/** 这是 TypeORM 适配器选项的接口。 */
 export interface TypeORMAdapterOptions {
   /**
-   * The {@link https://orkhan.gitbook.io/typeorm/docs/entities TypeORM entities} to create the database tables from.
+   * 用于创建数据库表的 {@link https://orkhan.gitbook.io/typeorm/docs/entities TypeORM 实体}。
    */
   entities?: Entities
 }
@@ -88,7 +88,7 @@ export function TypeORMAdapter(
 
   return {
     /**
-     * Method used in testing. You won't need to call this in your app.
+     * 测试中使用的方法。你在应用中不需要调用此方法。
      * @internal
      */
     async __disconnect() {

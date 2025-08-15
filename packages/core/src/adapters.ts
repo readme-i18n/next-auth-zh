@@ -1,73 +1,73 @@
 /**
- * Auth.js can be integrated with _any_ data layer (database, ORM, or backend API, HTTP client)
- * in order to automatically create users, handle account linking automatically, support passwordless login,
- * and to store session information.
+ * Auth.js 可以与_任何_数据层（数据库、ORM 或后端 API、HTTP 客户端）集成
+ * 以自动创建用户、自动处理账户链接、支持无密码登录，
+ * 并存储会话信息。
  *
- * This module contains utility functions and types to create an Auth.js compatible adapter.
+ * 此模块包含用于创建与 Auth.js 兼容的适配器的实用函数和类型。
  *
- * Auth.js supports 2 session strategies to persist the login state of a user.
- * The default is to use a cookie + {@link https://authjs.dev/concepts/session-strategies#jwt-session JWT}
- * based session store (`strategy: "jwt"`),
- * but you can also use a database adapter to store the session in a database.
+ * Auth.js 支持 2 种会话策略来持久化用户的登录状态。
+ * 默认是使用基于 cookie + {@link https://authjs.dev/concepts/session-strategies#jwt-session JWT}
+ * 的会话存储（`strategy: "jwt"`），
+ * 但你也可以使用数据库适配器将会话存储在数据库中。
  *
- * Before you continue, Auth.js has a list of {@link https://adapters.authjs.dev official database adapters}. If your database is listed there, you
- * probably do not need to create your own. If you are using a data solution that cannot be integrated with an official adapter, this module will help you create a compatible adapter.
+ * 在继续之前，Auth.js 有一个 {@link https://adapters.authjs.dev 官方数据库适配器列表}。如果你的数据库列在那里，
+ * 你可能不需要创建自己的适配器。如果你使用的数据解决方案无法与官方适配器集成，此模块将帮助你创建兼容的适配器。
  *
- * :::caution Note
- * Although `@auth/core` _is_ framework/runtime agnostic, an adapter might rely on a client/ORM package,
- * that is not yet compatible with your framework/runtime (e.g. it might rely on [Node.js APIs](https://nodejs.org/docs/latest/api)).
- * Related issues should be reported to the corresponding package maintainers.
+ * :::caution 注意
+ * 尽管 `@auth/core` _是_框架/运行时无关的，适配器可能依赖于客户端/ORM 包，
+ * 这些包可能还不兼容你的框架/运行时（例如，它可能依赖于 [Node.js APIs](https://nodejs.org/docs/latest/api)）。
+ * 相关问题应报告给相应的包维护者。
  * :::
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/core
  * ```
  *
- * Then, you can import this submodule from `@auth/core/adapters`.
+ * 然后，你可以从 `@auth/core/adapters` 导入此子模块。
  *
- * ## Usage
+ * ## 使用
  *
- * Each adapter method and its function signature is documented in the {@link Adapter} interface.
+ * 每个适配器方法及其函数签名在 {@link Adapter} 接口中有文档说明。
  *
  * ```ts title=my-adapter.ts
  * import { type Adapter } from "@auth/core/adapters"
  *
- * // 1. Simplest form, a plain object.
+ * // 1. 最简单的形式，一个普通对象。
  * export const MyAdapter: Adapter {
- *  // implement the adapter methods here
+ *  // 在此实现适配器方法
  * }
  *
- * // or
+ * // 或
  *
- * // 2. A function that returns an object. Official adapters use this pattern.
+ * // 2. 一个返回对象的函数。官方适配器使用此模式。
  * export function MyAdapter(config: any): Adapter {
- *  // Instantiate a client/ORM here with the provided config, or pass it in as a parameter.
- *  // Usually, you might already have a client instance elsewhere in your application,
- *  // so you should only create a new instance if you need to or you don't have one.
+ *  // 使用提供的配置实例化客户端/ORM，或将其作为参数传入。
+ *  // 通常，你可能已经在应用程序的其他地方有了一个客户端实例，
+ *  // 所以只有在需要或没有实例时才应创建新实例。
  *
  *  return {
- *    // implement the adapter methods
+ *    // 实现适配器方法
  *  }
  * }
  *
  * ```
  *
- * Then, you can pass your adapter to Auth.js as the `adapter` option.
+ * 然后，你可以将你的适配器作为 `adapter` 选项传递给 Auth.js。
  *
  * ```ts title=index.ts
  * import { MyAdapter } from "./my-adapter"
  *
  * const response = await Auth(..., {
  *   adapter: MyAdapter, // 1.
- *   // or
+ *   // 或
  *   adapter: MyAdapter({ /* config *\/ }), // 2.
  *   ...
  * })
  * ```
  *
- * Note, you might be able to tweak an existing adapter to work with your data layer, instead of creating one from scratch.
+ * 注意，你可能能够调整现有适配器以与你的数据层一起工作，而不是从头开始创建一个。
  *
  * ```ts title=my-adapter.ts
  * import { type Adapter } from "@auth/core/adapters"
@@ -78,19 +78,19 @@
  *
  * const adapter: Adapter = {
  *   ...PrismaAdapter(prisma),
- *   // Add your custom methods here
+ *   // 在此添加你的自定义方法
  * }
  *
  * const request = new Request("https://example.com")
  * const response = await Auth(request, { adapter, ... })
  * ```
  *
- * ## Models
+ * ## 模型
  *
- * Auth.js can be used with any database. Models tell you what structures Auth.js expects from your database. Models will vary slightly depending on which adapter you use, but in general, will have a similar structure to the graph below. Each model can be extended with additional fields.
+ * Auth.js 可以与任何数据库一起使用。模型告诉你 Auth.js 期望从你的数据库中获得什么结构。模型会根据你使用的适配器略有不同，但总体上，将与下面的图表有相似的结构。每个模型都可以用额外的字段扩展。
  *
  * :::note
- * Auth.js / NextAuth.js uses `camelCase` for its database rows while respecting the conventional `snake_case` formatting for OAuth-related values. If the mixed casing is an issue for you, most adapters have a dedicated documentation section on how to force a casing convention.
+ * Auth.js / NextAuth.js 对其数据库行使用 `camelCase`，同时对 OAuth 相关值尊重传统的 `snake_case` 格式化。如果混合大小写对你来说是个问题，大多数适配器都有专门的文档部分关于如何强制大小写约定。
  * :::
  *
  * ```mermaid
@@ -132,31 +132,31 @@
  *     }
  * ```
  *
- * ## Testing
+ * ## 测试
  *
- * There is a test suite [available](https://github.com/nextauthjs/next-auth/blob/main/packages/utils/adapter.ts)
- * to ensure that your adapter is compatible with Auth.js.
+ * 有一个测试套件[可用](https://github.com/nextauthjs/next-auth/blob/main/packages/utils/adapter.ts)
+ * 以确保你的适配器与 Auth.js 兼容。
  *
- * ## Known issues
+ * ## 已知问题
  *
- * The following are missing built-in features in Auth.js but can be solved in user land. If you would like to help implement these features, please reach out.
+ * 以下功能在 Auth.js 中目前缺少内置支持，但可以在用户层面解决。如果你想帮助实现这些功能，请联系。
  *
- * ### Token rotation
+ * ### 令牌轮换
  *
- * Auth.js _currently_ does not support {@link https://authjs.dev/concepts/oauth `access_token` rotation} out of the box.
- * The necessary information (`refresh_token`, expiry, etc.) is being stored in the database, but the logic to rotate the token is not implemented
- * in the core library.
- * [This guide](https://authjs.dev/guides/refresh-token-rotation#database-strategy) should provide the necessary steps to do this in user land.
+ * Auth.js _目前_不支持 {@link https://authjs.dev/concepts/oauth `access_token` 轮换}开箱即用。
+ * 必要的信息（`refresh_token`、过期时间等）被存储在数据库中，但轮换令牌的逻辑
+ * 未在核心库中实现。
+ * [此指南](https://authjs.dev/guides/refresh-token-rotation#database-strategy)应提供在用户层面实现此功能的必要步骤。
  *
- * ### Federated logout
+ * ### 联合登出
  *
- * Auth.js _currently_ does not support federated logout out of the box.
- * This means that even if an active session is deleted from the database, the user will still be signed in to the identity provider,
- * they will only be signed out of the application.
- * Eg. if you use Google as an identity provider, and you delete the session from the database,
- * the user will still be signed in to Google, but they will be signed out of your application.
+ * Auth.js _目前_不支持开箱即用的联合登出。
+ * 这意味着即使从数据库中删除了活动会话，用户仍将登录到身份提供者，
+ * 他们只会从应用程序中登出。
+ * 例如，如果你使用 Google 作为身份提供者，并且你从数据库中删除会话，
+ * 用户仍将登录到 Google，但他们将从你的应用程序中登出。
  *
- * If your users might be using the application from a publicly shared computer (eg: library), you might want to implement federated logout.
+ * 如果你的用户可能从公共共享计算机（例如：图书馆）使用应用程序，你可能想要实现联合登出。
  *
  * @module adapters
  */
@@ -168,25 +168,25 @@ import type { Account, Authenticator, Awaitable, User } from "./types.js"
 // have a common implementation.
 
 /**
- * A user represents a person who can sign in to the application.
- * If a user does not exist yet, it will be created when they sign in for the first time,
- * using the information (profile data) returned by the identity provider.
- * A corresponding account is also created and linked to the user.
+ * 用户代表可以登录到应用程序的人。
+ * 如果用户尚不存在，将在他们首次登录时创建，
+ * 使用身份提供者返回的信息（个人资料数据）。
+ * 同时也会创建一个相应的账户并与用户链接。
  */
 export interface AdapterUser extends User {
-  /** A unique identifier for the user. */
+  /** 用户的唯一标识符。 */
   id: string
-  /** The user's email address. */
+  /** 用户的电子邮件地址。 */
   email: string
   /**
-   * Whether the user has verified their email address via an [Email provider](https://authjs.dev/getting-started/authentication/email).
-   * It is `null` if the user has not signed in with the Email provider yet, or the date of the first successful signin.
+   * 用户是否通过[电子邮件提供者](https://authjs.dev/getting-started/authentication/email)验证了他们的电子邮件地址。
+   * 如果用户尚未通过电子邮件提供者登录，则为 `null`，或首次成功登录的日期。
    */
   emailVerified: Date | null
 }
 
 /**
- * The type of account.
+ * 账户的类型。
  */
 export type AdapterAccountType = Extract<
   ProviderType,
@@ -194,13 +194,13 @@ export type AdapterAccountType = Extract<
 >
 
 /**
- * An account is a connection between a user and a provider.
+ * 账户是用户和提供者之间的连接。
  *
- * There are two types of accounts:
- * - OAuth/OIDC accounts, which are created when a user signs in with an OAuth provider.
- * - Email accounts, which are created when a user signs in with an [Email provider](https://authjs.dev/getting-started/authentication/email).
+ * 有两种类型的账户：
+ * - OAuth/OIDC 账户，当用户使用 OAuth 提供者登录时创建。
+ * - 电子邮件账户，当用户使用[电子邮件提供者](https://authjs.dev/getting-started/authentication/email)登录时创建。
  *
- * One user can have multiple accounts.
+ * 一个用户可以拥有多个账户。
  */
 export interface AdapterAccount extends Account {
   userId: string
@@ -208,137 +208,136 @@ export interface AdapterAccount extends Account {
 }
 
 /**
- * A session holds information about a user's current signin state.
+ * 会话保存有关用户当前登录状态的信息。
  */
 export interface AdapterSession {
   /**
-   * A randomly generated value that is used to look up the session in the database
-   * when using `"database"` `AuthConfig.strategy` option.
-   * This value is saved in a secure, HTTP-Only cookie on the client.
+   * 一个随机生成的值，用于在使用 `"database"` `AuthConfig.strategy` 选项时在数据库中查找会话。
+   * 此值保存在客户端的安全的、HTTP-Only cookie 中。
    */
   sessionToken: string
-  /** Connects the active session to a user in the database */
+  /** 将活动会话连接到数据库中的用户 */
   userId: string
   /**
-   * The absolute date when the session expires.
+   * 会话过期的绝对日期。
    *
-   * If a session is accessed prior to its expiry date,
-   * it will be extended based on the `maxAge` option as defined in by `SessionOptions.maxAge`.
-   * It is never extended more than once in a period defined by `SessionOptions.updateAge`.
+   * 如果在过期日期之前访问会话，
+   * 它将根据 `SessionOptions.maxAge` 定义的 `maxAge` 选项延长。
+   * 它在 `SessionOptions.updateAge` 定义的周期内最多延长一次。
    *
-   * If a session is accessed past its expiry date,
-   * it will be removed from the database to clean up inactive sessions.
+   * 如果在过期日期之后访问会话，
+   * 它将从数据库中删除以清理非活动会话。
    *
    */
   expires: Date
 }
 
 /**
- * A verification token is a temporary token that is used to sign in a user via their email address.
- * It is created when a user signs in with an [Email provider](https://authjs.dev/getting-started/authentication/email).
- * When the user clicks the link in the email, the token and email is sent back to the server
- * where it is hashed and compared to the value in the database.
- * If the tokens and emails match, and the token hasn't expired yet, the user is signed in.
- * The token is then deleted from the database.
+ * 验证令牌是一个临时令牌，用于通过用户的电子邮件地址登录。
+ * 当用户使用[电子邮件提供者](https://authjs.dev/getting-started/authentication/email)登录时创建。
+ * 当用户点击电子邮件中的链接时，令牌和电子邮件被发送回服务器
+ * 在那里它被哈希并与数据库中的值进行比较。
+ * 如果令牌和电子邮件匹配，并且令牌尚未过期，用户将被登录。
+ * 然后令牌从数据库中删除。
  */
 export interface VerificationToken {
-  /** The user's email address. */
+  /** 用户的电子邮件地址。 */
   identifier: string
-  /** The absolute date when the token expires. */
+  /** 令牌过期的绝对日期。 */
   expires: Date
   /**
-   * A [hashed](https://en.wikipedia.org/wiki/Hash_function) token, using the `AuthConfig.secret` value.
+   * 一个[哈希](https://en.wikipedia.org/wiki/Hash_function)令牌，使用 `AuthConfig.secret` 值。
    */
   token: string
 }
 
 /**
- * An authenticator represents a credential authenticator assigned to a user.
+ * 认证器代表分配给用户的凭证认证器。
  */
 export interface AdapterAuthenticator extends Authenticator {
   /**
-   * User ID of the authenticator.
+   * 认证器的用户 ID。
    */
   userId: string
 }
 
 /**
- * An adapter is an object with function properties (methods) that read and write data from a data source.
- * Think of these methods as a way to normalize the data layer to common interfaces that Auth.js can understand.
+ * 适配器是一个具有函数属性（方法）的对象，这些方法从数据源读取和写入数据。
+ * 将这些方法视为将数据层标准化为 Auth.js 可以理解的通用接口的方式。
  *
- * This is what makes Auth.js very flexible and allows it to be used with any data layer.
+ * 这使得 Auth.js 非常灵活，并允许它与任何数据层一起使用。
  *
- * The adapter methods are used to perform the following operations:
- * - Create/update/delete a user
- * - Link/unlink an account to/from a user
- * - Handle active sessions
- * - Support passwordless authentication across multiple devices
+ * 适配器方法用于执行以下操作：
+ * - 创建/更新/删除用户
+ * - 将账户链接到用户/从用户解链接
+ * - 处理活动会话
+ * - 支持跨多个设备的无密码认证
  *
  * :::note
- * If any of the methods are not implemented, but are called by Auth.js,
- * an error will be shown to the user and the operation will fail.
+ * 如果任何方法未实现，但被 Auth.js 调用，
+ * 将向用户显示错误并且操作将失败。
  * :::
  */
 export interface Adapter {
   /**
-   * Creates a user in the database and returns it.
+   * 在数据库中创建用户并返回它。
    *
-   * See also [User management](https://authjs.dev/guides/creating-a-database-adapter#user-management)
+   * 另见[用户管理](https://authjs.dev/guides/creating-a-database-adapter#user-management)
    */
   createUser?(user: AdapterUser): Awaitable<AdapterUser>
   /**
-   * Returns a user from the database via the user id.
+   * 通过用户 ID 从数据库返回用户。
    *
-   * See also [User management](https://authjs.dev/guides/creating-a-database-adapter#user-management)
+   * 另见[用户管理](https://authjs.dev/guides/creating-a-database-adapter#user-management)
    */
   getUser?(id: string): Awaitable<AdapterUser | null>
   /**
-   * Returns a user from the database via the user's email address.
+   * 通过用户的电子邮件地址从数据库返回用户。
    *
-   * See also [Verification tokens](https://authjs.dev/guides/creating-a-database-adapter#verification-tokens)
+   * 另见[验证令牌](https://authjs.dev/guides/creating-a-database-adapter#verification-tokens)
    */
   getUserByEmail?(email: string): Awaitable<AdapterUser | null>
   /**
-   * Using the provider id and the id of the user for a specific account, get the user.
+   * 使用提供者 ID 和特定账户的用户 ID 获取用户。
    *
-   * See also [User management](https://authjs.dev/guides/creating-a-database-adapter#user-management)
+   * 另见[用户管理](https://authjs.dev/guides/creating-a-database-adapter#user-management)
    */
   getUserByAccount?(
     providerAccountId: Pick<AdapterAccount, "provider" | "providerAccountId">
   ): Awaitable<AdapterUser | null>
   /**
-   * Updates a user in the database and returns it.
+   * 更新数据库中的用户并返回它。
    *
-   * See also [User management](https://authjs.dev/guides/creating-a-database-adapter#user-management)
+   * 另见[用户管理](https://authjs.dev/guides/creating-a-database-adapter#user-management)
    */
   updateUser?(
     user: Partial<AdapterUser> & Pick<AdapterUser, "id">
   ): Awaitable<AdapterUser>
   /**
-   * @todo This method is currently not invoked yet.
+   * @todo 此方法目前尚未调用。
    *
-   * See also [User management](https://authjs.dev/guides/creating-a-database-adapter#user-management)
+   * 另见[用户管理](https://authjs.dev/guides/creating-a-database-adapter#user-management)
    */
   deleteUser?(
     userId: string
   ): Promise<void> | Awaitable<AdapterUser | null | undefined>
   /**
-   * This method is invoked internally (but optionally can be used for manual linking).
-   * It creates an [Account](https://authjs.dev/reference/core/adapters#models) in the database.
+   * 此方法在内部调用（但也可以用于手动链接）。
+   * 它在数据库中创建一个[账户](https://authjs.dev/reference/core/adapters#models)。
    *
-   * See also [User management](https://authjs.dev/guides/creating-a-database-adapter#user-management)
+   * 另见[用户管理](https://authjs.dev/guides/creating-a-database-adapter#user-management)
    */
   linkAccount?(
     account: AdapterAccount
   ): Promise<void> | Awaitable<AdapterAccount | null | undefined>
-  /** @todo This method is currently not invoked yet. */
+  /** @todo 此方法目前尚未调用。 */
   unlinkAccount?(
     providerAccountId: Pick<AdapterAccount, "provider" | "providerAccountId">
   ): Promise<void> | Awaitable<AdapterAccount | undefined>
   /**
-   * Creates a session for the user and returns it.
+   * 为用户创建会话并返回它。
    *
-   * See also [Database Session management](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
+   * 另见[数据库会话管理](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
    */
   createSession?(session: {
     sessionToken: string
@@ -346,90 +345,90 @@ export interface Adapter {
     expires: Date
   }): Awaitable<AdapterSession>
   /**
-   * Returns a session and a userfrom the database in one go.
+   * 一次性从数据库返回会话和用户。
    *
    * :::tip
-   * If the database supports joins, it's recommended to reduce the number of database queries.
+   * 如果数据库支持连接，建议减少数据库查询次数。
    * :::
    *
-   * See also [Database Session management](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
+   * 另见[数据库会话管理](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
    */
   getSessionAndUser?(
     sessionToken: string
   ): Awaitable<{ session: AdapterSession; user: AdapterUser } | null>
   /**
-   * Updates a session in the database and returns it.
+   * 更新数据库中的会话并返回它。
    *
-   * See also [Database Session management](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
+   * 另见[数据库会话管理](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
    */
   updateSession?(
     session: Partial<AdapterSession> & Pick<AdapterSession, "sessionToken">
   ): Awaitable<AdapterSession | null | undefined>
   /**
-   * Deletes a session from the database. It is preferred that this method also
-   * returns the session that is being deleted for logging purposes.
+   * 从数据库中删除会话。最好此方法也
+   * 返回正在删除的会话以用于日志记录目的。
    *
-   * See also [Database Session management](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
+   * 另见[数据库会话管理](https://authjs.dev/guides/creating-a-database-adapter#database-session-management)
    */
   deleteSession?(
     sessionToken: string
   ): Promise<void> | Awaitable<AdapterSession | null | undefined>
   /**
-   * Creates a verification token and returns it.
+   * 创建验证令牌并返回它。
    *
-   * See also [Verification tokens](https://authjs.dev/guides/creating-a-database-adapter#verification-tokens)
+   * 另见[验证令牌](https://authjs.dev/guides/creating-a-database-adapter#verification-tokens)
    */
   createVerificationToken?(
     verificationToken: VerificationToken
   ): Awaitable<VerificationToken | null | undefined>
   /**
-   * Return verification token from the database and deletes it
-   * so it can only be used once.
+   * 从数据库返回验证令牌并删除它
+   * 以便它只能使用一次。
    *
-   * See also [Verification tokens](https://authjs.dev/guides/creating-a-database-adapter#verification-tokens)
+   * 另见[验证令牌](https://authjs.dev/guides/creating-a-database-adapter#verification-tokens)
    */
   useVerificationToken?(params: {
     identifier: string
     token: string
   }): Awaitable<VerificationToken | null>
   /**
-   * Get account by provider account id and provider.
+   * 通过提供者账户 ID 和提供者获取账户。
    *
-   * If an account is not found, the adapter must return `null`.
+   * 如果未找到账户，适配器必须返回 `null`。
    */
   getAccount?(
     providerAccountId: AdapterAccount["providerAccountId"],
     provider: AdapterAccount["provider"]
   ): Awaitable<AdapterAccount | null>
   /**
-   * Returns an authenticator from its credentialID.
+   * 从其 credentialID 返回认证器。
    *
-   * If an authenticator is not found, the adapter must return `null`.
+   * 如果未找到认证器，适配器必须返回 `null`。
    */
   getAuthenticator?(
     credentialID: AdapterAuthenticator["credentialID"]
   ): Awaitable<AdapterAuthenticator | null>
   /**
-   * Create a new authenticator.
+   * 创建新的认证器。
    *
-   * If the creation fails, the adapter must throw an error.
+   * 如果创建失败，适配器必须抛出错误。
    */
   createAuthenticator?(
     authenticator: AdapterAuthenticator
   ): Awaitable<AdapterAuthenticator>
   /**
-   * Returns all authenticators from a user.
+   * 返回用户的所有认证器。
    *
-   * If a user is not found, the adapter should still return an empty array.
-   * If the retrieval fails for some other reason, the adapter must throw an error.
+   * 如果未找到用户，适配器仍应返回空数组。
+   * 如果由于其他原因检索失败，适配器必须抛出错误。
    */
   listAuthenticatorsByUserId?(
     userId: AdapterAuthenticator["userId"]
   ): Awaitable<AdapterAuthenticator[]>
   /**
-   * Updates an authenticator's counter.
+   * 更新认证器的计数器。
    *
-   * If the update fails, the adapter must throw an error.
+   * 如果更新失败，适配器必须抛出错误。
    */
   updateAuthenticatorCounter?(
     credentialID: AdapterAuthenticator["credentialID"],
@@ -441,7 +440,7 @@ export interface Adapter {
 const isoDateRE =
   /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/
 
-/** Determines if a given value can be parsed into `Date` */
+/** 确定给定值是否可以解析为 `Date` */
 export function isDate(value: unknown): value is string {
   return (
     typeof value === "string" &&

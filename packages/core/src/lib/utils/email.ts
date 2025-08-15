@@ -1,12 +1,11 @@
 import type { Theme } from "../../types.js"
 
 /**
- * Email HTML body
- * Insert invisible space into domains from being turned into a hyperlink by email
- * clients like Outlook and Apple mail, as this is confusing because it seems
- * like they are supposed to click on it to sign in.
+ * 邮件 HTML 正文
+ * 在域名中插入不可见空格，防止被 Outlook 和 Apple mail 等邮件客户端转换为超链接，
+ * 因为这会造成困惑，用户可能误以为需要点击它来登录。
  *
- * @note We don't add the email address to avoid needing to escape it, if you do, remember to sanitize it!
+ * @note 我们没有添加电子邮件地址以避免转义，如果需要添加，请记得进行净化处理！
  */
 export function html(params: { url: string; host: string; theme: Theme }) {
   const { url, host, theme } = params
@@ -59,7 +58,7 @@ export function html(params: { url: string; host: string; theme: Theme }) {
 `
 }
 
-/** Email Text body (fallback for email clients that don't render HTML, e.g. feature phones) */
+/** 邮件纯文本正文（用于不支持 HTML 渲染的邮件客户端，如功能手机） */
 export function text({ url, host }: { url: string; host: string }) {
   return `Sign in to ${host}\n${url}\n\n`
 }

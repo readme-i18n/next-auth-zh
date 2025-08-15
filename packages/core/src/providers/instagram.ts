@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Instagram</b> integration.</span>
+ * <span>内置的 <b>Instagram</b> 集成。</span>
  * <a href="https://www.instagram.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/instagram.svg" height="48" width="48"/>
  * </a>
@@ -11,16 +11,16 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * Add Instagram login to your page.
+ * 为您的页面添加 Instagram 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/instagram
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Instagram from "@auth/core/providers/instagram"
@@ -36,38 +36,35 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Instagram OAuth documentation](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started)
- *  - [Instagram OAuth apps](https://developers.facebook.com/apps/)
+ *  - [Instagram OAuth 文档](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started)
+ *  - [Instagram OAuth 应用](https://developers.facebook.com/apps/)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Instagram provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Instagram 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  *
  * :::warning
- * Email address is not returned by the Instagram API.
+ * Instagram API 不会返回电子邮件地址。
  * :::
  *
  * :::tip
- * Instagram display app required callback URL to be configured in your Facebook app and Facebook required you to use **https** even for localhost! In order to do that, you either need to [add an SSL to your localhost](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/) or use a proxy such as [ngrok](https://ngrok.com/docs).
+ * Instagram 显示应用需要在您的 Facebook 应用中配置回调 URL，且 Facebook 要求即使对于本地主机也使用 **https**！为了实现这一点，您需要[为本地主机添加 SSL](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/) 或使用代理如 [ngrok](https://ngrok.com/docs)。
  * :::
  * :::tip
  *
- * The Instagram provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/instagram.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Instagram 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/instagram.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看[自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵循规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  *
  * :::
  */

@@ -46,8 +46,8 @@ type RenderPageParams = {
 >
 
 /**
- * Unless the user defines their [own pages](https://authjs.dev/reference/core#pages),
- * we render a set of default ones, using Preact SSR.
+ * 除非用户定义了[自己的页面](https://authjs.dev/reference/core#pages)，
+ * 否则我们将使用 Preact SSR 渲染一组默认页面。
  */
 export default function renderPage(params: RenderPageParams) {
   const { url, theme, query, cookies, pages, providers } = params

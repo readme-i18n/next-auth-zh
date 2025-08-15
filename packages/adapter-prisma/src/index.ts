@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  Official <a href="https://www.prisma.io/docs">Prisma</a> adapter for Auth.js / NextAuth.js.
+ *  Auth.js / NextAuth.js 的官方 <a href="https://www.prisma.io/docs">Prisma</a> 适配器。
  *  <a href="https://www.prisma.io/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/prisma.svg" width="38" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @prisma/client @auth/prisma-adapter

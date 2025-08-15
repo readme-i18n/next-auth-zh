@@ -1,29 +1,29 @@
 /**
- * _If you are looking to migrate from v4, visit the [Upgrade Guide (v5)](https://authjs.dev/getting-started/migrating-to-v5)._
+ * _如需从 v4 迁移，请访问 [升级指南 (v5)](https://authjs.dev/getting-started/migrating-to-v5)。_
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install next-auth@beta
  * ```
  *
- * ## Environment variable inference
+ * ## 环境变量推断
  *
- * `NEXTAUTH_URL` and `NEXTAUTH_SECRET` have been inferred since v4.
+ * 自 v4 起，`NEXTAUTH_URL` 和 `NEXTAUTH_SECRET` 已被推断。
  *
- * Since NextAuth.js v5 can also automatically infer environment variables that are prefixed with `AUTH_`.
+ * 自 NextAuth.js v5 起，还能自动推断以 `AUTH_` 为前缀的环境变量。
  *
- * For example `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET` will be used as the `clientId` and `clientSecret` options for the GitHub provider.
+ * 例如，`AUTH_GITHUB_ID` 和 `AUTH_GITHUB_SECRET` 将分别用作 GitHub 提供者的 `clientId` 和 `clientSecret` 选项。
  *
  * :::tip
- * The environment variable name inferring has the following format for OAuth providers: `AUTH_{PROVIDER}_{ID|SECRET}`.
+ * OAuth 提供者的环境变量命名推断遵循以下格式：`AUTH_{PROVIDER}_{ID|SECRET}`。
  *
- * `PROVIDER` is the uppercase snake case version of the provider's id, followed by either `ID` or `SECRET` respectively.
+ * `PROVIDER` 是提供者 ID 的大写下划线形式，后跟 `ID` 或 `SECRET`。
  * :::
  *
- * `AUTH_SECRET` and `AUTH_URL` are also aliased for `NEXTAUTH_SECRET` and `NEXTAUTH_URL` for consistency.
+ * 为保持一致性，`AUTH_SECRET` 和 `AUTH_URL` 也分别作为 `NEXTAUTH_SECRET` 和 `NEXTAUTH_URL` 的别名。
  *
- * To add social login to your app, the configuration becomes:
+ * 要为应用添加社交登录，配置如下：
  *
  * ```ts title="auth.ts"
  * import NextAuth from "next-auth"
@@ -31,7 +31,7 @@
  * export const { handlers, auth } = NextAuth({ providers: [ GitHub ] })
  * ```
  *
- * And the `.env.local` file:
+ * 以及 `.env.local` 文件：
  *
  * ```sh title=".env.local"
  * AUTH_GITHUB_ID=...
@@ -40,28 +40,28 @@
  * ```
  *
  * :::tip
- * In production, `AUTH_SECRET` is a required environment variable - if not set, NextAuth.js will throw an error. See [MissingSecretError](https://authjs.dev/reference/core/errors#missingsecret) for more details.
+ * 在生产环境中，`AUTH_SECRET` 是必需的环境变量——如果未设置，NextAuth.js 将抛出错误。详情请参阅 [MissingSecretError](https://authjs.dev/reference/core/errors#missingsecret)。
  * :::
  *
- * If you need to override the default values for a provider, you can still call it as a function `GitHub({...})` as before.
+ * 如果需要覆盖提供者的默认值，仍可像以前一样调用函数 `GitHub({...})`。
  *
- * ## Lazy initialization
- * You can also initialize NextAuth.js lazily (previously known as advanced intialization), which allows you to access the request context in the configuration in some cases, like Route Handlers, Middleware, API Routes or `getServerSideProps`.
- * The above example becomes:
+ * ## 延迟初始化
+ * 你也可以延迟初始化 NextAuth.js（以前称为高级初始化），这允许你在某些情况下（如路由处理器、中间件、API 路由或 `getServerSideProps`）访问请求上下文中的配置。
+ * 上述示例变为：
  *
  * ```ts title="auth.ts"
  * import NextAuth from "next-auth"
  * import GitHub from "next-auth/providers/github"
  * export const { handlers, auth } = NextAuth(req => {
  *  if (req) {
- *   console.log(req) // do something with the request
+ *   console.log(req) // 对请求进行操作
  *  }
  *  return { providers: [ GitHub ] }
  * })
  * ```
  *
  * :::tip
- * This is useful if you want to customize the configuration based on the request, for example, to add a different provider in staging/dev environments.
+ * 如果你想根据请求自定义配置（例如，在暂存/开发环境中添加不同的提供者），这将非常有用。
  * :::
  *
  * @module next-auth
@@ -110,24 +110,24 @@ type AppRouteHandlers = Record<
 export type { NextAuthConfig, NextAuthRequest }
 
 /**
- * The result of invoking {@link NextAuth|NextAuth}, initialized with the {@link NextAuthConfig}.
- * It contains methods to set up and interact with NextAuth.js in your Next.js app.
+ * 调用 {@link NextAuth|NextAuth} 的结果，使用 {@link NextAuthConfig} 初始化。
+ * 它包含在你的 Next.js 应用中设置和与 NextAuth.js 交互的方法。
  */
 export interface NextAuthResult {
   /**
-   * The NextAuth.js [Route Handler](https://beta.nextjs.org/docs/routing/route-handlers) methods. These are used to expose an endpoint for OAuth/Email providers,
-   * as well as REST API endpoints (such as `/api/auth/session`) that can be contacted from the client.
+   * NextAuth.js 的 [路由处理器](https://beta.nextjs.org/docs/routing/route-handlers) 方法。这些用于为 OAuth/Email 提供者暴露端点，
+   * 以及可以从客户端联系的 REST API 端点（如 `/api/auth/session`）。
    *
-   * After initializing NextAuth.js in `auth.ts`,
-   * re-export these methods.
+   * 在 `auth.ts` 中初始化 NextAuth.js 后，
+   * 重新导出这些方法。
    *
-   * In `app/api/auth/[...nextauth]/route.ts`:
+   * 在 `app/api/auth/[...nextauth]/route.ts` 中：
    *
    * ```ts title="app/api/auth/[...nextauth]/route.ts"
    * export { GET, POST } from "../../../../auth"
-   * export const runtime = "edge" // optional
+   * export const runtime = "edge" // 可选
    * ```
-   * Then `auth.ts`:
+   * 然后在 `auth.ts` 中：
    * ```ts title="auth.ts"
    * // ...
    * export const { handlers: { GET, POST }, auth } = NextAuth({...})
@@ -135,22 +135,22 @@ export interface NextAuthResult {
    */
   handlers: AppRouteHandlers
   /**
-   * A universal method to interact with NextAuth.js in your Next.js app.
-   * After initializing NextAuth.js in `auth.ts`, use this method in Middleware, Server Components, Route Handlers (`app/`), and Edge or Node.js API Routes (`pages/`).
+   * 一个在你的 Next.js 应用中与 NextAuth.js 交互的通用方法。
+   * 在 `auth.ts` 中初始化 NextAuth.js 后，在中间件、服务器组件、路由处理器（`app/`）以及 Edge 或 Node.js API 路由（`pages/`）中使用此方法。
    *
-   * ##### In Middleware
+   * ##### 在中间件中
    *
    * :::info
-   * Adding `auth` to your Middleware is optional, but recommended to keep the user session alive.
+   * 将 `auth` 添加到你的中间件是可选的，但建议保持用户会话活跃。
    * :::
    *
-   * Authentication is done by the {@link NextAuthConfig.callbacks|callbacks.authorized} callback.
+   * 认证由 {@link NextAuthConfig.callbacks|callbacks.authorized} 回调完成。
    * @example
    * ```ts title="middleware.ts"
    * export { auth as middleware } from "./auth"
    * ```
    *
-   * Alternatively you can wrap your own middleware with `auth`, where `req` is extended with `auth`:
+   * 或者你可以用 `auth` 包装你自己的中间件，其中 `req` 被 `auth` 扩展：
    * @example
    * ```ts title="middleware.ts"
    * import { auth } from "./auth"
@@ -160,14 +160,14 @@ export interface NextAuthResult {
    * ```
    *
    * ```ts
-   * // Optionally, don't invoke Middleware on some paths
-   * // Read more: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
+   * // 可选地，不在某些路径上调用中间件
+   * // 了解更多：https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
    * export const config = {
    *   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
    * }
    * ```
    *
-   * ##### In Server Components
+   * ##### 在服务器组件中
    *
    * @example
    * ```ts title="app/page.ts"
@@ -179,7 +179,7 @@ export interface NextAuthResult {
    * }
    * ```
    *
-   * ##### In Route Handlers
+   * ##### 在路由处理器中
    * @example
    * ```ts title="app/api/route.ts"
    * import { auth } from "../../auth"
@@ -189,7 +189,7 @@ export interface NextAuthResult {
    * })
    * ```
    *
-   * ##### In Edge API Routes
+   * ##### 在 Edge API 路由中
    *
    * @example
    * ```ts title="pages/api/protected.ts"
@@ -202,7 +202,7 @@ export interface NextAuthResult {
    * export const config = { runtime: "edge" }
    * ```
    *
-   * ##### In API Routes
+   * ##### 在 API 路由中
    *
    * @example
    * ```ts title="pages/api/protected.ts"
@@ -212,14 +212,14 @@ export interface NextAuthResult {
    * export default async (req: NextApiRequest, res: NextApiResponse) => {
    *   const session = await auth(req, res)
    *   if (session) {
-   *     // Do something with the session
-   *     return res.json("This is protected content.")
+   *     // 对会话进行操作
+   *     return res.json("这是受保护的内容。")
    *   }
-   *   res.status(401).json("You must be signed in.")
+   *   res.status(401).json("你必须登录。")
    * }
    * ```
    *
-   * ##### In `getServerSideProps`
+   * ##### 在 `getServerSideProps` 中
    *
    * @example
    * ```ts title="pages/protected-ssr.ts"
@@ -229,7 +229,7 @@ export interface NextAuthResult {
    *   const session = await auth(context)
    *
    *   if (session) {
-   *     // Do something with the session
+   *     // 对会话进行操作
    *     return { props: { session, content: (await res.json()).content } }
    *   }
    *
@@ -252,9 +252,9 @@ export interface NextAuthResult {
     ) => AppRouteHandlerFn) &
     ((...args: [NextAuthMiddleware]) => NextMiddleware)
   /**
-   * Sign in with a provider. If no provider is specified, the user will be redirected to the sign in page.
+   * 使用提供者登录。如果未指定提供者，用户将被重定向到登录页面。
    *
-   * By default, the user is redirected to the current page after signing in. You can override this behavior by setting the `redirectTo` option with a relative path.
+   * 默认情况下，用户登录后会被重定向到当前页面。你可以通过设置 `redirectTo` 选项与相对路径来覆盖此行为。
    *
    * @example
    * ```ts title="app/layout.tsx"
@@ -266,12 +266,12 @@ export interface NextAuthResult {
    *     "use server"
    *     await signIn("github")
    *   }}>
-   *    <button>Sign in with GitHub</button>
+   *    <button>使用 GitHub 登录</button>
    *   </form>
    * )
    * ```
    *
-   * If an error occurs during signin, an instance of {@link AuthError} will be thrown. You can catch it like this:
+   * 如果在登录过程中发生错误，将抛出 {@link AuthError} 的实例。你可以这样捕获它：
    * ```ts title="app/layout.tsx"
    * import { AuthError } from "next-auth"
    * import { signIn } from "../auth"
@@ -283,11 +283,11 @@ export interface NextAuthResult {
    *      try {
    *        await signIn("credentials", formData)
    *     } catch(error) {
-   *       if (error instanceof AuthError) // Handle auth errors
-   *       throw error // Rethrow all other errors
+   *       if (error instanceof AuthError) // 处理认证错误
+   *       throw error // 重新抛出所有其他错误
    *     }
    *    }}>
-   *     <button>Sign in</button>
+   *     <button>登录</button>
    *   </form>
    *  )
    * }
@@ -295,14 +295,14 @@ export interface NextAuthResult {
    *
    */
   signIn: <P extends ProviderId, R extends boolean = true>(
-    /** Provider to sign in to */
+    /** 登录的提供者 */
     provider?: P, // See: https://github.com/microsoft/TypeScript/issues/29729
     options?:
       | FormData
       | ({
-          /** The relative path to redirect to after signing in. By default, the user is redirected to the current page. */
+          /** 登录后重定向到的相对路径。默认情况下，用户被重定向到当前页面。 */
           redirectTo?: string
-          /** If set to `false`, the `signIn` method will return the URL to redirect to instead of redirecting automatically. */
+          /** 如果设置为 `false`，`signIn` 方法将返回重定向的 URL 而不是自动重定向。 */
           redirect?: R
         } & Record<string, any>),
     authorizationParams?:
@@ -312,10 +312,10 @@ export interface NextAuthResult {
       | URLSearchParams
   ) => Promise<R extends false ? any : never>
   /**
-   * Sign out the user. If the session was created using a database strategy, the session will be removed from the database and the related cookie is invalidated.
-   * If the session was created using a JWT, the cookie is invalidated.
+   * 登出用户。如果会话是使用数据库策略创建的，会话将从数据库中移除，相关 cookie 将失效。
+   * 如果会话是使用 JWT 创建的，cookie 将失效。
    *
-   * By default the user is redirected to the current page after signing out. You can override this behavior by setting the `redirectTo` option with a relative path.
+   * 默认情况下，用户登出后被重定向到当前页面。你可以通过设置 `redirectTo` 选项与相对路径来覆盖此行为。
    *
    * @example
    * ```ts title="app/layout.tsx"
@@ -327,7 +327,7 @@ export interface NextAuthResult {
    *     "use server"
    *     await signOut()
    *   }}>
-   *    <button>Sign out</button>
+   *    <button>登出</button>
    *   </form>
    * )
    * ```
@@ -335,9 +335,9 @@ export interface NextAuthResult {
    *
    */
   signOut: <R extends boolean = true>(options?: {
-    /** The relative path to redirect to after signing out. By default, the user is redirected to the current page. */
+    /** 登出后重定向到的相对路径。默认情况下，用户被重定向到当前页面。 */
     redirectTo?: string
-    /** If set to `false`, the `signOut` method will return the URL to redirect to instead of redirecting automatically. */
+    /** 如果设置为 `false`，`signOut` 方法将返回重定向的 URL 而不是自动重定向。 */
     redirect?: R
   }) => Promise<R extends false ? any : never>
   unstable_update: (
@@ -346,7 +346,7 @@ export interface NextAuthResult {
 }
 
 /**
- *  Initialize NextAuth.js.
+ *  初始化 NextAuth.js。
  *
  *  @example
  * ```ts title="auth.ts"
@@ -356,7 +356,7 @@ export interface NextAuthResult {
  * export const { handlers, auth } = NextAuth({ providers: [GitHub] })
  * ```
  *
- * Lazy initialization:
+ * 延迟初始化：
  *
  * @example
  * ```ts title="auth.ts"
@@ -364,7 +364,7 @@ export interface NextAuthResult {
  * import GitHub from "@auth/core/providers/github"
  *
  * export const { handlers, auth } = NextAuth(async (req) => {
- *   console.log(req) // do something with the request
+ *   console.log(req) // 对请求进行操作
  *   return {
  *     providers: [GitHub],
  *   },

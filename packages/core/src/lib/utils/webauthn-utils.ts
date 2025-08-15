@@ -69,13 +69,13 @@ interface InternalAuthenticator {
 type RGetUserInfo = Awaited<ReturnType<GetUserInfo>>
 
 /**
- * Infers the WebAuthn options based on the provided parameters.
+ * 根据提供的参数推断 WebAuthn 选项。
  *
- * @param action - The WebAuthn action to perform (optional).
- * @param loggedInUser - The logged-in user (optional).
- * @param userInfoResponse - The response containing user information (optional).
+ * @param action - 要执行的 WebAuthn 操作（可选）。
+ * @param loggedInUser - 已登录的用户（可选）。
+ * @param userInfoResponse - 包含用户信息的响应（可选）。
  *
- * @returns The WebAuthn action to perform, or null if no inference could be made.
+ * @returns 要执行的 WebAuthn 操作，如果无法推断则返回 null。
  */
 export function inferWebAuthnOptions(
   action: WebAuthnAction | undefined,
@@ -87,26 +87,26 @@ export function inferWebAuthnOptions(
   switch (action) {
     case "authenticate": {
       /**
-       * Always allow explicit authentication requests.
+       * 始终允许显式的认证请求。
        */
       return "authenticate"
     }
     case "register": {
       /**
-       * Registration is only allowed if:
-       * - The user is logged in, meaning the user wants to register a new authenticator.
-       * - The user is not logged in and provided user info that does NOT exist, meaning the user wants to register a new account.
+       * 仅在以下情况下允许注册：
+       * - 用户已登录，意味着用户想要注册一个新的认证器。
+       * - 用户未登录且提供的用户信息不存在，意味着用户想要注册一个新账户。
        */
       if (user && loggedIn === exists) return "register"
       break
     }
     case undefined: {
       /**
-       * When no explicit action is provided, we try to infer it based on the user info provided. These are the possible cases:
-       * - Logged in users must always send an explit action, so we bail out in this case.
-       * - Otherwise, if no user info is provided, the desired action is authentication without pre-defined authenticators.
-       * - Otherwise, if the user info provided is of an existing user, the desired action is authentication with their pre-defined authenticators.
-       * - Finally, if the user info provided is of a non-existing user, the desired action is registration.
+       * 当未提供显式操作时，我们尝试根据提供的用户信息进行推断。以下是可能的情况：
+       * - 已登录用户必须始终发送显式操作，因此在这种情况下我们放弃推断。
+       * - 否则，如果未提供用户信息，期望的操作是不使用预定义认证器的认证。
+       * - 否则，如果提供的用户信息属于现有用户，期望的操作是使用其预定义认证器进行认证。
+       * - 最后，如果提供的用户信息属于不存在的用户，期望的操作是注册。
        */
       if (!loggedIn) {
         if (user) {
@@ -128,13 +128,13 @@ export function inferWebAuthnOptions(
 }
 
 /**
- * Retrieves the registration response for WebAuthn options request.
+ * 获取 WebAuthn 选项请求的注册响应。
  *
- * @param options - The internal options for WebAuthn.
- * @param request - The request object.
- * @param user - The user information.
- * @param resCookies - Optional cookies to be included in the response.
- * @returns A promise that resolves to the WebAuthnOptionsResponse.
+ * @param options - WebAuthn 的内部选项。
+ * @param request - 请求对象。
+ * @param user - 用户信息。
+ * @param resCookies - 可选，包含在响应中的 cookies。
+ * @returns 一个解析为 WebAuthnOptionsResponse 的 promise。
  */
 export async function getRegistrationResponse(
   options: InternalOptionsWebAuthn,
@@ -165,13 +165,13 @@ export async function getRegistrationResponse(
 }
 
 /**
- * Retrieves the authentication response for WebAuthn options request.
+ * 获取 WebAuthn 选项请求的认证响应。
  *
- * @param options - The internal options for WebAuthn.
- * @param request - The request object.
- * @param user - Optional user information.
- * @param resCookies - Optional array of cookies to be included in the response.
- * @returns A promise that resolves to a WebAuthnOptionsResponse object.
+ * @param options - WebAuthn 的内部选项。
+ * @param request - 请求对象。
+ * @param user - 可选的用户信息。
+ * @param resCookies - 可选的 cookies 数组，包含在响应中。
+ * @returns 一个解析为 WebAuthnOptionsResponse 对象的 promise。
  */
 export async function getAuthenticationResponse(
   options: InternalOptionsWebAuthn,
@@ -401,12 +401,12 @@ export async function verifyRegister(
 }
 
 /**
- * Generates WebAuthn authentication options.
+ * 生成 WebAuthn 认证选项。
  *
- * @param options - The internal options for WebAuthn.
- * @param request - The request object.
- * @param user - Optional user information.
- * @returns The authentication options.
+ * @param options - WebAuthn 的内部选项。
+ * @param request - 请求对象。
+ * @param user - 可选的用户信息。
+ * @returns 认证选项。
  */
 async function getAuthenticationOptions(
   options: InternalOptionsWebAuthn,
@@ -436,12 +436,12 @@ async function getAuthenticationOptions(
 }
 
 /**
- * Generates WebAuthn registration options.
+ * 生成 WebAuthn 注册选项。
  *
- * @param options - The internal options for WebAuthn.
- * @param request - The request object.
- * @param user - The user information.
- * @returns The registration options.
+ * @param options - WebAuthn 的内部选项。
+ * @param request - 请求对象。
+ * @param user - 用户信息。
+ * @returns 注册选项。
  */
 async function getRegistrationOptions(
   options: InternalOptionsWebAuthn,

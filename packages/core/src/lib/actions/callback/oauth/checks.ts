@@ -19,7 +19,7 @@ interface CookiePayload {
 
 const COOKIE_TTL = 60 * 15 // 15 minutes
 
-/** Returns a cookie with a JWT encrypted payload. */
+/** 返回带有 JWT 加密负载的 cookie。 */
 async function sealCookie(
   name: keyof CookiesOptions,
   payload: string,
@@ -110,7 +110,7 @@ function useCookie(
  * @see https://danielfett.de/2020/05/16/pkce-vs-nonce-equivalent-or-not/#pkce
  */
 export const pkce = {
-  /** Creates a PKCE code challenge and verifier pair. The verifier in stored in the cookie. */
+  /** 创建 PKCE 代码挑战和验证器对。验证器存储在 cookie 中。 */
   async create(options: InternalOptions<"oauth">) {
     const code_verifier = o.generateRandomCodeVerifier()
     const value = await o.calculatePKCECodeChallenge(code_verifier)
@@ -118,9 +118,9 @@ export const pkce = {
     return { cookie, value }
   },
   /**
-   * Returns code_verifier if the provider is configured to use PKCE,
-   * and clears the container cookie afterwards.
-   * An error is thrown if the code_verifier is missing or invalid.
+   * 如果提供者配置为使用 PKCE，则返回 code_verifier，
+   * 并在之后清除容器 cookie。
+   * 如果 code_verifier 缺失或无效，则抛出错误。
    */
   use: useCookie("pkce", "pkceCodeVerifier"),
 }
@@ -138,7 +138,7 @@ const encodedStateSalt = "encodedState"
  * @see https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1
  */
 export const state = {
-  /** Creates a state cookie with an optionally encoded body. */
+  /** 创建一个带有可选编码体的状态 cookie。 */
   async create(options: InternalOptions<"oauth">, origin?: string) {
     const { provider } = options
     if (!provider.checks.includes("state")) {
@@ -166,12 +166,12 @@ export const state = {
     return { cookie, value }
   },
   /**
-   * Returns state if the provider is configured to use state,
-   * and clears the container cookie afterwards.
-   * An error is thrown if the state is missing or invalid.
+   * 如果提供者配置为使用状态，则返回状态，
+   * 并在之后清除容器 cookie。
+   * 如果状态缺失或无效，则抛出错误。
    */
   use: useCookie("state", "state"),
-  /** Decodes the state. If it could not be decoded, it throws an error. */
+  /** 解码状态。如果无法解码，则抛出错误。 */
   async decode(state: string, options: InternalOptions) {
     try {
       options.logger.debug("DECODE_STATE", { state })
@@ -196,9 +196,9 @@ export const nonce = {
     return { cookie, value }
   },
   /**
-   * Returns nonce if the provider is configured to use nonce,
-   * and clears the container cookie afterwards.
-   * An error is thrown if the nonce is missing or invalid.
+   * 如果提供者配置为使用 nonce，则返回 nonce，
+   * 并在之后清除容器 cookie。
+   * 如果 nonce 缺失或无效，则抛出错误。
    * @see https://openid.net/specs/openid-connect-core-1_0.html#NonceNotes
    * @see https://danielfett.de/2020/05/16/pkce-vs-nonce-equivalent-or-not/#nonce
    */
@@ -232,7 +232,7 @@ export const webauthnChallenge = {
       ),
     }
   },
-  /** Returns WebAuthn challenge if present. */
+  /** 如果存在，则返回 WebAuthn 挑战。 */
   async use(
     options: InternalOptions<WebAuthnProviderType>,
     cookies: RequestInternal["cookies"],

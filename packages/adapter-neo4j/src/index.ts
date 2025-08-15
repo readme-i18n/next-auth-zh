@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://neo4j.com/docs/">Neo4j</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://neo4j.com/docs/">Neo4j</a> 适配器。</p>
  *  <a href="https://neo4j.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/neo4j.svg" width="128" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/neo4j-adapter neo4j-driver
@@ -18,7 +18,7 @@ import { type Session, isInt, integer } from "neo4j-driver"
 import { isDate, type Adapter } from "@auth/core/adapters"
 
 /**
- * This is the interface of the Neo4j adapter options. The Neo4j adapter takes a {@link https://neo4j.com/docs/bolt/current/driver-api/#driver-session Neo4j session} as its only argument.
+ * 这是 Neo4j 适配器选项的接口。Neo4j 适配器接受一个 {@link https://neo4j.com/docs/bolt/current/driver-api/#driver-session Neo4j session} 作为其唯一参数。
  **/
 export interface Neo4jOptions extends Session {}
 
@@ -183,7 +183,7 @@ export function Neo4jAdapter(session: Session): Adapter {
 }
 
 export const format = {
-  /** Takes a plain old JavaScript object and turns it into a Neo4j compatible object */
+  /** 接受一个普通的 JavaScript 对象并将其转换为 Neo4j 兼容的对象 */
   to(object: Record<string, any>) {
     const newObject: Record<string, unknown> = {}
     for (const key in object) {
@@ -193,7 +193,7 @@ export const format = {
     }
     return newObject
   },
-  /** Takes a Neo4j object and returns a plain old JavaScript object */
+  /** 接受一个 Neo4j 对象并返回一个普通的 JavaScript 对象 */
   from<T = Record<string, unknown>>(object?: Record<string, any>): T | null {
     const newObject: Record<string, unknown> = {}
     if (!object) return null
@@ -215,7 +215,7 @@ export const format = {
 
 function client(session: Session) {
   return {
-    /** Reads values from the database */
+    /** 从数据库读取值 */
     async read<T>(statement: string, values?: any): Promise<T | null> {
       const result = await session.readTransaction((tx) =>
         tx.run(statement, values)
@@ -224,8 +224,8 @@ function client(session: Session) {
       return format.from<T>(result?.records[0]?.get(0)) ?? null
     },
     /**
-     * Reads/writes values from/to the database.
-     * Properties are available under `$data`
+     * 从/向数据库读取/写入值。
+     * 属性在 `$data` 下可用
      */
     async write<T extends Record<string, any>>(
       statement: string,

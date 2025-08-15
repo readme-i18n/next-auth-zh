@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://www.surrealdb.com">SurrealDB</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://www.surrealdb.com">SurrealDB</a> 适配器。</p>
  *  <a href="https://www.surrealdb.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/surrealdb.svg" width="30" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/surrealdb-adapter surrealdb.js
@@ -158,7 +158,7 @@ const verificationTokenToDoc = (
 
 /** @internal */
 /**
- * Removes all undefined fields in an object
+ * 移除对象中所有未定义的字段
  * @param obj
  * @returns
  */

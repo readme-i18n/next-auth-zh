@@ -1,16 +1,16 @@
 /**
- * - `debug-enabled`: The `debug` option was evaluated to `true`. It adds extra logs in the terminal which is useful in development,
- *   but since it can print sensitive information about users, make sure to set this to `false` in production.
- *   In Node.js environments, you can for example set `debug: process.env.NODE_ENV !== "production"`.
- *   Consult with your runtime/framework on how to set this value correctly.
- * - `csrf-disabled`: You were trying to get a CSRF response from Auth.js (eg.: by calling a `/csrf` endpoint),
- *   but in this setup, CSRF protection via Auth.js was turned off. This is likely if you are not directly using `@auth/core`
- *   but a framework library (like `@auth/sveltekit`) that already has CSRF protection built-in. You likely won't need the CSRF response.
- * - `env-url-basepath-redundant`: `AUTH_URL` (or `NEXTAUTH_URL`) and `authConfig.basePath` are both declared. This is a configuration mistake - you should either remove the `authConfig.basePath` configuration,
- *   or remove the `pathname` of `AUTH_URL` (or `NEXTAUTH_URL`). Only one of them is needed.
- * - `env-url-basepath-mismatch`: `AUTH_URL` (or `NEXTAUTH_URL`) and `authConfig.basePath` are both declared, but they don't match. This is a configuration mistake.
- *   `@auth/core` will use `basePath` to construct the full URL to the corresponding action (/signin, /signout, etc.) in this case.
- * - `experimental-webauthn`: Experimental WebAuthn feature is enabled.
+ * - `debug-enabled`: `debug` 选项被评估为 `true`。它会在终端中添加额外的日志，这在开发中很有用，
+ *   但由于可能打印用户的敏感信息，请确保在生产环境中将其设置为 `false`。
+ *   在 Node.js 环境中，你可以设置为 `debug: process.env.NODE_ENV !== "production"`。
+ *   请根据你的运行时/框架咨询如何正确设置此值。
+ * - `csrf-disabled`: 你试图从 Auth.js 获取 CSRF 响应（例如通过调用 `/csrf` 端点），
+ *   但在当前设置中，通过 Auth.js 的 CSRF 保护已被关闭。如果你没有直接使用 `@auth/core`，
+ *   而是使用了已经内置 CSRF 保护的框架库（如 `@auth/sveltekit`），则可能会发生这种情况。你可能不需要 CSRF 响应。
+ * - `env-url-basepath-redundant`: `AUTH_URL`（或 `NEXTAUTH_URL`）和 `authConfig.basePath` 同时被声明。这是一个配置错误 - 你应该移除 `authConfig.basePath` 配置，
+ *   或者移除 `AUTH_URL`（或 `NEXTAUTH_URL`）的 `pathname`。只需要其中一个。
+ * - `env-url-basepath-mismatch`: `AUTH_URL`（或 `NEXTAUTH_URL`）和 `authConfig.basePath` 同时被声明，但它们不匹配。这是一个配置错误。
+ *   在这种情况下，`@auth/core` 将使用 `basePath` 来构建对应操作（/signin、/signout 等）的完整 URL。
+ * - `experimental-webauthn`: 实验性 WebAuthn 功能已启用。
  *
  */
 export type WarningCode =

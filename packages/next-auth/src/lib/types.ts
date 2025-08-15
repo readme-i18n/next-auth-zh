@@ -2,24 +2,21 @@
 import type { NextRequest } from "next/server"
 
 /**
- * AppRouteHandlerFnContext is the context that is passed to the handler as the
- * second argument.
+ * AppRouteHandlerFnContext 是作为第二个参数传递给处理器的上下文对象。
  */
 export type AppRouteHandlerFnContext = {
   params: Promise<any>
 }
 /**
- * Handler function for app routes. If a non-Response value is returned, an error
- * will be thrown.
+ * 应用路由的处理函数。如果返回非 Response 类型的值，将会抛出错误。
  */
 export type AppRouteHandlerFn = (
   /**
-   * Incoming request object.
+   * 传入的请求对象。
    */
   req: NextRequest,
   /**
-   * Context properties on the request (including the parameters if this was a
-   * dynamic route).
+   * 请求上的上下文属性（如果这是一个动态路由，还包括参数）。
    */
   ctx: AppRouteHandlerFnContext
 ) => void | Response | Promise<void | Response>

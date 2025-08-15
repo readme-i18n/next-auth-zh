@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#0072c6", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Azure AD B2C</b> integration.</span>
+ * <span>内置的 <b>Azure AD B2C</b> 集成。</span>
  * <a href="https://learn.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/azure.svg" height="48" width="48"/>
  * </a>
@@ -31,34 +31,34 @@ export interface AzureADB2CProfile {
 }
 
 /**
- * Add Azure AD B2C login to your page.
+ * 向您的页面添加 Azure AD B2C 登录功能。
  *
  *
- * ## Configuration
+ * ## 配置
  *
- * ### Basic
+ * ### 基础配置
  *
- * Basic configuration sets up Azure AD B2C to return an ID Token. This should be done as a prerequisite prior to running through the Advanced configuration.
+ * 基础配置设置 Azure AD B2C 以返回 ID 令牌。这应作为运行高级配置之前的先决条件完成。
  *
- * 1. [Azure AD B2C Tenant](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant)
- * 2. [App Registration](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-applications)
- * 3. [User Flow](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-user-flows)
+ * 1. [Azure AD B2C 租户](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-tenant)
+ * 2. [应用注册](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-register-applications)
+ * 3. [用户流](https://docs.microsoft.com/en-us/azure/active-directory-b2c/tutorial-create-user-flows)
  *
- * For the step "User attributes and token claims" set the following:
+ * 对于步骤“用户属性和令牌声明”，设置以下内容：
  *
- * - Collect attribute:
- *   - Email Address
- *   - Display Name
- *   - Given Name
- *   - Surname
- * - Return claim:
- *   - Email Addresses
- *   - Display Name
- *   - Given Name
- *   - Surname
- *   - Identity Provider
- *   - Identity Provider Access Token
- *   - User's Object ID
+ * - 收集属性：
+ *   - 电子邮件地址
+ *   - 显示名称
+ *   - 名字
+ *   - 姓氏
+ * - 返回声明：
+ *   - 电子邮件地址
+ *   - 显示名称
+ *   - 名字
+ *   - 姓氏
+ *   - 身份提供者
+ *   - 身份提供者访问令牌
+ *   - 用户的对象 ID
  *
  * @example
  *
@@ -68,38 +68,36 @@ export interface AzureADB2CProfile {
  *
  * const request = new Request("https://example.com")
  * const response = await AuthHandler(request, {
- *   // optionally, you can pass `tenantId` and `primaryUserFlow` instead of `issuer`
+ *   // 可选地，您可以传递 `tenantId` 和 `primaryUserFlow` 而不是 `issuer`
  *   providers: [AzureADB2C({ clientId: "", clientSecret: "", issuer: "" })],
  * })
  * ```
  *
  * ---
  *
- * ### Resources
+ * ### 资源
  *
- * - [Azure Active Directory B2C documentation](https://learn.microsoft.com/en-us/azure/active-directory-b2c)
+ * - [Azure Active Directory B2C 文档](https://learn.microsoft.com/en-us/azure/active-directory-b2c)
  *
  * ---
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Azure AD B2C provider is
- * based on the [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) specification.
+ * 默认情况下，Auth.js 假设 Azure AD B2C 提供者基于 [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
  *
  * :::tip
  *
- * The Azure AD B2C provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/azure-ad-b2c.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Azure AD B2C 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/azure-ad-b2c.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，您可以 [提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提出问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论](https://authjs.dev/new/github-discussions) 中寻求更多帮助。
  *
  * :::
  */

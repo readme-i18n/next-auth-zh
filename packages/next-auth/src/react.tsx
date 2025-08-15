@@ -1,11 +1,11 @@
 /**
  *
- * NextAuth.js is the official integration of Auth.js for Next.js applications. It supports both
- * [Client Components](https://nextjs.org/docs/app/building-your-application/rendering/client-components) and the
- * [Pages Router](https://nextjs.org/docs/pages). It includes methods for signing in, signing out, hooks, and a React
- * Context provider to wrap your application and make session data available anywhere.
+ * NextAuth.js 是 Auth.js 为 Next.js 应用提供的官方集成。它同时支持
+ * [客户端组件](https://nextjs.org/docs/app/building-your-application/rendering/client-components)和
+ * [页面路由器](https://nextjs.org/docs/pages)。它包含了登录、登出的方法、钩子，以及一个 React
+ * Context 提供者，用于包裹你的应用，使会话数据在任何地方都可用。
  *
- * For use in [Server Actions](https://nextjs.org/docs/app/api-reference/functions/server-actions), check out [these methods](https://authjs.dev/guides/upgrade-to-v5#methods)
+ * 如需在[服务器操作](https://nextjs.org/docs/app/api-reference/functions/server-actions)中使用，请查看[这些方法](https://authjs.dev/guides/upgrade-to-v5#methods)
  *
  * @module react
  */
@@ -102,11 +102,11 @@ const logger: LoggerInstance = {
   warn: console.warn,
 }
 
-/** @todo Document */
+/** @todo 待文档化 */
 export type UpdateSession = (data?: any) => Promise<Session | null>
 
 /**
- * useSession() returns an object containing three things: a method called {@link UpdateSession|update}, `data` and `status`.
+ * useSession() 返回一个包含三部分内容的对象：一个名为 {@link UpdateSession|update} 的方法、`data` 和 `status`。
  */
 export type SessionContextValue<R extends boolean = false> = R extends true
   ?
@@ -125,10 +125,10 @@ export const SessionContext = React.createContext?.<
 >(undefined)
 
 /**
- * React Hook that gives you access to the logged in user's session data and lets you modify it.
+ * 让你能够访问已登录用户的会话数据并允许你修改它的 React Hook。
  *
  * :::info
- * `useSession` is for client-side use only and when using [Next.js App Router (`app/`)](https://nextjs.org/blog/next-13-4#nextjs-app-router) you should prefer the `auth()` export.
+ * `useSession` 仅用于客户端，当使用 [Next.js 应用路由器 (`app/`)](https://nextjs.org/blog/next-13-4#nextjs-app-router) 时，你应该优先使用 `auth()` 导出。
  * :::
  */
 export function useSession<R extends boolean>(
@@ -196,10 +196,9 @@ export async function getSession(params?: GetSessionParams) {
 }
 
 /**
- * Returns the current Cross-Site Request Forgery Token (CSRF Token)
- * required to make requests that changes state. (e.g. signing in or out, or updating the session).
+ * 返回当前需要的跨站请求伪造令牌（CSRF Token），用于发起改变状态的请求（如登录或登出，或更新会话）。
  *
- * [CSRF Prevention: Double Submit Cookie](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie)
+ * [CSRF 防护：双重提交 Cookie](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie)
  */
 export async function getCsrfToken() {
   const response = await fetchData<{ csrfToken: string }>(
@@ -219,11 +218,11 @@ export async function getProviders() {
 }
 
 /**
- * Initiates a signin flow or sends the user to the signin page listing all possible providers.
- * Handles CSRF protection.
+ * 发起一个登录流程或将用户导向列出所有可能提供者的登录页面。
+ * 处理 CSRF 防护。
  *
- * @note This method can only be used from Client Components ("use client" or Pages Router).
- * For Server Actions, use the `signIn` method imported from the `auth` config.
+ * @note 此方法只能用于客户端组件（"use client" 或页面路由器）。
+ * 对于服务器操作，使用从 `auth` 配置导入的 `signIn` 方法。
  */
 export async function signIn(
   provider?: ProviderId,
@@ -324,11 +323,11 @@ export async function signIn<Redirect extends boolean = true>(
 }
 
 /**
- * Initiate a signout, by destroying the current session.
- * Handles CSRF protection.
+ * 通过销毁当前会话来发起登出。
+ * 处理 CSRF 防护。
  *
- * @note This method can only be used from Client Components ("use client" or Pages Router).
- * For Server Actions, use the `signOut` method imported from the `auth` config.
+ * @note 此方法只能用于客户端组件（"use client" 或页面路由器）。
+ * 对于服务器操作，使用从 `auth` 配置导入的 `signOut` 方法。
  */
 export async function signOut(options?: SignOutParams<true>): Promise<void>
 export async function signOut(
@@ -370,13 +369,12 @@ export async function signOut<R extends boolean = true>(
 }
 
 /**
- * [React Context](https://react.dev/learn/passing-data-deeply-with-context) provider to wrap the app (`pages/`) to make session data available anywhere.
+ * [React Context](https://react.dev/learn/passing-data-deeply-with-context) 提供者，用于包裹应用 (`pages/`) 以使会话数据在任何地方都可用。
  *
- * When used, the session state is automatically synchronized across all open tabs/windows and they are all updated whenever they gain or lose focus
- * or the state changes (e.g. a user signs in or out) when {@link SessionProviderProps.refetchOnWindowFocus} is `true`.
+ * 使用时，会话状态会自动在所有打开的标签页/窗口间同步，并且当 {@link SessionProviderProps.refetchOnWindowFocus} 为 `true` 时，它们都会在获得或失去焦点或状态改变（如用户登录或登出）时更新。
  *
  * :::info
- * `SessionProvider` is for client-side use only and when using [Next.js App Router (`app/`)](https://nextjs.org/blog/next-13-4#nextjs-app-router) you should prefer the `auth()` export.
+ * `SessionProvider` 仅用于客户端，当使用 [Next.js 应用路由器 (`app/`)](https://nextjs.org/blog/next-13-4#nextjs-app-router) 时，你应该优先使用 `auth()` 导出。
  * :::
  */
 export function SessionProvider(props: SessionProviderProps) {
@@ -389,12 +387,11 @@ export function SessionProvider(props: SessionProviderProps) {
   if (basePath) __NEXTAUTH.basePath = basePath
 
   /**
-   * If session was `null`, there was an attempt to fetch it,
-   * but it failed, but we still treat it as a valid initial value.
+   * 如果会话为 `null`，表示尝试获取它但失败了，但我们仍然将其视为有效的初始值。
    */
   const hasInitialSession = props.session !== undefined
 
-  /** If session was passed, initialize as already synced */
+  /** 如果传入了会话，初始化为已同步 */
   __NEXTAUTH._lastSync = hasInitialSession ? now() : 0
 
   const [session, setSession] = React.useState(() => {
@@ -402,7 +399,7 @@ export function SessionProvider(props: SessionProviderProps) {
     return props.session
   })
 
-  /** If session was passed, initialize as not loading */
+  /** 如果传入了会话，初始化为未加载 */
   const [loading, setLoading] = React.useState(!hasInitialSession)
 
   React.useEffect(() => {

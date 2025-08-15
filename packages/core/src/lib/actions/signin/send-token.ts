@@ -5,9 +5,9 @@ import type { InternalOptions, RequestInternal } from "../../../types.js"
 import type { Account } from "../../../types.js"
 
 /**
- * Starts an e-mail login flow, by generating a token,
- * and sending it to the user's e-mail (with the help of a DB adapter).
- * At the end, it returns a redirect to the `verify-request` page.
+ * 启动电子邮件登录流程，通过生成令牌，
+ * 并将其发送到用户的电子邮箱（借助数据库适配器）。
+ * 最后，返回重定向到 `verify-request` 页面。
  */
 export async function sendToken(
   request: RequestInternal,

@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Twitter</b> integration.</span>
+ * <span>内置的 <b>Twitter</b> 集成。</span>
  * <a href="https://www.x.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/twitter.svg" height="48" />
  * </a>
@@ -11,51 +11,50 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * [Users lookup](https://developer.x.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me)
+ * [用户查询](https://developer.x.com/en/docs/twitter-api/users/lookup/api-reference/get-users-me)
  */
 export interface TwitterProfile {
   data: {
     /**
-     * Unique identifier of this user. This is returned as a string in order to avoid complications with languages and tools
-     * that cannot handle large integers.
+     * 此用户的唯一标识符。以字符串形式返回，以避免与无法处理大整数的语言和工具产生兼容性问题。
      */
     id: string
-    /** The friendly name of this user, as shown on their profile. */
+    /** 此用户的友好名称，如个人资料所示。 */
     name: string
-    /** @note Email is currently unsupported by Twitter.  */
+    /** @note 目前 Twitter 不支持电子邮件。 */
     email?: string
-    /** The Twitter handle (screen name) of this user. */
+    /** 此用户的 Twitter 用户名（屏幕名称）。 */
     username: string
     /**
-     * The location specified in the user's profile, if the user provided one.
-     * As this is a freeform value, it may not indicate a valid location, but it may be fuzzily evaluated when performing searches with location queries.
+     * 用户个人资料中指定的位置，如果用户提供了的话。
+     * 由于这是一个自由格式的值，它可能不表示有效的位置，但在使用位置查询执行搜索时可能会进行模糊评估。
      *
-     * To return this field, add `user.fields=location` in the authorization request's query parameter.
+     * 要返回此字段，请在授权请求的查询参数中添加 `user.fields=location`。
      */
     location?: string
     /**
-     * This object and its children fields contain details about text that has a special meaning in the user's description.
+     * 此对象及其子字段包含有关用户描述中具有特殊含义的文本的详细信息。
      *
-     *To return this field, add `user.fields=entities` in the authorization request's query parameter.
+     * 要返回此字段，请在授权请求的查询参数中添加 `user.fields=entities`。
      */
     entities?: {
-      /** Contains details about the user's profile website. */
+      /** 包含用户个人资料网站的详细信息。 */
       url: {
-        /** Contains details about the user's profile website. */
+        /** 包含用户个人资料网站的详细信息。 */
         urls: Array<{
-          /** The start position (zero-based) of the recognized user's profile website. All start indices are inclusive. */
+          /** 识别的用户个人资料网站的起始位置（基于零）。所有起始索引都是包含的。 */
           start: number
-          /** The end position (zero-based) of the recognized user's profile website. This end index is exclusive. */
+          /** 识别的用户个人资料网站的结束位置（基于零）。此结束索引是排他的。 */
           end: number
-          /** The URL in the format entered by the user. */
+          /** 用户输入的格式的 URL。 */
           url: string
-          /** The fully resolved URL. */
+          /** 完全解析的 URL。 */
           expanded_url: string
-          /** The URL as displayed in the user's profile. */
+          /** 用户个人资料中显示的 URL。 */
           display_url: string
         }>
       }
-      /** Contains details about URLs, Hashtags, Cashtags, or mentions located within a user's description. */
+      /** 包含位于用户描述中的 URL、Hashtags、Cashtags 或提及的详细信息。 */
       description: {
         hashtags: Array<{
           start: number
@@ -65,30 +64,30 @@ export interface TwitterProfile {
       }
     }
     /**
-     * Indicate if this user is a verified Twitter user.
+     * 指示此用户是否为已验证的 Twitter 用户。
      *
-     * To return this field, add `user.fields=verified` in the authorization request's query parameter.
+     * 要返回此字段，请在授权请求的查询参数中添加 `user.fields=verified`。
      */
     verified?: boolean
     /**
-     * The text of this user's profile description (also known as bio), if the user provided one.
+     * 此用户的个人资料描述（也称为 bio）的文本，如果用户提供了的话。
      *
-     * To return this field, add `user.fields=description` in the authorization request's query parameter.
+     * 要返回此字段，请在授权请求的查询参数中添加 `user.fields=description`。
      */
     description?: string
     /**
-     * The URL specified in the user's profile, if present.
+     * 用户个人资料中指定的 URL，如果存在的话。
      *
-     * To return this field, add `user.fields=url` in the authorization request's query parameter.
+     * 要返回此字段，请在授权请求的查询参数中添加 `user.fields=url`。
      */
     url?: string
-    /** The URL to the profile image for this user, as shown on the user's profile. */
+    /** 此用户的个人资料图片的 URL，如用户个人资料所示。 */
     profile_image_url?: string
     protected?: boolean
     /**
-     * Unique identifier of this user's pinned Tweet.
+     * 此用户固定推文的唯一标识符。
      *
-     *  You can obtain the expanded object in `includes.tweets` by adding `expansions=pinned_tweet_id` in the authorization request's query parameter.
+     * 您可以通过在授权请求的查询参数中添加 `expansions=pinned_tweet_id` 来在 `includes.tweets` 中获取扩展对象。
      */
     pinned_tweet_id?: string
     created_at?: string
@@ -103,16 +102,16 @@ export interface TwitterProfile {
 }
 
 /**
- * Add Twitter login to your page.
+ * 向您的页面添加 Twitter 登录。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/twitter
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Twitter from "@auth/core/providers/twitter"
@@ -128,56 +127,53 @@ export interface TwitterProfile {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Twitter App documentation](https://developer.x.com/en/apps)
+ * - [Twitter 应用文档](https://developer.x.com/en/apps)
  *
  * ## OAuth 2
- * Twitter supports OAuth 2, which is currently opt-in. To enable it, simply add version: "2.0" to your Provider configuration:
+ * Twitter 支持 OAuth 2，目前是可选的。要启用它，只需在您的提供者配置中添加 version: "2.0"：
  * ```ts
  * Twitter({
  *   clientId: process.env.TWITTER_ID,
  *   clientSecret: process.env.TWITTER_SECRET,
- *   version: "2.0", // opt-in to Twitter OAuth 2.0
+ *   version: "2.0", // 选择加入 Twitter OAuth 2.0
  * })
  * ```
- * Keep in mind that although this change is easy, it changes how and with which of Twitter APIs you can interact with. Read the official Twitter OAuth 2 documentation for more details.
+ * 请记住，尽管这个更改很容易，但它改变了您可以与之交互的 Twitter API 的方式和范围。阅读官方的 Twitter OAuth 2 文档以获取更多详情。
  *
  *
  * :::note
  *
- * Email is currently not supported by Twitter OAuth 2.0.
+ * 目前 Twitter OAuth 2.0 不支持电子邮件。
  *
  * :::
  *
- * ### Notes
+ * ### 注意事项
  *
- * Twitter is currently the only built-in provider using the OAuth 1.0 spec.
- * This means that you won't receive an `access_token` or `refresh_token`, but an `oauth_token` and `oauth_token_secret` respectively. Remember to add these to your database schema, in case if you are using an [Adapter](https://authjs.dev/reference/core/adapters).
+ * Twitter 是目前唯一使用 OAuth 1.0 规范的内置提供者。
+ * 这意味着您不会收到 `access_token` 或 `refresh_token`，而是分别收到 `oauth_token` 和 `oauth_token_secret`。如果您正在使用 [适配器](https://authjs.dev/reference/core/adapters)，请记得将这些添加到您的数据库架构中。
  *
  * :::tip
  *
- * You must enable the "Request email address from users" option in your app permissions if you want to obtain the users email address.
+ * 如果您想获取用户的电子邮件地址，必须在您的应用权限中启用“向用户请求电子邮件地址”选项。
  *
  * :::
  *
- * By default, Auth.js assumes that the Twitter provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Twitter 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::tip
  *
- * The Twitter provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/twitter.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Twitter 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/twitter.ts)。
+ * 要覆盖默认值以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵循规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在 [讨论](https://authjs.dev/new/github-discussions) 中寻求更多帮助。
  *
  * :::
  */

@@ -10,16 +10,15 @@ interface CreateCSRFTokenParams {
 }
 
 /**
- * Ensure CSRF Token cookie is set for any subsequent requests.
- * Used as part of the strategy for mitigation for CSRF tokens.
+ * 确保为后续所有请求设置 CSRF Token cookie。
+ * 作为 CSRF 令牌缓解策略的一部分使用。
  *
- * Creates a cookie like 'next-auth.csrf-token' with the value 'token|hash',
- * where 'token' is the CSRF token and 'hash' is a hash made of the token and
- * the secret, and the two values are joined by a pipe '|'. By storing the
- * value and the hash of the value (with the secret used as a salt) we can
- * verify the cookie was set by the server and not by a malicious attacker.
+ * 创建一个类似 'next-auth.csrf-token' 的 cookie，其值为 'token|hash'，
+ * 其中 'token' 是 CSRF 令牌，'hash' 是由令牌和密钥生成的哈希值，
+ * 两个值通过管道符 '|' 连接。通过存储该值及其哈希值（使用密钥作为盐），
+ * 我们可以验证该 cookie 是由服务器设置而非恶意攻击者。
  *
- * For more details, see the following OWASP links:
+ * 更多详情，请参考以下 OWASP 链接：
  * https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie
  * https://owasp.org/www-chapter-london/assets/slides/David_Johansson-Double_Defeat_of_Double-Submit_Cookie.pdf
  */

@@ -1,7 +1,7 @@
 /**
- * This file is auto-generated from Xata and corresponds
- * to the database types in the Xata database. Please do not
- * augment by hand.
+ * 此文件由 Xata 自动生成，对应
+ * Xata 数据库中的数据库类型。请勿
+ * 手动修改。
  */
 import {
   buildClient,

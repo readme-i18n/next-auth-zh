@@ -1,36 +1,34 @@
 /**
  *
  *
- * This module contains functions and types
- * to encode and decode {@link https://authjs.dev/concepts/session-strategies#jwt-session JWT}s
- * issued and used by Auth.js.
+ * 此模块包含用于编码和解码由 Auth.js 签发和使用的 {@link https://authjs.dev/concepts/session-strategies#jwt-session JWT} 的函数和类型。
  *
- * The JWT issued by Auth.js is _encrypted by default_, using the _A256CBC-HS512_ algorithm ({@link https://www.rfc-editor.org/rfc/rfc7518.html#section-5.2.5 JWE}).
- * It uses the `AUTH_SECRET` environment variable or the passed `secret` property to derive a suitable encryption key.
+ * 默认情况下，Auth.js 签发的 JWT 是_加密的_，使用 _A256CBC-HS512_ 算法（{@link https://www.rfc-editor.org/rfc/rfc7518.html#section-5.2.5 JWE}）。
+ * 它使用 `AUTH_SECRET` 环境变量或传递的 `secret` 属性来派生合适的加密密钥。
  *
- * :::info Note
- * Auth.js JWTs are meant to be used by the same app that issued them.
- * If you need JWT authentication for your third-party API, you should rely on your Identity Provider instead.
+ * :::info 注意
+ * Auth.js 的 JWT 旨在由签发它们的同一应用使用。
+ * 如果您需要为您的第三方 API 提供 JWT 认证，您应该依赖您的身份提供商。
  * :::
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/core
  * ```
  *
- * You can then import this submodule from `@auth/core/jwt`.
+ * 然后您可以从 `@auth/core/jwt` 导入此子模块。
  *
- * ## Usage
+ * ## 使用
  *
- * :::warning Warning
- * This module *will* be refactored/changed. We do not recommend relying on it right now.
+ * :::warning 警告
+ * 此模块*将*被重构/更改。我们现在不推荐依赖它。
  * :::
  *
  *
- * ## Resources
+ * ## 资源
  *
- * - [What is a JWT session strategy](https://authjs.dev/concepts/session-strategies#jwt-session)
+ * - [什么是 JWT 会话策略](https://authjs.dev/concepts/session-strategies#jwt-session)
  * - [RFC7519 - JSON Web Token (JWT)](https://www.rfc-editor.org/rfc/rfc7519)
  *
  * @module jwt
@@ -53,7 +51,7 @@ const alg = "dir"
 const enc = "A256CBC-HS512"
 type Digest = Parameters<typeof calculateJwkThumbprint>[1]
 
-/** Issues a JWT. By default, the JWT is encrypted using "A256CBC-HS512". */
+/** 签发一个 JWT。默认情况下，JWT 使用 "A256CBC-HS512" 加密。 */
 export async function encode<Payload = JWT>(params: JWTEncodeParams<Payload>) {
   const { token = {}, secret, maxAge = DEFAULT_MAX_AGE, salt } = params
   const secrets = Array.isArray(secret) ? secret : [secret]
@@ -72,7 +70,7 @@ export async function encode<Payload = JWT>(params: JWTEncodeParams<Payload>) {
     .encrypt(encryptionSecret)
 }
 
-/** Decodes an Auth.js issued JWT. */
+/** 解码由 Auth.js 签发的 JWT。 */
 export async function decode<Payload = JWT>(
   params: JWTDecodeParams
 ): Promise<Payload | null> {
@@ -115,17 +113,17 @@ type GetTokenParamsBase = {
 
 export interface GetTokenParams<R extends boolean = false>
   extends GetTokenParamsBase {
-  /** The request containing the JWT either in the cookies or in the `Authorization` header. */
+  /** 包含 JWT 的请求，JWT 可能在 cookies 中，也可能在 `Authorization` 头中。 */
   req: Request | { headers: Headers | Record<string, string> }
   /**
-   * Use secure prefix for cookie name, unless URL in `NEXTAUTH_URL` is http://
-   * or not set (e.g. development or test instance) case use unprefixed name
+   * 使用安全前缀作为 cookie 名称，除非 `NEXTAUTH_URL` 中的 URL 是 http://
+   * 或未设置（例如开发或测试实例）情况下使用无前缀名称
    */
   secureCookie?: boolean
-  /** If the JWT is in the cookie, what name `getToken()` should look for. */
+  /** 如果 JWT 在 cookie 中，`getToken()` 应该查找的名称。 */
   cookieName?: string
   /**
-   * `getToken()` will return the raw JWT if this is set to `true`
+   * 如果设置为 `true`，`getToken()` 将返回原始 JWT
    *
    * @default false
    */
@@ -135,8 +133,8 @@ export interface GetTokenParams<R extends boolean = false>
 }
 
 /**
- * Takes an Auth.js request (`req`) and returns either the Auth.js issued JWT's payload,
- * or the raw JWT string. We look for the JWT in the either the cookies, or the `Authorization` header.
+ * 接收一个 Auth.js 请求 (`req`) 并返回 Auth.js 签发的 JWT 的有效载荷，
+ * 或原始 JWT 字符串。我们在 cookies 或 `Authorization` 头中查找 JWT。
  */
 export async function getToken<R extends boolean = false>(
   params: GetTokenParams<R>
@@ -225,59 +223,59 @@ export interface DefaultJWT extends Record<string, unknown> {
 }
 
 /**
- * Returned by the `jwt` callback when using JWT sessions
+ * 当使用 JWT 会话时，由 `jwt` 回调返回
  *
- * [`jwt` callback](https://authjs.dev/reference/core/types#jwt)
+ * [`jwt` 回调](https://authjs.dev/reference/core/types#jwt)
  */
 export interface JWT extends Record<string, unknown>, DefaultJWT {}
 
 export interface JWTEncodeParams<Payload = JWT> {
   /**
-   * The maximum age of the Auth.js issued JWT in seconds.
+   * Auth.js 签发的 JWT 的最大年龄，以秒为单位。
    *
-   * @default 30 * 24 * 60 * 60 // 30 days
+   * @default 30 * 24 * 60 * 60 // 30 天
    */
   maxAge?: number
-  /** Used in combination with `secret`, to derive the encryption secret for JWTs. */
+  /** 与 `secret` 结合使用，以派生 JWT 的加密密钥。 */
   salt: string
-  /** Used in combination with `salt`, to derive the encryption secret for JWTs. */
+  /** 与 `salt` 结合使用，以派生 JWT 的加密密钥。 */
   secret: string | string[]
-  /** The JWT payload. */
+  /** JWT 的有效载荷。 */
   token?: Payload
 }
 
 export interface JWTDecodeParams {
-  /** Used in combination with `secret`, to derive the encryption secret for JWTs. */
+  /** 与 `secret` 结合使用，以派生 JWT 的加密密钥。 */
   salt: string
   /**
-   * Used in combination with `salt`, to derive the encryption secret for JWTs.
+   * 与 `salt` 结合使用，以派生 JWT 的加密密钥。
    *
    * @note
-   * You can also pass an array of secrets, in which case the first secret that successfully
-   * decrypts the JWT will be used. This is useful for rotating secrets without invalidating existing sessions.
-   * The newer secret should be added to the start of the array, which will be used for all new sessions.
+   * 您也可以传递一个密钥数组，在这种情况下，第一个成功解密 JWT 的密钥将被使用。
+   * 这对于在不使现有会话失效的情况下轮换密钥很有用。
+   * 新的密钥应该添加到数组的开头，这将用于所有新会话。
    */
   secret: string | string[]
-  /** The Auth.js issued JWT to be decoded */
+  /** 要解码的由 Auth.js 签发的 JWT */
   token?: string
 }
 
 export interface JWTOptions {
   /**
-   * The secret used to encode/decode the Auth.js issued JWT.
-   * It can be an array of secrets, in which case the first secret that successfully
-   * decrypts the JWT will be used. This is useful for rotating secrets without invalidating existing sessions.
+   * 用于编码/解码 Auth.js 签发的 JWT 的密钥。
+   * 它可以是一个密钥数组，在这种情况下，第一个成功解密 JWT 的密钥将被使用。
+   * 这对于在不使现有会话失效的情况下轮换密钥很有用。
    * @internal
    */
   secret: string | string[]
   /**
-   * The maximum age of the Auth.js issued JWT in seconds.
+   * Auth.js 签发的 JWT 的最大年龄，以秒为单位。
    *
-   * @default 30 * 24 * 60 * 60 // 30 days
+   * @default 30 * 24 * 60 * 60 // 30 天
    */
   maxAge: number
-  /** Override this method to control the Auth.js issued JWT encoding. */
+  /** 覆盖此方法以控制 Auth.js 签发的 JWT 编码。 */
   encode: (params: JWTEncodeParams) => Awaitable<string>
-  /** Override this method to control the Auth.js issued JWT decoding. */
+  /** 覆盖此方法以控制 Auth.js 签发的 JWT 解码。 */
   decode: (params: JWTDecodeParams) => Awaitable<JWT | null>
 }

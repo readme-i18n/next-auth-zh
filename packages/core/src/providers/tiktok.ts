@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>TikTok</b> integration.</span>
+ * <span>内置的 <b>TikTok</b> 集成。</span>
  * <a href="https://www.tiktok.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/tiktok.svg" height="48" />
  * </a>
@@ -12,133 +12,131 @@ import { customFetch } from "../lib/symbols.js"
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * [More info](https://developers.tiktok.com/doc/tiktok-api-v2-get-user-info/)
+ * [更多信息](https://developers.tiktok.com/doc/tiktok-api-v2-get-user-info/)
  */
 export interface TiktokProfile {
   data: {
     user: {
       /**
-       * The unique identification of the user in the current application.Open id
-       * for the client.
+       * 用户在当前应用中的唯一标识。客户端的Open id。
        *
-       * To return this field, add `fields=open_id` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=open_id`。
        */
       open_id: string
       /**
-       * The unique identification of the user across different apps for the same developer.
-       * For example, if a partner has X number of clients,
-       * it will get X number of open_id for the same TikTok user,
-       * but one persistent union_id for the particular user.
+       * 同一开发者不同应用中用户的唯一标识。
+       * 例如，如果一个合作伙伴有X个客户端，
+       * 同一个TikTok用户将获得X个open_id，
+       * 但会有一个持久的union_id对应特定用户。
        *
-       * To return this field, add `fields=union_id` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=union_id`。
        */
       union_id?: string
       /**
-       * User's profile image.
+       * 用户的个人资料图片。
        *
-       * To return this field, add `fields=avatar_url` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=avatar_url`。
        */
       avatar_url: string
       /**
-       * User`s profile image in 100x100 size.
+       * 用户100x100尺寸的个人资料图片。
        *
-       * To return this field, add `fields=avatar_url_100` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=avatar_url_100`。
        */
       avatar_url_100?: string
       /**
-       * User's profile image with higher resolution
+       * 更高分辨率的用户个人资料图片
        *
-       * To return this field, add `fields=avatar_url_100` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=avatar_url_100`。
        */
       avatar_large_url?: string
       /**
-       * User's profile name
+       * 用户的个人资料名称
        *
-       * To return this field, add `fields=display_name` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=display_name`。
        */
       display_name: string
       /**
-       * User's username.
+       * 用户的用户名。
        *
-       * To return this field, add `fields=username` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=username`。
        */
       username: string
-      /** @note Email is currently unsupported by TikTok  */
+      /** @note 目前TikTok不支持电子邮件  */
       email?: string
       /**
-       * User's bio description if there is a valid one.
+       * 用户如果有有效的个人简介描述。
        *
-       * To return this field, add `fields=bio_description` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=bio_description`。
        */
       bio_description?: string
       /**
-       * The link to user's TikTok profile page.
+       * 用户TikTok个人资料页面的链接。
        *
-       * To return this field, add `fields=profile_deep_link` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=profile_deep_link`。
        */
       profile_deep_link?: string
       /**
-       * Whether TikTok has provided a verified badge to the account after confirming
-       * that it belongs to the user it represents.
+       * TikTok是否在确认账户属于其所代表的用户后提供了验证徽章。
        *
-       * To return this field, add `fields=is_verified` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=is_verified`。
        */
       is_verified?: boolean
       /**
-       * User's followers count.
+       * 用户的粉丝数。
        *
-       * To return this field, add `fields=follower_count` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=follower_count`。
        */
       follower_count?: number
       /**
-       * The number of accounts that the user is following.
+       * 用户关注的账户数量。
        *
-       * To return this field, add `fields=following_count` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=following_count`。
        */
       following_count?: number
       /**
-       * The total number of likes received by the user across all of their videos.
+       * 用户所有视频获得的总点赞数。
        *
-       * To return this field, add `fields=likes_count` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=likes_count`。
        */
       likes_count?: number
       /**
-       * The total number of publicly posted videos by the user.
+       * 用户公开发布的视频总数。
        *
-       * To return this field, add `fields=video_count` in the user profile request's query parameter.
+       * 要返回此字段，请在用户资料请求的查询参数中添加 `fields=video_count`。
        */
       video_count?: number
     }
   }
   error: {
     /**
-     * The error category in string.
+     * 字符串形式的错误类别。
      */
     code: string
     /**
-     * The error message in string.
+     * 字符串形式的错误消息。
      */
     message: string
     /**
-     * The error message in string.
+     * 字符串形式的错误消息。
      */
     log_id: string
   }
 }
 
 /**
- * Add TikTok login to your page.
+ * 向您的页面添加TikTok登录。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调URL
  * ```
  * https://example.com/api/auth/callback/tiktok
  * ```
  *
- * #### Configuration
- * You can omit the client and secret if you have set the `AUTH_TIKTOK_ID` and `AUTH_TIKTOK_SECRET` environment variables.
- * Remeber that the AUTH_TIKTOK_ID is the Client Key in the TikTok Application
+ * #### 配置
+ * 如果您已经设置了 `AUTH_TIKTOK_ID` 和 `AUTH_TIKTOK_SECRET` 环境变量，可以省略客户端和密钥。
+ * 记住，AUTH_TIKTOK_ID 是TikTok应用中的客户端密钥
  *```ts
  * import { Auth } from "@auth/core"
  * import TikTok from "@auth/core/providers/tiktok"
@@ -151,43 +149,42 @@ export interface TiktokProfile {
  * })
  * ```
  *
- * ### Resources
- *  - [TikTok app console](https://developers.tiktok.com/)
- *  - [TikTok login kit documentation](https://developers.tiktok.com/doc/login-kit-web/)
- *  - [Available Scopes](https://developers.tiktok.com/doc/tiktok-api-scopes/)
- *  - [Sandbox for testing](https://developers.tiktok.com/blog/introducing-sandbox)
+ * ### 资源
+ *  - [TikTok应用控制台](https://developers.tiktok.com/)
+ *  - [TikTok登录套件文档](https://developers.tiktok.com/doc/login-kit-web/)
+ *  - [可用范围](https://developers.tiktok.com/doc/tiktok-api-scopes/)
+ *  - [测试沙盒](https://developers.tiktok.com/blog/introducing-sandbox)
  *
  *
- * ### Notes
+ * ### 注意事项
  *
  * :::tip
  *
- * Production applications cannot use localhost URLs to sign in with TikTok. You need add the domain and Callback/Redirect url's to your TikTok app and have them review and approved by the TikTok Team.
- * If you need to test your implementation, you can use the sandbox feature and ngrok for testing in localhost.
+ * 生产应用不能使用localhost URL通过TikTok登录。您需要将域名和回调/重定向URL添加到您的TikTok应用，并由TikTok团队审核和批准。
+ * 如果您需要测试您的实现，可以使用沙盒功能和ngrok在本地测试。
  *
  * :::
  *
  * :::tip
  *
- * Email address is not supported by TikTok.
+ * TikTok不支持电子邮件地址。
  *
  * :::
  *
  * :::tip
  *
- * AUTH_TIKTOK_ID will be the Client Key in the TikTok Application
+ * AUTH_TIKTOK_ID 将是TikTok应用中的客户端密钥
  *
  * :::
  *
- * By default, Auth.js assumes that the TikTok provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js假设TikTok提供者基于[OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html)规范。
  *
  * :::tip
  *
- * The TikTok provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/tiktok.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * TikTok提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/tiktok.ts)。
+ * 要覆盖默认值以适应您的用例，请查看[自定义内置OAuth提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
- * If You Need to Customize the TikTok Provider, You Can Use the Following Configuration as a custom provider
+ * 如果您需要自定义TikTok提供者，可以使用以下配置作为自定义提供者
  *
  * ```ts
  * {
@@ -225,13 +222,13 @@ export interface TiktokProfile {
  *     url: "https://www.tiktok.com/v2/auth/authorize",
  *     params: {
  *       client_key: options.clientId,
- *       scope: "user.info.profile", //Add scopes you need eg(user.info.profile,user.info.stats,video.list)
+ *       scope: "user.info.profile", //添加您需要的范围，例如(user.info.profile,user.info.stats,video.list)
  *     },
  *   },
  *
  *   token: "https://open.tiktokapis.com/v2/oauth/token/",
  *
- *   userinfo: "https://open.tiktokapis.com/v2/user/info/?fields=open_id,avatar_url,display_name,username", //Add fields you need eg(open_id,avatar_url,display_name,username)
+ *   userinfo: "https://open.tiktokapis.com/v2/user/info/?fields=open_id,avatar_url,display_name,username", //添加您需要的字段，例如(open_id,avatar_url,display_name,username)
  *
  *   profile(profile) {
  *     return {
@@ -247,13 +244,11 @@ export interface TiktokProfile {
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js严格遵循规范，对于提供者任何偏离规范的行为不承担责任。您可以提出问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论](https://authjs.dev/new/github-discussions)中寻求更多帮助。
  *
  * :::
  */

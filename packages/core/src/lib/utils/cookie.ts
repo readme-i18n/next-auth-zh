@@ -30,7 +30,7 @@ const CHUNK_SIZE = ALLOWED_COOKIE_SIZE - ESTIMATED_EMPTY_COOKIE_SIZE
 
 // REVIEW: Is there any way to defer two types of strings?
 
-/** Stringified form of `JWT`. Extract the content with `jwt.decode` */
+/** `JWT` 的字符串形式。使用 `jwt.decode` 提取内容。 */
 export type JWTString = string
 
 export type SetCookieOptions = Partial<CookieOption["options"]> & {
@@ -39,22 +39,22 @@ export type SetCookieOptions = Partial<CookieOption["options"]> & {
 }
 
 /**
- * If `options.session.strategy` is set to `jwt`, this is a stringified `JWT`.
- * In case of `strategy: "database"`, this is the `sessionToken` of the session in the database.
+ * 如果 `options.session.strategy` 设置为 `jwt`，则这是一个字符串化的 `JWT`。
+ * 如果是 `strategy: "database"`，则是数据库中会话的 `sessionToken`。
  */
 export type SessionToken<T extends "jwt" | "database" = "jwt"> = T extends "jwt"
   ? JWTString
   : string
 
 /**
- * Use secure cookies if the site uses HTTPS
- * This being conditional allows cookies to work non-HTTPS development URLs
- * Honour secure cookie option, which sets 'secure' and also adds '__Secure-'
- * prefix, but enable them by default if the site URL is HTTPS; but not for
- * non-HTTPS URLs like http://localhost which are used in development).
- * For more on prefixes see https://googlechrome.github.io/samples/cookie-prefixes/
+ * 如果站点使用 HTTPS，则使用安全 cookies
+ * 这种条件性设置允许 cookies 在非 HTTPS 的开发 URL 上工作
+ * 尊重安全 cookie 选项，该选项设置 'secure' 并添加 '__Secure-'
+ * 前缀，但如果站点 URL 是 HTTPS，则默认启用它们；但不适用于
+ * 非 HTTPS URL，如开发中使用的 http://localhost）。
+ * 有关前缀的更多信息，请参阅 https://googlechrome.github.io/samples/cookie-prefixes/
  *
- * @TODO Review cookie settings (names, options)
+ * @TODO 审查 cookie 设置（名称、选项）
  */
 export function defaultCookies(useSecureCookies: boolean) {
   const cookiePrefix = useSecureCookies ? "__Secure-" : ""
@@ -160,8 +160,7 @@ export class SessionStore {
   }
 
   /**
-   * The JWT Session or database Session ID
-   * constructed from the cookie chunks.
+   * 从 cookie 块构建的 JWT 会话或数据库会话 ID。
    */
   get value() {
     // Sort the chunks by their keys before joining
@@ -176,7 +175,7 @@ export class SessionStore {
     return sortedKeys.map((key) => this.#chunks[key]).join("")
   }
 
-  /** Given a cookie, return a list of cookies, chunked to fit the allowed cookie size. */
+  /** 给定一个 cookie，返回适合允许的 cookie 大小的 cookie 块列表。 */
   #chunk(cookie: Cookie): Cookie[] {
     const chunkCount = Math.ceil(cookie.value.length / CHUNK_SIZE)
 
@@ -203,7 +202,7 @@ export class SessionStore {
     return cookies
   }
 
-  /** Returns cleaned cookie chunks. */
+  /** 返回清理后的 cookie 块。 */
   #clean(): Record<string, Cookie> {
     const cleanedChunks: Record<string, Cookie> = {}
     for (const name in this.#chunks) {
@@ -218,9 +217,9 @@ export class SessionStore {
   }
 
   /**
-   * Given a cookie value, return new cookies, chunked, to fit the allowed cookie size.
-   * If the cookie has changed from chunked to unchunked or vice versa,
-   * it deletes the old cookies as well.
+   * 给定一个 cookie 值，返回新的、分块的 cookies，以适应允许的 cookie 大小。
+   * 如果 cookie 从分块变为未分块或反之亦然，
+   * 它也会删除旧的 cookies。
    */
   chunk(value: string, options: Partial<Cookie["options"]>): Cookie[] {
     // Assume all cookies should be cleaned by default
@@ -241,7 +240,7 @@ export class SessionStore {
     return Object.values(cookies)
   }
 
-  /** Returns a list of cookies that should be cleaned. */
+  /** 返回应清理的 cookies 列表。 */
   clean(): Cookie[] {
     return Object.values(this.#clean())
   }

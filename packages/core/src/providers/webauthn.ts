@@ -27,20 +27,20 @@ export const DEFAULT_WEBAUTHN_TIMEOUT = 5 * 60 * 1000 // 5 minutes
 export const DEFAULT_SIMPLEWEBAUTHN_BROWSER_VERSION: SemverString = "v9.0.1"
 
 export type RelayingParty = {
-  /** Relaying Party ID. Use the website's domain name. */
+  /** 依赖方ID。使用网站的域名。 */
   id: string
-  /** Relaying Party name. Use the website's name. */
+  /** 依赖方名称。使用网站的名称。 */
   name: string
-  /** Relaying Party origin. Use the website's origin. */
+  /** 依赖方来源。使用网站的来源。 */
   origin: string
 }
 
 type RelayingPartyArray = {
-  /** Relaying Party ID. Use the website's domain name. */
+  /** 依赖方ID。使用网站的域名。 */
   id: string | string[]
-  /** Relaying Party name. Use the website's name. */
+  /** 依赖方名称。使用网站的名称。 */
   name: string | string[]
-  /** Relaying Party origin. Use the website's origin. */
+  /** 依赖方来源。使用网站的来源。 */
   origin: string | string[]
 }
 
@@ -83,72 +83,72 @@ type ConfigurableVerifyRegistrationOptions = Omit<
 export interface WebAuthnConfig extends CommonProviderOptions {
   type: WebAuthnProviderType
   /**
-   * Relaying party (RP) configuration
+   * 依赖方（RP）配置
    *
-   * If not provided, the request URL will be used.
+   * 如果未提供，将使用请求的URL。
    **/
   relayingParty?: Partial<RelayingPartyArray>
   /**
-   * Function that returns the relaying party for the current request.
+   * 返回当前请求的依赖方的函数。
    */
   getRelayingParty: (
     options: InternalOptions<WebAuthnProviderType>,
     request: RequestInternal
   ) => RelayingParty
   /**
-   * Enable conditional UI.
+   * 启用条件UI。
    *
-   * NOTE: Only one provider can have this option enabled at a time. Defaults to `true`.
+   * 注意：同一时间只能有一个提供者启用此选项。默认为`true`。
    */
   enableConditionalUI: boolean
   /**
-   * Version of SimpleWebAuthn browser script to load in the sign in page.
+   * 登录页面加载的SimpleWebAuthn浏览器脚本版本。
    *
-   * This is only loaded if the provider has conditional UI enabled. If set to false, it won't load any script.
-   * Defaults to `v9.0.0`.
+   * 仅当提供者启用了条件UI时加载。如果设置为false，则不会加载任何脚本。
+   * 默认为`v9.0.0`。
    */
   simpleWebAuthnBrowserVersion: SemverString | false
-  /** Form fields displayed in the default Passkey sign in/up form.
-   * These are not validated or enforced beyond the default Auth.js authentication page.
+  /** 默认Passkey登录/注册表单中显示的字段。
+   * 除了默认的Auth.js认证页面外，这些字段不会被验证或强制执行。
    *
-   * By default it displays an email field.
+   * 默认情况下显示一个电子邮件字段。
    */
   formFields: Record<string, CredentialInput>
   /**
-   * Authentication options that are passed to @simplewebauthn during authentication.
+   * 认证期间传递给@simplewebauthn的认证选项。
    */
   authenticationOptions?: Partial<ConfigurableAuthenticationOptions>
   /**
-   * Registration options that are passed to @simplewebauthn during registration.
+   * 注册期间传递给@simplewebauthn的注册选项。
    */
   registrationOptions: Partial<ConfigurableRegistrationOptions>
   /**
-   * Verify Authentication options that are passed to @simplewebauthn during authentication.
+   * 认证期间传递给@simplewebauthn的验证认证选项。
    */
   verifyAuthenticationOptions?: Partial<ConfigurableVerifyAuthenticationOptions>
   /**
-   * Verify Registration options that are passed to @simplewebauthn during registration.
+   * 注册期间传递给@simplewebauthn的验证注册选项。
    */
   verifyRegistrationOptions?: Partial<ConfigurableVerifyRegistrationOptions>
   /**
-   * Function that returns the user info that the authenticator will use during registration and authentication.
+   * 返回认证器在注册和认证期间使用的用户信息的函数。
    *
-   * - It accepts the provider options, the request object, and returns the user info.
-   * - If the request contains an existing user's data (e.g. email address), the function must return the existing user and `exists` must be `true`.
-   * - If the request contains enough information to create a new user, the function must return a new user info and `exists` must be `false`.
-   * - If the request does not contain enough information to create a new user, the function must return `null`.
+   * - 它接受提供者选项、请求对象，并返回用户信息。
+   * - 如果请求包含现有用户的数据（例如电子邮件地址），函数必须返回现有用户且`exists`必须为`true`。
+   * - 如果请求包含足够的信息来创建新用户，函数必须返回新用户信息且`exists`必须为`false`。
+   * - 如果请求不包含足够的信息来创建新用户，函数必须返回`null`。
    *
-   * It should not have any side effects (i.e. it shall not modify the database).
+   * 它不应有任何副作用（即不应修改数据库）。
    *
-   * During passkey creation:
-   *  - The passkey's user ID will be a random string.
-   *  - The passkey's user name will be user.email
-   *  - The passkey's user display name will be user.name, if present, or user.email
+   * 在创建passkey时：
+   *  - passkey的用户ID将是一个随机字符串。
+   *  - passkey的用户名将是user.email
+   *  - passkey的用户显示名称将是user.name（如果存在）或user.email
    *
-   * By default, it looks for and uses the "email" request parameter to look up the user in the database.
+   * 默认情况下，它查找并使用"email"请求参数在数据库中查找用户。
    */
   getUserInfo: GetUserInfo
-  /** SimpleWebAuthn instance to use for registration and authentication. */
+  /** 用于注册和认证的SimpleWebAuthn实例。 */
   simpleWebAuthn: {
     verifyAuthenticationResponse: typeof verifyAuthenticationResponse
     verifyRegistrationResponse: typeof verifyRegistrationResponse
@@ -158,11 +158,11 @@ export interface WebAuthnConfig extends CommonProviderOptions {
 }
 
 /**
- * Add WebAuthn login to your page.
+ * 向您的页面添加WebAuthn登录。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import WebAuthn from "@auth/core/providers/webauthn"
@@ -172,26 +172,25 @@ export interface WebAuthnConfig extends CommonProviderOptions {
  *   providers: [WebAuthn],
  * })
  * ```
- * ### Resources
+ * ### 资源
  *
- * - [SimpleWebAuthn - Server side](https://simplewebauthn.dev/docs/packages/server)
- * - [SimpleWebAuthn - Client side](https://simplewebauthn.dev/docs/packages/client)
- * - [Source code](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webauthn.ts)
+ * - [SimpleWebAuthn - 服务器端](https://simplewebauthn.dev/docs/packages/server)
+ * - [SimpleWebAuthn - 客户端](https://simplewebauthn.dev/docs/packages/client)
+ * - [源代码](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webauthn.ts)
  *
  * :::tip
  *
- * The WebAuthn provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webauthn.ts).
- * To override the defaults for your use case, check out [customizing the built-in WebAuthn provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * WebAuthn提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webauthn.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看[自定义内置WebAuthn提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js严格遵守规范，对于提供者与规范的任何偏差，Auth.js不承担责任。您可以提出问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在[讨论](https://authjs.dev/new/github-discussions)中寻求更多帮助。
  *
  * :::
  */
@@ -226,16 +225,16 @@ export default function WebAuthn(
 }
 
 /**
- * Retrieves user information for the WebAuthn provider.
+ * 为WebAuthn提供者检索用户信息。
  *
- * It looks for the "email" query parameter and uses it to look up the user in the database.
- * It also accepts a "name" query parameter to set the user's display name.
+ * 它查找"email"查询参数并使用它在数据库中查找用户。
+ * 它还接受"name"查询参数来设置用户的显示名称。
  *
- * @param options - The internaloptions object.
- * @param request - The request object containing the query parameters.
- * @returns The existing or new user info.
- * @throws {MissingAdapter} If the adapter is missing.
- * @throws {EmailSignInError} If the email address is not provided.
+ * @param options - 内部选项对象。
+ * @param request - 包含查询参数的请求对象。
+ * @returns 现有或新用户信息。
+ * @throws {MissingAdapter} 如果适配器缺失。
+ * @throws {EmailSignInError} 如果未提供电子邮件地址。
  */
 const getUserInfo: GetUserInfo = async (options, request) => {
   const { adapter } = options
@@ -261,11 +260,11 @@ const getUserInfo: GetUserInfo = async (options, request) => {
 }
 
 /**
- * Retrieves the relaying party information based on the provided options.
- * If the relaying party information is not provided, it falls back to using the URL information.
+ * 根据提供的选项检索依赖方信息。
+ * 如果未提供依赖方信息，则回退使用URL信息。
  */
 function getRelayingParty(
-  /** The options object containing the provider and URL information. */
+  /** 包含提供者和URL信息的选项对象。 */
   options: InternalOptions<WebAuthnProviderType>
 ): RelayingParty {
   const { provider, url } = options

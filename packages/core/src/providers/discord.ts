@@ -11,92 +11,89 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * Corresponds to the user structure documented here:
+ * 对应此处文档记录的用户结构：
  * https://discord.com/developers/docs/resources/user#user-object-user-structure
  */
 export interface DiscordProfile extends Record<string, any> {
-  /** the user's id (i.e. the numerical snowflake) */
+  /** 用户的ID（即数字形式的雪花ID） */
   id: string
-  /** the user's username, not unique across the platform */
+  /** 用户的用户名，平台内不唯一 */
   username: string
-  /** the user's Discord-tag */
+  /** 用户的Discord标签 */
   discriminator: string
-  /** the user's display name, if it is set  */
+  /** 用户的显示名称，如果已设置 */
   global_name: string | null
   /**
-   * the user's avatar hash:
+   * 用户的头像哈希值：
    * https://discord.com/developers/docs/reference#image-formatting
    */
   avatar: string | null
-  /** whether the user belongs to an OAuth2 application */
+  /** 用户是否属于某个OAuth2应用 */
   bot?: boolean
   /**
-   * whether the user is an Official Discord System user (part of the urgent
-   * message system)
+   * 用户是否为Discord官方系统用户（紧急消息系统的一部分）
    */
   system?: boolean
-  /** whether the user has two factor enabled on their account */
+  /** 用户账户是否启用了双因素认证 */
   mfa_enabled: boolean
   /**
-   * the user's banner hash:
+   * 用户的横幅哈希值：
    * https://discord.com/developers/docs/reference#image-formatting
    */
   banner: string | null
 
-  /** the user's banner color encoded as an integer representation of hexadecimal color code */
+  /** 用户的横幅颜色，编码为十六进制颜色代码的整数表示 */
   accent_color: number | null
 
   /**
-   * the user's chosen language option:
+   * 用户选择的语言选项：
    * https://discord.com/developers/docs/reference#locales
    */
   locale: string
-  /** whether the email on this account has been verified */
+  /** 此账户的电子邮件是否已验证 */
   verified: boolean
-  /** the user's email */
+  /** 用户的电子邮件 */
   email: string | null
   /**
-   * the flags on a user's account:
+   * 用户账户的标志：
    * https://discord.com/developers/docs/resources/user#user-object-user-flags
    */
   flags: number
   /**
-   * the type of Nitro subscription on a user's account:
+   * 用户账户上的Nitro订阅类型：
    * https://discord.com/developers/docs/resources/user#user-object-premium-types
    */
   premium_type: number
   /**
-   * the public flags on a user's account:
+   * 用户账户上的公开标志：
    * https://discord.com/developers/docs/resources/user#user-object-user-flags
    */
   public_flags: number
-  /** undocumented field; corresponds to the user's custom nickname */
+  /** 未文档化的字段；对应用户的自定义昵称 */
   display_name: string | null
   /**
-   * undocumented field; corresponds to the Discord feature where you can e.g.
-   * put your avatar inside of an ice cube
+   * 未文档化的字段；对应Discord功能，例如可以将头像放入冰立方中
    */
   avatar_decoration: string | null
   /**
-   * undocumented field; corresponds to the premium feature where you can
-   * select a custom banner color
+   * 未文档化的字段；对应高级功能，可以选择自定义横幅颜色
    */
   banner_color: string | null
-  /** undocumented field; the CDN URL of their profile picture */
+  /** 未文档化的字段；其个人资料图片的CDN URL */
   image_url: string
 }
 
 /**
- * Add Discord login to your page.
+ * 为您的页面添加Discord登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调URL
  * ```
  * https://example.com/api/auth/callback/discord
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Discord from "@auth/core/providers/discord"
@@ -112,30 +109,28 @@ export interface DiscordProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Discord OAuth documentation](https://discord.com/developers/docs/topics/oauth2)
- *  - [Discord OAuth apps](https://discord.com/developers/applications)
+ *  - [Discord OAuth文档](https://discord.com/developers/docs/topics/oauth2)
+ *  - [Discord OAuth应用](https://discord.com/developers/applications)
  *
- * ### Notes
+ * ### 备注
  *
- * By default, Auth.js assumes that the Discord provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js假设Discord提供者基于[OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html)规范。
  *
  * :::tip
  *
- * The Discord provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/discord.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Discord提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/discord.ts)。
+ * 要为您的情况覆盖默认值，请查看[自定义内置OAuth提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js严格遵守规范，对于提供者与规范的任何偏差，我们无法承担责任。您可以提出问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在[讨论](https://authjs.dev/new/github-discussions)中寻求更多帮助。
  *
  * :::
  */

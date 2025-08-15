@@ -1,7 +1,7 @@
 /**
  * <div class="provider" style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
  * <span style={{fontSize: "1.35rem" }}>
- *  Built-in sign in with <b>BankID Norway</b> integration.
+ *  内置的 <b>BankID Norway</b> 集成登录。
  * </span>
  * <a href="https://bankid.no" style={{backgroundColor: "black", padding: "12px", borderRadius: "100%" }}>
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/bankid-no.svg" width="24"/>
@@ -13,21 +13,21 @@
 import type { OIDCConfig, OIDCUserConfig } from "./index.js"
 
 /**
- * @see [Core conepts - ID Token](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/core-concepts/id-token)
- * @see [userinfo](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/userinfo)
+ * @see [核心概念 - ID Token](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/core-concepts/id-token)
+ * @see [用户信息](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/userinfo)
  */
 export interface BankIDNorwayProfile {
   exp: number
   iat: number
-  /** Epoc time */
+  /** 纪元时间 */
   auth_time: number
   jti: string
   iss: string
-  /** Always client_id */
+  /** 始终为 client_id */
   aud: string
   sub: string
   typ: "ID"
-  /** Equals client_id */
+  /** 等于 client_id */
   azp: string
   session_state: string
   at_hash: string
@@ -37,8 +37,8 @@ export interface BankIDNorwayProfile {
   birthdate: string
   updated_at: number
   /**
-   * Uniform Resource Name for [IDP option](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/core-concepts/identity-providers) being used,
-   * including Level of Assurance (LoA).
+   * 用于[IDP选项](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/core-concepts/identity-providers)的统一资源名称(URN)，
+   * 包括保证级别(LOA)。
    * @example
    * ```
    * urn:bankid:bid;LOA=4
@@ -47,16 +47,15 @@ export interface BankIDNorwayProfile {
   acr: string
   sid: string
   /**
-   * Name of [IDP option](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/core-concepts/identity-providers) being used to authenticate the end-user.
-   * If the end-user is subject to authentication step-up,
-   * note that this value may differ from any `amr` value specified
-   * in the `login_hint` parameter of the [authorize](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/authorize) endpoint.
+   * 用于认证终端用户的[IDP选项](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/core-concepts/identity-providers)名称。
+   * 如果终端用户需要进行认证升级，
+   * 注意此值可能与[授权](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/authorize)端点`login_hint`参数中指定的任何`amr`值不同。
    */
   amr: "BID" | "BIM" | "BIS"
-  /** Personal Identifier (PID) / Serial Number) from associated BankID certificate. */
+  /** 来自关联BankID证书的个人标识符(PID)/序列号。 */
   bankid_altsub: string
   /**
-   * In case of BID or BIM, the issuer of the end user certificate is returned.
+   * 在BID或BIM情况下，返回终端用户证书的颁发者。
    * @example
    * ```
    * CN=BankID Bankenes ID-tjeneste Bank CA 2,
@@ -77,13 +76,13 @@ export interface BankIDNorwayProfile {
     versionNumber: string
     subjectName: string
   }
-  /** Currently used as an input parameter for the [securityData](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/securitydata) endpoint of the [Fraud Data](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/advanced-topics/fraud-data) service */
+  /** 当前用作[欺诈数据](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/advanced-topics/fraud-data)服务[securityData](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/securitydata)端点的输入参数 */
   tid: string
-  /** Only returned from the `userinfo_endpoint` */
+  /** 仅从`userinfo_endpoint`返回 */
   email?: string
   /**
-   * [Norwegian National Identity Number (fødselsnummer)](https://www.skatteetaten.no/en/person/foreign/norwegian-identification-number/national-identity-number). It can be an alternative to `sub`.
-   * Requires `nnin_altsub` scope at the [authorize](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/authorize) endpoint.
+   * [挪威国家身份证号码（fødselsnummer）](https://www.skatteetaten.no/en/person/foreign/norwegian-identification-number/national-identity-number)。可以作为`sub`的替代。
+   * 需要在[授权](https://confluence.bankidnorge.no/confluence/pdoidcl/technical-documentation/api/authorize)端点请求`nnin_altsub`范围。
    * @example
    * ```
    * 181266*****
@@ -93,14 +92,14 @@ export interface BankIDNorwayProfile {
 }
 
 /**
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调URL
  * ```
  * https://example.com/api/auth/callback/bankid-no
  * ```
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import BankIDNorge from "@auth/core/providers/bankid-no"
@@ -116,21 +115,19 @@ export interface BankIDNorwayProfile {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [OpenID Connect Provider from BankID](https://confluence.bankidnorge.no/confluence/pdoidcl)
+ * - [来自BankID的OpenID Connect提供者](https://confluence.bankidnorge.no/confluence/pdoidcl)
  *
- * ### Notes
+ * ### 说明
  *
- * The BankID Norge provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/bankid-no.ts). To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * BankID Norge提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/bankid-no.ts)。要覆盖默认配置以适应您的用例，请查看[自定义内置OAuth提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
- * ## Help
+ * ## 帮助
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js严格遵循规范，对于提供者与规范的任何偏差，Auth.js不承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  */
 export default function BankIDNorway(
   config: OIDCUserConfig<BankIDNorwayProfile>

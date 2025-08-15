@@ -12,16 +12,13 @@ import type { OAuthConfig } from "../../../providers/index.js"
 import type { SessionToken } from "../../utils/cookie.js"
 
 /**
- * This function handles the complex flow of signing users in, and either creating,
- * linking (or not linking) accounts depending on if the user is currently logged
- * in, if they have account already and the authentication mechanism they are using.
+ * 此函数处理用户登录的复杂流程，并根据用户当前是否登录、是否已有账户以及使用的认证机制，
+ * 决定创建、链接（或不链接）账户。
  *
- * It prevents insecure behaviour, such as linking OAuth accounts unless a user is
- * signed in and authenticated with an existing valid account.
+ * 它防止不安全行为，例如除非用户已登录并通过现有有效账户认证，否则不允许链接OAuth账户。
  *
- * All verification (e.g. OAuth flows or email address verification flows) are
- * done prior to this handler being called to avoid additional complexity in this
- * handler.
+ * 所有验证（如OAuth流程或电子邮件地址验证流程）都在调用此处理程序之前完成，
+ * 以避免在此处理程序中增加额外的复杂性。
  */
 export async function handleLoginOrRegister(
   sessionToken: SessionToken,

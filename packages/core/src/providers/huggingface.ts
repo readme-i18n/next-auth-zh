@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#fff", display: "flex", justifyContent: "space-between", color: "#000", padding: 16}}>
- * <span>Built-in <b>Hugging Face</b> integration.</span>
+ * <span>内置的 <b>Hugging Face</b> 集成。</span>
  * <a href="https://huggingface.co">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/huggingface.svg" height="48" width="48"/>
  * </a>
@@ -13,125 +13,124 @@ import type { OIDCConfig, OIDCUserConfig } from "./index.js"
 
 export interface HuggingfaceProfile {
   /**
-   * Unique identifier for the user.
+   * 用户的唯一标识符。
    */
   sub: string
   /**
-   * Full name of the user.
+   * 用户的全名。
    *
-   * Needs 'profile' scope
+   * 需要 'profile' 作用域
    */
   name?: string
   /**
-   * Username of the user.
+   * 用户的用户名。
    *
-   * Need 'profile' scope
+   * 需要 'profile' 作用域
    */
   preferred_username?: string
   /**
-   * URL of the user's avatar.
+   * 用户头像的 URL。
    *
-   * Need 'profile' scope
+   * 需要 'profile' 作用域
    */
   profile?: string
   /**
-   * URL of the user's profile picture.
+   * 用户个人资料图片的 URL。
    *
-   * Need 'profile' scope
+   * 需要 'profile' 作用域
    */
   picture?: string
   /**
-   * Need 'profile' scope
+   * 需要 'profile' 作用域
    *
-   * Website of the user.
+   * 用户的网站。
    */
   website?: string
   /**
-   * Need 'email' scope
+   * 需要 'email' 作用域
    *
-   * Email address of the user.
+   * 用户的电子邮件地址。
    */
   email?: string
   /**
-   * Need 'email' scope
+   * 需要 'email' 作用域
    *
-   * Whether the user's email address is verified. Should always be true, Hugging Face enforces
-   * email verification for users to grant access to OAuth apps.
+   * 用户的电子邮件地址是否已验证。应该总是为 true，Hugging Face 强制要求用户验证电子邮件地址以授予 OAuth 应用访问权限。
    */
   email_verified?: boolean
   /**
-   * Whether the user has a paid subscription.
+   * 用户是否有付费订阅。
    */
   isPro: boolean
   /**
-   * Whether the user has a payment method set up.
+   * 用户是否设置了支付方式。
    *
-   * Needs the `read-billing` scope.
+   * 需要 `read-billing` 作用域。
    */
   canPay?: boolean
   /**
-   * List of the user's organizations.
+   * 用户的组织列表。
    */
   orgs: Array<{
     /**
-     * Unique identifier for the organization.
+     * 组织的唯一标识符。
      */
     sub: string
     /**
-     * Name of the organization.
+     * 组织的名称。
      */
     name: string
     /**
-     * URL of the organization's avatar.
+     * 组织头像的 URL。
      */
     picture: string
     /**
-     * Username of the organization.
+     * 组织的用户名。
      */
     preferred_username: string
     /**
-     * Whether the organization has a paid enterprise subscription.
+     * 组织是否有付费企业订阅。
      */
     isEnterprise: boolean
     /**
-     * Whether the organization has a payment method set up.
+     * 组织是否设置了支付方式。
      *
-     * Access to the organization needs to be granted to the oauth app for this field to be present.
+     * 需要授予 oauth 应用访问组织的权限，此字段才会出现。
      */
     canPay?: boolean
     /**
-     * The role of the user in the organization.
+     * 用户在组织中的角色。
      *
-     * Access to the organization needs to be granted to the oauth app for this field to be present.
+     * 需要授予 oauth 应用访问组织的权限，此字段才会出现。
      */
     roleInOrg?: "admin" | "write" | "read" | "contributor"
     /**
-     * User needs to re-authenticate to access the organization.
+     * 用户需要重新认证以访问组织。
      *
-     * Access to the organization needs to be granted to the oauth app for this field to be present.
+     * 需要授予 oauth 应用访问组织的权限，此字段才会出现。
      */
     pendingSSO?: boolean
     /**
-     * User needs to enable MFA to access the organization.
+     * 用户需要启用 MFA 以访问组织。
      *
-     * Access to the organization needs to be granted to the oauth app for this field to be present.
+     * 需要授予 oauth 应用访问组织的权限，此字段才会出现。
      */
     missingMFA?: boolean
     /**
-     * Resource groups are a feature of enterprise organizations.
+     * 资源组是企业组织的一个功能。
      *
-     * They allow granular access control to resources within the organization.
+     * 它们允许对组织内的资源进行细粒度的访问控制。
      *
-     * Access to the organization needs to be granted to the oauth app for this field to be present.
+     * 需要授予 oauth 应用访问组织的权限，此字段才会出现。
      */
     resourceGroups?: Array<{
       /**
-       * Unique identifier for the resource group.
+       * 资源组的唯一标识符。
        */
       sub: string
       name: string
       /**
-       * The role of the user in the resource group.
+       * 用户在资源组中的角色。
        */
       role: "read" | "write" | "admin" | "contributor"
     }>
@@ -139,16 +138,16 @@ export interface HuggingfaceProfile {
 }
 
 /**
- * Add HuggingFace login to your page.
+ * 向您的页面添加 HuggingFace 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/huggingface
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import HuggingFace from "@auth/core/providers/huggingface"
@@ -161,8 +160,8 @@ export interface HuggingfaceProfile {
  *       clientSecret: HUGGINGFACE_CLIENT_SECRET,
  *       authorization: {
  *        params: {
- *          scope: "openid profile email", // specify the scopes you need
- *          //  orgIds: "unique_org_id" // If your oauth app needs access to a specific organization of the user
+ *          scope: "openid profile email", // 指定您需要的作用域
+ *          //  orgIds: "unique_org_id" // 如果您的 oauth 应用需要访问用户的特定组织
  *        }
  *       },
  *     }),
@@ -170,48 +169,44 @@ export interface HuggingfaceProfile {
  * })
  * ```
  *
- * The following scopes are available:
+ * 以下作用域可用：
  *
- * - `openid`: Grants access to the user's OpenID Connect profile.
- * - `profile`: Grants access to the user's profile information.
- * - `email`: Grants access to the user's email address.
- * - `read-repos`: Grants read access to the user's repositories.
- * - `write-repos`: Grants write access to the user's repositories.
- * - `manage-repos`: Can create/delete repositories on behalf of the user.
- * - `write-discussions`: Can post on the user's behalf.
- * - `read-billing`: Know if the user has a payment method set up.
- * - `inference-api`: Can make calls to Inference providers on behalf of the user.
- * - `webhooks`: Can manage webhooks on behalf of the user.
+ * - `openid`: 授予访问用户的 OpenID Connect 个人资料的权限。
+ * - `profile`: 授予访问用户个人资料信息的权限。
+ * - `email`: 授予访问用户电子邮件地址的权限。
+ * - `read-repos`: 授予读取用户仓库的权限。
+ * - `write-repos`: 授予写入用户仓库的权限。
+ * - `manage-repos`: 可以代表用户创建/删除仓库。
+ * - `write-discussions`: 可以代表用户发布讨论。
+ * - `read-billing`: 知道用户是否设置了支付方式。
+ * - `inference-api`: 可以代表用户调用推理提供者。
+ * - `webhooks`: 可以代表用户管理 webhooks。
  *
- * You need to enable them first in your OAuth app settings.
+ * 您需要先在您的 OAuth 应用设置中启用它们。
  *
- * /!\ By default, the `profile` and `email` scopes are enabled in NextAuth. So you need to enable
- * the `email` scope in your OAuth app settings or you will get a scope error.
+ * /!\ 默认情况下，NextAuth 中启用了 `profile` 和 `email` 作用域。因此，您需要在您的 OAuth 应用设置中启用 `email` 作用域，否则您将收到作用域错误。
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Hugging Face OAuth documentation](https://huggingface.co/docs/hub/en/oauth#creating-an-oauth-app)
- *  - [Create an OAuth application](https://huggingface.co/settings/applications/new)
+ *  - [Hugging Face OAuth 文档](https://huggingface.co/docs/hub/en/oauth#creating-an-oauth-app)
+ *  - [创建 OAuth 应用](https://huggingface.co/settings/applications/new)
  *
- * ### Notes
+ * ### 备注
  *
- * By default, Auth.js assumes that the Hugging Face provider is
- * based on the [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) specification.
+ * 默认情况下，Auth.js 假设 Hugging Face 提供者基于 [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
  *
  * :::tip
  *
- * The HuggingFace provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/huggingface.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * HuggingFace 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/huggingface.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，您可以 [提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提出问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在 [讨论](https://authjs.dev/new/github-discussions) 中寻求更多帮助。
  *
  * :::
  */

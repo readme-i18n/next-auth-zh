@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Cognito</b> integration.</span>
+ * <span>内置的 <b>Cognito</b> 集成。</span>
  * <a href="https://docs.aws.amazon.com/cognito">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/cognito.svg" height="48" width="48"/>
  * </a>
@@ -18,16 +18,16 @@ export interface CognitoProfile extends Record<string, any> {
 }
 
 /**
- * Add Cognito login to your page.
+ * 在您的页面添加 Cognito 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/cognito
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Cognito from "@auth/core/providers/cognito"
@@ -44,38 +44,36 @@ export interface CognitoProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Cognito OAuth documentation](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
+ *  - [Cognito OAuth 文档](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html)
  *
- * ### Notes
- * You need to select your AWS region to go the the Cognito dashboard.
+ * ### 注意事项
+ * 您需要选择您的 AWS 区域以进入 Cognito 仪表板。
  *
  * :::tip
- * The issuer is a URL, that looks like this: https://cognito-idp.{region}.amazonaws.com/{PoolId}
+ * issuer 是一个 URL，看起来像这样：https://cognito-idp.{region}.amazonaws.com/{PoolId}
  * :::
- * `PoolId` is from General Settings in Cognito, not to be confused with the App Client ID.
+ * `PoolId` 来自 Cognito 的 General Settings，不要与 App Client ID 混淆。
  * :::warning
- * Make sure you select all the appropriate client settings or the OAuth flow will not work.
+ * 确保您选择了所有适当的客户端设置，否则 OAuth 流程将无法工作。
  * :::
  *
- * By default, Auth.js assumes that the Cognito provider is
- * based on the [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) specification.
+ * 默认情况下，Auth.js 假设 Cognito 提供商基于 [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
  *
  * :::tip
  *
- * The Cognito provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/cognito.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Cognito 提供商附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/cognito.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供商](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供商对规范的任何偏离，Auth.js 不承担任何责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

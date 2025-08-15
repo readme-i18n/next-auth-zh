@@ -4,11 +4,11 @@ import type { InternalOptions, ResponseInternal } from "../../types.js"
 import type { Cookie, SessionStore } from "../utils/cookie.js"
 
 /**
- * Destroys the session.
- * If the session strategy is database,
- * The session is also deleted from the database.
- * In any case, the session cookie is cleared and
- * {@link AuthConfig["events"].signOut} is emitted.
+ * 销毁会话。
+ * 如果会话策略是数据库存储，
+ * 会话也会从数据库中删除。
+ * 无论哪种情况，会话 cookie 都会被清除，
+ * 并且会触发 {@link AuthConfig["events"].signOut}。
  */
 export async function signOut(
   cookies: Cookie[],

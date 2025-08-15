@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>osu!</b> integration.</span>
+ * <span>内置的 <b>osu!</b> 集成。</span>
  * <a href="https://osu.ppy.sh/home">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/osu.svg" height="48" />
  * </a>
@@ -60,16 +60,16 @@ export interface OsuProfile extends OsuUserCompact, Record<string, any> {
 }
 
 /**
- * Add osu! login to your page.
+ * 向您的页面添加 osu! 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/osu
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Osu from "@auth/core/providers/osu"
@@ -82,36 +82,34 @@ export interface OsuProfile extends OsuUserCompact, Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [osu! OAuth documentation](https://osu.ppy.sh/docs/index.html#authentication)
- *  - [osu! app console](https://osu.ppy.sh/home/account/edit#new-oauth-application)
+ *  - [osu! OAuth 文档](https://osu.ppy.sh/docs/index.html#authentication)
+ *  - [osu! 应用控制台](https://osu.ppy.sh/home/account/edit#new-oauth-application)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Osu provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Osu 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::note
  *
- * osu! does not provide a user email.
+ * osu! 不提供用户邮箱。
  *
  * :::
  *
  * :::tip
  *
- * The osu! provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/osu.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * osu! 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/osu.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

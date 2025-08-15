@@ -1,7 +1,7 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
  * <span style={{fontSize: "1.35rem" }}>
- *  Built-in sign in with <b>Frontegg</b> integration.
+ *  内置的 <b>Frontegg</b> 集成登录。
  * </span>
  * <a href="https://frontegg.com" style={{backgroundColor: "black", padding: "12px", borderRadius: "100%" }}>
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/frontegg.svg" width="24"/>
@@ -13,34 +13,34 @@
 
 import type { OIDCConfig, OIDCUserConfig } from "./index.js"
 
-/** The returned user profile from Frontegg when using the profile callback. [Reference](https://docs.frontegg.com/docs/admin-portal-profile). */
+/** 使用 profile 回调时从 Frontegg 返回的用户资料。[参考](https://docs.frontegg.com/docs/admin-portal-profile)。 */
 export interface FronteggProfile {
-  /** The user's unique Frontegg ID */
+  /** 用户的唯一 Frontegg ID */
   sub: string
-  /** The user's name */
+  /** 用户的名称 */
   name: string
-  /** The user's email */
+  /** 用户的电子邮件 */
   email: string
-  /** A boolean indicating if the user's email is verified */
+  /** 布尔值，表示用户的电子邮件是否已验证 */
   email_verified: boolean
-  /** The user's picture */
+  /** 用户的图片 */
   profilePictureUrl: string
-  /** The user's roles */
+  /** 用户的角色 */
   roles: string[]
-  /** The user's custom attributes */
+  /** 用户的自定义属性 */
   [claim: string]: unknown
 }
 
 /**
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/frontegg
  * ```
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import Frontegg from "@auth/core/providers/frontegg"
@@ -57,42 +57,40 @@ export interface FronteggProfile {
  * })
  * ```
  *
- * ### Configuring Frontegg
+ * ### 配置 Frontegg
  *
- * Follow these steps:
+ * 按照以下步骤操作：
  *
- * Log into the [Frontegg portal](https://portal.frontegg.com)
+ * 登录 [Frontegg 门户](https://portal.frontegg.com)
  *
- * Authentication > Login method > Hosted login > Add your callback url here
+ * 认证 > 登录方法 > 托管登录 > 在此处添加您的回调 URL
  *
- * Then, create a `.env.local` file in the project root add the following entries:
+ * 然后，在项目根目录创建一个 `.env.local` 文件，并添加以下条目：
  *
- * Get the following from the Frontegg's portal:
+ * 从 Frontegg 门户获取以下信息：
  * ```
  * AUTH_FRONTEGG_ID="<Client ID>" # Environments > Your environment > Env settings
  * AUTH_FRONTEGG_SECRET="<API KEY>" # Environments > Your environment > Env settings
  * AUTH_FRONTEGG_ISSUER="<https://[YOUR_SUBDOMAIN].frontegg.com>" # Environments > Your environment > Env settings > Domains > Domain name
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Frontegg Docs](https://docs.frontegg.com/docs/how-to-use-our-docs)
+ * - [Frontegg 文档](https://docs.frontegg.com/docs/how-to-use-our-docs)
  *
- * ### Notes
+ * ### 注意事项
  *
- * The Frontegg provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/frontegg.ts). To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Frontegg 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/frontegg.ts)。要覆盖默认配置以适应您的用例，请查看[自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::info
- * By default, Auth.js assumes that the Frontegg provider is based on the [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) spec
+ * 默认情况下，Auth.js 假设 Frontegg 提供者基于 [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) 规范
  * :::
  *
- * ## Help
+ * ## 帮助
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提出问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论](https://authjs.dev/new/github-discussions)中寻求更多帮助。
  */
 export default function Frontegg(
   options: OIDCUserConfig<FronteggProfile>

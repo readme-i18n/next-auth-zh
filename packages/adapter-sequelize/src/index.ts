@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://sequelize.org/docs/v6/getting-started/">Sequilize</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://sequelize.org/docs/v6/getting-started/">Sequilize</a> 适配器。</p>
  *  <a href="https://sequelize.org/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/sequelize.svg" height="30"/>
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install next-auth @auth/sequelize-adapter sequelize
@@ -41,14 +41,14 @@ interface VerificationTokenInstance
   extends Model<VerificationToken, Partial<VerificationToken>>,
     VerificationToken {}
 
-/** This is the interface of the Sequelize adapter options. */
+/** 这是 Sequelize 适配器选项的接口。 */
 export interface SequelizeAdapterOptions {
   /**
-   * Whether to {@link https://sequelize.org/docs/v6/core-concepts/model-basics/#model-synchronization synchronize} the models or not.
+   * 是否 {@link https://sequelize.org/docs/v6/core-concepts/model-basics/#model-synchronization 同步} 模型。
    */
   synchronize?: boolean
   /**
-   * The {@link https://sequelize.org/docs/v6/core-concepts/model-basics/ Sequelize Models} related to Auth.js that will be created in your database.
+   * 与 Auth.js 相关的 {@link https://sequelize.org/docs/v6/core-concepts/model-basics/ Sequelize 模型}，将在您的数据库中创建。
    */
   models?: Partial<{
     User: ModelCtor<UserInstance>

@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://www.mongodb.com">MongoDB</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://www.mongodb.com">MongoDB</a> 适配器。</p>
  *  <a href="https://www.mongodb.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/mongodb.svg" width="30" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/mongodb-adapter mongodb
@@ -26,19 +26,19 @@ import type {
 import type { MongoClient } from "mongodb"
 
 /**
- * This adapter uses https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html#using-declarations-and-explicit-resource-management.
- * This feature is very new and requires runtime polyfills for `Symbol.asyncDispose` in order to work properly in all environments.
- * It is also required to set in the `tsconfig.json` file the compilation target to `es2022` or below and configure the `lib` option to include `esnext` or `esnext.disposable`.
+ * 此适配器使用了 https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-2.html#using-declarations-and-explicit-resource-management。
+ * 此特性非常新，需要在所有环境中为 `Symbol.asyncDispose` 提供运行时 polyfills 才能正常工作。
+ * 同时，还需要在 `tsconfig.json` 文件中将编译目标设置为 `es2022` 或以下，并配置 `lib` 选项以包含 `esnext` 或 `esnext.disposable`。
  *
- * You can find more information about this feature and the polyfills in the link above.
+ * 您可以在上面的链接中找到关于此特性和 polyfills 的更多信息。
  */
 // @ts-expect-error read only property is not assignable
 Symbol.asyncDispose ??= Symbol("Symbol.asyncDispose")
 
-/** This is the interface of the MongoDB adapter options. */
+/** 这是 MongoDB 适配器选项的接口。 */
 export interface MongoDBAdapterOptions {
   /**
-   * The name of the {@link https://www.mongodb.com/docs/manual/core/databases-and-collections/#collections MongoDB collections}.
+   * {@link https://www.mongodb.com/docs/manual/core/databases-and-collections/#collections MongoDB 集合}的名称。
    */
   collections?: {
     Users?: string
@@ -47,14 +47,14 @@ export interface MongoDBAdapterOptions {
     VerificationTokens?: string
   }
   /**
-   * The name you want to give to the MongoDB database
+   * 您想要给 MongoDB 数据库命名的名称
    */
   databaseName?: string
   /**
-   * Callback function for managing the closing of the MongoDB client.
-   * This could be useful when `client` is provided as a function returning MongoClient.
-   * It allows for more customized management of database connections,
-   * addressing persistence, container reuse, and connection closure issues.
+   * 用于管理 MongoDB 客户端关闭的回调函数。
+   * 当 `client` 作为返回 MongoClient 的函数提供时，这可能很有用。
+   * 它允许对数据库连接进行更自定义的管理，
+   * 解决持久性、容器重用和连接关闭问题。
    */
   onClose?: (client: MongoClient) => Promise<void>
 }
@@ -69,7 +69,7 @@ export const defaultCollections: Required<
 }
 
 export const format = {
-  /** Takes a MongoDB object and returns a plain old JavaScript object */
+  /** 接收一个 MongoDB 对象并返回一个普通的 JavaScript 对象 */
   from<T = Record<string, unknown>>(object: Record<string, any>): T {
     const newObject: Record<string, unknown> = {}
     for (const key in object) {
@@ -84,7 +84,7 @@ export const format = {
     }
     return newObject as T
   },
-  /** Takes a plain old JavaScript object and turns it into a MongoDB object */
+  /** 接收一个普通的 JavaScript 对象并将其转换为 MongoDB 对象 */
   to<T = Record<string, unknown>>(object: Record<string, any>) {
     const newObject: Record<string, unknown> = {
       _id: _id(object.id),
@@ -107,15 +107,15 @@ export function _id(hex?: string) {
 
 export function MongoDBAdapter(
   /**
-   * The MongoDB client.
+   * MongoDB 客户端。
    *
-   * The MongoDB team recommends providing a non-connected `MongoClient` instance to avoid unhandled promise rejections if the client fails to connect.
+   * MongoDB 团队建议提供一个未连接的 `MongoClient` 实例，以避免如果客户端连接失败时未处理的 promise 拒绝。
    *
-   * Alternatively, you can also pass:
-   * - A promise that resolves to a connected `MongoClient` (not recommended).
-   * - A function, to handle more complex and custom connection strategies.
+   * 或者，您也可以传递：
+   * - 一个解析为已连接 `MongoClient` 的 promise（不推荐）。
+   * - 一个函数，以处理更复杂和自定义的连接策略。
    *
-   * Using a function combined with `options.onClose`, can be useful when you want a more advanced and customized connection strategy to address challenges related to persistence, container reuse, and connection closure.
+   * 结合 `options.onClose` 使用函数，当您想要一个更高级和自定义的连接策略以解决与持久性、容器重用和连接关闭相关的挑战时，可能很有用。
    */
   client:
     | MongoClient

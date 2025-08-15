@@ -16,20 +16,19 @@ export interface AuthClientConfig {
   basePath: string
   baseUrlServer: string
   basePathServer: string
-  /** Stores last session response */
+  /** 存储上一次会话的响应 */
   _session?: Session | null | undefined
-  /** Used for timestamp since last sycned (in seconds) */
+  /** 用于记录自上次同步以来的时间戳（以秒为单位） */
   _lastSync: number
   /**
-   * Stores the `SessionProvider`'s session update method to be able to
-   * trigger session updates from places like `signIn` or `signOut`
+   * 存储 `SessionProvider` 的会话更新方法，以便能够从 `signIn` 或 `signOut` 等地方触发会话更新
    */
   _getSession: (...args: any[]) => any
 }
 
 export interface UseSessionOptions<R extends boolean> {
   required: R
-  /** Defaults to `signIn` */
+  /** 默认为 `signIn` */
   onUnauthenticated?: () => void
 }
 
@@ -44,19 +43,19 @@ export interface ClientSafeProvider {
 
 export interface SignInOptions<Redirect extends boolean = true>
   extends Record<string, unknown> {
-  /** @deprecated Use `redirectTo` instead. */
+  /** @deprecated 请改用 `redirectTo`。 */
   callbackUrl?: string
   /**
-   * Specify where the user should be redirected to after a successful signin.
+   * 指定用户登录成功后应重定向到哪里。
    *
-   * By default, it is the page the sign-in was initiated from.
+   * 默认情况下，是发起登录的页面。
    */
   redirectTo?: string
   /**
-   * You might want to deal with the signin response on the same page, instead of redirecting to another page.
-   * For example, if an error occurs (like wrong credentials given by the user), you might want to show an inline error message on the input field.
+   * 您可能希望在同一页面上处理登录响应，而不是重定向到另一个页面。
+   * 例如，如果发生错误（如用户提供的凭据错误），您可能希望在输入字段上显示内联错误消息。
    *
-   * For this purpose, you can set this to option `redirect: false`.
+   * 为此，您可以将此选项设置为 `redirect: false`。
    */
   redirect?: Redirect
 }
@@ -70,7 +69,7 @@ export interface SignInResponse {
 }
 
 /**
- * Match `inputType` of `new URLSearchParams(inputType)`
+ * 匹配 `new URLSearchParams(inputType)` 的 `inputType`
  * @internal
  */
 export type SignInAuthorizationParams =
@@ -85,12 +84,12 @@ export interface SignOutResponse {
 }
 
 export interface SignOutParams<Redirect extends boolean = true> {
-  /** @deprecated Use `redirectTo` instead. */
+  /** @deprecated 请改用 `redirectTo`。 */
   callbackUrl?: string
   /**
-   * If you pass `redirect: false`, the page will not reload.
-   * The session will be deleted, and `useSession` is notified, so any indication about the user will be shown as logged out automatically.
-   * It can give a very nice experience for the user.
+   * 如果您传递 `redirect: false`，页面将不会重新加载。
+   * 会话将被删除，并且 `useSession` 会收到通知，因此任何关于用户的指示将自动显示为已注销。
+   * 这可以给用户带来非常好的体验。
    */
   redirectTo?: string
   /** [Documentation](https://next-auth.js.org/getting-started/client#using-the-redirect-false-option-1 */
@@ -99,9 +98,9 @@ export interface SignOutParams<Redirect extends boolean = true> {
 
 /**
  
- * If you have session expiry times of 30 days (the default) or more, then you probably don't need to change any of the default options.
+ * 如果您有30天（默认）或更长的会话过期时间，那么您可能不需要更改任何默认选项。
  *
- * However, if you need to customize the session behavior and/or are using short session expiry times, you can pass options to the provider to customize the behavior of the {@link useSession} hook.
+ * 但是，如果您需要自定义会话行为和/或使用较短的会话过期时间，您可以向提供者传递选项以自定义 {@link useSession} 钩子的行为。
  */
 export interface SessionProviderProps {
   children: React.ReactNode
@@ -109,19 +108,19 @@ export interface SessionProviderProps {
   baseUrl?: string
   basePath?: string
   /**
-   * A time interval (in seconds) after which the session will be re-fetched.
-   * If set to `0` (default), the session is not polled.
+   * 一个时间间隔（以秒为单位），在此之后会话将被重新获取。
+   * 如果设置为 `0`（默认），则不会轮询会话。
    */
   refetchInterval?: number
   /**
-   * `SessionProvider` automatically refetches the session when the user switches between windows.
-   * This option activates this behaviour if set to `true` (default).
+   * `SessionProvider` 在用户切换窗口时自动重新获取会话。
+   * 如果设置为 `true`（默认），此选项将激活此行为。
    */
   refetchOnWindowFocus?: boolean
   /**
-   * Set to `false` to stop polling when the device has no internet access offline (determined by `navigator.onLine`)
+   * 设置为 `false` 以在设备没有互联网访问离线时停止轮询（由 `navigator.onLine` 确定）
    *
-   * [`navigator.onLine` documentation](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine)
+   * [`navigator.onLine` 文档](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine)
    */
   refetchWhenOffline?: false
 }
@@ -129,11 +128,9 @@ export interface SessionProviderProps {
 // ------------------------ Internal ------------------------
 
 /**
- * If passed 'appContext' via getInitialProps() in _app.js
- * then get the req object from ctx and use that for the
- * req value to allow `fetchData` to
- * work seemlessly in getInitialProps() on server side
- * pages *and* in _app.js.
+ * 如果在 _app.js 中通过 getInitialProps() 传递了 'appContext'
+ * 那么从 ctx 获取 req 对象并使用它作为 req 值，以允许 `fetchData` 在
+ * 服务器端页面 *和* _app.js 中的 getInitialProps() 中无缝工作。
  * @internal
  */
 export async function fetchData<T = any>(
@@ -199,7 +196,7 @@ export function useOnline() {
 }
 
 /**
- * Returns the number of seconds elapsed since January 1, 1970 00:00:00 UTC.
+ * 返回自1970年1月1日 00:00:00 UTC以来经过的秒数。
  * @internal
  */
 export function now() {
@@ -207,7 +204,7 @@ export function now() {
 }
 
 /**
- * Returns an `URL` like object to make requests/redirects from server-side
+ * 返回一个类似 `URL` 的对象，用于从服务器端发起请求/重定向
  * @internal
  */
 export function parseUrl(url?: string): {

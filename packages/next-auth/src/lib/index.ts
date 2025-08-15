@@ -15,17 +15,17 @@ import type { AppRouteHandlerFn } from "./types.js"
 // @ts-expect-error Next.js does not yet correctly use the `package.json#exports` field
 import type { NextFetchEvent, NextMiddleware, NextRequest } from "next/server"
 
-/** Configure NextAuth.js. */
+/** 配置 NextAuth.js。 */
 export interface NextAuthConfig extends Omit<AuthConfig, "raw"> {
   /**
-   * Callbacks are asynchronous functions you can use to control what happens when an auth-related action is performed.
-   * Callbacks **allow you to implement access controls without a database** or to **integrate with external databases or APIs**.
+   * 回调是异步函数，可用于控制在执行与认证相关的操作时发生什么。
+   * 回调**允许您无需数据库即可实现访问控制**或**与外部数据库或API集成**。
    */
   callbacks?: AuthConfig["callbacks"] & {
     /**
-     * Invoked when a user needs authorization, using [Middleware](https://nextjs.org/docs/advanced-features/middleware).
+     * 当用户需要授权时调用，使用[Middleware](https://nextjs.org/docs/advanced-features/middleware)。
      *
-     * You can override this behavior by returning a {@link NextResponse}.
+     * 您可以通过返回一个{@link NextResponse}来覆盖此行为。
      *
      * @example
      * ```ts title="app/auth.ts"
@@ -46,14 +46,14 @@ export interface NextAuthConfig extends Omit<AuthConfig, "raw"> {
      * ```
      *
      * :::warning
-     * If you are returning a redirect response, make sure that the page you are redirecting to is not protected by this callback,
-     * otherwise you could end up in an infinite redirect loop.
+     * 如果您返回一个重定向响应，请确保您重定向到的页面不受此回调保护，
+     * 否则您可能会陷入无限重定向循环。
      * :::
      */
     authorized?: (params: {
-      /** The request to be authorized. */
+      /** 待授权的请求。 */
       request: NextRequest
-      /** The authenticated user or token, if any. */
+      /** 已认证的用户或令牌（如果有）。 */
       auth: Session | null
     }) => Awaitable<boolean | NextResponse | Response | undefined>
   }

@@ -1,7 +1,7 @@
 import type { DataSource, DataSourceOptions } from "typeorm"
 import * as defaultEntities from "./entities.js"
 
-/** Ensure configOrString is normalized to an object. */
+/** 确保 configOrString 被规范化为一个对象。 */
 export function parseDataSourceConfig(
   configOrString: string | DataSourceOptions
 ): DataSourceOptions {

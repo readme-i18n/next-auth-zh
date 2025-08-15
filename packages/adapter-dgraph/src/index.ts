@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
- *  <p style={{fontWeight: "normal"}}>Official <a href="https://dgraph.io/docs">Dgraph</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p style={{fontWeight: "normal"}}>Auth.js / NextAuth.js 的官方 <a href="https://dgraph.io/docs">Dgraph</a> 适配器。</p>
  *  <a href="https://dgraph.io/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/dgraph.svg" width="100"/>
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install next-auth @auth/dgraph-adapter
@@ -27,14 +27,14 @@ import {
 
 export type { DgraphClientParams, DgraphClientError } from "./lib/client.js"
 
-/** This is the interface of the Dgraph adapter options. */
+/** 这是 Dgraph 适配器选项的接口。 */
 export interface DgraphAdapterOptions {
   /**
-   * The GraphQL {@link https://dgraph.io/docs/query-language/fragments/ Fragments} you can supply to the adapter
-   * to define how the shapes of the `user`, `account`, `session`, `verificationToken` entities look.
+   * 您可以向适配器提供的 GraphQL {@link https://dgraph.io/docs/query-language/fragments/ Fragments}，
+   * 以定义 `user`、`account`、`session`、`verificationToken` 实体的结构。
    *
-   * By default the adapter will uses the [default defined fragments](https://github.com/nextauthjs/next-auth/blob/main/packages/adapter-dgraph/src/lib/graphql/fragments.ts)
-   * , this config option allows to extend them.
+   * 默认情况下，适配器将使用[默认定义的片段](https://github.com/nextauthjs/next-auth/blob/main/packages/adapter-dgraph/src/lib/graphql/fragments.ts)，
+   * 此配置选项允许扩展它们。
    */
   fragments?: {
     User?: string

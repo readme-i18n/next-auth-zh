@@ -11,9 +11,9 @@ import type { NodemailerConfig, NodemailerUserConfig } from "./nodemailer.js"
 /**
  * @deprecated
  *
- * Import this provider from the `providers/nodemailer` submodule instead of `providers/email`.
+ * 请从 `providers/nodemailer` 子模块而非 `providers/email` 导入此提供者。
  *
- * To log in with nodemailer, change `signIn("email")` to `signIn("nodemailer")`
+ * 要使用 nodemailer 登录，请将 `signIn("email")` 改为 `signIn("nodemailer")`
  */
 export default function Email(config: NodemailerUserConfig): NodemailerConfig {
   return {
@@ -46,11 +46,11 @@ export interface EmailConfig extends CommonProviderOptions {
   sendVerificationRequest: (
     params: EmailProviderSendVerificationRequestParams
   ) => Awaitable<void>
-  /** Used to hash the verification token. */
+  /** 用于哈希验证令牌。 */
   secret?: string
-  /** Used with HTTP-based email providers. */
+  /** 用于基于 HTTP 的电子邮件提供者。 */
   apiKey?: string
-  /** Used with SMTP-based email providers. */
+  /** 用于基于 SMTP 的电子邮件提供者。 */
   server?: NodemailerConfig["server"]
   generateVerificationToken?: () => Awaitable<string>
   normalizeIdentifier?: (identifier: string) => string

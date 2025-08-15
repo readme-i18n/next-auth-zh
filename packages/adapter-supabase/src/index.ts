@@ -6,7 +6,7 @@
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @supabase/supabase-js @auth/supabase-adapter
@@ -38,15 +38,15 @@ export function format<T>(obj: Record<string, any>): T {
 }
 
 /**
- * This is the interface of the Supabase adapter options.
+ * 这是 Supabase 适配器选项的接口。
  **/
 export interface SupabaseAdapterOptions {
   /**
-   * The URL of your Supabase database
+   * 你的 Supabase 数据库的 URL
    **/
   url: string
   /**
-   * The secret to grant access to the database
+   * 授予数据库访问权限的密钥
    **/
   secret: string
 }

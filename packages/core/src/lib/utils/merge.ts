@@ -2,7 +2,7 @@ function isObject(item: unknown): item is object {
   return item !== null && typeof item === "object"
 }
 
-/** Deep merge two or more objects */
+/** 深度合并两个或多个对象 */
 export function merge<T extends Record<string, unknown>>(
   target: T,
   ...sources: Array<Record<string, unknown> | undefined>

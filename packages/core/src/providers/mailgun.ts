@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Mailgun</b> integration.</span>
+ * <span>内置的 <b>Mailgun</b> 集成。</span>
  * <a href="https://www.mailgun.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/mailgun.svg" height="48" width="48"/>
  * </a>
@@ -12,11 +12,11 @@ import type { EmailConfig, EmailUserConfig } from "./index.js"
 import { html, text } from "../lib/utils/email.js"
 
 /**
- * Add Mailgun login to your page.
+ * 为您的页面添加 Mailgun 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Mailgun from "@auth/core/providers/mailgun"
@@ -26,23 +26,22 @@ import { html, text } from "../lib/utils/email.js"
  *   providers: [
  *     Mailgun({
  *       from: MAILGUN_DOMAIN,
- *       region: "EU", // Optional
+ *       region: "EU", // 可选
  *     }),
  *   ],
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Mailgun documentation](https://documentation.mailgun.com/docs/mailgun)
+ *  - [Mailgun 文档](https://documentation.mailgun.com/docs/mailgun)
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵循规范，对于提供者任何偏离规范的行为概不负责。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  *
  * :::
  */

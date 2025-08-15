@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Osso</b> integration.</span>
+ * <span>内置的 <b>Osso</b> 集成。</span>
  * <a href="https://ossoapp.com/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/osso.svg" height="48" />
  * </a>
@@ -11,16 +11,16 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * Add Osso login to your page.
+ * 向您的页面添加 Osso 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/osso
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Osso from "@auth/core/providers/osso"
@@ -37,42 +37,39 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * })
  * ```
  *
- * ### Resources
- * Osso is an open source service that handles SAML authentication against Identity Providers, normalizes profiles, and makes those profiles available to you in an OAuth 2.0 code grant flow.
+ * ### 资源
+ * Osso 是一个开源服务，它处理针对身份提供者的 SAML 认证，规范化配置文件，并通过 OAuth 2.0 代码授权流程使这些配置文件可供您使用。
  * 
- * - If you don't yet have an Osso instance, you can use [Osso's Demo App](https://demo.ossoapp.com) for your testing purposes. For documentation on deploying an Osso instance, see https://ossoapp.com/docs/deploy/overview/
- *  - [Osso OAuth documentation](https://ossoapp.com/)
+ * - 如果您还没有 Osso 实例，您可以使用 [Osso 的演示应用](https://demo.ossoapp.com) 进行测试。有关部署 Osso 实例的文档，请参阅 https://ossoapp.com/docs/deploy/overview/
+ *  - [Osso OAuth 文档](https://ossoapp.com/)
  *
- * You can configure your OAuth Clients on your Osso Admin UI, i.e. https://demo.ossoapp.com/admin/config - you'll need to get a Client ID and Secret and allow-list your redirect URIs.
- * [SAML SSO differs a bit from OAuth](https://ossoapp.com/blog/saml-vs-oauth) - for every tenant who wants to sign in to your application using SAML, you and your customer need to perform a multi-step configuration in Osso's Admin UI and the admin dashboard of the tenant's Identity Provider. Osso provides documentation for providers like Okta and OneLogin, cloud-based IDPs who also offer a developer account that's useful for testing. Osso also provides a [Mock IDP](https://idp.ossoapp.com) that you can use for testing without needing to sign up for an Identity Provider service.
+ * 您可以在 Osso 管理界面上配置您的 OAuth 客户端，即 https://demo.ossoapp.com/admin/config - 您需要获取客户端 ID 和密钥，并允许列出您的重定向 URI。
+ * [SAML SSO 与 OAuth 有所不同](https://ossoapp.com/blog/saml-vs-oauth) - 对于每个希望使用 SAML 登录到您的应用程序的租户，您和您的客户需要在 Osso 的管理界面和租户的身份提供者的管理仪表板中执行多步配置。Osso 为 Okta 和 OneLogin 等提供者提供了文档，这些是基于云的 IDP，也提供用于测试的开发人员账户。Osso 还提供了一个 [模拟 IDP](https://idp.ossoapp.com)，您可以在不需要注册身份提供者服务的情况下用于测试。
 
- * See Osso's complete configuration and testing documentation at https://ossoapp.com/docs/configure/overview
+ * 在 https://ossoapp.com/docs/configure/overview 查看 Osso 的完整配置和测试文档。
  * 
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Osso provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Osso 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::note
  * 
- * `issuer` should be the fully qualified domain e.g. `demo.ossoapp.com`
+ * `issuer` 应该是完全限定的域名，例如 `demo.ossoapp.com`
  * 
  * :::
  * 
  * :::tip
  *
- * The Osso provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/osso.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Osso 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/osso.ts)。
+ * 要覆盖默认值以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，您可以 [提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提出问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在 [讨论](https://authjs.dev/new/github-discussions) 中寻求更多帮助。
  *
  * :::
  */

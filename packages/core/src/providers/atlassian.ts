@@ -1,7 +1,7 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
  * <span style={{fontSize: "1.35rem" }}>
- *  Built-in sign in with <b>Atlassian</b> integration.
+ *  内置的 <b>Atlassian</b> 集成登录。
  * </span>
  * <a href="https://www.atlassian.com/" style={{backgroundColor: "black", padding: "12px", borderRadius: "100%" }}>
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/atlassian.svg" width="24" style={{ marginTop: "-3px"}} />
@@ -12,37 +12,37 @@
  */
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
-/** The returned user profile from Atlassian when using the profile callback. */
+/** 使用 profile 回调时从 Atlassian 返回的用户资料。 */
 export interface AtlassianProfile extends Record<string, any> {
   /**
-   * The user's atlassian account ID
+   * 用户的 Atlassian 账户 ID
    */
   account_id: string
   /**
-   * The user name
+   * 用户名
    */
   name: string
   /**
-   * The user's email
+   * 用户的电子邮件
    */
   email: string
   /**
-   * The user's profile picture
+   * 用户的个人资料图片
    */
   picture: string
 }
 
 /**
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/atlassian
  * ```
  *
- * #### Configuration
+ * #### 配置
  *
- * Import the provider and configure it in your **Auth.js** initialization file:
+ * 导入提供者并在你的 **Auth.js** 初始化文件中进行配置：
  *
  * ```ts
  * import Atlassian from "@auth/core/providers/atlassian"
@@ -56,41 +56,39 @@ export interface AtlassianProfile extends Record<string, any> {
  * ...
  * ```
  *
- * ### Configuring Atlassian
+ * ### 配置 Atlassian
  *
- * Follow these steps:
+ * 按照以下步骤操作：
  *
- * 1. From any page on [developer.atlassian.com](https://developer.atlassian.com), select your profile icon in the top-right corner, and from the dropdown, select **Developer console**.
- * 2. Select your app from the list (or create one if you don't already have one)
- * 3. Select **Authorization** in the left menu
- * 4. Next to OAuth 2.0 (3LO), select **Configure** (or **Add** for newly created app)
- * 5. Enter the **Callback URL**: `https://{YOUR_DOMAIN}/api/auth/callback/atlassian`
- * 6. Click Save changes
- * 7. Select **Settings** in the left menu
- * 8. Access and copy your app's **Client ID** and **Secret**
+ * 1. 在 [developer.atlassian.com](https://developer.atlassian.com) 的任何页面上，选择右上角的个人资料图标，然后从下拉菜单中选择 **开发者控制台**。
+ * 2. 从列表中选择你的应用（如果没有，请先创建一个）
+ * 3. 在左侧菜单中选择 **授权**
+ * 4. 在 OAuth 2.0 (3LO) 旁边，选择 **配置**（对于新创建的应用选择 **添加**）
+ * 5. 输入 **回调 URL**：`https://{YOUR_DOMAIN}/api/auth/callback/atlassian`
+ * 6. 点击保存更改
+ * 7. 在左侧菜单中选择 **设置**
+ * 8. 访问并复制你的应用的 **客户端 ID** 和 **密钥**
  *
- * Then, create a `.env` file in the project root add the following entries:
+ * 然后，在项目根目录下创建一个 `.env` 文件，并添加以下条目：
  *
  * ```
- * AUTH_ATLASSIAN_ID=<Client ID copied in step 8>
- * AUTH_ATLASSIAN_SECRET=<Secret copied in step 8>
+ * AUTH_ATLASSIAN_ID=<步骤8中复制的客户端ID>
+ * AUTH_ATLASSIAN_SECRET=<步骤8中复制的密钥>
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Atlassian docs](https://developer.atlassian.com/cloud/jira/software/oauth-2-3lo-apps/)
+ * - [Atlassian 文档](https://developer.atlassian.com/cloud/jira/software/oauth-2-3lo-apps/)
  *
- * ### Notes
+ * ### 注意事项
  *
- * The Atlassian provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/atlassian.ts). To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/providers/custom-provider#override-default-options).
+ * Atlassian 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/atlassian.ts)。要覆盖默认配置以适应你的用例，请查看[自定义内置 OAuth 提供者](https://authjs.dev/guides/providers/custom-provider#override-default-options)。
  *
- * ## Help
+ * ## 帮助
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果你认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。你可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。你可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  */
 export default function Atlassian(
   options: OAuthUserConfig<AtlassianProfile>

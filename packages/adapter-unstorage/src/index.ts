@@ -6,7 +6,7 @@
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install unstorage @auth/unstorage-adapter
@@ -25,52 +25,52 @@ import type {
 import { isDate } from "@auth/core/adapters"
 import type { Storage, StorageValue } from "unstorage"
 
-/** This is the interface of the Unstorage adapter options. */
+/** 这是 Unstorage 适配器选项的接口。 */
 export interface UnstorageAdapterOptions {
   /**
-   * The base prefix for your keys
+   * 键的基础前缀
    */
   baseKeyPrefix?: string
   /**
-   * The prefix for the `account` key
+   * `account` 键的前缀
    */
   accountKeyPrefix?: string
   /**
-   * The prefix for the `accountByUserId` key
+   * `accountByUserId` 键的前缀
    */
   accountByUserIdPrefix?: string
   /**
-   * The prefix for the `emailKey` key
+   * `emailKey` 键的前缀
    */
   emailKeyPrefix?: string
   /**
-   * The prefix for the `sessionKey` key
+   * `sessionKey` 键的前缀
    */
   sessionKeyPrefix?: string
   /**
-   * The prefix for the `sessionByUserId` key
+   * `sessionByUserId` 键的前缀
    */
   sessionByUserIdKeyPrefix?: string
   /**
-   * The prefix for the `user` key
+   * `user` 键的前缀
    */
   userKeyPrefix?: string
   /**
-   * The prefix for the `verificationToken` key
+   * `verificationToken` 键的前缀
    */
   verificationTokenKeyPrefix?: string
   /**
-   * The prefix for the `authenticator` key
+   * `authenticator` 键的前缀
    */
   authenticatorKeyPrefix?: string
   /**
-   * The prefix for the `authenticator-by-user-id` key
+   * `authenticator-by-user-id` 键的前缀
    */
   authenticatorUserKeyPrefix?: string
   /**
-   * Use `getItemRaw/setItemRaw` instead of `getItem/setItem`.
+   * 使用 `getItemRaw/setItemRaw` 而非 `getItem/setItem`。
    *
-   * This is an experimental feature. Please check [unjs/unstorage#142](https://github.com/unjs/unstorage/issues/142) for more information.
+   * 这是一个实验性功能。更多信息请查看 [unjs/unstorage#142](https://github.com/unjs/unstorage/issues/142)。
    */
   useItemRaw?: boolean
 }

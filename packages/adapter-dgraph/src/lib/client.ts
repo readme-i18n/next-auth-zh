@@ -3,23 +3,23 @@ import * as jwt from "jsonwebtoken"
 export interface DgraphClientParams {
   endpoint: string
   /**
-   * `X-Auth-Token` header value
+   * `X-Auth-Token` 头部值
    *
    * [Dgraph Cloud Authentication](https://dgraph.io/docs/cloud/cloud-api/overview/#dgraph-cloud-authentication)
    */
   authToken: string
-  /** [Using JWT and authorization claims](https://dgraph.io/docs/graphql/authorization/authorization-overview#using-jwts-and-authorization-claims) */
+  /** [使用 JWT 和授权声明](https://dgraph.io/docs/graphql/authorization/authorization-overview#using-jwts-and-authorization-claims) */
   jwtSecret?: string
   /**
    * @default "RS256"
    *
-   * [Using JWT and authorization claims](https://dgraph.io/docs/graphql/authorization/authorization-overview#using-jwts-and-authorization-claims)
+   * [使用 JWT 和授权声明](https://dgraph.io/docs/graphql/authorization/authorization-overview#using-jwts-and-authorization-claims)
    */
   jwtAlgorithm?: "HS256" | "RS256"
   /**
    * @default "Authorization"
    *
-   * [Using JWT and authorization claims](https://dgraph.io/docs/graphql/authorization/authorization-overview#using-jwts-and-authorization-claims)
+   * [使用 JWT 和授权声明](https://dgraph.io/docs/graphql/authorization/authorization-overview#using-jwts-and-authorization-claims)
    */
   authHeader?: string
 }

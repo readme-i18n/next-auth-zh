@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>DuendeIdentityServer6</b> integration.</span>
+ * <span>内置的 <b>DuendeIdentityServer6</b> 集成。</span>
  * <a href="https://docs.duendesoftware.com/identityserver/v6">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/duende-identity-server6.svg" height="48" width="48"/>
  * </a>
@@ -18,16 +18,16 @@ export interface DuendeISUser extends Record<string, any> {
 }
 
 /**
- * Add DuendeIdentityServer6 login to your page.
+ * 向您的页面添加 DuendeIdentityServer6 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/duende-identity-server6
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import DuendeIdentityServer6 from "@auth/core/providers/duende-identity-server6"
@@ -44,20 +44,20 @@ export interface DuendeISUser extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [DuendeIdentityServer6 documentation](https://docs.duendesoftware.com/identityserver/v6)
+ *  - [DuendeIdentityServer6 文档](https://docs.duendesoftware.com/identityserver/v6)
  *
- * ### Notes
+ * ### 说明
  *
  *
- * ## Demo IdentityServer
+ * ## 演示 IdentityServer
  *
- * The configuration below is for the demo server at https://demo.duendesoftware.com/
+ * 以下配置适用于位于 https://demo.duendesoftware.com/ 的演示服务器。
  *
- * If you want to try it out, you can copy and paste the configuration below.
+ * 如果您想尝试，可以复制并粘贴下面的配置。
  *
- * You can sign in to the demo service with either <b>bob/bob</b> or <b>alice/alice</b>.
+ * 您可以使用 <b>bob/bob</b> 或 <b>alice/alice</b> 登录演示服务。
  *
  * ```ts
  * import DuendeIdentityServer6 from "@auth/core/providers/duende-identity-server6"
@@ -69,23 +69,20 @@ export interface DuendeISUser extends Record<string, any> {
  *   })
  * ]
  * ```
- * By default, Auth.js assumes that the DuendeIdentityServer6 provider is
- * based on the [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) specification.
+ * 默认情况下，Auth.js 假设 DuendeIdentityServer6 提供程序基于 [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
  *
  * :::tip
  *
- * The DuendeIdentityServer6 provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/duende-identity-server6.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * DuendeIdentityServer6 提供程序附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/duende-identity-server6.ts)。
+ * 要覆盖默认值以适应您的用例，请查看 [自定义内置 OAuth 提供程序](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提出问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供程序与规范的任何偏差，Auth.js 不承担责任。您可以提出问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在 [讨论](https://authjs.dev/new/github-discussions) 中寻求更多帮助。
  *
  * :::
  */

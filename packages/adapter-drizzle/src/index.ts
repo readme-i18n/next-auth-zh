@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://orm.drizzle.team">Drizzle ORM</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://orm.drizzle.team">Drizzle ORM</a> 适配器。</p>
  *  <a href="https://orm.drizzle.team">
  *   <img style={{display: "block"}} src="/img/adapters/drizzle.svg" width="38" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install drizzle-orm @auth/drizzle-adapter

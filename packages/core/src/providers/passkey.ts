@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#24292f", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Passkey</b> integration.</span>
+ * <span>内置 <b>Passkey</b> 集成。</span>
  * <a href="https://passkeys.dev">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/passkey.svg" height="48" width="48"/>
  * </a>
@@ -15,17 +15,17 @@ import WebAuthn, {
 } from "./webauthn.js"
 
 /**
- * Add Passkey login to your page.
+ * 为您的页面添加 Passkey 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * Install the required peer dependency.
+ * 安装所需的 peer 依赖。
  *
  * ```bash npm2yarn
  * npm install @simplewebauthn/browser@9.0.1
  * ```
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import Passkey from "@auth/core/providers/passkey"
@@ -35,34 +35,33 @@ import WebAuthn, {
  *   providers: [Passkey],
  * })
  * ```
- * ### Resources
+ * ### 资源
  *
- * - [SimpleWebAuthn - Server side](https://simplewebauthn.dev/docs/packages/server)
- * - [SimpleWebAuthn - Client side](https://simplewebauthn.dev/docs/packages/client)
- * - [Passkeys.dev - Intro](https://passkeys.dev/docs/intro/what-are-passkeys/)
- * - [Passkeys.dev - Specifications](https://passkeys.dev/docs/reference/specs/)
- * - [Source code](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/passkey.ts)
+ * - [SimpleWebAuthn - 服务器端](https://simplewebauthn.dev/docs/packages/server)
+ * - [SimpleWebAuthn - 客户端](https://simplewebauthn.dev/docs/packages/client)
+ * - [Passkeys.dev - 介绍](https://passkeys.dev/docs/intro/what-are-passkeys/)
+ * - [Passkeys.dev - 规范](https://passkeys.dev/docs/reference/specs/)
+ * - [源代码](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/passkey.ts)
  *
- * ### Notes
+ * ### 注意事项
  *
- * This provider is an extension of the WebAuthn provider that defines some default values
- * associated with Passkey support. You may override these, but be aware that authenticators
- * may not recognize your credentials as Passkey credentials if you do.
+ * 此提供者是 WebAuthn 提供者的扩展，定义了一些与 Passkey 支持相关的默认值。
+ * 您可以覆盖这些值，但请注意，如果您这样做，认证器可能不会将您的凭据识别为 Passkey 凭据。
  *
  * :::tip
  *
- * The Passkey provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/passkey.ts).
- * To override the defaults for your use case, check out [customizing a built-in WebAuthn provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Passkey 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/passkey.ts)。
+ * 要为您的用例覆盖默认值，请查看[自定义内置 WebAuthn 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。
+ * 您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。
+ * 您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  *
  * :::
  */

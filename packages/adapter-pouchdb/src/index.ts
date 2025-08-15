@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://pouchdb.com/api.html">PouchDB</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://pouchdb.com/api.html">PouchDB</a> 适配器。</p>
  *  <a href="https://pouchdb.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/pouchdb.svg" width="38" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install pouchdb pouchdb-find @auth/pouchdb-adapter
@@ -36,24 +36,24 @@ type IndexConfig = Record<
 >
 
 /**
- * Configure the adapter
+ * 配置适配器
  */
 export interface PouchDBAdapterOptions {
   /**
-   * Your PouchDB instance, with the `pouchdb-find` plugin installed.
+   * 你的 PouchDB 实例，需安装 `pouchdb-find` 插件。
    * @example
    * ```javascript
    * import PouchDB from "pouchdb"
    *
    * PouchDB
-   *   .plugin(require("pouchdb-adapter-leveldb")) // Or any other adapter
-   *   .plugin(require("pouchdb-find")) // Don't forget the `pouchdb-find` plugin
+   *   .plugin(require("pouchdb-adapter-leveldb")) // 或其他适配器
+   *   .plugin(require("pouchdb-find")) // 别忘了 `pouchdb-find` 插件
    *
    * const pouchdb = new PouchDB("auth_db", { adapter: "leveldb" })
    */
   pouchdb: PouchDB.Database
   /**
-   * Override the default prefix names.
+   * 覆盖默认的前缀名称。
    *
    * @default
    * ```js
@@ -67,7 +67,7 @@ export interface PouchDBAdapterOptions {
    */
   prefixes?: PrefixConfig
   /**
-   * Override the default index names.
+   * 覆盖默认的索引名称。
    *
    * @default
    * ```js
@@ -161,7 +161,7 @@ export function PouchDBAdapter(options: PouchDBAdapterOptions): Adapter {
       return toAdapterUser(newUser)
     },
 
-    /** @todo Implement */
+    /** @todo 实现 */
     async deleteUser() {},
 
     async linkAccount(account) {

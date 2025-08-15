@@ -3,8 +3,8 @@ import type { AuthConfig } from "../../index.js"
 import { setLogger } from "./logger.js"
 
 /**
- *  Set default env variables on the config object
- * @param suppressWarnings intended for framework authors.
+ *  在配置对象上设置默认环境变量
+ * @param suppressWarnings 专为框架作者设计。
  */
 export function setEnvDefaults(
   envObject: any,

@@ -14,8 +14,7 @@ import {
 } from "../utils/webauthn-utils.js"
 
 /**
- * Returns authentication or registration options for a WebAuthn flow
- * depending on the parameters provided.
+ * 根据提供的参数返回用于 WebAuthn 流程的认证或注册选项。
  */
 export async function webAuthnOptions(
   request: RequestInternal,

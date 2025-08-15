@@ -1,34 +1,34 @@
 /**
  * :::danger
- * This option is intended for framework authors.
+ * 此选项专为框架作者设计。
  * :::
  *
- * Auth.js comes with built-in CSRF protection, but
- * if you are implementing a framework that is already protected against CSRF attacks, you can skip this check by
- * passing this value to {@link AuthConfig.skipCSRFCheck}.
+ * Auth.js 内置了 CSRF 防护，但
+ * 如果你正在实现一个已经具备 CSRF 攻击防护的框架，可以通过
+ * 将此值传递给 {@link AuthConfig.skipCSRFCheck} 来跳过此检查。
  */
 export const skipCSRFCheck = Symbol("skip-csrf-check")
 
 /**
  * :::danger
- * This option is intended for framework authors.
+ * 此选项专为框架作者设计。
  * :::
  *
- * Auth.js returns a web standard {@link Response} by default, but
- * if you are implementing a framework you might want to get access to the raw internal response
- * by passing this value to {@link AuthConfig.raw}.
+ * Auth.js 默认返回一个符合 web 标准的 {@link Response}，但
+ * 如果你正在实现一个框架，可能希望通过
+ * 将此值传递给 {@link AuthConfig.raw} 来获取原始的内部响应。
  */
 export const raw = Symbol("return-type-raw")
 
 /**
  * :::danger
- * This option allows you to override the default `fetch` function used by the provider
- * to make requests to the provider's OAuth endpoints directly.
- * Used incorrectly, it can have security implications.
+ * 此选项允许你覆盖提供者默认使用的 `fetch` 函数，
+ * 直接向提供者的 OAuth 端点发起请求。
+ * 使用不当可能会带来安全隐患。
  * :::
  *
- * It can be used to support corporate proxies, custom fetch libraries, cache discovery endpoints,
- * add mocks for testing, logging, set custom headers/params for non-spec compliant providers, etc.
+ * 它可以用于支持企业代理、自定义 fetch 库、缓存发现端点、
+ * 添加测试用的模拟、日志记录、为非规范兼容的提供者设置自定义头部/参数等。
  *
  * @example
  * ```ts
@@ -53,8 +53,8 @@ export const customFetch = Symbol("custom-fetch")
 /**
  * @internal
  *
- * Used to mark some providers for processing within the core library.
+ * 用于标记一些在核心库中处理的提供者。
  *
- * **Do not use or you will be fired.**
+ * **请勿使用，否则后果自负。**
  */
 export const conformInternal = Symbol("conform-internal")

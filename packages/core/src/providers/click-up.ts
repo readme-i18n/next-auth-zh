@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#24292f", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>ClickUp</b> integration.</span>
+ * <span>内置的 <b>ClickUp</b> 集成。</span>
  * <a href="https://clickup.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/click-up.svg" height="48" width="48"/>
  * </a>
@@ -11,7 +11,7 @@
 
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
-/** @see [Get the authenticated user](https://clickup.com/api/clickupreference/operation/GetAuthorizedUser/)*/
+/** @see [获取认证用户](https://clickup.com/api/clickupreference/operation/GetAuthorizedUser/)*/
 export interface ClickUpProfile {
   user: {
     id: number
@@ -22,16 +22,16 @@ export interface ClickUpProfile {
 }
 
 /**
- * Add ClickUp login to your page and make requests to [ClickUp APIs](https://clickup.com/api/).
+ * 在您的页面添加 ClickUp 登录功能，并向 [ClickUp APIs](https://clickup.com/api/) 发起请求。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/clickup
  * ```
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import ClickUp from "@auth/core/providers/click-up"
@@ -47,30 +47,27 @@ export interface ClickUpProfile {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [ClickUp - Authorizing OAuth Apps](https://clickup.com/api/developer-portal/authentication#oauth-flow)
- * - [Source code](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/click-up.ts)
+ * - [ClickUp - 授权 OAuth 应用](https://clickup.com/api/developer-portal/authentication#oauth-flow)
+ * - [源代码](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/click-up.ts)
  *
- * ### Notes
+ * ### 说明
  *
- * By default, Auth.js assumes that the ClickUp provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 ClickUp 提供程序基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::tip
  *
- * The ClickUp provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/click-up.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * ClickUp 提供程序附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/click-up.ts)。
+ * 要覆盖默认配置以适应您的使用场景，请查看 [自定义内置 OAuth 提供程序](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供程序与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是由于不符合规范引起的，我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://mikro-orm.io/docs/installation">MikroORM</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://mikro-orm.io/docs/installation">MikroORM</a> 适配器。</p>
  *  <a href="https://mikro-orm.io/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/mikro-orm.svg" width="64"/>
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @mikro-orm/core @auth/mikro-orm-adapter
@@ -77,7 +77,7 @@ export function MikroOrmAdapter<
 
   return {
     /**
-     * Method used in testing. You won't need to call this in your app.
+     * 测试中使用的方法。你在应用中无需调用此方法。
      * @internal
      */
     async __disconnect() {

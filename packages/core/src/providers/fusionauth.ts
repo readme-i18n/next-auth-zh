@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>FusionAuth</b> integration.</span>
+ * <span>内置的 <b>FusionAuth</b> 集成。</span>
  * <a href="https://fusionauth.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/fushionauth.svg" height="48" width="48"/>
  * </a>
@@ -11,8 +11,8 @@
 import type { OAuthConfig, OAuthUserConfig } from "./oauth.js"
 
 /**
- * This is the default openid signature returned from FusionAuth
- * it can be customized using [lambda functions](https://fusionauth.io/docs/v1/tech/lambdas)
+ * 这是 FusionAuth 返回的默认 openid 签名
+ * 可以使用 [lambda 函数](https://fusionauth.io/docs/v1/tech/lambdas) 进行自定义
  */
 export interface FusionAuthProfile extends Record<string, any> {
   aud: string
@@ -37,16 +37,16 @@ export interface FusionAuthProfile extends Record<string, any> {
 }
 
 /**
- * Add FusionAuth login to your page.
+ * 将 FusionAuth 登录添加到您的页面。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/fusionauth
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import FusionAuth from "@auth/core/providers/fusionauth"
@@ -64,55 +64,53 @@ export interface FusionAuthProfile extends Record<string, any> {
  * })
  * ```
  * :::warning
- * If you're using multi-tenancy, you need to pass in the tenantId option to apply the proper theme.
+ * 如果您使用多租户，需要传递 tenantId 选项以应用正确的主题。
  * :::
  *
- * ### Resources
+ * ### 资源
  *
- *  - [FusionAuth OAuth documentation](https://fusionauth.io/docs/lifecycle/authenticate-users/oauth/)
+ *  - [FusionAuth OAuth 文档](https://fusionauth.io/docs/lifecycle/authenticate-users/oauth/)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the FusionAuth provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 FusionAuth 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
- * ## Configuration
+ * ## 配置
  * :::tip
- * An application can be created at https://your-fusionauth-server-url/admin/application.
+ * 可以在 https://your-fusionauth-server-url/admin/application 创建应用。
  *
- * For more information, follow the [FusionAuth 5-minute setup guide](https://fusionauth.io/docs/v1/tech/5-minute-setup-guide).
+ * 更多信息，请遵循 [FusionAuth 5分钟设置指南](https://fusionauth.io/docs/v1/tech/5-minute-setup-guide)。
  * :::
  *
- * In the OAuth settings for your application, configure the following.
+ * 在应用的 OAuth 设置中，配置以下内容。
  *
- * - Redirect URL
+ * - 重定向 URL
  *   - https://localhost:3000/api/auth/callback/fusionauth
- * - Enabled grants
- *   - Make sure _Authorization Code_ is enabled.
+ * - 启用的授权
+ *   - 确保 _授权码_ 已启用。
  *
- * If using JSON Web Tokens, you need to make sure the signing algorithm is RS256, you can create an RS256 key pair by
- * going to Settings, Key Master, generate RSA and choosing SHA-256 as algorithm. After that, go to the JWT settings of
- * your application and select this key as Access Token signing key and Id Token signing key.
+ * 如果使用 JSON Web Tokens，需要确保签名算法为 RS256，可以通过
+ * 前往设置，密钥管理，生成 RSA 并选择 SHA-256 作为算法来创建 RS256 密钥对。之后，前往应用的 JWT 设置
+ * 并选择此密钥作为访问令牌签名密钥和 ID 令牌签名密钥。
  * :::tip
  *
- * The FusionAuth provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/fusionauth.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * FusionAuth 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/fusionauth.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵循规范，对于提供者与规范的任何偏差不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  * 
  * 
- * It is highly recommended to follow this example call when using the provider in Next.js
- *  so that you can access both the access_token and id_token on the server.
+ * 强烈建议在 Next.js 中使用此提供者时遵循此示例调用，
+ * 以便您可以在服务器上访问 access_token 和 id_token。
  * 
  * ```ts
  * /// <reference types="next-auth" />
@@ -133,7 +131,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         },
       },
       userinfo: `${process.env.AUTH_FUSIONAUTH_ISSUER}/oauth2/userinfo`,
-      // This is due to a known processing issue
+      // 这是由于已知的处理问题
       // TODO: https://github.com/nextauthjs/next-auth/issues/8745#issuecomment-1907799026
       token: {
         url: `${process.env.AUTH_FUSIONAUTH_ISSUER}/oauth2/token`,
@@ -159,13 +157,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
   },
-  // Required to get the account object in the session and enable
-  // the ability to call API's externally that rely on JWT tokens.
+  // 需要在会话中获取 account 对象并启用
+  // 调用依赖 JWT 令牌的外部 API 的能力。
   callbacks: {
     async jwt(params) {
       const { token, user, account } = params;
       if (account) {
-        // First-time login, save the `access_token`, its expiry and the `refresh_token`
+        // 首次登录，保存 `access_token`、其过期时间和 `refresh_token`
         return {
           ...token,
           ...account,
@@ -174,10 +172,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.expires_at &&
         Date.now() < (token.expires_at as number) * 1000
       ) {
-        // Subsequent logins, but the `access_token` is still valid
+        // 后续登录，但 `access_token` 仍然有效
         return token;
       } else {
-        // Subsequent logins, but the `access_token` has expired, try to refresh it
+        // 后续登录，但 `access_token` 已过期，尝试刷新
         if (!token.refresh_token) throw new TypeError('Missing refresh_token');
 
         try {
@@ -215,14 +213,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             ...token,
             access_token: newTokens.access_token,
             expires_at: Math.floor(Date.now() / 1000 + newTokens.expires_in),
-            // Some providers only issue refresh tokens once, so preserve if we did not get a new one
+            // 一些提供者只发放一次刷新令牌，所以如果没有获取到新的则保留旧的
             refresh_token: newTokens.refresh_token
               ? newTokens.refresh_token
               : token.refresh_token,
           };
         } catch (error) {
           console.error('Error refreshing access_token', error);
-          // If we fail to refresh the token, return an error so we can handle it on the page
+          // 如果刷新令牌失败，返回错误以便在页面上处理
           token.error = 'RefreshTokenError';
           return token;
         }

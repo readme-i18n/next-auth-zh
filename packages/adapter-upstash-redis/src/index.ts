@@ -6,7 +6,7 @@
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @upstash/redis @auth/upstash-redis-adapter
@@ -24,38 +24,38 @@ import {
 } from "@auth/core/adapters"
 import type { Redis } from "@upstash/redis"
 
-/** This is the interface of the Upstash Redis adapter options. */
+/** 这是 Upstash Redis 适配器选项的接口。 */
 export interface UpstashRedisAdapterOptions {
   /**
-   * The base prefix for your keys
+   * 键的基础前缀
    */
   baseKeyPrefix?: string
   /**
-   * The prefix for the `account` key
+   * `account` 键的前缀
    */
   accountKeyPrefix?: string
   /**
-   * The prefix for the `accountByUserId` key
+   * `accountByUserId` 键的前缀
    */
   accountByUserIdPrefix?: string
   /**
-   * The prefix for the `emailKey` key
+   * `emailKey` 键的前缀
    */
   emailKeyPrefix?: string
   /**
-   * The prefix for the `sessionKey` key
+   * `sessionKey` 键的前缀
    */
   sessionKeyPrefix?: string
   /**
-   * The prefix for the `sessionByUserId` key
+   * `sessionByUserId` 键的前缀
    */
   sessionByUserIdKeyPrefix?: string
   /**
-   * The prefix for the `user` key
+   * `user` 键的前缀
    */
   userKeyPrefix?: string
   /**
-   * The prefix for the `verificationToken` key
+   * `verificationToken` 键的前缀
    */
   verificationTokenKeyPrefix?: string
 }

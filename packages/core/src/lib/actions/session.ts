@@ -5,7 +5,7 @@ import type { Adapter } from "../../adapters.js"
 import type { InternalOptions, ResponseInternal, Session } from "../../types.js"
 import type { Cookie, SessionStore } from "../utils/cookie.js"
 
-/** Return a session object filtered via `callbacks.session` */
+/** 返回通过 `callbacks.session` 过滤后的会话对象。 */
 export async function session(
   options: InternalOptions,
   sessionStore: SessionStore,

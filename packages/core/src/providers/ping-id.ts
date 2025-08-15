@@ -24,14 +24,14 @@ export interface PingProfile extends Record<string, any> {
 }
 
 /**
- * Add PingId login to your page.
+ * 在您的页面中添加 PingId 登录功能。
  *
- * ## Documentation
+ * ## 文档
  *
- * - [Create App in Ping Identity](https://docs.pingidentity.com/r/en-us/pingone/p1_add_app_worker)
+ * - [在 Ping Identity 中创建应用](https://docs.pingidentity.com/r/en-us/pingone/p1_add_app_worker)
  *
  *  ---
- * ## Example
+ * ## 示例
  *
  * ```ts
  * import PingId from "@auth/core/providers/ping-id"
@@ -47,13 +47,13 @@ export interface PingProfile extends Record<string, any> {
  * ...
  * ```
  *
- * ## Help
+ * ## 帮助
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵循规范，对于提供商对规范的任何偏离，我们无法承担责任。
+ * 您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。
+ * 您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  */
 
 export default function PingId(

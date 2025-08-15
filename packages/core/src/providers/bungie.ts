@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Bungie</b> integration.</span>
+ * <span>内置的 <b>Bungie</b> 集成。</span>
  * <a href="https://bungie.net/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/bungie.svg" height="48" width="48"/>
  * </a>
@@ -11,16 +11,16 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * Add Bungie login to your page.
+ * 为您的页面添加 Bungie 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/bungie
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Bungie from "@auth/core/providers/bungie"
@@ -37,44 +37,44 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Bungie OAuth documentation](https://github.com/Bungie-net/api/wiki/OAuth-Documentation)
+ *  - [Bungie OAuth 文档](https://github.com/Bungie-net/api/wiki/OAuth-Documentation)
  *
- * ## Configuration
+ * ## 配置
  *
  * :::tip
- * Bungie require all sites to run HTTPS (including local development instances).
+ * Bungie 要求所有网站运行 HTTPS（包括本地开发实例）。
  * :::
  *
  * :::tip
- * Bungie doesn't allow you to use localhost as the website URL, instead you need to use https://127.0.0.1:3000
+ * Bungie 不允许使用 localhost 作为网站 URL，而是需要使用 https://127.0.0.1:3000
  * :::
  *
- * Navigate to https://www.bungie.net/en/Application and fill in the required details:
+ * 访问 https://www.bungie.net/en/Application 并填写必要信息：
  *
- * - Application name
- * - Application Status
- * - Website
- * - OAuth Client Type
- *   - Confidential
- * - Redirect URL
+ * - 应用名称
+ * - 应用状态
+ * - 网站
+ * - OAuth 客户端类型
+ *   - 机密
+ * - 重定向 URL
  *   - https://localhost:3000/api/auth/callback/bungie
- * - Scope
- *   - `Access items like your Bungie.net notifications, memberships, and recent Bungie.Net forum activity.`
- * - Origin Header
+ * - 范围
+ *   - `访问您的 Bungie.net 通知、会员资格及最近的 Bungie.Net 论坛活动等项目。`
+ * - Origin 头
  *
- * The following guide may be helpful:
+ * 以下指南可能有所帮助：
  *
- * - [How to setup localhost with HTTPS with a Next.js app](https://medium.com/@anMagpie/secure-your-local-development-server-with-https-next-js-81ac6b8b3d68)
+ * - [如何为 Next.js 应用设置本地 HTTPS](https://medium.com/@anMagpie/secure-your-local-development-server-with-https-next-js-81ac6b8b3d68)
  *
  * #@example server
  *
- * You will need to edit your host file and point your site at `127.0.0.1`
+ * 您需要编辑您的 hosts 文件并将您的站点指向 `127.0.0.1`
  *
- * [How to edit my host file?](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux)
+ * [如何编辑我的 hosts 文件？](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux)
  *
- * On Windows (Run PowerShell as administrator)
+ * 在 Windows 上（以管理员身份运行 PowerShell）
  *
  * ```ps
  * Add-Content -Path C:\Windows\System32\drivers\etc\hosts -Value "127.0.0.1`tdev.example.com" -Force
@@ -84,9 +84,9 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * 127.0.0.1 dev.example.com
  * ```
  *
- * ### Create certificate
+ * ### 创建证书
  *
- * Creating a certificate for localhost is easy with openssl. Just put the following command in the terminal. The output will be two files: localhost.key and localhost.crt.
+ * 使用 openssl 为 localhost 创建证书很简单。只需在终端中输入以下命令。输出将是两个文件：localhost.key 和 localhost.crt。
  *
  * ```bash
  * openssl req -x509 -out localhost.crt -keyout localhost.key \
@@ -98,10 +98,10 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * :::tip
  * **Windows**
  *
- * The OpenSSL executable is distributed with [Git](https://git-scm.com/download/win]9) for Windows.
- * Once installed you will find the openssl.exe file in `C:/Program Files/Git/mingw64/bin` which you can add to the system PATH environment variable if it’s not already done.
+ * OpenSSL 可执行文件随 [Git](https://git-scm.com/download/win]9) 为 Windows 分发。
+ * 安装后，您可以在 `C:/Program Files/Git/mingw64/bin` 中找到 openssl.exe 文件，如果尚未完成，可以将其添加到系统 PATH 环境变量中。
  *
- * Add environment variable `OPENSSL_CONF=C:/Program Files/Git/mingw64/ssl/openssl.cnf`
+ * 添加环境变量 `OPENSSL_CONF=C:/Program Files/Git/mingw64/ssl/openssl.cnf`
  *
  * ```bash
  *  req -x509 -out localhost.crt -keyout localhost.key \
@@ -111,9 +111,9 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  *
  * :::
  *
- * Create directory `certificates` and place `localhost.key` and `localhost.crt`
+ * 创建目录 `certificates` 并放置 `localhost.key` 和 `localhost.crt`
  *
- * You can create a `server.js` in the root of your project and run it with `node server.js` to test Sign in with Bungie integration locally:
+ * 您可以在项目的根目录中创建一个 `server.js` 并使用 `node server.js` 运行它以在本地测试 Bungie 登录集成：
  *
  * ```js
  * const { createServer } = require("https")
@@ -142,25 +142,22 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  * ```
  *
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Bungie provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Bungie 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::tip
  *
- * The Bungie provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/bungie.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Bungie 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/bungie.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担任何责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

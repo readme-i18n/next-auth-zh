@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>An official <a href="https://www.postgresql.org/">PostgreSQL</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://www.postgresql.org/">PostgreSQL</a> 适配器。</p>
  *  <a href="https://www.postgresql.org/">
  *   <img style={{display: "block"}} src="/img/adapters/pg.svg" width="48" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install next-auth @auth/pg-adapter pg

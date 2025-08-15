@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Trakt</b> integration.</span>
+ * <span>内置的 <b>Trakt</b> 集成。</span>
  * <a href="https://www.trakt.tv/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/trakt.svg" height="48" />
  * </a>
@@ -26,16 +26,16 @@ export interface TraktUser extends Record<string, any> {
 }
 
 /**
- * Add Trakt login to your page.
+ * 向您的页面添加 Trakt 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/trakt
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Trakt from "@auth/core/providers/trakt"
@@ -48,40 +48,37 @@ export interface TraktUser extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Trakt OAuth documentation](https://trakt.docs.apiary.io/#reference/authentication-oauth)
+ * - [Trakt OAuth 文档](https://trakt.docs.apiary.io/#reference/authentication-oauth)
  *
- * If you're using the api in production by calling `api.trakt.tv`. Follow the example. If you wish to develop on Trakt's sandbox environment by calling `api-staging.trakt.tv`, change the URLs.
+ * 如果您在生产环境中通过调用 `api.trakt.tv` 使用该 API，请遵循示例。如果您希望在 Trakt 的沙盒环境中通过调用 `api-staging.trakt.tv` 进行开发，请更改 URL。
  *
- * Start by creating an OAuth app on Trakt for production or development. Then set the Client ID and Client Secret as TRAKT_ID and TRAKT_SECRET in .env.
+ * 首先在 Trakt 上为生产或开发创建一个 OAuth 应用。然后在 .env 中设置 Client ID 和 Client Secret 为 TRAKT_ID 和 TRAKT_SECRET。
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Trakt provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Trakt 提供程序基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::danger
  *
- * - Trakt does not allow hotlinking images. Even the authenticated user's profile picture.
- * - Trakt does not supply the authenticated user's email.
+ * - Trakt 不允许热链接图片。即使是认证用户的个人资料图片。
+ * - Trakt 不提供认证用户的电子邮件。
  *
  * :::
  *
  * :::tip
  *
- * The Trakt provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/trakt.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Trakt 提供程序附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/trakt.ts)。
+ * 要为您的情况覆盖默认值，请查看 [自定义内置 OAuth 提供程序](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，您可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供程序的任何偏离规范的行为，Auth.js 无法承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

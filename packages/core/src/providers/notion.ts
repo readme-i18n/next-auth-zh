@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Notion</b> integration.</span>
+ * <span>内置的 <b>Notion</b> 集成。</span>
  * <a href="https://notion.so">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/notion.svg" height="48" width="48"/>
  * </a>
@@ -57,16 +57,16 @@ const NOTION_HOST = "https://api.notion.com"
 const NOTION_API_VERSION = "2022-06-28"
 
 /**
- * Add Notion login to your page.
+ * 向您的页面添加 Notion 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/notion
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Notion from "@auth/core/providers/notion"
@@ -83,29 +83,28 @@ const NOTION_API_VERSION = "2022-06-28"
  * })
  * ```
  *
- * ### Resources
- * - [Notion Docs](https://developers.notion.com/docs)
- * - [Notion Authorization Docs](https://developers.notion.com/docs/authorization)
- * - [Notion Integrations](https://www.notion.so/my-integrations)
+ * ### 资源
+ * - [Notion 文档](https://developers.notion.com/docs)
+ * - [Notion 授权文档](https://developers.notion.com/docs/authorization)
+ * - [Notion 集成](https://www.notion.so/my-integrations)
  *
- * ### Notes
- * You need to select "Public Integration" on the configuration page to get an `oauth_id` and `oauth_secret`. Private integrations do not provide these details.
- * You must provide a `clientId` and `clientSecret` to use this provider, as-well as a redirect URI (due to this being required by Notion endpoint to fetch tokens).
+ * ### 注意事项
+ * 您需要在配置页面选择“公共集成”以获取 `oauth_id` 和 `oauth_secret`。私有集成不提供这些详细信息。
+ * 您必须提供 `clientId` 和 `clientSecret` 才能使用此提供商，以及重定向 URI（因为 Notion 端点需要这些来获取令牌）。
  *
  * :::tip
  *
- * The Notion provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/notion.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Notion 提供商附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/notion.ts)。
+ * 要覆盖默认值以适应您的用例，请查看[自定义内置 OAuth 提供商](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供商对规范的任何偏差，Auth.js 不承担任何责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  *
  * :::
  */

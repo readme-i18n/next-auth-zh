@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official **Firestore** adapter for Auth.js / NextAuth.js, using the [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)</p>
+ *  <p>Auth.js / NextAuth.js 的官方 **Firestore** 适配器，使用 [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)</p>
  *  <a href="https://firebase.google.com/docs/firestore/">
  *   <img style={{display: "block"}} src="/img/adapters/firebase.svg" width="48" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/firebase-adapter firebase-admin
@@ -32,23 +32,23 @@ import type {
   VerificationToken,
 } from "@auth/core/adapters"
 
-/** Configure the Firebase Adapter. */
+/** 配置 Firebase 适配器。 */
 export interface FirebaseAdapterConfig extends AppOptions {
   /**
-   * The name of the app passed to {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.md#initializeapp `initializeApp()`}.
+   * 传递给 {@link https://firebase.google.com/docs/reference/admin/node/firebase-admin.md#initializeapp `initializeApp()`} 的应用名称。
    */
   name?: string
   firestore?: Firestore
   /**
-   * Use this option if mixed `snake_case` and `camelCase` field names in the database is an issue for you.
-   * Passing `snake_case` will convert all field and collection names to `snake_case`.
-   * E.g. the collection `verificationTokens` will be `verification_tokens`,
-   * and fields like `emailVerified` will be `email_verified` instead.
+   * 如果数据库中混合使用 `snake_case` 和 `camelCase` 字段名对你来说是个问题，可以使用此选项。
+   * 传递 `snake_case` 会将所有字段和集合名称转换为 `snake_case`。
+   * 例如，集合 `verificationTokens` 将变为 `verification_tokens`，
+   * 字段如 `emailVerified` 将变为 `email_verified`。
    *
    *
    * @example
    * ```ts
-   *  // This will convert all field and collection names to snake_case
+   *  // 这将把所有字段和集合名称转换为 snake_case
    *  adapter: FirestoreAdapter({ namingStrategy: "snake_case" })
    *  // ...
    * })
@@ -56,11 +56,11 @@ export interface FirebaseAdapterConfig extends AppOptions {
    */
   namingStrategy?: "snake_case" | "default"
   /**
-   * Use this option if you already have one of the default collections in your Firestore database.
+   * 如果你已经在 Firestore 数据库中拥有默认集合之一，可以使用此选项。
    *
    * @example
    * ```ts
-   *  // This will use the collection name "authjs_users" instead of the default "users"
+   *  // 这将使用集合名称 "authjs_users" 而不是默认的 "users"
    *  adapter: FirestoreAdapter({ collections: { users: "authjs_users" } })
    *  // ...
    * ```
@@ -370,8 +370,8 @@ export function collectionsFactory(
 }
 
 /**
- * Utility function that helps making sure that there is no duplicate app initialization issues in serverless environments.
- * If no parameter is passed, it will use the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to initialize a Firestore instance.
+ * 实用函数，帮助确保在无服务器环境中没有重复的应用初始化问题。
+ * 如果没有传递参数，它将使用 `GOOGLE_APPLICATION_CREDENTIALS` 环境变量来初始化 Firestore 实例。
  *
  * @example
  * ```ts title="lib/firestore.ts"

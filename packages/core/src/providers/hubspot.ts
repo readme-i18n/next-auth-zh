@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>HubSpot</b> integration.</span>
+ * <span>内置的 <b>HubSpot</b> 集成。</span>
  * <a href="https://hubspot.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/hubspot.svg" height="48" width="48"/>
  * </a>
@@ -19,16 +19,16 @@ interface HubSpotProfile extends Record<string, any> {
 }
 
 /**
- * Add HubSpot login to your page.
+ * 在您的页面中添加 HubSpot 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/hubspot
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import HubSpot from "@auth/core/providers/hubspot"
@@ -44,33 +44,30 @@ interface HubSpotProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [HubSpot OAuth documentation](https://developers.hubspot.com/docs/api/oauth-quickstart-guide)
+ *  - [HubSpot OAuth 文档](https://developers.hubspot.com/docs/api/oauth-quickstart-guide)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the HubSpot provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 HubSpot 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
- * You need to have an APP in your Developer Account as described at https://developers.hubspot.com/docs/api/developer-tools-overview
+ * 您需要在开发者账户中有一个应用，如 https://developers.hubspot.com/docs/api/developer-tools-overview 所述
  * :::note
- * HubSpot returns a limited amount of information on the token holder (see [docs](https://legacydocs.hubspot.com/docs/methods/oauth2/get-access-token-information)). One other issue is that the name and profile photo cannot be fetched through API as discussed [here](https://community.hubspot.com/t5/APIs-Integrations/Profile-photo-is-not-retrieved-with-User-API/m-p/325521).
+ * HubSpot 返回关于令牌持有者的有限信息（参见 [文档](https://legacydocs.hubspot.com/docs/methods/oauth2/get-access-token-information)）。另一个问题是，名称和个人资料照片无法通过 API 获取，如 [此处](https://community.hubspot.com/t5/APIs-Integrations/Profile-photo-is-not-retrieved-with-User-API/m-p/325521) 讨论。
  * :::
  * :::tip
  *
- * The HubSpot provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/hubspot.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * HubSpot 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/hubspot.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

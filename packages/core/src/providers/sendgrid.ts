@@ -1,7 +1,7 @@
 import type { EmailConfig, EmailUserConfig } from "./index.js"
 import { html, text } from "../lib/utils/email.js"
 
-/** @todo Document this */
+/** @todo 待补充文档 */
 export default function SendGrid(config: EmailUserConfig): EmailConfig {
   return {
     id: "sendgrid",

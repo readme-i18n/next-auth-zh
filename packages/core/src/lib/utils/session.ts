@@ -2,7 +2,7 @@ import type { InternalOptions, User } from "../../types.js"
 import type { SessionStore } from "./cookie.js"
 
 /**
- * Returns the currently logged in user, if any.
+ * 返回当前登录的用户（如果有）。
  */
 export async function getLoggedInUser(
   options: InternalOptions,

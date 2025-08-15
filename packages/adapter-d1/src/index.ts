@@ -1,14 +1,14 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
- *  <p>An official <a href="https://developers.cloudflare.com/d1/">Cloudflare D1</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://developers.cloudflare.com/d1/">Cloudflare D1</a> 适配器。</p>
  *  <a href="https://developers.cloudflare.com/d1/">
  *   <img style={{display: "block"}} src="/img/adapters/d1.svg" width="48" />
  *  </a>
  * </div>
  *
  * ## Warning
- * This adapter is not developed or maintained by Cloudflare and they haven't declared the D1 api stable.  The author will make an effort to keep this adapter up to date.
- * The adapter is compatible with the D1 api as of March 22, 2023.
+ * 此适配器并非由 Cloudflare 开发或维护，且他们尚未宣布 D1 API 稳定。作者将尽力保持此适配器的最新状态。
+ * 截至 2023 年 3 月 22 日，该适配器与 D1 API 兼容。
  *
  * ## Installation
  *

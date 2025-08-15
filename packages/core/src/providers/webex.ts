@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Webex</b> integration.</span>
+ * <span>内置的 <b>Webex</b> 集成。</span>
  * <a href="https://webex.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/webex.svg" height="48" width="48"/>
  * </a>
@@ -11,11 +11,10 @@
 import type { OAuthConfig, OAuthUserConfig } from "./index.js"
 
 /**
- * The returned user profile from Webex when using the profile callback.
+ * 使用 profile 回调时从 Webex 返回的用户资料。
  *
- * Please refer to {@link https://developer.webex.com/docs/api/v1/people/get-my-own-details People - Get My Own Details}
- * on Webex Developer portal for additional fields. Returned fields may vary depending on the user's role, the OAuth
- * integration's scope, and the organization the OAuth integration belongs to.
+ * 请参考 Webex 开发者门户上的 {@link https://developer.webex.com/docs/api/v1/people/get-my-own-details People - Get My Own Details}
+ * 获取额外字段。返回的字段可能因用户角色、OAuth 集成的范围以及 OAuth 集成所属的组织而异。
  */
 export interface WebexProfile extends Record<string, any> {
   id: string
@@ -25,16 +24,16 @@ export interface WebexProfile extends Record<string, any> {
 }
 
 /**
- * Add Webex login to your page.
+ * 向您的页面添加 Webex 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/webex
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Webex from "@auth/core/providers/webex"
@@ -47,30 +46,28 @@ export interface WebexProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Webex OAuth 2.0 Integration Guide](https://developer.webex.com/docs/integrations)
- * - [Login with Webex](https://developer.webex.com/docs/login-with-webex)
+ * - [Webex OAuth 2.0 集成指南](https://developer.webex.com/docs/integrations)
+ * - [使用 Webex 登录](https://developer.webex.com/docs/login-with-webex)
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Webex provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Webex 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::tip
  *
- * The Webex provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webex.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Webex 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/webex.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，您可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

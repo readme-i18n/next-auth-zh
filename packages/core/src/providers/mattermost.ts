@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Mattermost</b> integration.</span>
+ * <span>内置的 <b>Mattermost</b> 集成。</span>
  * <a href="https://mattermost.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/mattermost.svg" height="48" width="48"/>
  * </a>
@@ -10,14 +10,14 @@
  */
 import type { OAuthConfig, OAuthUserConfig } from "./oauth.js"
 
-/** [Get a user](https://api.mattermost.com/#tag/users/operation/GetUser) */
+/** [获取用户](https://api.mattermost.com/#tag/users/operation/GetUser) */
 export interface MattermostProfile {
   id: string
-  /** The time in milliseconds a user was created */
+  /** 用户创建的时间，以毫秒为单位 */
   create_at: number
-  /** The time in milliseconds a user was last updated */
+  /** 用户最后更新的时间，以毫秒为单位 */
   update_at: number
-  /** The time in milliseconds a user was deleted */
+  /** 用户删除的时间，以毫秒为单位 */
   delete_at: number
   username: string
   auth_data: string
@@ -30,22 +30,22 @@ export interface MattermostProfile {
   position: string
   roles: string
   notify_props: {
-    /** Set to "true" to enable channel-wide notifications (@channel, @all, etc.), "false" to disable. Defaults to "true". */
+    /** 设置为 "true" 以启用频道范围内的通知（@channel, @all 等），"false" 以禁用。默认为 "true"。 */
     channel: string
     comments: string
-    /** Set to "all" to receive desktop notifications for all activity, "mention" for mentions and direct messages only, and "none" to disable. Defaults to "all". */
+    /** 设置为 "all" 以接收所有活动的桌面通知，"mention" 仅接收提及和直接消息，"none" 以禁用。默认为 "all"。 */
     desktop: string
-    /** Set to "true" to enable sound on desktop notifications, "false" to disable. Defaults to "true". */
+    /** 设置为 "true" 以启用桌面通知的声音，"false" 以禁用。默认为 "true"。 */
     desktop_sound: string
     desktop_threads: string
-    /** Set to "true" to enable email notifications, "false" to disable. Defaults to "true". */
+    /** 设置为 "true" 以启用电子邮件通知，"false" 以禁用。默认为 "true"。 */
     email: string
     email_threads: string
-    /** Set to "true" to enable mentions for first name. Defaults to "true" if a first name is set, "false" otherwise. */
+    /** 设置为 "true" 以启用对名字的提及。如果设置了名字，默认为 "true"，否则为 "false"。 */
     first_name: string
-    /** A comma-separated list of words to count as mentions. Defaults to username and @username. */
+    /** 一个逗号分隔的单词列表，视为提及。默认为用户名和 @username。 */
     mention_keys: string
-    /** Set to "all" to receive push notifications for all activity, "mention" for mentions and direct messages only, and "none" to disable. Defaults to "mention". */
+    /** 设置为 "all" 以接收所有活动的推送通知，"mention" 仅接收提及和直接消息，"none" 以禁用。默认为 "mention"。 */
     push: string
     push_status: string
     push_threads: string
@@ -53,30 +53,30 @@ export interface MattermostProfile {
   last_password_update: number
   locale: string
   timezone: {
-    /** This value is set automatically when the "useAutomaticTimezone" is set to "true". */
+    /** 当 "useAutomaticTimezone" 设置为 "true" 时，此值自动设置。 */
     automaticTimezone: string
-    /** Value when setting manually the timezone, i.e. "Europe/Berlin". */
+    /** 手动设置时区时的值，例如 "Europe/Berlin"。 */
     manualTimezone: string
-    /** Set to "true" to use the browser/system timezone, "false" to set manually. Defaults to "true". */
+    /** 设置为 "true" 以使用浏览器/系统时区，"false" 以手动设置。默认为 "true"。 */
     useAutomaticTimezone: string
   }
   disable_welcome_email: boolean
-  /** ID of accepted terms of service, if any. This field is not present if empty. */
+  /** 接受的条款服务 ID，如果有的话。如果为空，此字段不显示。 */
   terms_of_service_id?: string
-  /** The time in milliseconds the user accepted the terms of service */
+  /** 用户接受条款服务的时间，以毫秒为单位 */
   terms_of_service_create_at?: number
 }
 /**
- * Add Mattermost login to your page.
+ * 向您的页面添加 Mattermost 登录。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/mattermost
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Mattermost from "@auth/core/providers/mattermost"
@@ -87,43 +87,41 @@ export interface MattermostProfile {
  *     Mattermost({
  *       clientId: MATTERMOST_CLIENT_ID,
  *       clientSecret: MATTERMOST_CLIENT_SECRET,
- *       issuer: MATTERMOST_ISSUER, // The base url of your Mattermost instance. e.g `https://my-cool-server.cloud.mattermost.com`
+ *       issuer: MATTERMOST_ISSUER, // 您的 Mattermost 实例的基础 URL。例如 `https://my-cool-server.cloud.mattermost.com`
  *     }),
  *   ],
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Mattermost OAuth documentation](https://example.com)
+ *  - [Mattermost OAuth 文档](https://example.com)
  *
- * ### Notes
+ * ### 备注
  *
- * By default, Auth.js assumes that the Mattermost provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Mattermost 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
- * To create your Mattermost OAuth2 app visit `http://<your Mattermost instance url>/<your team>/integrations/oauth2-apps`
+ * 要创建您的 Mattermost OAuth2 应用，请访问 `http://<您的 Mattermost 实例 URL>/<您的团队>/integrations/oauth2-apps`
  *
  * :::warning
  *
- * The Mattermost provider requires the `issuer` option to be set. This is the base url of your Mattermost instance. e.g https://my-cool-server.cloud.mattermost.com
+ * Mattermost 提供者需要设置 `issuer` 选项。这是您的 Mattermost 实例的基础 URL。例如 https://my-cool-server.cloud.mattermost.com
  *
  * :::
  *
  * :::tip
  *
- * The Mattermost provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/mattermost.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Mattermost 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/mattermost.ts)。
+ * 要覆盖默认值以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，您可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论](https://authjs.dev/new/github-discussions) 中寻求更多帮助。
  *
  * :::
  */

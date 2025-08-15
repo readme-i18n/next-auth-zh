@@ -3,16 +3,15 @@ import type { Awaitable, User } from "../types.js"
 import type { JSX } from "preact"
 
 /**
- * Besides providing type safety inside {@link CredentialsConfig.authorize}
- * it also determines how the credentials input fields will be rendered
- * on the default sign in page.
+ * 除了在 {@link CredentialsConfig.authorize} 内部提供类型安全外，
+ * 它还决定了凭证输入字段如何在默认登录页面上渲染。
  */
 export interface CredentialInput
   extends Partial<JSX.IntrinsicElements["input"]> {
   label?: string
 }
 
-/** The Credentials Provider needs to be configured. */
+/** 需要配置 Credentials Provider。 */
 export interface CredentialsConfig<
   CredentialsInputs extends Record<string, CredentialInput> = Record<
     string,
@@ -22,54 +21,53 @@ export interface CredentialsConfig<
   type: "credentials"
   credentials: CredentialsInputs
   /**
-   * Gives full control over how you handle the credentials received from the user.
+   * 完全控制如何处理从用户接收到的凭证。
    *
    * :::warning
-   * There is no validation on the user inputs by default, so make sure you do so
-   * by a popular library like [Zod](https://zod.dev)
+   * 默认情况下不对用户输入进行验证，因此请确保通过像 [Zod](https://zod.dev) 这样的流行库进行验证。
    * :::
    *
-   * This method expects a `User` object to be returned for a successful login.
+   * 此方法期望返回一个 `User` 对象以表示登录成功。
    *
-   * If an `CredentialsSignin` is thrown or `null` is returned, two things can happen:
-   * 1. The user is redirected to the login page, with `error=CredentialsSignin&code=credentials` in the URL. `code` is configurable, see below.
-   * 2. If you throw this error in a framework that handles form actions server-side, this error is thrown by the login form action, so you'll need to handle it there.
+   * 如果抛出 `CredentialsSignin` 或返回 `null`，可能会发生两种情况：
+   * 1. 用户被重定向到登录页面，URL 中包含 `error=CredentialsSignin&code=credentials`。`code` 是可配置的，见下文。
+   * 2. 如果在服务器端处理表单操作的框架中抛出此错误，此错误将由登录表单操作抛出，因此您需要在那里处理它。
    *
-   * In case of 1., generally, we recommend not hinting if the user for example gave a wrong username or password specifically,
-   * try rather something like "invalid-credentials". Try to be as generic with client-side errors as possible.
+   * 对于情况1，通常建议不要提示用户例如输入了错误的用户名或密码，
+   * 而是尝试使用类似“invalid-credentials”的通用信息。尽量使客户端错误信息尽可能通用。
    *
-   * To customize the error code, you can create a custom error that extends {@link CredentialsSignin} and throw it in `authorize`.
+   * 要自定义错误代码，您可以创建一个扩展 {@link CredentialsSignin} 的自定义错误，并在 `authorize` 中抛出它。
    *
    * @example
    * ```ts
    * class CustomError extends CredentialsSignin {
    *  code = "custom_error"
    * }
-   * // URL will contain `error=CredentialsSignin&code=custom_error`
+   * // URL 将包含 `error=CredentialsSignin&code=custom_error`
    * ```
    *
    * @example
    * ```ts
-   * async authorize(credentials, request) { // you have access to the original request as well
+   * async authorize(credentials, request) { // 您也可以访问原始请求
    *   if(!isValidCredentials(credentials)) {
    *      throw new CustomError()
    *   }
-   *   return await getUser(credentials) // assuming it returns a User or null
+   *   return await getUser(credentials) // 假设它返回一个 User 或 null
    * }
    * ```
    */
   authorize: (
     /**
-     * The available keys are determined by {@link CredentialInput}.
+     * 可用键由 {@link CredentialInput} 确定。
      *
-     * @note The existence/correctness of a field cannot be guaranteed at compile time,
-     * so you should always validate the input before using it.
+     * @note 字段的存在/正确性在编译时无法保证，
+     * 因此您应始终在使用前验证输入。
      *
-     * You can add basic validation depending on your use case,
-     * or you can use a popular library like [Zod](https://zod.dev) for example.
+     * 您可以根据您的用例添加基本验证，
+     * 或者您可以使用像 [Zod](https://zod.dev) 这样的流行库。
      */
     credentials: Partial<Record<keyof CredentialsInputs, unknown>>,
-    /** The original request. */
+    /** 原始请求。 */
     request: Request
   ) => Awaitable<User | null>
 }
@@ -77,30 +75,30 @@ export interface CredentialsConfig<
 export type CredentialsProviderId = "credentials"
 
 /**
- * The Credentials provider allows you to handle signing in with arbitrary credentials,
- * such as a username and password, domain, or two factor authentication or hardware device (e.g. YubiKey U2F / FIDO).
+ * Credentials 提供者允许您处理使用任意凭证的登录，
+ * 如用户名和密码、域、双因素认证或硬件设备（例如 YubiKey U2F / FIDO）。
  *
- * It is intended to support use cases where you have an existing system you need to authenticate users against.
+ * 它旨在支持您需要针对现有系统进行用户认证的用例。
  *
- * It comes with the constraint that users authenticated in this manner are not persisted in the database,
- * and consequently that the Credentials provider can only be used if JSON Web Tokens are enabled for sessions.
+ * 它带来的限制是以这种方式认证的用户不会持久化到数据库中，
+ * 因此，只有在会话启用了 JSON Web Tokens 时才能使用 Credentials 提供者。
  *
  * :::caution
- * The functionality provided for credentials-based authentication is intentionally limited to discourage the use of passwords due to the inherent security risks of the username-password model.
+ * 为基于凭证的认证提供的功能故意受限，以劝阻使用密码，因为用户名-密码模型存在固有的安全风险。
  *
- * OAuth providers spend significant amounts of money, time, and engineering effort to build:
+ * OAuth 提供者花费大量金钱、时间和工程努力来构建：
  *
- * - abuse detection (bot-protection, rate-limiting)
- * - password management (password reset, credential stuffing, rotation)
- * - data security (encryption/salting, strength validation)
+ * - 滥用检测（机器人防护、速率限制）
+ * - 密码管理（密码重置、凭证填充、轮换）
+ * - 数据安全（加密/加盐、强度验证）
  *
- * and much more for authentication solutions. It is likely that your application would benefit from leveraging these battle-tested solutions rather than try to rebuild them from scratch.
+ * 以及更多认证解决方案。您的应用程序很可能会受益于利用这些经过实战检验的解决方案，而不是尝试从头开始重建它们。
  *
- * If you'd still like to build password-based authentication for your application despite these risks, Auth.js gives you full control to do so.
+ * 如果您仍然希望为您的应用程序构建基于密码的认证，尽管存在这些风险，Auth.js 给您完全控制权来实现。
  *
  * :::
  *
- * See the [callbacks documentation](/reference/core#authconfig#callbacks) for more information on how to interact with the token. For example, you can add additional information to the token by returning an object from the `jwt()` callback:
+ * 有关如何与令牌交互的更多信息，请参阅 [回调文档](/reference/core#authconfig#callbacks)。例如，您可以通过从 `jwt()` 回调返回一个对象来向令牌添加额外信息：
  *
  * ```ts
  * callbacks: {
@@ -137,7 +135,7 @@ export type CredentialsProviderId = "credentials"
  *   trustHost: true,
  * })
  * ```
- * @see [Username/Password Example](https://authjs.dev/getting-started/authentication/credentials)
+ * @see [用户名/密码示例](https://authjs.dev/getting-started/authentication/credentials)
  */
 export default function Credentials<
   CredentialsInputs extends Record<string, CredentialInput> = Record<

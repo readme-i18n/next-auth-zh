@@ -1,27 +1,27 @@
 /**
  *
- * This module contains public types and interfaces of the core package.
+ * 该模块包含核心包的公共类型和接口。
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/core
  * ```
  *
- * You can then import this submodule from `@auth/core/types`.
+ * 然后你可以从 `@auth/core/types` 导入这个子模块。
  *
- * ## Usage
+ * ## 使用
  *
- * Even if you don't use TypeScript, IDEs like VS Code will pick up types to provide you with a better developer experience.
- * While you are typing, you will get suggestions about what certain objects/functions look like,
- * and sometimes links to documentation, examples, and other valuable resources.
+ * 即使你不使用 TypeScript，像 VS Code 这样的 IDE 也会获取类型以提供更好的开发体验。
+ * 在输入时，你会得到关于某些对象/函数外观的建议，
+ * 有时还会有文档、示例和其他有价值资源的链接。
  *
- * Generally, you will not need to import types from this module.
- * Mostly when using the `Auth` function and optionally the `AuthConfig` interface,
- * everything inside there will already be typed.
+ * 通常，你不需要从这个模块导入类型。
+ * 大多数情况下，当使用 `Auth` 函数和可选的 `AuthConfig` 接口时，
+ * 里面的所有内容都已经类型化了。
  *
  * :::tip
- * Inside the `Auth` function, you won't need to use a single type from this module.
+ * 在 `Auth` 函数内部，你不需要使用这个模块的任何类型。
  *
  * @example
  * ```ts title=index.ts
@@ -30,11 +30,11 @@
  * const request = new Request("https://example.com")
  * const response = await Auth(request, {
  *   callbacks: {
- *     jwt(): JWT { // <-- This is unnecessary!
+ *     jwt(): JWT { // <-- 这是不必要的！
  *       return { foo: "bar" }
  *     },
  *     session(
- *        { session, token }: { session: Session; token: JWT } // <-- This is unnecessary!
+ *        { session, token }: { session: Session; token: JWT } // <-- 这是不必要的！
  *     ) {
  *       return session
  *     },
@@ -43,10 +43,10 @@
  * ```
  * :::
  *
- * ## Resources
+ * ## 资源
  *
- * - [TypeScript - The Basics](https://www.typescriptlang.org/docs/handbook/2/basic-types.html)
- * - [Extending built-in types](https://authjs.dev/getting-started/typescript#module-augmentation)
+ * - [TypeScript - 基础](https://www.typescriptlang.org/docs/handbook/2/basic-types.html)
+ * - [扩展内置类型](https://authjs.dev/getting-started/typescript#module-augmentation)
  *
  * @module types
  */
@@ -83,10 +83,10 @@ export type SemverString =
   | `v${number}.${number}.${number}`
 
 /**
- * Change the theme of the built-in pages.
+ * 更改内置页面的主题。
  *
- * [Documentation](https://authjs.dev/reference/core#theme) |
- * [Pages](https://authjs.dev/guides/pages/signin)
+ * [文档](https://authjs.dev/reference/core#theme) |
+ * [页面](https://authjs.dev/guides/pages/signin)
  */
 export interface Theme {
   colorScheme?: "auto" | "dark" | "light"
@@ -96,14 +96,14 @@ export interface Theme {
 }
 
 /**
- * Different tokens returned by OAuth Providers.
- * Some of them are available with different casing,
- * but they refer to the same value.
+ * OAuth 提供商返回的不同令牌。
+ * 其中一些以不同的大小写形式提供，
+ * 但它们指的是相同的值。
  */
 export type TokenSet = Partial<TokenEndpointResponse> & {
   /**
-   * Date of when the `access_token` expires in seconds.
-   * This value is calculated from the `expires_in` value.
+   * `access_token` 过期的日期，以秒为单位。
+   * 这个值是根据 `expires_in` 值计算得出的。
    *
    * @see https://www.ietf.org/rfc/rfc6749.html#section-4.2.2
    */
@@ -111,33 +111,33 @@ export type TokenSet = Partial<TokenEndpointResponse> & {
 }
 
 /**
- * Usually contains information about the provider being used
- * and also extends `TokenSet`, which is different tokens returned by OAuth Providers.
+ * 通常包含关于正在使用的提供商的信息
+ * 并且扩展了 `TokenSet`，这是 OAuth 提供商返回的不同令牌。
  */
 export interface Account extends Partial<TokenEndpointResponse> {
-  /** Provider's id for this account. E.g. "google". See the full list at https://authjs.dev/reference/core/providers */
+  /** 此账户的提供商 ID。例如 "google"。完整列表见 https://authjs.dev/reference/core/providers */
   provider: string
   /**
-   * This value depends on the type of the provider being used to create the account.
-   * - oauth/oidc: The OAuth account's id, returned from the `profile()` callback.
-   * - email: The user's email address.
-   * - credentials: `id` returned from the `authorize()` callback
+   * 这个值取决于用于创建账户的提供商类型。
+   * - oauth/oidc: OAuth 账户的 ID，从 `profile()` 回调返回。
+   * - email: 用户的电子邮件地址。
+   * - credentials: 从 `authorize()` 回调返回的 `id`
    */
   providerAccountId: string
-  /** Provider's type for this account */
+  /** 此账户的提供商类型 */
   type: ProviderType
   /**
-   * id of the user this account belongs to
+   * 此账户所属用户的 ID
    *
    * @see https://authjs.dev/reference/core/adapters#adapteruser
    */
   userId?: string
   /**
-   * Calculated value based on {@link TokenEndpointResponse.expires_in}.
+   * 基于 {@link TokenEndpointResponse.expires_in} 计算得出的值。
    *
-   * It is the absolute timestamp (in seconds) when the {@link TokenEndpointResponse.access_token} expires.
+   * 它是 {@link TokenEndpointResponse.access_token} 过期的绝对时间戳（以秒为单位）。
    *
-   * This value can be used for implementing token rotation together with {@link TokenEndpointResponse.refresh_token}.
+   * 这个值可以与 {@link TokenEndpointResponse.refresh_token} 一起用于实现令牌轮换。
    *
    * @see https://authjs.dev/guides/refresh-token-rotation#database-strategy
    * @see https://www.rfc-editor.org/rfc/rfc6749#section-5.1
@@ -146,7 +146,7 @@ export interface Account extends Partial<TokenEndpointResponse> {
 }
 
 /**
- * The user info returned from your OAuth provider.
+ * 从你的 OAuth 提供商返回的用户信息。
  *
  * @see https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims
  */
@@ -181,13 +181,13 @@ export interface Profile {
   [claim: string]: unknown
 }
 
-/** [Documentation](https://authjs.dev/reference/core#cookies) */
+/** [文档](https://authjs.dev/reference/core#cookies) */
 export interface CookieOption {
   name: string
   options: SerializeOptions
 }
 
-/** [Documentation](https://authjs.dev/reference/core#cookies) */
+/** [文档](https://authjs.dev/reference/core#cookies) */
 export interface CookiesOptions {
   sessionToken: Partial<CookieOption>
   callbackUrl: Partial<CookieOption>
@@ -198,10 +198,10 @@ export interface CookiesOptions {
   webauthnChallenge: Partial<CookieOption>
 }
 
-/** TODO: Check if all these are used/correct */
+/** TODO: 检查所有这些是否被使用/正确 */
 export type ErrorPageParam = "Configuration" | "AccessDenied" | "Verification"
 
-/** TODO: Check if all these are used/correct */
+/** TODO: 检查所有这些是否被使用/正确 */
 export type SignInPageErrorParam =
   | "Signin"
   | "OAuthSignin"
@@ -216,26 +216,26 @@ export type SignInPageErrorParam =
 
 export interface PagesOptions {
   /**
-   * The path to the sign in page.
+   * 登录页面的路径。
    *
-   * The optional "error" query parameter is set to
-   * one of the {@link SignInPageErrorParam available} values.
+   * 可选的 "error" 查询参数设置为
+   * {@link SignInPageErrorParam 可用} 值之一。
    *
    * @default "/signin"
    */
   signIn: string
   signOut: string
   /**
-   * The path to the error page.
+   * 错误页面的路径。
    *
-   * The optional "error" query parameter is set to
-   * one of the {@link ErrorPageParam available} values.
+   * 可选的 "error" 查询参数设置为
+   * {@link ErrorPageParam 可用} 值之一。
    *
    * @default "/error"
    */
   error: string
   verifyRequest: string
-  /** If set, new users will be directed here on first sign in */
+  /** 如果设置，新用户首次登录时将定向到这里 */
   newUser: string
 }
 
@@ -246,7 +246,7 @@ export interface DefaultSession {
   expires: ISODateString
 }
 
-/** The active session of the logged in user. */
+/** 登录用户的活跃会话。 */
 export interface Session extends DefaultSession {}
 
 export interface DefaultUser {
@@ -257,9 +257,9 @@ export interface DefaultUser {
 }
 
 /**
- * The shape of the returned object in the OAuth providers' `profile` callback,
- * available in the `jwt` and `session` callbacks,
- * or the second parameter of the `session` callback, when using a database.
+ * OAuth 提供商的 `profile` 回调中返回的对象的形状，
+ * 在 `jwt` 和 `session` 回调中可用，
+ * 或在使用数据库时的 `session` 回调的第二个参数中。
  */
 export interface User extends DefaultUser {}
 
@@ -291,33 +291,32 @@ export interface PublicProvider {
 }
 
 /**
- * Supported actions by Auth.js. Each action map to a REST API endpoint.
- * Some actions have a `GET` and `POST` variant, depending on if the action
- * changes the state of the server.
+ * Auth.js 支持的操作。每个操作对应一个 REST API 端点。
+ * 一些操作有 `GET` 和 `POST` 变体，取决于操作是否改变服务器状态。
  *
  * - **`"callback"`**:
- *   - **`GET`**: Handles the callback from an [OAuth provider](https://authjs.dev/reference/core/providers#oauth2configprofile).
- *   - **`POST`**: Handles the callback from a [Credentials provider](https://authjs.dev/getting-started/providers/credentials#credentialsconfigcredentialsinputs).
- * - **`"csrf"`**: Returns the raw CSRF token, which is saved in a cookie (encrypted).
- * It is used for CSRF protection, implementing the [double submit cookie](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie) technique.
+ *   - **`GET`**: 处理来自 [OAuth 提供商](https://authjs.dev/reference/core/providers#oauth2configprofile) 的回调。
+ *   - **`POST`**: 处理来自 [Credentials 提供商](https://authjs.dev/getting-started/providers/credentials#credentialsconfigcredentialsinputs) 的回调。
+ * - **`"csrf"`**: 返回原始的 CSRF 令牌，保存在 cookie 中（加密）。
+ * 它用于 CSRF 保护，实现 [双提交 cookie](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie) 技术。
  * :::note
- * Some frameworks have built-in CSRF protection and can therefore disable this action. In this case, the corresponding endpoint will return a 404 response. Read more at [`skipCSRFCheck`](https://authjs.dev/reference/core#skipcsrfcheck).
- * _⚠ We don't recommend manually disabling CSRF protection, unless you know what you're doing._
+ * 一些框架有内置的 CSRF 保护，因此可以禁用此操作。在这种情况下，相应的端点将返回 404 响应。更多信息请阅读 [`skipCSRFCheck`](https://authjs.dev/reference/core#skipcsrfcheck)。
+ * _⚠ 除非你知道你在做什么，否则我们不建议手动禁用 CSRF 保护。_
  * :::
- * - **`"error"`**: Renders the built-in error page.
- * - **`"providers"`**: Returns a client-safe list of all configured providers.
+ * - **`"error"`**: 渲染内置的错误页面。
+ * - **`"providers"`**: 返回所有配置的提供商的客户端安全列表。
  * - **`"session"`**:
- *   - **`GET`**: Returns the user's session if it exists, otherwise `null`.
- *   - **`POST`**: Updates the user's session and returns the updated session.
+ *   - **`GET`**: 如果存在，返回用户的会话，否则返回 `null`。
+ *   - **`POST`**: 更新用户的会话并返回更新后的会话。
  * - **`"signin"`**:
- *   - **`GET`**: Renders the built-in sign-in page.
- *   - **`POST`**: Initiates the sign-in flow.
+ *   - **`GET`**: 渲染内置的登录页面。
+ *   - **`POST`**: 启动登录流程。
  * - **`"signout"`**:
- *   - **`GET`**: Renders the built-in sign-out page.
- *   - **`POST`**: Initiates the sign-out flow. This will invalidate the user's session (deleting the cookie, and if there is a session in the database, it will be deleted as well).
- * - **`"verify-request"`**: Renders the built-in verification request page.
+ *   - **`GET`**: 渲染内置的登出页面。
+ *   - **`POST`**: 启动登出流程。这将使用户的会话无效（删除 cookie，如果数据库中有会话，它也将被删除）。
+ * - **`"verify-request"`**: 渲染内置的验证请求页面。
  * - **`"webauthn-options"`**:
- *   - **`GET`**: Returns the options for the WebAuthn authentication and registration flows.
+ *   - **`GET`**: 返回 WebAuthn 认证和注册流程的选项。
  */
 export type AuthAction =
   | "callback"
@@ -355,43 +354,43 @@ export interface ResponseInternal<
 }
 
 /**
- * A webauthn authenticator.
- * Represents an entity capable of authenticating the account it references,
- * and contains the auhtenticator's credentials and related information.
+ * 一个 webauthn 认证器。
+ * 代表能够认证其引用的账户的实体，
+ * 并包含认证器的凭据和相关信息。
  *
  * @see https://www.w3.org/TR/webauthn/#authenticator
  */
 export interface Authenticator {
   /**
-   * ID of the user this authenticator belongs to.
+   * 此认证器所属用户的 ID。
    */
   userId?: string
   /**
-   * The provider account ID connected to the authenticator.
+   * 连接到认证器的提供商账户 ID。
    */
   providerAccountId: string
   /**
-   * Number of times the authenticator has been used.
+   * 认证器被使用的次数。
    */
   counter: number
   /**
-   * Whether the client authenticator backed up the credential.
+   * 客户端认证器是否备份了凭据。
    */
   credentialBackedUp: boolean
   /**
-   * Base64 encoded credential ID.
+   * Base64 编码的凭据 ID。
    */
   credentialID: string
   /**
-   * Base64 encoded credential public key.
+   * Base64 编码的凭据公钥。
    */
   credentialPublicKey: string
   /**
-   * Concatenated transport flags.
+   * 连接的传输标志。
    */
   transports?: string | null
   /**
-   * Device type of the authenticator.
+   * 认证器的设备类型。
    */
   credentialDeviceType: string
 }
@@ -404,8 +403,8 @@ export interface InternalOptions<TProviderType = ProviderType> {
   provider: InternalProvider<TProviderType>
   csrfToken?: string
   /**
-   * `true` if the [Double-submit CSRF check](https://owasp.org/www-chapter-london/assets/slides/David_Johansson-Double_Defeat_of_Double-Submit_Cookie.pdf) was successful
-   * or [`skipCSRFCheck`](https://authjs.dev/reference/core#skipcsrfcheck) was enabled.
+   * `true` 如果 [双提交 CSRF 检查](https://owasp.org/www-chapter-london/assets/slides/David_Johansson-Double_Defeat_of_Double-Submit_Cookie.pdf) 成功
+   * 或 [`skipCSRFCheck`](https://authjs.dev/reference/core#skipcsrfcheck) 被启用。
    */
   csrfTokenVerified?: boolean
   secret: string | string[]
@@ -421,8 +420,8 @@ export interface InternalOptions<TProviderType = ProviderType> {
   cookies: Record<keyof CookiesOptions, CookieOption>
   callbackUrl: string
   /**
-   * If true, the OAuth callback is being proxied by the server to the original URL.
-   * See also {@link OAuthConfigInternal.redirectProxyUrl}.
+   * 如果为 true，OAuth 回调正被服务器代理到原始 URL。
+   * 另见 {@link OAuthConfigInternal.redirectProxyUrl}。
    */
   isOnRedirectProxy: boolean
   experimental: NonNullable<AuthConfig["experimental"]>

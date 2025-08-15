@@ -35,16 +35,15 @@ type ErrorType =
   | "ExperimentalFeatureNotEnabled"
 
 /**
- * Base error class for all Auth.js errors.
- * It's optimized to be printed in the server logs in a nicely formatted way
- * via the [`logger.error`](https://authjs.dev/reference/core#logger) option.
+ * Auth.js 所有错误的基类。
+ * 通过 [`logger.error`](https://authjs.dev/reference/core#logger) 选项优化，以便在服务器日志中以良好格式打印。
  * @noInheritDoc
  */
 export class AuthError extends Error {
   type: ErrorType
   /**
-   * Determines on which page an error should be handled. Typically `signIn` errors can be handled in-page.
-   * Default is `"error"`.
+   * 确定错误应在哪个页面处理。通常 `signIn` 错误可以在页面内处理。
+   * 默认为 `"error"`。
    * @internal
    */
   kind?: "signIn" | "error"
@@ -81,7 +80,7 @@ export class AuthError extends Error {
 }
 
 /**
- * Thrown when the user's sign-in attempt failed.
+ * 当用户登录尝试失败时抛出。
  * @noInheritDoc
  */
 export class SignInError extends AuthError {
@@ -90,11 +89,11 @@ export class SignInError extends AuthError {
 }
 
 /**
- * One of the database [`Adapter` methods](https://authjs.dev/reference/core/adapters#methods)
- * failed during execution.
+ * 数据库 [`Adapter` 方法](https://authjs.dev/reference/core/adapters#methods)
+ * 在执行过程中失败。
  *
  * :::tip
- * If `debug: true` is set, you can check out `[auth][debug]` in the logs to learn more about the failed adapter method execution.
+ * 如果设置了 `debug: true`，你可以在日志中查看 `[auth][debug]` 以了解更多关于失败的适配器方法执行的信息。
  * @example
  * ```sh
  * [auth][debug]: adapter_getUserByEmail
@@ -108,8 +107,8 @@ export class AdapterError extends AuthError {
 }
 
 /**
- * Thrown when the execution of the [`signIn` callback](https://authjs.dev/reference/core/types#signin) fails
- * or if it returns `false`.
+ * 当 [`signIn` 回调](https://authjs.dev/reference/core/types#signin) 执行失败
+ * 或返回 `false` 时抛出。
  * @noInheritDoc
  */
 export class AccessDenied extends AuthError {
@@ -117,42 +116,41 @@ export class AccessDenied extends AuthError {
 }
 
 /**
- * This error occurs when the user cannot finish login.
- * Depending on the provider type, this could have happened for multiple reasons.
+ * 当用户无法完成登录时发生此错误。
+ * 根据提供者类型，可能有多种原因。
  *
  * :::tip
- * Check out `[auth][details]` in the logs to know which provider failed.
+ * 查看日志中的 `[auth][details]` 以了解哪个提供者失败。
  * @example
  * ```sh
  * [auth][details]: { "provider": "github" }
  * ```
  * :::
  *
- * For an [OAuth provider](https://authjs.dev/getting-started/authentication/oauth), possible causes are:
- * - The user denied access to the application
- * - There was an error parsing the OAuth Profile:
- *   Check out the provider's `profile` or `userinfo.request` method to make sure
- *   it correctly fetches the user's profile.
- * - The `signIn` or `jwt` callback methods threw an uncaught error:
- *   Check the callback method implementations.
+ * 对于 [OAuth 提供者](https://authjs.dev/getting-started/authentication/oauth)，可能的原因包括：
+ * - 用户拒绝访问应用程序
+ * - 解析 OAuth 配置文件时出错：
+ *   检查提供者的 `profile` 或 `userinfo.request` 方法，确保正确获取用户配置文件。
+ * - `signIn` 或 `jwt` 回调方法抛出未捕获的错误：
+ *   检查回调方法的实现。
  *
- * For an [Email provider](https://authjs.dev/getting-started/authentication/email), possible causes are:
- * - The provided email/token combination was invalid/missing:
- *   Check if the provider's `sendVerificationRequest` method correctly sends the email.
- * - The provided email/token combination has expired:
- *   Ask the user to log in again.
- * - There was an error with the database:
- *   Check the database logs.
+ * 对于 [Email 提供者](https://authjs.dev/getting-started/authentication/email)，可能的原因包括：
+ * - 提供的电子邮件/令牌组合无效/缺失：
+ *   检查提供者的 `sendVerificationRequest` 方法是否正确发送了电子邮件。
+ * - 提供的电子邮件/令牌组合已过期：
+ *   要求用户重新登录。
+ * - 数据库出错：
+ *   检查数据库日志。
  *
- * For a [Credentials provider](https://authjs.dev/getting-started/authentication/credentials), possible causes are:
- * - The `authorize` method threw an uncaught error:
- *   Check the provider's `authorize` method.
- * - The `signIn` or `jwt` callback methods threw an uncaught error:
- *   Check the callback method implementations.
+ * 对于 [Credentials 提供者](https://authjs.dev/getting-started/authentication/credentials)，可能的原因包括：
+ * - `authorize` 方法抛出未捕获的错误：
+ *   检查提供者的 `authorize` 方法。
+ * - `signIn` 或 `jwt` 回调方法抛出未捕获的错误：
+ *   检查回调方法的实现。
  *
  * :::tip
- * Check out `[auth][cause]` in the error message for more details.
- * It will show the original stack trace.
+ * 查看错误消息中的 `[auth][cause]` 以获取更多详情。
+ * 它将显示原始堆栈跟踪。
  * :::
  * @noInheritDoc
  */
@@ -161,12 +159,12 @@ export class CallbackRouteError extends AuthError {
 }
 
 /**
- * Thrown when Auth.js is misconfigured and accidentally tried to require authentication on a custom error page.
- * To prevent an infinite loop, Auth.js will instead render its default error page.
+ * 当 Auth.js 配置错误，意外尝试在自定义错误页面上要求认证时抛出。
+ * 为了防止无限循环，Auth.js 将改为渲染其默认错误页面。
  *
- * To fix this, make sure that the `error` page does not require authentication.
+ * 要修复此问题，请确保 `error` 页面不需要认证。
  *
- * Learn more at [Guide: Error pages](https://authjs.dev/guides/pages/error)
+ * 了解更多信息，请访问 [指南：错误页面](https://authjs.dev/guides/pages/error)
  * @noInheritDoc
  */
 export class ErrorPageLoop extends AuthError {
@@ -174,12 +172,12 @@ export class ErrorPageLoop extends AuthError {
 }
 
 /**
- * One of the [`events` methods](https://authjs.dev/reference/core/types#eventcallbacks)
- * failed during execution.
+ * [`events` 方法](https://authjs.dev/reference/core/types#eventcallbacks)
+ * 在执行过程中失败。
  *
- * Make sure that the `events` methods are implemented correctly and uncaught errors are handled.
+ * 确保 `events` 方法正确实现，并且未捕获的错误得到处理。
  *
- * Learn more at [`events`](https://authjs.dev/reference/core/types#eventcallbacks)
+ * 了解更多信息，请访问 [`events`](https://authjs.dev/reference/core/types#eventcallbacks)
  * @noInheritDoc
  */
 export class EventError extends AuthError {
@@ -187,14 +185,14 @@ export class EventError extends AuthError {
 }
 
 /**
- * Thrown when Auth.js is unable to verify a `callbackUrl` value.
- * The browser either disabled cookies or the `callbackUrl` is not a valid URL.
+ * 当 Auth.js 无法验证 `callbackUrl` 值时抛出。
+ * 浏览器要么禁用了 cookies，要么 `callbackUrl` 不是有效的 URL。
  *
- * Somebody might have tried to manipulate the callback URL that Auth.js uses to redirect the user back to the configured `callbackUrl`/page.
- * This could be a malicious hacker trying to redirect the user to a phishing site.
- * To prevent this, Auth.js checks if the callback URL is valid and throws this error if it is not.
+ * 可能有人试图操纵 Auth.js 用于将用户重定向回配置的 `callbackUrl`/页面的回调 URL。
+ * 这可能是恶意黑客试图将用户重定向到钓鱼网站。
+ * 为了防止这种情况，Auth.js 检查回调 URL 是否有效，如果无效则抛出此错误。
  *
- * There is no action required, but it might be an indicator that somebody is trying to attack your application.
+ * 无需采取行动，但这可能是有人试图攻击你的应用程序的迹象。
  * @noInheritDoc
  */
 export class InvalidCallbackUrl extends AuthError {
@@ -202,33 +200,33 @@ export class InvalidCallbackUrl extends AuthError {
 }
 
 /**
- * Can be thrown from the `authorize` callback of the Credentials provider.
- * When an error occurs during the `authorize` callback, two things can happen:
- * 1. The user is redirected to the signin page, with `error=CredentialsSignin&code=credentials` in the URL. `code` is configurable.
- * 2. If you throw this error in a framework that handles form actions server-side, this error is thrown, instead of redirecting the user, so you'll need to handle.
+ * 可以从 Credentials 提供者的 `authorize` 回调中抛出。
+ * 当 `authorize` 回调期间发生错误时，可能发生两种情况：
+ * 1. 用户被重定向到登录页面，URL 中带有 `error=CredentialsSignin&code=credentials`。`code` 是可配置的。
+ * 2. 如果你在服务器端处理表单操作的框架中抛出此错误，则会抛出此错误，而不是重定向用户，因此你需要处理。
  * @noInheritDoc
  */
 export class CredentialsSignin extends SignInError {
   static type = "CredentialsSignin"
   /**
-   * The error code that is set in the `code` query parameter of the redirect URL.
+   * 设置在重定向 URL 的 `code` 查询参数中的错误代码。
    *
    *
-   * ⚠ NOTE: This property is going to be included in the URL, so make sure it does not hint at sensitive errors.
+   * ⚠ 注意：此属性将包含在 URL 中，因此确保它不暗示敏感错误。
    *
-   * The full error is always logged on the server, if you need to debug.
+   * 完整的错误总是记录在服务器上，如果你需要调试。
    *
-   * Generally, we don't recommend hinting specifically if the user had either a wrong username or password specifically,
-   * try rather something like "Invalid credentials".
+   * 通常，我们不建议特别提示用户是否有错误的用户名或密码，
+   * 尝试类似“无效凭证”的内容。
    */
   code: string = "credentials"
 }
 
 /**
- * One of the configured OAuth or OIDC providers is missing the `authorization`, `token` or `userinfo`, or `issuer` configuration.
- * To perform OAuth or OIDC sign in, at least one of these endpoints is required.
+ * 配置的 OAuth 或 OIDC 提供者缺少 `authorization`、`token` 或 `userinfo`，或 `issuer` 配置。
+ * 要执行 OAuth 或 OIDC 登录，至少需要这些端点之一。
  *
- * Learn more at [`OAuth2Config`](https://authjs.dev/reference/core/providers#oauth2configprofile) or [Guide: OAuth Provider](https://authjs.dev/guides/configuring-oauth-providers)
+ * 了解更多信息，请访问 [`OAuth2Config`](https://authjs.dev/reference/core/providers#oauth2configprofile) 或 [指南：OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)
  * @noInheritDoc
  */
 export class InvalidEndpoints extends AuthError {
@@ -236,10 +234,10 @@ export class InvalidEndpoints extends AuthError {
 }
 
 /**
- * Thrown when a PKCE, state or nonce OAuth check could not be performed.
- * This could happen if the OAuth provider is configured incorrectly or if the browser is blocking cookies.
+ * 当无法执行 PKCE、state 或 nonce OAuth 检查时抛出。
+ * 如果 OAuth 提供者配置不正确或浏览器阻止 cookies，可能会发生这种情况。
  *
- * Learn more at [`checks`](https://authjs.dev/reference/core/providers#checks)
+ * 了解更多信息，请访问 [`checks`](https://authjs.dev/reference/core/providers#checks)
  * @noInheritDoc
  */
 export class InvalidCheck extends AuthError {
@@ -247,15 +245,15 @@ export class InvalidCheck extends AuthError {
 }
 
 /**
- * Logged on the server when Auth.js could not decode or encode a JWT-based (`strategy: "jwt"`) session.
+ * 当 Auth.js 无法解码或编码基于 JWT 的（`strategy: "jwt"`）会话时，在服务器上记录。
  *
- * Possible causes are either a misconfigured `secret` or a malformed JWT or `encode/decode` methods.
+ * 可能的原因包括 `secret` 配置错误或 JWT 或 `encode/decode` 方法格式错误。
  *
  * :::note
- * When this error is logged, the session cookie is destroyed.
+ * 当记录此错误时，会话 cookie 被销毁。
  * :::
  *
- * Learn more at [`secret`](https://authjs.dev/reference/core#secret), [`jwt.encode`](https://authjs.dev/reference/core/jwt#encode-1) or [`jwt.decode`](https://authjs.dev/reference/core/jwt#decode-2) for more information.
+ * 了解更多信息，请访问 [`secret`](https://authjs.dev/reference/core#secret)、[`jwt.encode`](https://authjs.dev/reference/core/jwt#encode-1) 或 [`jwt.decode`](https://authjs.dev/reference/core/jwt#decode-2)
  * @noInheritDoc
  */
 export class JWTSessionError extends AuthError {
@@ -263,11 +261,11 @@ export class JWTSessionError extends AuthError {
 }
 
 /**
- * Thrown if Auth.js is misconfigured. This could happen if you configured an Email provider but did not set up a database adapter,
- * or tried using a `strategy: "database"` session without a database adapter.
- * In both cases, make sure you either remove the configuration or add the missing adapter.
+ * 如果 Auth.js 配置错误则抛出。如果你配置了 Email 提供者但没有设置数据库适配器，
+ * 或尝试使用 `strategy: "database"` 会话而没有数据库适配器，可能会发生这种情况。
+ * 在这两种情况下，确保你删除配置或添加缺失的适配器。
  *
- * Learn more at [Database Adapters](https://authjs.dev/getting-started/database), [Email provider](https://authjs.dev/getting-started/authentication/email) or [Concept: Database session strategy](https://authjs.dev/concepts/session-strategies#database-session)
+ * 了解更多信息，请访问 [数据库适配器](https://authjs.dev/getting-started/database)、[Email 提供者](https://authjs.dev/getting-started/authentication/email) 或 [概念：数据库会话策略](https://authjs.dev/concepts/session-strategies#database-session)
  * @noInheritDoc
  */
 export class MissingAdapter extends AuthError {
@@ -275,11 +273,11 @@ export class MissingAdapter extends AuthError {
 }
 
 /**
- * Thrown similarily to [`MissingAdapter`](https://authjs.dev/reference/core/errors#missingadapter), but only some required methods were missing.
+ * 类似于 [`MissingAdapter`](https://authjs.dev/reference/core/errors#missingadapter) 抛出，但仅缺少一些必需的方法。
  *
- * Make sure you either remove the configuration or add the missing methods to the adapter.
+ * 确保你删除配置或将缺失的方法添加到适配器。
  *
- * Learn more at [Database Adapters](https://authjs.dev/getting-started/database)
+ * 了解更多信息，请访问 [数据库适配器](https://authjs.dev/getting-started/database)
  * @noInheritDoc
  */
 export class MissingAdapterMethods extends AuthError {
@@ -287,10 +285,10 @@ export class MissingAdapterMethods extends AuthError {
 }
 
 /**
- * Thrown when a Credentials provider is missing the `authorize` configuration.
- * To perform credentials sign in, the `authorize` method is required.
+ * 当 Credentials 提供者缺少 `authorize` 配置时抛出。
+ * 要执行凭证登录，`authorize` 方法是必需的。
  *
- * Learn more at [Credentials provider](https://authjs.dev/getting-started/authentication/credentials)
+ * 了解更多信息，请访问 [Credentials 提供者](https://authjs.dev/getting-started/authentication/credentials)
  * @noInheritDoc
  */
 export class MissingAuthorize extends AuthError {
@@ -298,16 +296,16 @@ export class MissingAuthorize extends AuthError {
 }
 
 /**
- * Auth.js requires a secret or multiple secrets to be set, but none was not found. This is used to encrypt cookies, JWTs and other sensitive data.
+ * Auth.js 需要一个或多个密钥来设置，但没有找到。这用于加密 cookies、JWTs 和其他敏感数据。
  *
  * :::note
- * If you are using a framework like Next.js, we try to automatically infer the secret from the `AUTH_SECRET`, `AUTH_SECRET_1`, etc. environment variables.
- * Alternatively, you can also explicitly set the [`AuthConfig.secret`](https://authjs.dev/reference/core#secret) option.
+ * 如果你使用的是像 Next.js 这样的框架，我们尝试从 `AUTH_SECRET`、`AUTH_SECRET_1` 等环境变量中自动推断密钥。
+ * 或者，你也可以显式设置 [`AuthConfig.secret`](https://authjs.dev/reference/core#secret) 选项。
  * :::
  *
  *
  * :::tip
- * To generate a random string, you can use the Auth.js CLI: `npx auth secret`
+ * 要生成随机字符串，你可以使用 Auth.js CLI：`npx auth secret`
  * :::
  * @noInheritDoc
  */
@@ -316,15 +314,14 @@ export class MissingSecret extends AuthError {
 }
 
 /**
- * Thrown when an Email address is already associated with an account
- * but the user is trying an OAuth account that is not linked to it.
+ * 当电子邮件地址已与账户关联，但用户尝试的 OAuth 账户未链接到它时抛出。
  *
- * For security reasons, Auth.js does not automatically link OAuth accounts to existing accounts if the user is not signed in.
+ * 出于安全原因，如果用户未登录，Auth.js 不会自动将 OAuth 账户链接到现有账户。
  *
  * :::tip
- * If you trust the OAuth provider to have verified the user's email address,
- * you can enable automatic account linking by setting [`allowDangerousEmailAccountLinking: true`](https://authjs.dev/reference/core/providers#allowdangerousemailaccountlinking)
- * in the provider configuration.
+ * 如果你信任 OAuth 提供者已验证用户的电子邮件地址，
+ * 你可以通过在提供者配置中设置 [`allowDangerousEmailAccountLinking: true`](https://authjs.dev/reference/core/providers#allowdangerousemailaccountlinking)
+ * 来启用自动账户链接。
  * :::
  * @noInheritDoc
  */
@@ -333,10 +330,10 @@ export class OAuthAccountNotLinked extends SignInError {
 }
 
 /**
- * Thrown when an OAuth provider returns an error during the sign in process.
- * This could happen for example if the user denied access to the application or there was a configuration error.
+ * 当 OAuth 提供者在登录过程中返回错误时抛出。
+ * 例如，如果用户拒绝访问应用程序或存在配置错误，可能会发生这种情况。
  *
- * For a full list of possible reasons, check out the specification [Authorization Code Grant: Error Response](https://www.rfc-editor.org/rfc/rfc6749#section-4.1.2.1)
+ * 有关可能原因的完整列表，请查看规范 [Authorization Code Grant: Error Response](https://www.rfc-editor.org/rfc/rfc6749#section-4.1.2.1)
  * @noInheritDoc
  */
 export class OAuthCallbackError extends SignInError {
@@ -344,9 +341,8 @@ export class OAuthCallbackError extends SignInError {
 }
 
 /**
- * This error occurs during an OAuth sign in attempt when the provider's
- * response could not be parsed. This could for example happen if the provider's API
- * changed, or the [`OAuth2Config.profile`](https://authjs.dev/reference/core/providers#oauth2configprofile) method is not implemented correctly.
+ * 在 OAuth 登录尝试期间，当无法解析提供者的响应时发生此错误。
+ * 例如，如果提供者的 API 更改，或 [`OAuth2Config.profile`](https://authjs.dev/reference/core/providers#oauth2configprofile) 方法未正确实现，可能会发生这种情况。
  * @noInheritDoc
  */
 export class OAuthProfileParseError extends AuthError {
@@ -354,11 +350,11 @@ export class OAuthProfileParseError extends AuthError {
 }
 
 /**
- * Logged on the server when Auth.js could not retrieve a session from the database (`strategy: "database"`).
+ * 当 Auth.js 无法从数据库（`strategy: "database"`）检索会话时，在服务器上记录。
  *
- * The database adapter might be misconfigured or the database is not reachable.
+ * 数据库适配器可能配置错误或数据库不可达。
  *
- * Learn more at [Concept: Database session strategy](https://authjs.dev/concepts/session-strategies#database)
+ * 了解更多信息，请访问 [概念：数据库会话策略](https://authjs.dev/concepts/session-strategies#database)
  * @noInheritDoc
  */
 export class SessionTokenError extends AuthError {
@@ -366,14 +362,14 @@ export class SessionTokenError extends AuthError {
 }
 
 /**
- * Happens when login by [OAuth](https://authjs.dev/getting-started/authentication/oauth) could not be started.
+ * 当通过 [OAuth](https://authjs.dev/getting-started/authentication/oauth) 登录无法启动时发生。
  *
- * Possible causes are:
- * - The Authorization Server is not compliant with the [OAuth 2.0](https://www.ietf.org/rfc/rfc6749.html) or the [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) specification.
- *   Check the details in the error message.
+ * 可能的原因包括：
+ * - 授权服务器不符合 [OAuth 2.0](https://www.ietf.org/rfc/rfc6749.html) 或 [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
+ *   检查错误消息中的详情。
  *
  * :::tip
- * Check out `[auth][details]` in the logs to know which provider failed.
+ * 查看日志中的 `[auth][details]` 以了解哪个提供者失败。
  * @example
  * ```sh
  * [auth][details]: { "provider": "github" }
@@ -386,14 +382,14 @@ export class OAuthSignInError extends SignInError {
 }
 
 /**
- * Happens when the login by an [Email provider](https://authjs.dev/getting-started/authentication/email) could not be started.
+ * 当通过 [Email 提供者](https://authjs.dev/getting-started/authentication/email) 登录无法启动时发生。
  *
- * Possible causes are:
- * - The email sent from the client is invalid, could not be normalized by [`EmailConfig.normalizeIdentifier`](https://authjs.dev/reference/core/providers/email#normalizeidentifier)
- * - The provided email/token combination has expired:
- *   Ask the user to log in again.
- * - There was an error with the database:
- *   Check the database logs.
+ * 可能的原因包括：
+ * - 从客户端发送的电子邮件无效，无法通过 [`EmailConfig.normalizeIdentifier`](https://authjs.dev/reference/core/providers/email#normalizeidentifier) 标准化
+ * - 提供的电子邮件/令牌组合已过期：
+ *   要求用户重新登录。
+ * - 数据库出错：
+ *   检查数据库日志。
  * @noInheritDoc
  */
 export class EmailSignInError extends SignInError {
@@ -401,13 +397,13 @@ export class EmailSignInError extends SignInError {
 }
 
 /**
- * Represents an error that occurs during the sign-out process. This error
- * is logged when there are issues in terminating a user's session, either
- * by failing to delete the session from the database (in database session
- * strategies) or encountering issues during other parts of the sign-out
- * process, such as emitting sign-out events or clearing session cookies.
+ * 表示在注销过程中发生的错误。此错误
+ * 在终止用户会话时遇到问题时记录，无论是
+ * 通过从数据库删除会话失败（在数据库会话
+ * 策略中）还是在注销过程的其他部分遇到问题，例如
+ * 发出注销事件或清除会话 cookies。
  *
- * The session cookie(s) are emptied even if this error is logged.
+ * 即使记录此错误，会话 cookie(s) 也会被清空。
  * @noInheritDoc
  */
 export class SignOutError extends AuthError {
@@ -415,9 +411,9 @@ export class SignOutError extends AuthError {
 }
 
 /**
- * Auth.js was requested to handle an operation that it does not support.
+ * Auth.js 被请求处理一个它不支持的操作。
  *
- * See [`AuthAction`](https://authjs.dev/reference/core/types#authaction) for the supported actions.
+ * 查看 [`AuthAction`](https://authjs.dev/reference/core/types#authaction) 了解支持的操作。
  * @noInheritDoc
  */
 export class UnknownAction extends AuthError {
@@ -425,9 +421,9 @@ export class UnknownAction extends AuthError {
 }
 
 /**
- * Thrown when a Credentials provider is present but the JWT strategy (`strategy: "jwt"`) is not enabled.
+ * 当存在 Credentials 提供者但未启用 JWT 策略（`strategy: "jwt"`）时抛出。
  *
- * Learn more at [`strategy`](https://authjs.dev/reference/core#strategy) or [Credentials provider](https://authjs.dev/getting-started/authentication/credentials)
+ * 了解更多信息，请访问 [`strategy`](https://authjs.dev/reference/core#strategy) 或 [Credentials 提供者](https://authjs.dev/getting-started/authentication/credentials)
  * @noInheritDoc
  */
 export class UnsupportedStrategy extends AuthError {
@@ -435,7 +431,7 @@ export class UnsupportedStrategy extends AuthError {
 }
 
 /**
- * Thrown when an endpoint was incorrectly called without a provider, or with an unsupported provider.
+ * 当端点被错误地调用而没有提供者，或使用不支持的提供者时抛出。
  * @noInheritDoc
  */
 export class InvalidProvider extends AuthError {
@@ -443,15 +439,15 @@ export class InvalidProvider extends AuthError {
 }
 
 /**
- * Thrown when the `trustHost` option was not set to `true`.
+ * 当 `trustHost` 选项未设置为 `true` 时抛出。
  *
- * Auth.js requires the `trustHost` option to be set to `true` since it's relying on the request headers' `host` value.
+ * Auth.js 需要将 `trustHost` 选项设置为 `true`，因为它依赖于请求头中的 `host` 值。
  *
  * :::note
- * Official Auth.js libraries might attempt to automatically set the `trustHost` option to `true` if the request is coming from a trusted host on a trusted platform.
+ * 官方 Auth.js 库可能会尝试自动将 `trustHost` 选项设置为 `true`，如果请求来自受信任平台上的受信任主机。
  * :::
  *
- * Learn more at [`trustHost`](https://authjs.dev/reference/core#trusthost) or [Guide: Deployment](https://authjs.dev/getting-started/deployment)
+ * 了解更多信息，请访问 [`trustHost`](https://authjs.dev/reference/core#trusthost) 或 [指南：部署](https://authjs.dev/getting-started/deployment)
  * @noInheritDoc
  */
 export class UntrustedHost extends AuthError {
@@ -459,9 +455,9 @@ export class UntrustedHost extends AuthError {
 }
 
 /**
- * The user's email/token combination was invalid.
- * This could be because the email/token combination was not found in the database,
- * or because the token has expired. Ask the user to log in again.
+ * 用户的电子邮件/令牌组合无效。
+ * 这可能是因为电子邮件/令牌组合在数据库中未找到，
+ * 或因为令牌已过期。要求用户重新登录。
  * @noInheritDoc
  */
 export class Verification extends AuthError {
@@ -469,14 +465,14 @@ export class Verification extends AuthError {
 }
 
 /**
- * Error for missing CSRF tokens in client-side actions (`signIn`, `signOut`, `useSession#update`).
- * Thrown when actions lack the double submit cookie, essential for CSRF protection.
+ * 客户端操作（`signIn`、`signOut`、`useSession#update`）中缺少 CSRF 令牌的错误。
+ * 当操作缺少双重提交 cookie（CSRF 保护的关键）时抛出。
  *
- * CSRF ([Cross-Site Request Forgery](https://owasp.org/www-community/attacks/csrf))
- * is an attack leveraging authenticated user credentials for unauthorized actions.
+ * CSRF（[跨站请求伪造](https://owasp.org/www-community/attacks/csrf)）
+ * 是一种利用认证用户凭证进行未授权操作的攻击。
  *
- * Double submit cookie pattern, a CSRF defense, requires matching values in a cookie
- * and request parameter. More on this at [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Glossary/CSRF).
+ * 双重提交 cookie 模式，一种 CSRF 防御，要求 cookie 和
+ * 请求参数中的值匹配。更多信息请访问 [MDN Web 文档](https://developer.mozilla.org/en-US/docs/Glossary/CSRF)。
  * @noInheritDoc
  */
 export class MissingCSRF extends SignInError {
@@ -495,9 +491,9 @@ const clientErrors = new Set<ErrorType>([
 ])
 
 /**
- * Used to only allow sending a certain subset of errors to the client.
- * Errors are always logged on the server, but to prevent leaking sensitive information,
- * only a subset of errors are sent to the client as-is.
+ * 用于仅允许向客户端发送特定子集的错误。
+ * 错误总是在服务器上记录，但为了防止泄露敏感信息，
+ * 只有一部分错误按原样发送到客户端。
  * @internal
  */
 export function isClientError(error: Error): error is AuthError {
@@ -505,8 +501,8 @@ export function isClientError(error: Error): error is AuthError {
   return false
 }
 /**
- * Thrown when multiple providers have `enableConditionalUI` set to `true`.
- * Only one provider can have this option enabled at a time.
+ * 当多个提供者将 `enableConditionalUI` 设置为 `true` 时抛出。
+ * 一次只能有一个提供者启用此选项。
  * @noInheritDoc
  */
 export class DuplicateConditionalUI extends AuthError {
@@ -514,9 +510,9 @@ export class DuplicateConditionalUI extends AuthError {
 }
 
 /**
- * Thrown when a WebAuthn provider has `enableConditionalUI` set to `true` but no formField has `webauthn` in its autocomplete param.
+ * 当 WebAuthn 提供者将 `enableConditionalUI` 设置为 `true` 但没有 formField 在其 autocomplete 参数中包含 `webauthn` 时抛出。
  *
- * The `webauthn` autocomplete param is required for conditional UI to work.
+ * `webauthn` autocomplete 参数是条件 UI 工作所必需的。
  * @noInheritDoc
  */
 export class MissingWebAuthnAutocomplete extends AuthError {
@@ -524,7 +520,7 @@ export class MissingWebAuthnAutocomplete extends AuthError {
 }
 
 /**
- * Thrown when a WebAuthn provider fails to verify a client response.
+ * 当 WebAuthn 提供者无法验证客户端响应时抛出。
  * @noInheritDoc
  */
 export class WebAuthnVerificationError extends AuthError {
@@ -532,10 +528,9 @@ export class WebAuthnVerificationError extends AuthError {
 }
 
 /**
- * Thrown when an Email address is already associated with an account
- * but the user is trying an account that is not linked to it.
+ * 当电子邮件地址已与账户关联，但用户尝试的账户未链接到它时抛出。
  *
- * For security reasons, Auth.js does not automatically link accounts to existing accounts if the user is not signed in.
+ * 出于安全原因，如果用户未登录，Auth.js 不会自动将账户链接到现有账户。
  * @noInheritDoc
  */
 export class AccountNotLinked extends SignInError {
@@ -543,7 +538,7 @@ export class AccountNotLinked extends SignInError {
 }
 
 /**
- * Thrown when an experimental feature is used but not enabled.
+ * 当使用实验性功能但未启用时抛出。
  * @noInheritDoc
  */
 export class ExperimentalFeatureNotEnabled extends AuthError {

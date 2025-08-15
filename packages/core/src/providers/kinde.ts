@@ -1,7 +1,7 @@
 /**
  * <div class="provider" style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
  * <span style={{fontSize: "1.35rem" }}>
- *  Built-in sign in with <b>Kinde</b> integration.
+ *  内置的 <b>Kinde</b> 集成登录。
  * </span>
  * <a href="https://kinde.com" style={{backgroundColor: "#0F0F0F", padding: "12px", borderRadius: "100%" }}>
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/kinde.svg" width="24"/>
@@ -12,33 +12,33 @@
  */
 import type { OIDCConfig, OIDCUserConfig } from "./index.js"
 
-/** The returned user profile from Kinde when using the profile callback. [Reference](https://kinde.com/api/docs/#get-user-profile). */
+/** 使用 profile 回调时从 Kinde 返回的用户资料。[参考](https://kinde.com/api/docs/#get-user-profile)。 */
 export interface KindeProfile extends Record<string, any> {
-  /** The user's given name. */
+  /** 用户的名字。 */
   first_name: string
-  /** The user's unique identifier. */
+  /** 用户的唯一标识符。 */
   id: string
-  /** The user's family name. */
+  /** 用户的姓氏。 */
   last_name: string
-  /** URL pointing to the user's profile picture. */
+  /** 指向用户个人资料图片的 URL。 */
   picture: string
-  /** The user's email address. */
+  /** 用户的电子邮件地址。 */
   preferred_email: string
-  /** The user's identifier from a previous system. */
+  /** 用户在之前系统中的标识符。 */
   provided_id: string
-  /** The user's username. */
+  /** 用户的用户名。 */
   username: string
 }
 
 /**
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/kinde
  * ```
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import Kinde from "@auth/core/providers/kinde"
@@ -55,21 +55,19 @@ export interface KindeProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Kinde docs](https://docs.kinde.com/)
+ * - [Kinde 文档](https://docs.kinde.com/)
  *
- * ### Notes
+ * ### 说明
  *
- * The Kinde provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/kinde.ts). To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Kinde 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/kinde.ts)。要根据您的使用情况覆盖默认值，请查看[自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
- * ## Help
+ * ## 帮助
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵循规范，对于提供者与规范的任何偏差，我们无法承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  */
 export default function Kinde(
   config: OIDCUserConfig<KindeProfile>

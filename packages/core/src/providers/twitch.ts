@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Twitch</b> integration.</span>
+ * <span>内置的 <b>Twitch</b> 集成。</span>
  * <a href="https://www.twitch.tv/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/twitch.svg" height="48" />
  * </a>
@@ -18,16 +18,16 @@ export interface TwitchProfile extends Record<string, any> {
 }
 
 /**
- * Add Twitch login to your page.
+ * 向您的页面添加 Twitch 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/twitch
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Twitch from "@auth/core/providers/twitch"
@@ -40,32 +40,29 @@ export interface TwitchProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- * - [Twitch app documentation](https://dev.twitch.tv/console/apps)
+ * - [Twitch 应用文档](https://dev.twitch.tv/console/apps)
  *
- * Add the following redirect URL into the console `http://<your-next-app-url>/api/auth/callback/twitch`
+ * 在控制台添加以下重定向 URL `http://<your-next-app-url>/api/auth/callback/twitch`
  *
  *
- * ### Notes
+ * ### 注意事项
  *
- * By default, Auth.js assumes that the Twitch provider is
- * based on the [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) specification.
+ * 默认情况下，Auth.js 假设 Twitch 提供者基于 [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
  *
  * :::tip
  *
- * The Twitch provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/twitch.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Twitch 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/twitch.ts)。
+ * 要覆盖默认配置以适应您的使用场景，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是由于不符合规范造成的，我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

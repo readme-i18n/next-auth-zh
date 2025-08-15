@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Ory Hydra</b> integration.</span>
+ * <span>内置的 <b>Ory Hydra</b> 集成。</span>
  * <a href="https://www.ory.sh/hydra/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/ory.svg" height="48" />
  * </a>
@@ -23,16 +23,16 @@ export interface OryHydraProfile extends Record<string, any> {
 }
 
 /**
- * Add Ory Hydra login to your page.
+ * 向您的页面添加 Ory Hydra 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/hydra
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import OryHydra from "@auth/core/providers/ory-hydra"
@@ -49,31 +49,28 @@ export interface OryHydraProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Ory Hydra documentation](https://www.ory.sh/docs/hydra/5min-tutorial)
+ *  - [Ory Hydra 文档](https://www.ory.sh/docs/hydra/5min-tutorial)
  *
- * ### Notes
+ * ### 注意事项
  *
- * Ory Hydra can be setup using the default Ory Network setup or self hosted on your own
- * infrastructure.
- * By default, Auth.js assumes that the Ory Hydra provider is
- * based on the [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) specification.
+ * Ory Hydra 可以使用默认的 Ory Network 设置，也可以自托管在您自己的基础设施上。
+ * 默认情况下，Auth.js 假设 Ory Hydra 提供商基于 [Open ID Connect](https://openid.net/specs/openid-connect-core-1_0.html) 规范。
  *
  * :::tip
  *
- * The Ory Hydra provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/ory-hydra.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Ory Hydra 提供商附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/ory-hydra.ts)。
+ * 要覆盖默认值以适应您的用例，请查看 [自定义内置 OAuth 提供商](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供商对规范的任何偏离，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

@@ -25,8 +25,7 @@ function formUrlEncode(token: string) {
 }
 
 /**
- * Formats client_id and client_secret as an HTTP Basic Authentication header as per the OAuth 2.0
- * specified in RFC6749.
+ * 按照 RFC6749 中规定的 OAuth 2.0 标准，将 client_id 和 client_secret 格式化为 HTTP 基本认证头。
  */
 function clientSecretBasic(clientId: string, clientSecret: string) {
   const username = formUrlEncode(clientId)
@@ -36,13 +35,13 @@ function clientSecretBasic(clientId: string, clientSecret: string) {
 }
 
 /**
- * Handles the following OAuth steps.
+ * 处理以下 OAuth 步骤。
  * https://www.rfc-editor.org/rfc/rfc6749#section-4.1.1
  * https://www.rfc-editor.org/rfc/rfc6749#section-4.1.3
  * https://openid.net/specs/openid-connect-core-1_0.html#UserInfoRequest
  *
- * @note Although requesting userinfo is not required by the OAuth2.0 spec,
- * we fetch it anyway. This is because we always want a user profile.
+ * @note 虽然 OAuth2.0 规范不要求请求用户信息，
+ * 但我们仍然获取它。这是因为我们总是需要一个用户配置文件。
  */
 export async function handleOAuth(
   params: RequestInternal["query"],
@@ -190,9 +189,8 @@ export async function handleOAuth(
       case "microsoft-entra-id":
       case "azure-ad": {
         /**
-         * These providers return errors in the response body and
-         * need the authorization server metadata to be re-processed
-         * based on the `id_token`'s `tid` claim.
+         * 这些提供商在响应体中返回错误，
+         * 并且需要根据 `id_token` 的 `tid` 声明重新处理授权服务器元数据。
          * @see: https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow#error-response-1
          */
         const responseJson = await codeGrantResponse.clone().json()
@@ -302,7 +300,7 @@ export async function handleOAuth(
 }
 
 /**
- * Returns the user and account that is going to be created in the database.
+ * 返回将在数据库中创建的用户和账户。
  * @internal
  */
 export async function getUserAndAccount(

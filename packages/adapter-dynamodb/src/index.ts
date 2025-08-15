@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px"}}>
- *  <p>Official <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html">DynamoDB</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html">DynamoDB</a> 适配器。</p>
  *  <a href="https://docs.aws.amazon.com/dynamodb/index.html">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/dynamodb.png" width="48"/>
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install next-auth @auth/dynamodb-adapter
@@ -345,7 +345,7 @@ export function DynamoDBAdapter(
 }
 
 const format = {
-  /** Takes a plain old JavaScript object and turns it into a DynamoDB object */
+  /** 将普通的 JavaScript 对象转换为 DynamoDB 对象 */
   to(object: Record<string, any>) {
     const newObject: Record<string, unknown> = {}
     for (const key in object) {
@@ -358,7 +358,7 @@ const format = {
     }
     return newObject
   },
-  /** Takes a Dynamo object and returns a plain old JavaScript object */
+  /** 将 Dynamo 对象转换为普通的 JavaScript 对象 */
   from<T = Record<string, unknown>>(object?: Record<string, any>): T | null {
     if (!object) return null
     const newObject: Record<string, unknown> = {}

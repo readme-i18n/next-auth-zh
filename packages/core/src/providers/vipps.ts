@@ -52,7 +52,7 @@ export interface VippsProfile extends Record<string, any> {
 /**
  * @see [Vipps Login API](https://developer.vippsmobilepay.com/docs/APIs/login-api/api-guide)
  *
- * ## Example
+ * ## 示例
  *
  * ```ts
  * import Vipps from "@auth/core/providers/vipps"
@@ -66,7 +66,7 @@ export interface VippsProfile extends Record<string, any> {
  * ...
  * ```
  * ::: note
- * If you're testing, make sure to override the issuer option with apitest.vipps.no
+ * 如果处于测试阶段，请确保使用 apitest.vipps.no 覆盖 issuer 选项
  * :::
  */
 export default function Vipps(

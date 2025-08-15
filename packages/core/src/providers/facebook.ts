@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#000", display: "flex", justifyContent: "space-between", color: "#fff", padding: 16}}>
- * <span>Built-in <b>Facebook</b> integration.</span>
+ * <span>内置的 <b>Facebook</b> 集成。</span>
  * <a href="https://facebook.com">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/facebook.svg" height="48" width="48"/>
  * </a>
@@ -23,16 +23,16 @@ export interface FacebookProfile extends Record<string, any> {
 }
 
 /**
- * Add Facebook login to your page.
+ * 为您的页面添加 Facebook 登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/facebook
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import Facebook from "@auth/core/providers/facebook"
@@ -48,37 +48,35 @@ export interface FacebookProfile extends Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [Facebook OAuth documentation](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/)
+ *  - [Facebook OAuth 文档](https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/)
  *
- * ### Notes
+ * ### 注意事项
  *
  * :::tip
- * Production applications cannot use localhost URLs to sign in with Facebook. You need to use a dedicated development application in Facebook to use localhost callback URLs.
+ * 生产环境的应用不能使用 localhost URL 通过 Facebook 登录。您需要在 Facebook 中创建一个专门的开发应用来使用 localhost 回调 URL。
  * :::
  *
  * :::tip
- * Email address may not be returned for accounts created on mobile.
+ * 对于在移动设备上创建的账户，可能不会返回电子邮件地址。
  * :::
  *
- * By default, Auth.js assumes that the Facebook provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js 假设 Facebook 提供者基于 [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) 规范。
  *
  * :::tip
  *
- * The Facebook provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/facebook.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Facebook 提供者附带了一个 [默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/facebook.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看 [自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以 [提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，
+ * 我们可能不会寻求解决方案。您可以在 [讨论区](https://authjs.dev/new/github-discussions) 寻求更多帮助。
  *
  * :::
  */

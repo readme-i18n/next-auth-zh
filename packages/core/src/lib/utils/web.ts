@@ -96,7 +96,7 @@ export function toResponse(res: ResponseInternal): Response {
   return response
 }
 
-/** Web compatible method to create a hash, using SHA256 */
+/** 使用 SHA256 创建哈希的 Web 兼容方法。 */
 export async function createHash(message: string) {
   const data = new TextEncoder().encode(message)
   const hash = await crypto.subtle.digest("SHA-256", data)
@@ -106,7 +106,7 @@ export async function createHash(message: string) {
     .toString()
 }
 
-/** Web compatible method to create a random string of a given length */
+/** 创建指定长度随机字符串的 Web 兼容方法。 */
 export function randomString(size: number) {
   const i2hex = (i: number) => ("0" + i.toString(16)).slice(-2)
   const r = (a: string, i: number): string => a + i2hex(i)
@@ -114,7 +114,7 @@ export function randomString(size: number) {
   return Array.from(bytes).reduce(r, "")
 }
 
-/** @internal Parse the action and provider id from a URL pathname. */
+/** @internal 从 URL 路径名中解析操作和提供者 ID。 */
 export function parseActionAndProviderId(
   pathname: string,
   base: string

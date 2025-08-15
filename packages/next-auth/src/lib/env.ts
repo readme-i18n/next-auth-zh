@@ -3,7 +3,7 @@ import { NextRequest } from "next/server"
 import type { NextAuthConfig } from "./index.js"
 import { setEnvDefaults as coreSetEnvDefaults } from "@auth/core"
 
-/** If `NEXTAUTH_URL` or `AUTH_URL` is defined, override the request's URL. */
+/** 如果定义了 `NEXTAUTH_URL` 或 `AUTH_URL`，则覆盖请求的 URL。 */
 export function reqWithEnvURL(req: NextRequest): NextRequest {
   const url = process.env.AUTH_URL ?? process.env.NEXTAUTH_URL
   if (!url) return req
@@ -13,11 +13,11 @@ export function reqWithEnvURL(req: NextRequest): NextRequest {
 }
 
 /**
- * For backwards compatibility, `next-auth` checks for `NEXTAUTH_URL`
- * and the `basePath` by default is `/api/auth` instead of `/auth`
- * (which is the default for all other Auth.js integrations).
+ * 为了向后兼容，`next-auth` 默认检查 `NEXTAUTH_URL`
+ * 并且 `basePath` 默认为 `/api/auth` 而非 `/auth`
+ * （这是所有其他 Auth.js 集成的默认值）。
  *
- * For the same reason, `NEXTAUTH_SECRET` is also checked.
+ * 出于同样的原因，也会检查 `NEXTAUTH_SECRET`。
  */
 export function setEnvDefaults(config: NextAuthConfig) {
   try {

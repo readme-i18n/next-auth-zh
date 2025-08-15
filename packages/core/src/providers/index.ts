@@ -16,7 +16,7 @@ export * from "./email.js"
 export * from "./oauth.js"
 
 /**
- * Providers passed to Auth.js must define one of these types.
+ * 传递给 Auth.js 的提供者必须定义以下类型之一。
  *
  * @see [RFC 6749 - The OAuth 2.0 Authorization Framework](https://www.rfc-editor.org/rfc/rfc6749.html#section-2.3)
  * @see [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)
@@ -30,40 +30,40 @@ export type ProviderType =
   | "credentials"
   | WebAuthnProviderType
 
-/** Shared across all {@link ProviderType} */
+/** 在所有 {@link ProviderType} 之间共享 */
 export interface CommonProviderOptions {
   /**
-   * Uniquely identifies the provider in {@link AuthConfig.providers}
-   * It's also part of the URL
+   * 在 {@link AuthConfig.providers} 中唯一标识提供者
+   * 它也是 URL 的一部分
    */
   id: string
   /**
-   * The provider name used on the default sign-in page's sign-in button.
-   * For example if it's "Google", the corresponding button will say:
-   * "Sign in with Google"
+   * 默认登录页面上登录按钮使用的提供者名称。
+   * 例如，如果是 "Google"，相应的按钮将显示：
+   * "使用 Google 登录"
    */
   name: string
-  /** See {@link ProviderType} */
+  /** 参见 {@link ProviderType} */
   type: ProviderType
 }
 
 interface InternalProviderOptions {
-  /** Used to deep merge user-provided config with the default config
+  /** 用于将用户提供的配置与默认配置深度合并
    */
   options?: Record<string, unknown>
 }
 
 /**
- * Must be a supported authentication provider config:
+ * 必须是一个支持的身份验证提供者配置：
  * - {@link OAuthConfig}
  * - {@link EmailConfigInternal}
  * - {@link CredentialsConfigInternal}
  *
- * For more information, see the guides:
+ * 更多信息，请参阅指南：
  *
- * @see [OAuth/OIDC guide](https://authjs.dev/guides/providers/custom-provider)
- * @see [Email (Passwordless) guide](https://authjs.dev/guides/providers/email)
- * @see [Credentials guide](https://authjs.dev/guides/providers/credentials)
+ * @see [OAuth/OIDC 指南](https://authjs.dev/guides/providers/custom-provider)
+ * @see [Email (Passwordless) 指南](https://authjs.dev/guides/providers/email)
+ * @see [Credentials 指南](https://authjs.dev/guides/providers/credentials)
  */
 export type Provider<P extends Profile = any> = (
   | ((

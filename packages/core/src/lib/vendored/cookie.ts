@@ -5,14 +5,14 @@
  */
 
 /**
- * This is a workaround to support ESM-only environments, until `cookie` ships ESM builds.
+ * 这是一个临时解决方案，以支持仅支持ESM的环境，直到`cookie`提供ESM构建。
  * @see https://github.com/jshttp/cookie/issues/211
  */
 
 /**
- * RegExp to match cookie-name in RFC 6265 sec 4.1.1
- * This refers out to the obsoleted definition of token in RFC 2616 sec 2.2
- * which has been replaced by the token definition in RFC 7230 appendix B.
+ * 用于匹配RFC 6265第4.1.1节中cookie-name的正则表达式
+ * 这里引用了RFC 2616第2.2节中已废弃的token定义
+ * 该定义已被RFC 7230附录B中的token定义所替代。
  *
  * cookie-name       = token
  * token             = 1*tchar
@@ -23,49 +23,43 @@
 const cookieNameRegExp = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/
 
 /**
- * RegExp to match cookie-value in RFC 6265 sec 4.1.1
+ * 用于匹配RFC 6265第4.1.1节中cookie-value的正则表达式
  *
  * cookie-value      = *cookie-octet / ( DQUOTE *cookie-octet DQUOTE )
  * cookie-octet      = %x21 / %x23-2B / %x2D-3A / %x3C-5B / %x5D-7E
- *                     ; US-ASCII characters excluding CTLs,
- *                     ; whitespace DQUOTE, comma, semicolon,
- *                     ; and backslash
+ *                     ; 不包括控制字符、空格、双引号、逗号、分号和反斜杠的US-ASCII字符
  */
 const cookieValueRegExp =
   /^("?)[\u0021\u0023-\u002B\u002D-\u003A\u003C-\u005B\u005D-\u007E]*\1$/
 
 /**
- * RegExp to match domain-value in RFC 6265 sec 4.1.1
+ * 用于匹配RFC 6265第4.1.1节中domain-value的正则表达式
  *
  * domain-value      = <subdomain>
- *                     ; defined in [RFC1034], Section 3.5, as
- *                     ; enhanced by [RFC1123], Section 2.1
+ *                     ; 定义于[RFC1034]第3.5节，由[RFC1123]第2.1节增强
  * <subdomain>       = <label> | <subdomain> "." <label>
  * <label>           = <let-dig> [ [ <ldh-str> ] <let-dig> ]
- *                     Labels must be 63 characters or less.
- *                     'let-dig' not 'letter' in the first char, per RFC1123
+ *                     标签长度必须不超过63个字符。
+ *                     根据RFC1123，第一个字符是'let-dig'而非'letter'
  * <ldh-str>         = <let-dig-hyp> | <let-dig-hyp> <ldh-str>
  * <let-dig-hyp>     = <let-dig> | "-"
  * <let-dig>         = <letter> | <digit>
- * <letter>          = any one of the 52 alphabetic characters A through Z in
- *                     upper case and a through z in lower case
- * <digit>           = any one of the ten digits 0 through 9
+ * <letter>          = 大写A到Z或小写a到z中的任意一个字母字符
+ * <digit>           = 0到9中的任意一个数字
  *
- * Keep support for leading dot: https://github.com/jshttp/cookie/issues/173
+ * 保持对前导点的支持：https://github.com/jshttp/cookie/issues/173
  *
- * > (Note that a leading %x2E ("."), if present, is ignored even though that
- * character is not permitted, but a trailing %x2E ("."), if present, will
- * cause the user agent to ignore the attribute.)
+ * > (注意，如果存在前导%x2E（"."），即使该字符不被允许，也会被忽略，但如果存在尾随%x2E（"."），将导致用户代理忽略该属性。)
  */
 const domainValueRegExp =
   /^([.]?[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)([.][a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i
 
 /**
- * RegExp to match path-value in RFC 6265 sec 4.1.1
+ * 用于匹配RFC 6265第4.1.1节中path-value的正则表达式
  *
  * path-value        = <any CHAR except CTLs or ";">
  * CHAR              = %x01-7F
- *                     ; defined in RFC 5234 appendix B.1
+ *                     ; 定义于RFC 5234附录B.1
  */
 const pathValueRegExp = /^[\u0020-\u003A\u003D-\u007E]*$/
 
@@ -78,17 +72,14 @@ const NullObject = /* @__PURE__ */ (() => {
 })() as unknown as { new (): any }
 
 /**
- * Parse options.
+ * 解析选项。
  */
 export interface ParseOptions {
   /**
-   * Specifies a function that will be used to decode a [cookie-value](https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1).
-   * Since the value of a cookie has a limited character set (and must be a simple string), this function can be used to decode
-   * a previously-encoded cookie value into a JavaScript string.
+   * 指定一个函数，用于解码[cookie-value](https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1)。
+   * 由于cookie的值有有限的字符集（且必须是一个简单字符串），此函数可用于将先前编码的cookie值解码为JavaScript字符串。
    *
-   * The default function is the global `decodeURIComponent`, wrapped in a `try..catch`. If an error
-   * is thrown it will return the cookie's original value. If you provide your own encode/decode
-   * scheme you must ensure errors are appropriately handled.
+   * 默认函数是全局的`decodeURIComponent`，包装在`try..catch`中。如果抛出错误，将返回cookie的原始值。如果提供自己的编码/解码方案，必须确保错误得到适当处理。
    *
    * @default decode
    */
@@ -96,10 +87,10 @@ export interface ParseOptions {
 }
 
 /**
- * Parse a cookie header.
+ * 解析cookie头部。
  *
- * Parse the given cookie header string into an object
- * The object has the various cookies as keys(names) => values
+ * 将给定的cookie头部字符串解析为一个对象
+ * 该对象包含各种cookie作为键（名称）=>值
  */
 export function parse(
   str: string,
@@ -162,91 +153,86 @@ function endIndex(str: string, index: number, min: number) {
 }
 
 /**
- * Serialize options.
+ * 序列化选项。
  */
 export interface SerializeOptions {
   /**
-   * Specifies a function that will be used to encode a [cookie-value](https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1).
-   * Since value of a cookie has a limited character set (and must be a simple string), this function can be used to encode
-   * a value into a string suited for a cookie's value, and should mirror `decode` when parsing.
+   * 指定一个函数，用于编码[cookie-value](https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1)。
+   * 由于cookie的值有有限的字符集（且必须是一个简单字符串），此函数可用于将值编码为适合cookie值的字符串，并在解析时应与`decode`镜像。
    *
    * @default encodeURIComponent
    */
   encode?: (str: string) => string
   /**
-   * Specifies the `number` (in seconds) to be the value for the [`Max-Age` `Set-Cookie` attribute](https://tools.ietf.org/html/rfc6265#section-5.2.2).
+   * 指定[`Max-Age` `Set-Cookie`属性](https://tools.ietf.org/html/rfc6265#section-5.2.2)的`number`（以秒为单位）。
    *
-   * The [cookie storage model specification](https://tools.ietf.org/html/rfc6265#section-5.3) states that if both `expires` and
-   * `maxAge` are set, then `maxAge` takes precedence, but it is possible not all clients by obey this,
-   * so if both are set, they should point to the same date and time.
+   * [cookie存储模型规范](https://tools.ietf.org/html/rfc6265#section-5.3)指出，如果同时设置了`expires`和`maxAge`，则`maxAge`优先，但并非所有客户端都遵守这一点，
+   * 因此如果两者都设置，它们应指向相同的日期和时间。
    */
   maxAge?: number
   /**
-   * Specifies the `Date` object to be the value for the [`Expires` `Set-Cookie` attribute](https://tools.ietf.org/html/rfc6265#section-5.2.1).
-   * When no expiration is set clients consider this a "non-persistent cookie" and delete it the current session is over.
+   * 指定[`Expires` `Set-Cookie`属性](https://tools.ietf.org/html/rfc6265#section-5.2.1)的`Date`对象。
+   * 当未设置过期时间时，客户端将其视为“非持久性cookie”并在当前会话结束时删除它。
    *
-   * The [cookie storage model specification](https://tools.ietf.org/html/rfc6265#section-5.3) states that if both `expires` and
-   * `maxAge` are set, then `maxAge` takes precedence, but it is possible not all clients by obey this,
-   * so if both are set, they should point to the same date and time.
+   * [cookie存储模型规范](https://tools.ietf.org/html/rfc6265#section-5.3)指出，如果同时设置了`expires`和`maxAge`，则`maxAge`优先，但并非所有客户端都遵守这一点，
+   * 因此如果两者都设置，它们应指向相同的日期和时间。
    */
   expires?: Date
   /**
-   * Specifies the value for the [`Domain` `Set-Cookie` attribute](https://tools.ietf.org/html/rfc6265#section-5.2.3).
-   * When no domain is set clients consider the cookie to apply to the current domain only.
+   * 指定[`Domain` `Set-Cookie`属性](https://tools.ietf.org/html/rfc6265#section-5.2.3)的值。
+   * 当未设置域时，客户端认为cookie仅适用于当前域。
    */
   domain?: string
   /**
-   * Specifies the value for the [`Path` `Set-Cookie` attribute](https://tools.ietf.org/html/rfc6265#section-5.2.4).
-   * When no path is set, the path is considered the ["default path"](https://tools.ietf.org/html/rfc6265#section-5.1.4).
+   * 指定[`Path` `Set-Cookie`属性](https://tools.ietf.org/html/rfc6265#section-5.2.4)的值。
+   * 当未设置路径时，路径被视为["默认路径"](https://tools.ietf.org/html/rfc6265#section-5.1.4)。
    */
   path?: string
   /**
-   * Enables the [`HttpOnly` `Set-Cookie` attribute](https://tools.ietf.org/html/rfc6265#section-5.2.6).
-   * When enabled, clients will not allow client-side JavaScript to see the cookie in `document.cookie`.
+   * 启用[`HttpOnly` `Set-Cookie`属性](https://tools.ietf.org/html/rfc6265#section-5.2.6)。
+   * 启用后，客户端将不允许客户端JavaScript在`document.cookie`中看到cookie。
    */
   httpOnly?: boolean
   /**
-   * Enables the [`Secure` `Set-Cookie` attribute](https://tools.ietf.org/html/rfc6265#section-5.2.5).
-   * When enabled, clients will only send the cookie back if the browser has a HTTPS connection.
+   * 启用[`Secure` `Set-Cookie`属性](https://tools.ietf.org/html/rfc6265#section-5.2.5)。
+   * 启用后，客户端仅在浏览器有HTTPS连接时发送cookie回来。
    */
   secure?: boolean
   /**
-   * Enables the [`Partitioned` `Set-Cookie` attribute](https://tools.ietf.org/html/draft-cutler-httpbis-partitioned-cookies/).
-   * When enabled, clients will only send the cookie back when the current domain _and_ top-level domain matches.
+   * 启用[`Partitioned` `Set-Cookie`属性](https://tools.ietf.org/html/draft-cutler-httpbis-partitioned-cookies/)。
+   * 启用后，客户端仅在当前域_和_顶级域匹配时发送cookie回来。
    *
-   * This is an attribute that has not yet been fully standardized, and may change in the future.
-   * This also means clients may ignore this attribute until they understand it. More information
-   * about can be found in [the proposal](https://github.com/privacycg/CHIPS).
+   * 这是一个尚未完全标准化的属性，未来可能会更改。
+   * 这也意味着客户端在理解此属性之前可能会忽略它。更多信息可以在[提案](https://github.com/privacycg/CHIPS)中找到。
    */
   partitioned?: boolean
   /**
-   * Specifies the value for the [`Priority` `Set-Cookie` attribute](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
+   * 指定[`Priority` `Set-Cookie`属性](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1)的值。
    *
-   * - `'low'` will set the `Priority` attribute to `Low`.
-   * - `'medium'` will set the `Priority` attribute to `Medium`, the default priority when not set.
-   * - `'high'` will set the `Priority` attribute to `High`.
+   * - `'low'` 将`Priority`属性设置为`Low`。
+   * - `'medium'` 将`Priority`属性设置为`Medium`，未设置时的默认优先级。
+   * - `'high'` 将`Priority`属性设置为`High`。
    *
-   * More information about priority levels can be found in [the specification](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1).
+   * 关于优先级级别的更多信息可以在[规范](https://tools.ietf.org/html/draft-west-cookie-priority-00#section-4.1)中找到。
    */
   priority?: "low" | "medium" | "high"
   /**
-   * Specifies the value for the [`SameSite` `Set-Cookie` attribute](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7).
+   * 指定[`SameSite` `Set-Cookie`属性](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7)的值。
    *
-   * - `true` will set the `SameSite` attribute to `Strict` for strict same site enforcement.
-   * - `'lax'` will set the `SameSite` attribute to `Lax` for lax same site enforcement.
-   * - `'none'` will set the `SameSite` attribute to `None` for an explicit cross-site cookie.
-   * - `'strict'` will set the `SameSite` attribute to `Strict` for strict same site enforcement.
+   * - `true` 将`SameSite`属性设置为`Strict`，以强制执行严格的同站点策略。
+   * - `'lax'` 将`SameSite`属性设置为`Lax`，以执行宽松的同站点策略。
+   * - `'none'` 将`SameSite`属性设置为`None`，以明确跨站点cookie。
+   * - `'strict'` 将`SameSite`属性设置为`Strict`，以强制执行严格的同站点策略。
    *
-   * More information about enforcement levels can be found in [the specification](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7).
+   * 关于执行级别的更多信息可以在[规范](https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-09#section-5.4.7)中找到。
    */
   sameSite?: boolean | "lax" | "strict" | "none"
 }
 
 /**
- * Serialize data into a cookie header.
+ * 将数据序列化为cookie头部。
  *
- * Serialize a name value pair into a cookie string suitable for
- * http headers. An optional options object specifies cookie parameters.
+ * 将名称值对序列化为适合HTTP头部的cookie字符串。可选选项对象指定cookie参数。
  *
  * serialize('foo', 'bar', { httpOnly: true })
  *   => "foo=bar; httpOnly"
@@ -363,7 +349,7 @@ export function serialize(
 }
 
 /**
- * URL-decode string value. Optimized to skip native call when no %.
+ * URL解码字符串值。优化为在没有%时跳过原生调用。
  */
 function decode(str: string): string {
   if (str.indexOf("%") === -1) return str
@@ -376,7 +362,7 @@ function decode(str: string): string {
 }
 
 /**
- * Determine if value is a Date.
+ * 判断值是否为Date。
  */
 function isDate(val: any): val is Date {
   return __toString.call(val) === "[object Date]"

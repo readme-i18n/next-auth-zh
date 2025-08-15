@@ -1,7 +1,7 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
  * <span style={{fontSize: "1.35rem" }}>
- *  Built-in sign in with <b>Logto</b> integration.
+ *  内置的 <b>Logto</b> 集成登录。
  * </span>
  * <a href="https://logto.io" style={{backgroundColor: "black", padding: "12px", borderRadius: "100%" }}>
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/logto.svg" width="24"/>
@@ -13,52 +13,52 @@
 
 import type { OIDCConfig, OIDCUserConfig } from "./index.js"
 
-/** The returned user profile from Logto when using the profile callback. [Reference](https://docs.logto.io/quick-starts/next-auth#scopes-and-claims). */
+/** 使用 profile 回调时从 Logto 返回的用户资料。[参考](https://docs.logto.io/quick-starts/next-auth#scopes-and-claims)。 */
 export interface LogtoProfile {
-  /** The user's unique ID */
+  /** 用户的唯一 ID */
   sub: string
-  /** The user's name */
+  /** 用户的姓名 */
   name: string
-  /** The user's username */
+  /** 用户的用户名 */
   username: string
-  /** The user's picture */
+  /** 用户的头像 */
   picture: string
-  /** The user's email */
+  /** 用户的电子邮件 */
   email: string
-  /** A boolean indicating if the user's email is verified */
+  /** 布尔值，表示用户的电子邮件是否已验证 */
   email_verified: boolean
-  /** The user's phone number */
+  /** 用户的电话号码 */
   phone_number: string
-  /** A boolean indicating if the user's phone number is verified */
+  /** 布尔值，表示用户的电话号码是否已验证 */
   phone_number_verified: boolean
-  /** The user's address */
+  /** 用户的地址 */
   address: string
-  /** Custom fields */
+  /** 自定义字段 */
   custom_data: object
-  /** The linked identities of the user */
+  /** 用户的关联身份 */
   identities: object
-  /** The linked SSO identities of the user */
+  /** 用户的关联 SSO 身份 */
   sso_identities: object[]
-  /** The organization IDs the user belongs to */
+  /** 用户所属的组织 ID */
   organizations: string[]
-  /** The organization data the user belongs to */
+  /** 用户所属的组织数据 */
   organization_data: object[]
-  /** The organization roles the user belongs to with the format of organization_id:/role_name */
+  /** 用户所属的组织角色，格式为 organization_id:/role_name */
   organization_roles: string[]
-  /** The user's custom attributes */
+  /** 用户的自定义属性 */
   [claim: string]: unknown
 }
 
 /**
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调 URL
  * ```
  * https://example.com/api/auth/callback/logto
  * ```
  *
- * #### Configuration
+ * #### 配置
  * ```ts
  * import { Auth } from "@auth/core"
  * import Logto from "@auth/core/providers/logto"
@@ -76,26 +76,24 @@ export interface LogtoProfile {
  * ```
  *
  *
- * ### Resources
+ * ### 资源
  *
- * - [Logto Auth.js quickstart](https://docs.logto.io/quick-starts/next-auth)
- * - [Integrate Logto in your application](https://docs.logto.io/integrate-logto/integrate-logto-into-your-application)
+ * - [Logto Auth.js 快速入门](https://docs.logto.io/quick-starts/next-auth)
+ * - [在您的应用中集成 Logto](https://docs.logto.io/integrate-logto/integrate-logto-into-your-application)
  *
- * ### Notes
+ * ### 注意事项
  *
- * The Logto provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/logto.ts). To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * Logto 提供者附带了一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/logto.ts)。要覆盖默认配置以适应您的用例，请查看[自定义内置 OAuth 提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::info
- * By default, Auth.js assumes that the Logto provider is based on the [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) spec
+ * 默认情况下，Auth.js 假设 Logto 提供者基于 [OIDC](https://openid.net/specs/openid-connect-core-1_0.html) 规范
  * :::
  *
- * ## Help
+ * ## 帮助
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js 严格遵守规范，对于提供者与规范的任何偏差，Auth.js 不承担责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  */
 export default function Logto(
   options: OIDCUserConfig<LogtoProfile>

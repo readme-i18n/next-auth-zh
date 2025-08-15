@@ -1,6 +1,6 @@
 /**
  * <div class="provider" style={{backgroundColor: "#fff", display: "flex", justifyContent: "space-between", color: "#000", padding: 16}}>
- * <span>Built-in <b>42School</b> integration.</span>
+ * <span>内置 <b>42School</b> 集成。</span>
  * <a href="https://api.intra.42.fr//">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/providers/42-school.svg" height="48" width="48"/>
  * </a>
@@ -175,16 +175,16 @@ export interface FortyTwoProfile extends UserData, Record<string, any> {
 }
 
 /**
- * Add 42School login to your page.
+ * 向您的页面添加42School登录功能。
  *
- * ### Setup
+ * ### 设置
  *
- * #### Callback URL
+ * #### 回调URL
  * ```
  * https://example.com/api/auth/callback/42-school
  * ```
  *
- * #### Configuration
+ * #### 配置
  *```ts
  * import { Auth } from "@auth/core"
  * import FortyTwoSchool from "@auth/core/providers/42-school"
@@ -200,33 +200,30 @@ export interface FortyTwoProfile extends UserData, Record<string, any> {
  * })
  * ```
  *
- * ### Resources
+ * ### 资源
  *
- *  - [42School OAuth documentation](https://api.intra.42.fr/apidoc/guides/web_application_flow)
+ *  - [42School OAuth文档](https://api.intra.42.fr/apidoc/guides/web_application_flow)
  *
- * ### Notes
+ * ### 注意事项
  *
  *
  * :::note
- * 42 returns a field on `Account` called `created_at` which is a number. See the [docs](https://api.intra.42.fr/apidoc/guides/getting_started#make-basic-requests). Make sure to add this field to your database schema, in case if you are using an [Adapter](https://authjs.dev/reference/core/adapters).
+ * 42在`Account`上返回一个名为`created_at`的字段，它是一个数字。参见[文档](https://api.intra.42.fr/apidoc/guides/getting_started#make-basic-requests)。如果您正在使用[适配器](https://authjs.dev/reference/core/adapters)，请确保将此字段添加到您的数据库架构中。
  * :::
- * By default, Auth.js assumes that the 42School provider is
- * based on the [OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html) specification.
+ * 默认情况下，Auth.js假设42School提供者基于[OAuth 2](https://www.rfc-editor.org/rfc/rfc6749.html)规范。
  *
  * :::tip
  *
- * The 42School provider comes with a [default configuration](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/42-school.ts).
- * To override the defaults for your use case, check out [customizing a built-in OAuth provider](https://authjs.dev/guides/configuring-oauth-providers).
+ * 42School提供者附带一个[默认配置](https://github.com/nextauthjs/next-auth/blob/main/packages/core/src/providers/42-school.ts)。
+ * 要覆盖默认配置以适应您的用例，请查看[自定义内置OAuth提供者](https://authjs.dev/guides/configuring-oauth-providers)。
  *
  * :::
  *
- * :::info **Disclaimer**
+ * :::info **免责声明**
  *
- * If you think you found a bug in the default configuration, you can [open an issue](https://authjs.dev/new/provider-issue).
+ * 如果您认为在默认配置中发现了错误，您可以[提交问题](https://authjs.dev/new/provider-issue)。
  *
- * Auth.js strictly adheres to the specification and it cannot take responsibility for any deviation from
- * the spec by the provider. You can open an issue, but if the problem is non-compliance with the spec,
- * we might not pursue a resolution. You can ask for more help in [Discussions](https://authjs.dev/new/github-discussions).
+ * Auth.js严格遵守规范，对于提供者与规范的任何偏差，Auth.js不承担任何责任。您可以提交问题，但如果问题是不符合规范，我们可能不会寻求解决方案。您可以在[讨论区](https://authjs.dev/new/github-discussions)寻求更多帮助。
  *
  * :::
  */

@@ -3,9 +3,9 @@ import type { TypedDocumentString } from "./generated/graphql.js"
 export interface HasuraAdapterClient {
   endpoint: string
   /**
-   * `x-hasura-admin-secret` header value
+   * `x-hasura-admin-secret` 请求头的值
    *
-   * [Hasura Authentication](https://hasura.io/docs/search/?q=x-hasura-admin-secret)
+   * [Hasura 认证](https://hasura.io/docs/search/?q=x-hasura-admin-secret)
    */
   adminSecret: string
 }

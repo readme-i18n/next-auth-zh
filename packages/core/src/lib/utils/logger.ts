@@ -3,9 +3,9 @@ import type { WarningCode } from "../../warnings.js"
 import type { AuthConfig } from "../../index.js"
 
 /**
- * Override any of the methods, and the rest will use the default logger.
+ * 重写任意方法，其余将使用默认日志记录器。
  *
- * [Documentation](https://authjs.dev/reference/core#authconfig#logger)
+ * [文档](https://authjs.dev/reference/core#authconfig#logger)
  */
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export interface LoggerInstance extends Record<string, Function> {
@@ -53,8 +53,8 @@ const defaultLogger: LoggerInstance = {
 }
 
 /**
- * Override the built-in logger with user's implementation.
- * Any `undefined` level will use the default logger.
+ * 使用用户自定义实现覆盖内置日志记录器。
+ * 任何 `undefined` 级别将使用默认日志记录器。
  */
 export function setLogger(
   config: Pick<AuthConfig, "logger" | "debug">

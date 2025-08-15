@@ -79,10 +79,10 @@ const webauthnMethods: (keyof Adapter)[] = [
 ]
 
 /**
- * Verify that the user configured Auth.js correctly.
- * Good place to mention deprecations as well.
+ * 验证用户是否正确配置了 Auth.js。
+ * 这也是提及废弃功能的好地方。
  *
- * This is invoked before the init method, so default values are not available yet.
+ * 该方法在 init 方法之前调用，因此此时默认值还不可用。
  */
 export function assertConfig(
   request: RequestInternal,

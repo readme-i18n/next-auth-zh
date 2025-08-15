@@ -1,9 +1,9 @@
 import type { ErrorPageParam, Theme } from "../../types.js"
 
 /**
- * The following errors are passed as error query parameters to the default or overridden error page.
+ * 以下错误会作为错误查询参数传递给默认或覆盖的错误页面。
  *
- * [Documentation](https://authjs.dev/guides/pages/error)
+ * [文档](https://authjs.dev/guides/pages/error)
  */
 
 export interface ErrorProps {
@@ -19,7 +19,7 @@ interface ErrorView {
   signin?: JSX.Element
 }
 
-/** Renders an error page. */
+/** 渲染一个错误页面。 */
 export default function ErrorPage(props: ErrorProps) {
   const { url, error = "default", theme } = props
   const signinPageUrl = `${url}/signin`

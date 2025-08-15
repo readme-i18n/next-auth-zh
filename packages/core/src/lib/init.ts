@@ -16,11 +16,11 @@ interface InitParams {
   authOptions: AuthConfig
   providerId?: string
   action: InternalOptions["action"]
-  /** Callback URL value extracted from the incoming request. */
+  /** 从传入请求中提取的回调 URL 值。 */
   callbackUrl?: string
-  /** CSRF token value extracted from the incoming request. From body if POST, from query if GET */
+  /** 从传入请求中提取的 CSRF 令牌值。POST 请求来自请求体，GET 请求来自查询参数 */
   csrfToken?: string
-  /** Is the incoming request a POST request? */
+  /** 传入请求是否为 POST 请求？ */
   csrfDisabled: boolean
   isPost: boolean
   cookies: RequestInternal["cookies"]
@@ -50,7 +50,7 @@ export const defaultCallbacks: InternalOptions["callbacks"] = {
   },
 }
 
-/** Initialize all internal options and cookies. */
+/** 初始化所有内部选项和 cookies。 */
 export async function init({
   authOptions: config,
   providerId,
@@ -190,7 +190,7 @@ export async function init({
 
 type Method = (...args: any[]) => Promise<any>
 
-/** Wraps an object of methods and adds error handling. */
+/** 包装一个方法对象并添加错误处理。 */
 function eventsErrorHandler(
   methods: Partial<InternalOptions["events"]>,
   logger: LoggerInstance
@@ -208,7 +208,7 @@ function eventsErrorHandler(
   }, {})
 }
 
-/** Handles adapter induced errors. */
+/** 处理适配器引发的错误。 */
 function adapterErrorHandler(
   adapter: AuthConfig["adapter"],
   logger: LoggerInstance

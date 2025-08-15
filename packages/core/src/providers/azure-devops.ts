@@ -11,58 +11,58 @@ export interface AzureDevOpsProfile extends Record<string, any> {
 /**
  *
  * @deprecated
- * While still available, Microsoft is [no longer supporting](https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#available-oauth-models) Azure DevOps OAuth and recommends using [Microsoft Entra ID](/getting-started/providers/microsoft-entra-id) instead.
+ * 虽然仍可用，但微软[不再支持](https://learn.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops#available-oauth-models) Azure DevOps OAuth，并建议改用[Microsoft Entra ID](/getting-started/providers/microsoft-entra-id)。
  *
- * ## Documentation
+ * ## 文档
  *
- * [Microsoft Docs](https://docs.microsoft.com/en-us) · [Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/) · [Authorize access to REST APIs with OAuth 2.0](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops])
+ * [Microsoft Docs](https://docs.microsoft.com/en-us) · [Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/) · [使用 OAuth 2.0 授权访问 REST API](https://docs.microsoft.com/en-us/azure/devops/integrate/get-started/authentication/oauth?view=azure-devops])
  *
- * ## Configuration
+ * ## 配置
  *
- * ### Register application
+ * ### 注册应用
  *
  * :::tip
  * [`https://app.vsaex.visualstudio.com/app/register`](https://app.vsaex.visualstudio.com/app/register)
  * :::
  *
- * Provide the required details:
+ * 提供必要信息：
  *
- * - Company name
- * - Application name
- * - Application website
- * - Authorization callback URL
- *   - `https://example.com/api/auth/callback/azure-devops` for production
- *   - `https://localhost/api/auth/callback/azure-devops` for development
- * - Authorized scopes
- *   - Required minimum is `User profile (read)`
+ * - 公司名称
+ * - 应用名称
+ * - 应用网站
+ * - 授权回调 URL
+ *   - 生产环境使用 `https://example.com/api/auth/callback/azure-devops`
+ *   - 开发环境使用 `https://localhost/api/auth/callback/azure-devops`
+ * - 授权范围
+ *   - 最低要求为 `用户资料（读取）`
  *
- * Click ‘Create Application’
+ * 点击‘创建应用’
  *
  * :::warning
- * You are required to use HTTPS even for the localhost
+ * 即使是本地主机也必须使用 HTTPS
  * :::
  *
  * :::warning
- * You will have to delete and create a new application to change the scopes later
+ * 后续若要更改范围，需删除并重新创建应用
  * :::
  *
- * The following data is relevant for the next step:
+ * 以下数据为下一步所需：
  *
- * - App ID
- * - Client Secret (after clicking the ‘Show’ button, ignore App Secret entry above it)
- * - Authorized Scopes
+ * - 应用 ID
+ * - 客户端密钥（点击‘显示’按钮后，忽略其上方的应用密钥条目）
+ * - 授权范围
  *
- * ### Set up the environment variables
+ * ### 设置环境变量
  *
- * In `.env.local` create the following entries:
+ * 在 `.env.local` 中创建以下条目：
  *
  * ```
- * AZURE_DEVOPS_APP_ID=<copy App ID value here>
- * AZURE_DEVOPS_CLIENT_SECRET=<copy generated client secret value here>
- * AZURE_DEVOPS_SCOPE=<copy space separated Authorized Scopes list here>
+ * AZURE_DEVOPS_APP_ID=<在此处粘贴应用 ID 值>
+ * AZURE_DEVOPS_CLIENT_SECRET=<在此处粘贴生成的客户端密钥值>
+ * AZURE_DEVOPS_SCOPE=<在此处粘贴以空格分隔的授权范围列表>
  * ```
  *
- * ## Example
+ * ## 示例
  *
  * ```ts
  * import AzureDevOps from "@auth/core/providers/azure-devops"
@@ -77,14 +77,14 @@ export interface AzureDevOpsProfile extends Record<string, any> {
  * ...
  * ```
  *
- * ### Refresh token rotation
+ * ### 刷新令牌轮换
  *
- * Use the [main guide](/guides/basics/refresh-token-rotation) as your starting point with the following considerations:
+ * 以[主指南](/guides/basics/refresh-token-rotation)为起点，并考虑以下事项：
  *
  * ```ts
  * async jwt({ token, user, account }) {
  *   ...
- *   // The token has an absolute expiration time
+ *   // 令牌有绝对过期时间
  *   const accessTokenExpires = account.expires_at * 1000
  *   ...
  * }
@@ -108,7 +108,7 @@ export interface AzureDevOpsProfile extends Record<string, any> {
  *     }
  *   )
  *   ...
- *   // The refreshed token comes with a relative expiration time
+ *   // 刷新后的令牌带有相对过期时间
  *   const accessTokenExpires = Date.now() + newToken.expires_in * 1000
  *   ...
  * }

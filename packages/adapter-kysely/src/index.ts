@@ -1,12 +1,12 @@
 /**
  * <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", padding: 16}}>
- *  <p>Official <a href="https://kysely.dev/">Kysely</a> adapter for Auth.js / NextAuth.js.</p>
+ *  <p>Auth.js / NextAuth.js 的官方 <a href="https://kysely.dev/">Kysely</a> 适配器。</p>
  *  <a href="https://kysely.dev/">
  *   <img style={{display: "block"}} src="https://authjs.dev/img/adapters/kysely.svg" width="30" />
  *  </a>
  * </div>
  *
- * ## Installation
+ * ## 安装
  *
  * ```bash npm2yarn
  * npm install @auth/kysely-adapter kysely
@@ -54,9 +54,9 @@ export function KyselyAdapter(db: Kysely<Database>): Adapter {
   const { adapter } = db.getExecutor()
   const { supportsReturning } = adapter
   const isSqlite = adapter instanceof SqliteAdapter
-  /** If the database is SQLite, turn dates into an ISO string  */
+  /** 如果数据库是 SQLite，将日期转换为 ISO 字符串格式  */
   const to = isSqlite ? format.to : <T>(x: T) => x as T
-  /** If the database is SQLite, turn ISO strings into dates */
+  /** 如果数据库是 SQLite，将 ISO 字符串转换为日期 */
   const from = isSqlite ? format.from : <T>(x: T) => x as T
   return {
     async createUser(data) {
@@ -198,12 +198,9 @@ export function KyselyAdapter(db: Kysely<Database>): Adapter {
 }
 
 /**
- * Wrapper over the original `Kysely` class in order to validate the passed in
- * database interface. A regular Kysely instance may also be used, but wrapping
- * it ensures the database interface implements the fields that Auth.js
- * requires. When used with `kysely-codegen`, the `Codegen` type can be passed as
- * the second generic argument. The generated types will be used, and
- * `KyselyAuth` will only verify that the correct fields exist.
+ * 对原始 `Kysely` 类的封装，以验证传入的数据库接口。虽然也可以使用常规的 Kysely 实例，但封装它
+ * 可以确保数据库接口实现了 Auth.js 所需的字段。当与 `kysely-codegen` 一起使用时，`Codegen` 类型可以作为
+ * 第二个泛型参数传入。生成的类型将被使用，而 `KyselyAuth` 仅验证正确的字段是否存在。
  * @noInheritDoc
  */
 export class KyselyAuth<DB extends T, T = Database> extends Kysely<DB> {}
