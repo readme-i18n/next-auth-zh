@@ -30,31 +30,31 @@ export default withNextra({
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "sveltekit.authjs.dev" }],
-        destination: "https://authjs.dev/reference/sveltekit",
+        destination: "https://authjs.zdoc.app/reference/sveltekit",
         permanent: true,
       },
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "solid-start.authjs.dev" }],
-        destination: "https://authjs.dev/reference/solid-start",
+        destination: "https://authjs.zdoc.app/reference/solid-start",
         permanent: true,
       },
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "express.authjs.dev" }],
-        destination: "https://authjs.dev/reference/express",
+        destination: "https://authjs.zdoc.app/reference/express",
         permanent: true,
       },
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "nextjs.authjs.dev" }],
-        destination: "https://authjs.dev/reference/nextjs",
+        destination: "https://authjs.zdoc.app/reference/nextjs",
         permanent: true,
       },
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "qwik.authjs.dev" }],
-        destination: "https://authjs.dev/reference/qwik",
+        destination: "https://authjs.zdoc.app/reference/qwik",
         permanent: true,
       },
       {
@@ -66,37 +66,38 @@ export default withNextra({
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "errors.authjs.dev" }],
-        destination: "https://authjs.dev/reference/core/errors/:path*",
+        destination: "https://authjs.zdoc.app/reference/core/errors/:path*",
         permanent: true,
       },
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "warnings.authjs.dev" }],
-        destination: "https://authjs.dev/reference/core/types#warningcode",
+        destination: "https://authjs.zdoc.app/reference/core/types#warningcode",
         permanent: true,
       },
       {
         source: "/",
         has: [{ type: "host", value: "adapters.authjs.dev" }],
-        destination: "https://authjs.dev/getting-started/database",
+        destination: "https://authjs.zdoc.app/getting-started/database",
         permanent: true,
       },
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "adapters.authjs.dev" }],
-        destination: "https://authjs.dev/reference/adapter/:path*",
+        destination: "https://authjs.zdoc.app/reference/adapter/:path*",
         permanent: true,
       },
       {
         source: "/",
         has: [{ type: "host", value: "providers.authjs.dev" }],
-        destination: "https://authjs.dev/getting-started/authentication/oauth",
+        destination:
+          "https://authjs.zdoc.app/getting-started/authentication/oauth",
         permanent: true,
       },
       {
         source: "/:path(.*)",
         has: [{ type: "host", value: "providers.authjs.dev" }],
-        destination: "https://authjs.dev/getting-started/providers/:path",
+        destination: "https://authjs.zdoc.app/getting-started/providers/:path",
         permanent: true,
       },
       {

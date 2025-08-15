@@ -42,7 +42,7 @@ const config: DocsThemeConfig = {
     a: (props: ChildrenProps) => <Link href="" {...props} />,
   },
   project: {
-    link: "https://github.com/nextauthjs/next-auth",
+    link: "https://github.com/zdocapp/next-auth-zh",
     icon: null,
   },
   darkMode: false,
@@ -68,7 +68,7 @@ const config: DocsThemeConfig = {
         <div className="relative">
           <Link
             className="hidden p-2 md:block"
-            href="https://github.com/nextauthjs/next-auth"
+            href="https://github.com/zdocapp/next-auth-zh"
             target="_blank"
           >
             <svg
@@ -112,7 +112,7 @@ const config: DocsThemeConfig = {
   head: () => {
     const pathname = usePathname()
     const { frontMatter } = useConfig()
-    const url = `https://authjs.dev${pathname}`
+    const url = `https://authjs.zdoc.app${pathname}`
 
     const lastPathParam = pathname?.split("/").at(-1)?.replaceAll("-", " ")
     const capitalizedPathTitle = lastPathParam?.replace(/\b\w/g, (l) =>
@@ -122,7 +122,7 @@ const config: DocsThemeConfig = {
       ? frontMatter.title
       : capitalizedPathTitle
         ? `Auth.js | ${capitalizedPathTitle}`
-        : "Auth.js | Authentication for the Web"
+        : "Auth.js | Auth.js 中文文档"
 
     return (
       <>
@@ -143,11 +143,11 @@ const config: DocsThemeConfig = {
         <meta property="og:title" content={title} />
         <meta
           property="og:description"
-          content={frontMatter.description || "Authentication for the Web"}
+          content={frontMatter.description || "Auth.js 中文文档"}
         />
         <meta
           property="og:image"
-          content={`https://authjs.dev/api/og?title=${encodeURIComponent(
+          content={`https://authjs.zdoc.app/api/og?title=${encodeURIComponent(
             title
           )}`}
         />
@@ -155,18 +155,7 @@ const config: DocsThemeConfig = {
     )
   },
   banner: {
-    content: (
-      <>
-        Migrating from NextAuth.js v4? Read{" "}
-        <a
-          style={{ textDecoration: "underline" }}
-          href="/getting-started/migrating-to-v5"
-        >
-          <b>our migration guide</b>
-        </a>
-        .
-      </>
-    ),
+    content: null,
     dismissible: true,
   },
   editLink: {
@@ -180,7 +169,7 @@ const config: DocsThemeConfig = {
     extraContent: <script id="_carbonads_js" />,
     backToTop: true,
   },
-  docsRepositoryBase: "https://github.com/nextauthjs/next-auth/edit/main/docs",
+  docsRepositoryBase: "https://github.com/zdocapp/next-auth-zh/edit/main/docs",
   footer: {
     component: <Footer />,
   },
